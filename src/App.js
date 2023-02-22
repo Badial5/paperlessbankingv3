@@ -40,7 +40,8 @@ import "./App.css"
   // import PassCongrat2 from './pages/auth/forgotPass/PassCongrat2'
 
   //Dashboard 
-  import LandingPage from './pages/dashboard/landing-page'
+ 
+  import LandingPage from './pages/landingPage/landing-page'
   import UserDashboard from './pages/dashboard/dashboard'
 
 

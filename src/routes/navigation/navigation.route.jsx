@@ -41,6 +41,10 @@ const NavigationRoute = () => {
         <Link component={RouterLink} to="password-congratulation">
             Pass Congratulation
         </Link>
+
+        <Link component={RouterLink} to="user-dashboard">
+            User Dashboard
+        </Link>
         
     </Box>
 
