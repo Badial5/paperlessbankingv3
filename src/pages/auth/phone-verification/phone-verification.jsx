@@ -333,7 +333,8 @@ const onSubmit = async (data) => {
     // console.log(newResponse)
     // newResponse()
 
-    navigate("/landing-page")
+    // navigate("/landing-page")
+    navigate("/user-dashboard")
  
     console.log("Successful: ", newResponse)
   } catch (error) {

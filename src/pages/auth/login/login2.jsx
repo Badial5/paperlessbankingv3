@@ -301,7 +301,8 @@ const onSubmit = async (data) => {
     // newResponse()
 
   
-    navigate("/landing-page")
+    // navigate("/landing-page")
+    navigate("/user-dashboard")
     reset()
 
     console.log("Successful: ", newResponse)
