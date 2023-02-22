@@ -1,0 +1,864 @@
+
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import CloseIcon from '@mui/icons-material/Close';
+
+import { theme } from '../../../theme/theme';
+
+//error
+// import ErrorAlert from '../../../components/alerts/alert';
+
+// ============================================================ 
+
+import { Link as RouterLink, redirect } from 'react-router-dom';
+import Link from '@mui/material/Link';
+
+import { useNavigate } from 'react-router-dom';
+
+// =============================================================== 
+
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import axios from "axios"
+import { Alert, Collapse, FormControl, FormGroup, FormHelperText, InputLabel, Paper, Stack, styled } from '@mui/material';
+
+import PasswordStrengthBar from 'react-password-strength-bar';
+
+//COUNTRY CODE ====================================================
+// import MuiPhoneNumber from 'material-ui-phone-number';
+
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
+
+
+// =================================================================
+
+
+
+//Password visiblity
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import IconButton from '@mui/material/IconButton';
+
+//image
+import bank1 from "../../../assets/images/bank1.jpg"
+import bank6 from "../../../assets/images/bank6.jpg"
+import bank7 from "../../../assets/images/bank7.jpg"
+import signupImg from "../../..//assets/images/signup2.jpg"
+
+//customize Box
+import { CustomizedBox } from '../../../styles/styles';
+
+// import PhoneInput from 'react-phone-number-input'
+
+//PHONE COUNTRY CODE: PHONETEXTFIELD
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+// import PhoneTextField from "mui-phone-textfield";
+
+// import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
+
+
+
+// Style  components Wrapper
+
+import { InlaksText, PaperWrapper, PageHeader,
+  PageHeaderAndTitleContainer, SubTitle, InputFieldBox, NameLabel, InputFieldGrid, TextFieldInput, NameGrid, TextFieldBox, InputLableText, PasswordFullContainer, PasswordStrengthText, PasswordStrengthHelperText, TncText, ButtonComponent, TextFieldUI, ErrorAlert, ErrorAlertText, ButtonText, 
+ } from './signup.styles';
+import { BottonComp, IdontHaveAccount, LoginText } from '../login/login.styles';
+
+
+
+
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+
+
+const baseUrl = "https://api.inlakssolutions.com/accounts/v1/signup/"
+
+// const theme = createTheme();
+
+// console.log("ThemeProvider Props:", theme)
+
+
+
+
+
+
+
+
+
+
+
+export default function SignUpFormError() {
+
+  // REACT COMPONENT USENAVIGATE
+  const navigate = useNavigate();
+
+  //error state
+  // const [errorss, setError] = useState([])
+  // const [formstate, setFormState] = useState([])
+  const [error, setError] = useState('')
+
+//Password Strength bar
+const [inputValue, setInputValue] = useState('');
+const [value, setValue] = useState()
+const [passsuggestion, setPassSuggestion] = useState([])
+
+const [phone, setPhone] = useState()
+
+const [password, setPassword] = useState('');
+const [suggestion, setSuggestion] = useState('');
+
+const [open, setOpen] = useState(true);
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+ //phone book
+//  const [isoValue, setIsoValue] = useState(""); // The input value.
+//  const [isocountry, setIsoCountry] = useState("GH"); // The selected country.
+//  const [phoneNumber, setPhoneNumber] = useState(); // The PhoneNumber instance.
+
+//     const [country, setCountry] = useState('');
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+
+  //react hookform 
+  const { handleSubmit, register, watch, formState: {errors}, reset, trigger } = useForm({
+    mode: "onTouched",
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone_number: "",
+      password1: "",
+      // password2: "",
+      // tnc: ""
+    }
+  })
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//=============================================================
+//  useEffect(() => {
+//   return () => {
+//     effect
+//   };
+//  }, [input])
+
+// axios.get(baseUrl, )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // const registerForm = async() => {
+  //   // e.preventDefault()
+
+    
+  //   try {
+  //     const response = await axios.post(`${baseUrl}`)
+  //     const newResponse = response.data
+  //     console.log(newResponse)
+  //     newResponse()
+   
+  //     console.log("Successful: ", newResponse)
+  //   } catch (error) {
+  //     console.log("Error Message: ", error.response.data)
+  //   }
+    
+  // }
+
+  // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+  // const redirectHandler = () => {
+  //     return redirect("/phone-Otp")
+  //  } 
+
+
+
+
+  // ============================================================== ================================================
+
+
+
+  // const onSubmit = async (data) => {
+  //   // console.log("Form Data: ", data)
+  //   // registerForm()
+  //   try {
+  //     const response = await axios.post(baseUrl, data)
+  //     const newResponse = response.data
+  //     console.log("Successfully Submitted: ", newResponse)
+      
+  //     reset()
+  //     navigate("/phone-Otp")
+  //     // return redirect("/phone-Otp")
+      
+      
+  //   } catch (error) {
+  //     console.log("Error Message: ", error.response.data)
+  //     console.log("Error State: ", error.response.data)
+  //     // setting an errors to the state
+  //     setError({...error.response.data})
+  //     console.log("MY OWN: ", errorss)
+  //   }
+    
+  // }
+
+
+  const onSubmit = async (data) => {
+    console.log("Form Data: ", data)
+    // registerForm()
+    // reset()
+
+    try {
+      const response = await axios.post(baseUrl, data)
+      const newResponse = response.data
+      console.log(newResponse)
+      // newResponse()
+
+      navigate("/phone-Otp")
+   
+      console.log("Successful: ", newResponse)
+    } catch (error) {
+      setError(error.response.data)
+      console.log("Error Message: ", error.response.data)
+    }
+
+
+  }
+
+
+
+
+  // useEffect(() => {
+  //   const registrationApi = async () => {
+      
+  //     const response = await axios.post("https://api.inlakssolutions.com/accounts/v1/signup")
+
+  //     console.log(response)
+  //   }
+
+  //   registrationApi()
+  // })
+
+//    check password event 
+
+
+
+
+  // useEffect(() => {
+  //   const registrationApi = async () => {
+      
+  //     const response = await axios.post("https://api.inlakssolutions.com/accounts/v1/signup")
+
+  //     console.log(response)
+  //   }
+
+  //   registrationApi()
+  // })
+
+  //  check password event 
+
+//Password adornment
+const [showPassword, setShowPassword] = useState(false);
+const [state, setState] = useState("")
+const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+const handleMouseDownPassword = (event) => {
+  event.preventDefault();
+};
+
+
+const passwordStrengthChange = (e) => {
+  setInputValue(e.target.value);
+}
+
+const password1 = watch('password1')
+
+
+// const backgroundImg = styled(Box)`
+
+// `
+
+function handleOnChange(value) {
+  setState({
+     phone: value
+  });
+}
+
+
+
+//style component
+// const myStyle={
+//   backgroundImage: 
+// "url('https://media.geeksforgeeks.org/wp-content/uploads/rk.png')",
+//   // height:'100vh',
+  
+ 
+//   backgroundSize: 'cover',
+//   backgroundRepeat: 'no-repeat',
+// };
+
+
+const errorElements = Object.keys(error).map(key => <div key={key}>{key}: {error[key]}</div>);
+
+
+
+
+
+
+  return (
+    <ThemeProvider theme={theme}>
+
+      //intentionally commented this
+      //will uncomment it later
+
+  
+
+    {/* // <MainContainerBox>  */}
+    <Box  
+    
+    style={{
+       
+      // backgroundColor: "yellow", signupImg
+      backgroundImage: `url(${signupImg})` ,
+      padding: "20px 20px",
+      // objectFit: "cover",
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+    
+      display: "flex",  alignItems: "center",
+      flexDirection: "column",
+      width: 1440, 
+      height: 1024,
+      // height: "140vh", 
+      backgroundRepeat: 'no-repeat', width: "100%",
+      
+    }}>
+
+
+
+
+      <InlaksText>
+        InLaks
+      </InlaksText>
+
+
+      <PaperWrapper>
+
+
+        {/* Container  */}
+
+        <PageHeaderAndTitleContainer>
+
+          {/* lets get Started  */}
+
+          <PageHeader textAlign="center">
+          Let’s get started
+          </PageHeader>
+
+          <SubTitle textAlign="center">
+          Explore  banking and financial solutions that are right for you.
+          </SubTitle>
+
+        </PageHeaderAndTitleContainer>
+{/* =======================================================================================  */}
+
+      {/* Error */}
+
+      {error &&     <Collapse in={open}>
+        <ErrorAlert severity={""} 
+        
+        action={
+          <IconButton
+            aria-label="close"
+            color="inherit"
+            size="small"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            <CloseIcon fontSize="inherit" style={{color: "white", fontSize: 30, 
+          }} />
+          </IconButton>
+        }
+
+        
+        >
+          <ErrorAlertText>
+          {Object.values(error)} 
+          {/* {errorElements} */}
+          </ErrorAlertText>
+          </ErrorAlert>
+          </Collapse>
+      }
+
+
+
+      {/* First Name  */}
+
+<Box component="form" onSubmit={handleSubmit(onSubmit) }>
+
+
+{/* ======================================================================================================  */}
+
+<Box >
+<Stack direction="row" spacing={0}>
+     
+      <InputFieldGrid item xs={12} sm={6}>
+      <InputLableText>
+      First Name
+      </InputLableText>
+
+        <TextField type="text"
+         id="first_name"
+          error={Boolean(errors.first_name)}
+          variant="outlined" fullWidth
+          sx={{ width: "270px",
+            "& .MuiOutlinedInput-root.Mui-focused": {
+              "& > fieldset": {
+        borderColor: "#7833EE"
+              }
+            },  [`& fieldset`]:{
+              borderRadius: "6px" }
+          }}
+          InputProps={{
+            
+            style: {
+              height: "2rem",
+      
+    },
+  }}
+  {...register("first_name", {required: {
+    value: true,
+    message: "First name is required"
+  }, 
+  
+})}
+
+ 
+  helperText={errors.first_name?.message}
+ 
+  placeholder='eg. Joseph'
+ 
+  // autoComplete="first_name"
+ 
+  
+/>
+
+</InputFieldGrid>
+
+
+
+{/* Last Name  */}
+
+<InputFieldGrid >
+      <InputLableText>
+      Last Name
+      </InputLableText>
+
+        <TextField type="text"
+          error={Boolean(errors.last_name)}
+          variant="outlined" fullWidth
+          id="last_name"
+          sx={{ width: "270px",
+            "& .MuiOutlinedInput-root.Mui-focused": {
+              "& > fieldset": {
+        borderColor: "#7833EE"
+              }
+            },  [`& fieldset`]:{
+              borderRadius: "6px" }
+          }}
+          InputProps={{
+            
+            style: {
+              height: "2rem",
+      
+    },
+  }}
+  // autoComplete="last_name"
+  placeholder='eg. Asante'
+  {...register("last_name", {required: {
+    value: true,
+    // message: "Email is required"
+    message: "Last name is required"
+  }, 
+  
+})}
+helperText={errors.last_name?.message}
+
+ 
+ 
+/>
+
+
+</InputFieldGrid>
+
+</Stack>      
+
+</Box>
+{/* ============ Close of the Names =======================================================================  */}
+
+
+{/* Phone  */}
+
+<InputFieldGrid  >
+      <InputLableText>
+      Phone number
+      </InputLableText>
+
+        {/* <TextField type="tel"
+          error={Boolean(errors.phone_number)}
+          id="phone"
+          variant="outlined" fullWidth
+          sx={{ width: "576px",
+            "& .MuiOutlinedInput-root.Mui-focused": {
+              "& > fieldset": {
+        borderColor: "#7833EE"
+              }
+            },  [`& fieldset`]:{
+              borderRadius: "6px" }
+          }}
+          InputProps={{
+            
+            style: {
+              height: "2rem",
+      
+    },
+  }}
+
+  placeholder='(+233) 000 000 000'
+  {...register("phone_number", {required: {
+    value: true,
+    message: "Phone number is required"
+  },
+  
+  maxLength: {
+    value: 13,
+    message: "The length must be 13"
+  }, 
+
+  minLength: {
+    value: 12,
+    message: "You’ve entered an invalid phone number"
+  }
+
+})}
+
+helperText={errors.phone_number?.message}
+  // autoComplete="email"
+/> */}
+
+
+
+{/* <PhoneInput
+  id="phone"
+  inputStyle={{
+    width: "576px",
+    }}
+  country={'gh'}
+  enableAreaCodes="false"
+  enableSearch="true"
+  value={phone}
+  placeholder="Phone here"
+  // onChange={phone => setState({ phone })}
+
+  // inputExtraProps={{ name: 'phone', ref: register }}
+  inputExtraProps={{...register("phone_number")}}
+  // placeholder='(+233) 000 000 000'
+//   inputExtraProps={ {...register("phone", {required: {
+//     value: true,
+//     message: "Phone number is required"
+//   },
+  
+//   maxLength: {
+//     value: 13,
+//     message: "The length must be 13"
+//   }, 
+
+//   minLength: {
+//     value: 12,
+//     message: "You’ve entered an invalid phone number"
+//   }
+
+// })}}
+
+// {...register("phone_number", {required: "true"})}
+
+helperText={errors.phone_number?.message}
+/> */}
+
+
+<PhoneInput
+  id="phone"
+  inputStyle={{ width: "576px" }}
+  country={'gh'}
+  enableAreaCodes="false"
+  enableSearch="true"
+  value={phone}
+  onChange={setPhone}
+  inputExtraProps={{...register("phone_number", e => setPhone(phone))}}
+  helperText={errors.phone_number?.message}
+/>
+
+
+</InputFieldGrid>
+
+{/* PHONE INOUT================================*/}
+
+
+{/* <MuiPhoneNumber defaultCountry={'gh'} 
+onChange={handleOnChange}/>, */}
+ 
+
+{/* ============================================== */}
+
+{/* Email  */}
+
+<InputFieldGrid  >
+      <InputLableText>
+      Email Address
+      </InputLableText>
+
+        <TextField type="email"
+          id="email"
+          error={Boolean(errors.email)}
+          variant="outlined" fullWidth
+          sx={{ width: "576px",
+            "& .MuiOutlinedInput-root.Mui-focused": {
+              "& > fieldset": {
+        borderColor: "#7833EE"
+              }
+            },  [`& fieldset`]:{
+              borderRadius: "6px" }
+          }}
+          InputProps={{
+            
+            style: {
+              height: "2rem",
+      
+    },
+  }}
+
+  // label="Email Address"
+  placeholder='someexample@gmail.com'
+  {...register("email", {required: {
+    value: true,
+    message: "Email is required"
+  }, 
+  pattern: {
+    // value: /^\S+@\S+$/i,
+    // value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+
+    value: /^[^\d][A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/,
+    message: "Please enter a valid email address"
+  }
+})}
+  autoComplete="email"
+  helperText={errors.email?.message}
+
+/>
+
+</InputFieldGrid>
+
+
+
+
+{/* ====================== Password ============================================================  */}
+{/* Password  */}
+
+<PasswordFullContainer>
+
+<InputFieldGrid item xs={12} >
+      <InputLableText>
+      Password
+      </InputLableText>
+
+
+<TextField type={showPassword ? "text" : "password"}
+  error={Boolean(errors.password1)}
+  variant="outlined" fullWidth
+  sx={{ width: "576px",
+    "& .MuiOutlinedInput-root.Mui-focused": {
+      "& > fieldset": {
+borderColor: "#7833EE"
+      }
+    },  [`& fieldset`]:{
+      borderRadius: "6px" }
+  }}
+  InputProps={{
+    endAdornment: (
+      <InputAdornment position="end">
+        <IconButton
+          aria-label="toggle password visibility"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? <Visibility /> : <VisibilityOff />}
+        </IconButton>
+      </InputAdornment>
+    ),
+
+    style: {
+      height: "2rem",
+      
+    },
+  }}
+
+  {...register("password1",  {required: {
+    value: true,
+    message: "Password is required",
+    
+  }, 
+minLength: {
+  value: 6,
+  message: "The Minimum length is 6"
+} })}  
+
+// ========================================================================== 
+            
+value={inputValue}
+onChange={passwordStrengthChange}
+  helperText={errors.password1?.message}
+  
+  placeholder="Password here"
+
+
+
+/>
+
+<PasswordStrengthText>
+  Password strength
+</PasswordStrengthText>
+
+{/* <PasswordStrengthBar
+          password={inputValue}
+          minLength={8}
+          minScore={4}
+          
+          scoreWords={['weak😪', 'okay 😅', 'strong 💪🏾', 'Excellext', 'Perfect']}
+          onChangeScore={(score, feedback) => {
+            console.log(score, feedback);
+            // setPassSuggestion({...feedback})
+          }}
+        /> */}
+
+
+
+
+
+        <PasswordStrengthHelperText>
+          
+        Password must be a minimum of 6 character, including one letter and a number or a symbol
+        </PasswordStrengthHelperText>
+
+
+      </InputFieldGrid>
+      </PasswordFullContainer>
+
+  
+      {/* <PasswordStrengthBar 
+          password={inputValue}
+          minLength={6}
+          minScore={4}
+          
+          scoreWords={['weak😪', 'okay 😅', 'strong 💪🏾', 'stronger', 'Excellent' ]}
+          onChangeScore={(score, feedback) => {
+            console.log(score, feedback);
+            // setPassSuggestion({...feedback.warning}) 
+            
+          }}
+        /> */}
+
+
+
+
+{/* =========================== CLOSE OF PASSWORD  =================================================  */}
+
+
+      <InputFieldGrid>
+      <TncText>
+        By clicking create account you agree to Inlaks 
+        <span style={{color: "#7833EE"}}>Terms and conditions </span> , 
+        confirm you have read our 
+        <span style={{color: "#7833EE"}}> Privacy Policy </span>
+        </TncText>
+      </InputFieldGrid>
+     
+
+
+
+
+        
+      <InputFieldGrid sx={{marginTop: -4}}>
+
+      <ButtonComponent type='submit'>
+        <ButtonText>
+        Create account
+        </ButtonText>
+      </ButtonComponent>
+      
+      </InputFieldGrid>
+      </Box>
+
+
+      <Link component={RouterLink} to="/login" 
+      >
+        <IdontHaveAccount textAlign="center">
+        👋🏾 Already have an account? Login
+        </IdontHaveAccount>
+      </Link>
+       
+
+
+
+
+        
+
+
+      </PaperWrapper>
+
+
+
+
+
+
+
+
+     
+      </Box>
+     </ThemeProvider>
+  );
+}
+

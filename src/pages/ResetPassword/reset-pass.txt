@@ -1,0 +1,456 @@
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+
+import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Link from '@mui/material/Link';
+
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+import axios from "axios"
+import { FormControl, FormGroup, FormHelperText, InputLabel } from '@mui/material';
+
+import PasswordStrengthBar from 'react-password-strength-bar';
+
+//Password visiblity
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import IconButton from '@mui/material/IconButton';
+
+// import PhoneInput from 'react-phone-number-input'
+
+const baseUrl = "https://api.inlakssolutions.com/accounts/v1/signup/"
+
+const theme = createTheme();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export default function ResetPassword() {
+//Password Strength bar
+const [inputValue, setInputValue] = useState('');
+
+
+  //react hookform 
+  const { handleSubmit, register, watch, formState: {errors}, reset } = useForm({
+    defaultValues: {
+   
+ 
+      password1: "",
+      password2: "",
+
+    }
+  })
+
+  const registerSubmit = async() => {
+    // e.preventDefault()
+    
+    try {
+      const response = await axios.post(baseUrl, { headers: { 'Content-Type': 'application/json' }})
+      const newResponse = response.data
+    newResponse()
+    } catch (error) {
+      console.log(error.response.data)
+    }
+    
+  }
+
+
+  const onSubmit = (data) => {
+    console.log(data)
+    registerSubmit()
+    reset()
+    PasswordSet()
+  }
+
+
+
+
+  // useEffect(() => {
+  //   const registrationApi = async () => {
+      
+  //     const response = await axios.post("https://api.inlakssolutions.com/accounts/v1/signup")
+
+  //     console.log(response)
+  //   }
+
+  //   registrationApi()
+  // })
+
+//    check password event 
+
+
+
+
+  // useEffect(() => {
+  //   const registrationApi = async () => {
+      
+  //     const response = await axios.post("https://api.inlakssolutions.com/accounts/v1/signup")
+
+  //     console.log(response)
+  //   }
+
+  //   registrationApi()
+  // })
+
+  //  check password event 
+
+//Password adornment
+const [showPassword, setShowPassword] = useState(false);
+
+const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+const handleMouseDownPassword = (event) => {
+  event.preventDefault();
+};
+
+
+const passwordStrengthChange = (e) => {
+  setInputValue(e.target.value);
+}
+
+
+
+  //react router dom
+  const navigate = useNavigate()
+
+  const PasswordSet = () => (
+    navigate("/password-set")
+  )
+
+
+
+
+
+
+const password1 = watch('password1')
+
+
+
+  return (
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="sm" 
+      sx={{marginTop: "1px"}}>
+        <CssBaseline />
+        
+        <Box
+          sx={{
+            marginTop: "40px",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            height: "50vh"
+          }}
+        >
+          <Typography component="h1" variant="h5" 
+          sx={{color: "#7833EE", fontWeight: 900}}>
+            Reset your password
+          </Typography>
+
+
+          {/* <Typography component="p" variant="body1" 
+          sx={{color: "#434344", marginY: 3}}>
+            Explore banking and financial solutions that are right for you.
+          </Typography> */}
+
+          <Typography sx={{fontFamily: "Helvetica Neue", fontWeight: 400, fontSize: "14px", lineHeight: "21px",
+        color: "#434344", marginY: 2}}>
+          Please set a new password for your account
+          </Typography>
+
+
+          <Box component="form" onSubmit={handleSubmit(onSubmit) } 
+          sx={{ mt: 3 }}>
+
+
+            <Grid container spacing={2}>
+              
+
+
+
+              
+
+
+              {/* <Grid item xs={12}>
+                <TextField type="password"
+                  error={errors.password1}
+                  fullWidth
+                  // label="Password"
+                  placeholder="Password here"
+                  {...register("password1", {required: "Password is required"})}
+                  // autoComplete="new-password"
+                  helperText={errors.password1?.message}
+                />
+              </Grid> */}
+
+
+              <Grid item xs={12}>
+              <FormControl fullWidth variant="outlined" 
+              
+              
+              sx={{
+                "& .MuiOutlinedInput-root.Mui-focused": {
+                  "& > fieldset": {
+            borderColor: "#7833EE"
+                  }
+                }
+              }}>
+          {/* <InputLabel htmlFor="outlined-adornment-password">Password here</InputLabel> */}
+        
+
+        
+          <label for='password1'>Password</label> 
+          <OutlinedInput
+           error={Boolean(errors.password1)}
+           id="outlined-adornment-password"
+
+          helperText={errors.password1?.message}
+
+          
+          
+            type={showPassword ? 'text' : 'password'}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            // label="Password"
+            {...register("password1", {required: {
+              value: true,
+              message: "Password is required"
+            } })}
+
+
+             // label="Password"
+             {...register("password1", {required: {
+              value: true,
+              message: "Password is required"
+            } })}
+
+
+
+            value={inputValue}
+          onChange={passwordStrengthChange}
+            // helperText={errors.password1?.message}
+
+            
+            
+            placeholder="Password here"
+          />
+
+          <Typography sx={{fontFamily: "Roboto", fontWeight: 400, 
+          size: "12px", marginTop: 1}}>
+          Password strength
+          </Typography>
+
+        <PasswordStrengthBar
+          password={inputValue}
+          minLength={8}
+          minScore={3}
+          
+          scoreWords={['weak😪', 'okay 😅', 'strong 💪🏾']}
+          onChangeScore={(score, feedback) => {
+            console.log(score, feedback);
+            
+            
+          }}
+        />
+            
+        </FormControl>
+      </Grid>
+
+
+      <Grid item xs="12">
+              <Typography variant='body2' component={'p'} 
+                sx={{color: "#89898A"}}>
+                Password must be a minimum of 6 character, including one letter and a number or a symbol
+              </Typography>
+    </Grid>
+      
+
+
+
+              {/* Confrim Password */}
+              
+
+
+        {/* Start of coonfirm pssword grid */}
+              {/* <Grid item xs={12}>
+                <TextField type="password"
+                  error={errors.password2}
+                  fullWidth
+                  label="Confirm Password"
+                  {...register("password2", {validate: (value) =>
+                    value === password1 || "Passwords do not match",
+                   })}
+                  // autoComplete="new-password"
+                  helperText={errors.password2?.message}
+                />
+              </Grid> */}
+
+
+             
+
+
+            
+
+
+            </Grid>
+
+
+
+
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ my: 3, p: "15px 8px",  background: "linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)"
+ }}
+            >
+              <Typography variant='button' component="p" 
+              sx={{fontFamily: "Helvetica Neue", fontWeight: 500, fontSize: "14px", lineHeight: "16px", color: "#FCFCFF"}}>
+                Set Password
+              </Typography>
+            </Button>
+
+
+            <Grid container justifyContent="center" 
+            sx={{marginBottom: 10}}>
+              <Grid item>
+                <Link component={RouterLink} to="/login"
+                style={{ color: "#000000", textDecoration: "none"}}
+                 variant="body2">
+                  <Typography sx={{fontFamily: "Helvetica Neue", fontWeight: 700, fontSize: "14px", lineHeight: "16px", 
+                textDecoration: "underline"}}>
+                    👈🏽Back to login
+                  </Typography>
+                </Link>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+       
+      </Container>
+    </ThemeProvider>
+  );
+}
+
+
+
+
+
+
+
+
+
+
+
+//RESET PASSWORD API ENDPOINT
+const baseUrl = "https://api.inlakssolutions.com/accounts/v1/password-reset/"
+
+
+
+ const { handleSubmit, register, watch, formState: {errors}, reset, trigger } = useForm({
+    mode: "onTouched",
+    defaultValues: {
+      new_password1: "",
+      new_password2: "",
+      // password2: "",
+      // tnc: ""
+    }
+  })
+
+
+
+  
+const [password, setPassword] = useState('');
+const [suggestion, setSuggestion] = useState('');
+
+//Password adornment
+const [showPassword, setShowPassword] = useState(false);
+const [showPassword2, setShowPassword2] = useState(false);
+
+//OPEN OR CLOSE
+const [open, setOpen] = useState(true);
+
+//ERROR 
+const [error, setError] = useState('')
+
+
+
+//Password adornment
+// const [showPassword, setShowPassword] = useState(false);
+const [state, setState] = useState("")
+const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
+
+const passwordStrengthChange = (e) => {
+  setInputValue(e.target.value);
+}
+
+function handleChange(e) {
+  setPassword(e.target.value);
+}
+
+function handleCheckboxChange(e) {
+  setShowPassword(e.target.checked);
+}
+
+
+
+const onSubmit = async (data) => {
+  console.log("Form Data: ", data)
+  // registerForm()
+  // reset()
+
+  try {
+// ========================================= LocalStorage ================================================= 
+    const response = await axios.post(baseUrl, {
+      new_password1: data.new_password1,
+      new_password2: data.new_password2,
+      email: storedEmail,
+    })
+    const newResponse = response.data
+    // console.log(newResponse)
+    // newResponse()
+
+    navigate("/password-congratulation")
+ 
+    console.log("Successful: ", newResponse)
+  } catch (error) {
+    setError(error.response.data)
+    console.log("Error Message: ", error.response.data)
+  }
+
+
+}
+  

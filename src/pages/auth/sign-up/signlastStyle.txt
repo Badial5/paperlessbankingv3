@@ -1,0 +1,408 @@
+import React from 'react'
+
+
+import signupImg from "../../..//assets/images/signup2.jpg"
+import { Box, Container, FormHelperText, TextField } from '@mui/material'
+import { ContainerWrapper, GridContainer, GridItem, NameLabel, PageHeader, 
+  PageHeaderAndTitleContainer, SubTitle, ErrorHelperTextContainer, LongTextFieldInput, LongTextFieldGrid, LongTextFieldGridItem, LongTextField, PasswordStrengthText, InlaksText } from './signup.styles'
+import { useForm } from 'react-hook-form';
+
+//PHONE INPUT 
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
+
+
+//Password visiblity
+import PasswordStrengthBar from 'react-password-strength-bar';
+
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import IconButton from '@mui/material/IconButton';
+import { useState } from 'react';
+
+
+
+
+
+
+
+
+const SignUpFormError = () => {
+  const { handleSubmit, register, watch, formState: {errors}, reset, trigger } = useForm({
+    mode: "onTouched",
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone_number: "",
+      password1: "",
+      // password2: "",
+      // tnc: ""
+    }
+  })
+
+
+//Password Strength bar
+const [inputValue, setInputValue] = useState('');
+const [value, setValue] = useState()
+const [passsuggestion, setPassSuggestion] = useState([])
+
+
+
+const [password, setPassword] = useState('');
+const [suggestion, setSuggestion] = useState('');
+
+//Password adornment
+const [showPassword, setShowPassword] = useState(false);
+//Password adornment
+// const [showPassword, setShowPassword] = useState(false);
+const [state, setState] = useState("")
+const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+const passwordStrengthChange = (e) => {
+  setInputValue(e.target.value);
+}
+
+
+
+  return (
+
+    <Box  
+    style={{ 
+       // backgroundColor: "yellow", signupImg
+      backgroundImage: `url(${signupImg})` ,
+      // padding: "20px 20px",
+      // objectFit: "cover",
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+    
+      display: "flex",  alignItems: "center",
+      flexDirection: "column",
+      // width: 1440, 
+      // maxWidth: 1440,
+      maxWidth: "100%",
+      // height: 1024,
+      minHeight: "100%",
+      display: "flex",
+      justifyContent: "center",
+      
+      // height: "100%",
+      // minHeight: 1024,
+      // maxHeight: "100%",
+      // minHeight: "100%",
+      // maxWidth: "100vw",
+      // minHeight: "100vh",
+      boxSizing: "borderBox",
+      // height: "140vh", 
+      backgroundRepeat: 'no-repeat', width: "100%",
+      
+    }}>
+
+
+
+    <InlaksText>
+      InLaks
+    </InlaksText>
+
+
+    <ContainerWrapper maxWidth="sm">
+      
+      <PageHeaderAndTitleContainer>
+        <PageHeader textAlign="center">
+        Let’s get started
+        </PageHeader>
+
+        <SubTitle>
+        Explore  banking and financial solutions that are right for you.
+        </SubTitle>
+      </PageHeaderAndTitleContainer>
+{/* ====================================================================================================================  */}
+
+      <GridContainer container spacing={2} >
+
+        <GridItem item xs={6} md={6} >
+          <NameLabel>First Name</NameLabel>
+          <TextField fullWidth type="text"
+         id="first_name"
+          error={Boolean(errors.first_name)}
+          variant="outlined" 
+          sx={{ width: {xs: 150, sm: 150, md: 200, lg: "250px", xl: "250px"},
+            "& .MuiOutlinedInput-root.Mui-focused": {
+              "& > fieldset": {
+        borderColor: "#7833EE"
+              }
+            },  [`& fieldset`]:{
+              borderRadius: "6px" }
+          }}
+          InputProps={{
+            
+            style: {
+              height: "2rem",
+      
+    },
+  }}
+  {...register("first_name", {required: {
+    value: true,
+    message: "First name is required"
+  }, 
+  
+})} 
+
+// helperText={errors.first_name?.message}
+ 
+placeholder='eg. Joseph'
+
+/>
+
+<ErrorHelperTextContainer>{errors.first_name?.message}</ErrorHelperTextContainer> 
+  </GridItem>
+
+
+        <GridItem item xs={6} md={6}>
+          <NameLabel>Last Name</NameLabel>
+          <TextField fullWidth type="text"
+         id="first_name"
+          error={Boolean(errors.last_name)}
+          variant="outlined" 
+          sx={{ width: {xs: 150, sm: 150, md: 200, lg: "250px", xl: "250px"},
+            "& .MuiOutlinedInput-root.Mui-focused": {
+              "& > fieldset": {
+        borderColor: "#7833EE"
+              }
+            },  [`& fieldset`]:{
+              borderRadius: "6px" }
+          }}
+          InputProps={{
+            
+            style: {
+              height: "2rem",
+      
+    },
+  }}
+  {...register("last_name", {required: {
+    value: true,
+    message: "Last name is required"
+  }, 
+  
+})}  
+
+placeholder='eg. Asante'
+/>
+
+<ErrorHelperTextContainer>{errors.last_name?.message}</ErrorHelperTextContainer>
+        </GridItem>
+{/* ===============CLOSE OF FIRST NAME AND LAST NAME =======================================================================  */}
+
+
+{/* ===================PHONE NUMBER =============================================================================================  */}
+
+        <LongTextFieldGridItem item xs={12} md={6}>
+
+          <NameLabel>Phone Number</NameLabel>
+          <TextField fullWidth type="tel"
+          error={Boolean(errors.phone_number)}
+          id="phone"
+          variant="outlined" 
+          sx={{ /* width: "576px", */ width: "33.5rem",
+            "& .MuiOutlinedInput-root.Mui-focused": {
+              "& > fieldset": {
+        borderColor: "#7833EE"
+              }
+            },  [`& fieldset`]:{
+              borderRadius: "6px" }
+          }}
+          InputProps={{
+            
+            style: {
+              height: "2rem",
+      
+    },
+  }}
+
+  placeholder='(+233) 000 000 000'
+  {...register("phone_number", {required: {
+    value: true,
+    message: "Phone number is required"
+  },
+  
+  maxLength: {
+    value: 13,
+    message: "The length must be 13"
+  }, 
+
+  minLength: {
+    value: 12,
+    message: "You’ve entered an invalid phone number"
+  }
+
+})}
+
+// helperText={errors.phone_number?.message}
+  // autoComplete="email"
+  />
+
+<ErrorHelperTextContainer>{errors.phone_number?.message}</ErrorHelperTextContainer>
+          
+        </LongTextFieldGridItem>
+
+    {/* =================== CLOSE PHONE NUMBER =====================================================================================  */}
+
+
+
+        {/* ===================EMAIL ADDRESS ===========================================================================================  */}
+
+
+        <LongTextFieldGridItem item xs={12} md={12} lg={12} >
+        <NameLabel>Email Address</NameLabel>
+          <TextField fullWidth type="email"
+          id="email"
+          error={Boolean(errors.email)}
+          variant="outlined" 
+          sx={{ /* width: "576px", */ width: "33.5rem",
+            "& .MuiOutlinedInput-root.Mui-focused": {
+              "& > fieldset": {
+        borderColor: "#7833EE"
+              }
+            },  [`& fieldset`]:{
+              borderRadius: "6px" }
+          }}
+          InputProps={{
+            
+            style: {
+              height: "2rem",
+      
+    },
+  }}
+
+  // label="Email Address"
+  placeholder='someexample@gmail.com'
+  {...register("email", {required: {
+    value: true,
+    message: "Email is required"
+  }, 
+  pattern: {
+    // value: /^\S+@\S+$/i,
+    // value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+
+    value: /^[^\d][A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/,
+    message: "Please enter a valid email address"
+  }
+})}
+  // autoComplete="email"
+  // helperText={errors.email?.message}
+
+/>
+
+<ErrorHelperTextContainer>{errors.email?.message}</ErrorHelperTextContainer>
+          
+        </LongTextFieldGridItem>
+
+
+
+            {/* ==================CLOSE OF EMAIL ADDRESS ===================================================================================  */}
+      
+      
+      
+      
+            {/* =======================PASSWORD =================================================================================================  */}
+            <LongTextFieldGridItem item xs={12} md={6} 
+            sx={{height: 144}}>
+              <NameLabel>Password</NameLabel>
+          <TextField fullWidth type={showPassword ? "text" : "password"}
+  error={Boolean(errors.password1)}
+  variant="outlined" 
+  sx={{ /* width: "576px", */  width: "33.5rem",
+    "& .MuiOutlinedInput-root.Mui-focused": {
+      "& > fieldset": {
+borderColor: "#7833EE"
+      }
+    },  [`& fieldset`]:{
+      borderRadius: "6px" }
+  }}
+  InputProps={{
+    endAdornment: (
+      <InputAdornment position="end">
+        <IconButton
+          aria-label="toggle password visibility"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? <Visibility /> : <VisibilityOff />}
+        </IconButton>
+      </InputAdornment>
+    ),
+
+    style: {
+      height: "2rem",
+      
+    },
+  }}
+
+  {...register("password1",  {required: {
+    value: true,
+    message: "Password is required",
+    
+  }, 
+minLength: {
+  value: 6,
+  message: "The Minimum length is 6"
+} })}  
+
+// ========================================================================== 
+            
+value={inputValue}
+onChange={passwordStrengthChange}
+  // helperText={errors.password1?.message}
+  
+  placeholder="Password here"
+/>
+
+<ErrorHelperTextContainer>{errors.password1?.message}</ErrorHelperTextContainer>
+
+
+{/* <PasswordStrengthText>
+  Password strength
+</PasswordStrengthText> */}
+
+
+          
+        </LongTextFieldGridItem>
+      
+      
+      
+      
+      
+      
+      
+      
+            {/* =============================== CLOSE OF PASSWORD ===================================================================================  */}
+      
+      </GridContainer>
+
+
+
+
+
+
+
+
+
+    </ContainerWrapper>
+
+
+    
+
+
+
+
+
+
+    
+    </Box> 
+    
+  )
+}
+
+export default SignUpFormError
