@@ -86,7 +86,8 @@ export default function ResetPass2() {
   //Button Loading state ================================================================
   const [loading, setLoading] = useState(false);
 
-  const { handleSubmit, register, watch, formState: {errors}, reset, trigger } = useForm({
+  const { handleSubmit, register, getValues,
+    watch, formState: {errors}, reset, trigger } = useForm({
     mode: "onTouched",
     defaultValues: {
       new_password1: "",
@@ -196,6 +197,26 @@ const onSubmit = async (data) => {
 
 
 }
+
+
+
+const [formComplete, setFormComplete] = useState({
+  new_password1: null,
+  new_password2: null,
+  // password: null
+});
+
+
+const handleInputChange = () => {
+  // check if all form fields are filled out
+  const formIsComplete = Object.values(getValues()).every(val => val !== '');
+  setFormComplete(formIsComplete);
+}
+
+
+console.log("Form Complete: ", formComplete)
+
+
   
 
   return (
@@ -224,7 +245,7 @@ const onSubmit = async (data) => {
 
 
       <InlaksText sx={{mx: "auto", mt: 2}}>
-        InLaks
+        Inlaks 
       </InlaksText>
 
       <ContainerWrapper component="main" maxWidth="xs" 
@@ -379,8 +400,18 @@ message: "The Minimum length is 6"
 // ========================================================================== 
       
 value={inputValue}
-onChange={passwordStrengthChange}
+// onChange={passwordStrengthChange}
 // helperText={errors.password1?.message}
+
+onChange={(event) => {
+  handleInputChange(event);
+  passwordStrengthChange(event);
+  setFormComplete(prevState => ({
+    ...prevState,
+    new_password1: event.target.value !== '',
+  }));
+}}
+
 
 placeholder="Password here"
 />
@@ -452,6 +483,9 @@ borderColor: "#7833EE"
 },  [`& fieldset`]:{
 borderRadius: "6px" }
 }}
+
+
+
 InputProps={{
 endAdornment: (
 <InputAdornment position="end">
@@ -486,6 +520,26 @@ message: "The Minimum length is 6"
       
 
 // helperText={errors.password1?.message}
+
+// onChange={(event) => {
+//   handleInputChange(event);
+//   setFormComplete(prevState => ({
+//     ...prevState,
+//     new_password2: event.target.value !== '',
+//   }));
+// }}
+
+//copy the password 1 code
+
+onChange={(event) => {
+  handleInputChange(event);
+  // passwordStrengthChange(event);
+  setFormComplete(prevState => ({
+    ...prevState,
+    new_password2: event.target.value !== '',
+  }));
+}}
+
 
 placeholder="Password here"
 />
@@ -537,7 +591,16 @@ placeholder="Password here"
           mr: "auto", ml: "auto", mt: 2}}>
 
               <ButtonComponent type='submit'
-              sx={{width: {xs: "20rem", md: "21.5rem"}, height: "30px"}}>
+              sx={{width: {xs: "22rem", md: "21.5rem"}, height: "30px", 
+              background: Object.values(formComplete).every(Boolean)
+              ? 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)'
+              : '#F3F3F3', 
+            }}
+      
+      // disabled={!Object.values(formComplete).every(Boolean)}
+
+      disabled={!Object.values(formComplete).every(Boolean)}
+      >
                 <ButtonText>
                   Set Password 
                 </ButtonText>

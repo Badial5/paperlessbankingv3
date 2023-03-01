@@ -105,7 +105,8 @@ export default function SignUpFormError() {
   // const ref = useRef(null)
   const inputRef = useRef(null)
 
-  const { handleSubmit, register, watch, setValue, formState: {errors}, reset, trigger } = useForm({
+  const { handleSubmit, register, watch, setValue, formState: {errors}, reset, 
+  getValues, trigger } = useForm({
     mode: "onTouched",
     defaultValues: {
       first_name: "",
@@ -132,7 +133,10 @@ export default function SignUpFormError() {
   const [selectedCountry, setSelectedCountry] = useState(null);
 
     //error state
-    const [errorss, setError] = useState(null)
+    // const [error, setError] = useState(null)
+
+       //error state
+       const [error, setError] = useState(null)
 
     const [mail, setMail] = useState("")
 
@@ -322,6 +326,76 @@ const onSubmit = async (data) => {
 const handleEmailChange = (event) => {
   setEmail(event.target.value);
 };
+
+
+const backgroundColorText = {
+  background: 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
+};
+
+// const [formComplete, setFormComplete] = useState(false);
+
+
+// const handleInputChange = () => {
+//   // check if all form fields are filled out
+//   const formIsComplete = Object.values(getValues()).every(val => val !== '');
+//   setFormComplete(formIsComplete);
+// }
+
+const handleFieldChange = (e) => {
+  handleInputChange(e);
+  onChangeIso();
+}
+
+
+
+const handleFieldChangePassword = (e) => {
+  handleInputChange(e);
+  passwordStrengthChange();
+}
+
+
+// const [formComplete, setFormComplete] = useState({
+//   email: null,
+//   password: null
+// });
+
+
+// const handleInputChange = () => {
+//   // check if all form fields are filled out
+//   const formIsComplete = Object.values(getValues()).every(val => val !== '');
+//   setFormComplete(formIsComplete);
+// }
+
+
+
+// console.log("Form Complete: ", formComplete)
+
+
+
+
+  
+const [formComplete, setFormComplete] = useState({
+
+  first_name: null,
+  last_name: null,
+  email: null,
+  phone_number: null,
+  password1: null,
+
+});
+
+
+const handleInputChange = () => {
+  // check if all form fields are filled out
+  const formIsComplete = Object.values(getValues()).every(val => val !== '');
+  setFormComplete(formIsComplete);
+}
+
+
+console.log("Form Complete: ", formComplete)
+
+
+
   
 
 
@@ -356,7 +430,7 @@ const handleEmailChange = (event) => {
     >
 
       <InlaksText sx={{mt: 5}}>
-      InLaks
+      Inlaks
       </InlaksText>
 
 
@@ -383,8 +457,10 @@ sx={{
       alignItems: 'center',
       justifyContent: "center",
       // padding: "30px 14px", this gives it padding
+    
       // backgroundColor: "red",
-      padding: "10px 10px",
+      padding: "0px 10px",
+      paddingTop: "30px"
       // marginBottom: "20px", 
       // padding: {xs: "40px 14px", md: "30px 14px"},
       // padding: {xs: "40px 14px"},
@@ -407,6 +483,28 @@ sx={{
   </SubTitle2>
 
 </PageHeaderAndTitleContainer2>
+
+{(error && open ) &&  
+ <Collapse in={open}>  
+        <ErrorAlert severity="error" onClose={() => setOpen(!open)}
+        sx={{
+        "& .MuiAlert-icon": {
+          color: "#fff"
+        }, "& .MuiAlert-action": {
+          color: "#fff"
+        }, overflow: "hidden",  mr: "auto",
+        ml: "auto",  width: {xs: "21.5rem", md: "31.5rem"}, mb: 2
+         }}>
+          <ErrorAlertText >
+          {Object.values(error)} 
+          {/* { Object.entries(error).map(([key, val])=> <p key={key}>{key}: {val}</p>) }  */}
+          </ErrorAlertText>
+
+          </ErrorAlert>
+
+      
+     </Collapse> 
+}
 
 
 <GridContainer2 container component="form" 
@@ -466,6 +564,14 @@ message: "First name is required"
 // helperText={errors.first_name?.message}
 
 placeholder='eg. Joseph'
+// onChange={handleInputChange}
+onChange={(event) => {
+  handleInputChange(event);
+  setFormComplete(prevState => ({
+    ...prevState,
+    first_name: event.target.value !== '',
+  }));
+}}
 
 />
 
@@ -521,6 +627,16 @@ message: "Last name is required"
 })}  
 
 placeholder='eg. Asante'
+// onChange={handleInputChange}
+
+onChange={(event) => {
+  handleInputChange(event);
+  setFormComplete(prevState => ({
+    ...prevState,
+    last_name: event.target.value !== '',
+  }));
+}}
+
 />
 
 <ErrorHelperTextContainer>{errors.last_name?.message}</ErrorHelperTextContainer>
@@ -625,7 +741,21 @@ message: "You’ve entered an invalid phone number"
   value={isoValue}
   country={isocountry}
   onCountrySelect={onCountrySelect}
-  onChange={onChangeIso}
+  // onChange={onChangeIso}
+  // onChange={ () =>  onChangeIso handleInputChange}
+
+  // onChange={handleFieldChange}
+  onChange={(event) => {
+    // handleInputChange(event);
+    // isocountry(event)
+    // handleFieldChange(event);
+    onChangeIso(event)
+    setFormComplete(prevState => ({
+      ...prevState,
+      phone_number: event.target.value !== '',
+    }));
+  }}
+
 // inputRef={register({ required: true, maxLength: 13, minLength: 12 })} 
 // onCountryChange={handleCountrySelection} 
 
@@ -670,6 +800,7 @@ variant="outlined" fullWidth
 
 
 // placeholder='(+233) 000 000 000'
+// onChange={handleInputChange}
 />
 
 
@@ -790,6 +921,16 @@ message: "Please enter a valid email address"
 // autoComplete="email"
 // helperText={errors.email?.message}
 
+// onChange={handleInputChange}
+
+onChange={(event) => {
+  handleInputChange(event);
+  setFormComplete(prevState => ({
+    ...prevState,
+    email: event.target.value !== '',
+  }));
+}}
+
 />
 
 <ErrorHelperTextContainer
@@ -865,8 +1006,19 @@ message: "The Minimum length is 6"
 // ========================================================================== 
       
 value={inputValue}
-onChange={passwordStrengthChange}
+// onChange={passwordStrengthChange}  
+// onChange={handleFieldChangePassword}
 // helperText={errors.password1?.message}
+
+onChange={(event) => {
+  // handleInputChange(event);
+  passwordStrengthChange(event)
+  handleFieldChangePassword(event);
+  setFormComplete(prevState => ({
+    ...prevState,
+    password1: event.target.value !== '',
+  }));
+}}
 
 placeholder="Password here"
 />
@@ -956,6 +1108,12 @@ textDecoration: "underline"}}> Privacy Policy </span>
         // onClick={() => setValue("phone_number", phoneNumber) } 
        fullWidth
         onClick={ () => ButtonLoadinghandleClick, handleClick}
+
+        disabled={!formComplete}
+
+        style={{
+          background: formComplete ? backgroundColorText.background : "#F3F3F3",
+        }}
         
         sx={{ 
         padding: "0px 0px", }}>

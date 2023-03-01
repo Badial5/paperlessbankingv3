@@ -111,7 +111,8 @@ const [inputValue, setInputValue] = useState('');
 
 
   //react hookform 
-  const { handleSubmit, register, watch, formState: {errors}, reset, trigger } = useForm({
+  const { handleSubmit, register, watch, formState: {errors}, reset, trigger,
+getValues } = useForm({
     mode: "onTouched",
     
     defaultValues: {
@@ -120,6 +121,11 @@ const [inputValue, setInputValue] = useState('');
       // tnc: ""
     }
   })
+
+
+  const backgroundColorText = {
+    background: 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
+  };
 
   // const registerForm = async() => {
   //   // e.preventDefault()
@@ -185,6 +191,37 @@ const handleMouseDownPassword = (event) => {
 
 
 
+// const [formComplete, setFormComplete] = useState(false);
+
+
+// const handleInputChange = () => {
+//   // check if all form fields are filled out
+//   const formIsComplete = Object.values(getValues()).every(val => val !== '');
+//   setFormComplete(formIsComplete);
+// }
+
+
+const [formComplete, setFormComplete] = useState({
+  email: null,
+  // password: null
+});
+
+
+const handleInputChange = () => {
+  // check if all form fields are filled out
+  const formIsComplete = Object.values(getValues()).every(val => val !== '');
+  setFormComplete(formIsComplete);
+}
+
+
+console.log("Form Complete: ", formComplete)
+
+
+
+
+console.log("Form Complete: ", formComplete)
+
+
 
 
 
@@ -226,17 +263,17 @@ const handleMouseDownPassword = (event) => {
       {/* <PaperWrapper component="form" onSubmit={handleSubmit(onSubmit)} >  */}
 
           <ContainerWrapper maxWidth="xs" 
-          sx={{height: "23rem",  padding: "40px 30px", 
+          sx={{   
         width: "100%", }}
           component="form" onSubmit={handleSubmit(onSubmit)} >
       
         {/* Heading  */}
-<Box sx={{padding: "20px 30px"}}>
+<Box sx={{padding: "1px 25px"}}>
 
         <PageHeaderAndTitleContainer2 sx={{mr: "auto", ml: "auto", }}>
 
           <PageHeader textAlign="center">
-          Forgot Password
+          Forgot Password 
           </PageHeader>
 
           <SubTitle textAlign='center'>
@@ -387,6 +424,16 @@ message: "Please enter a valid email address"
 // autoComplete="email"
 // helperText={errors.email?.message}
 
+// onChange={handleInputChange} 
+
+onChange={(event) => {
+  handleInputChange(event);
+  setFormComplete(prevState => ({
+    ...prevState,
+    email: event.target.value !== '',
+  }));
+}}
+
 />
 
 <ErrorHelperTextContainer 
@@ -411,7 +458,15 @@ sx={{padding: "5px 5px"}}>
 
 
 <BottonComp type='submit' sx={{padding: "5px 16px", 
-ml: "auto", mr: "auto",width: {xs: "90%", md: "90%", lg: "90%"},  }}>
+ml: "auto", mr: "auto",width: {xs: "90%", md: "90%", lg: "90%"},  }} 
+style={{
+  background: Object.values(formComplete).every(Boolean)
+  ? 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)'
+  : '#F3F3F3',
+}}
+
+
+>
   <LoginText>
     Reset password
   </LoginText>

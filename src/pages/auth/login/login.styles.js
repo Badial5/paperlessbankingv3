@@ -282,18 +282,10 @@ export const BottonComp = styled(Button)`
 display: flex;
 flex-direction: column;
 align-items: center;
-padding: 15px 8px;
-/* gap: 10px; */
+padding: 7px 8px;
+gap: 10px;
 
-// position: absolute;
-width: 375px;
-height: 36px;
-// left: 511px;
-// top: 525px;
-margin-left: 64px;
-margin-right: 64px;
-margin-top: 45px; 
-margin-bottom: 24px;
+
 
 /* Gradient/2 */
 

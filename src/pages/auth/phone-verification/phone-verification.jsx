@@ -385,7 +385,7 @@ const onSubmit = async (data) => {
       </InlaksText> */}
 
       <InlaksText textAlign="center">
-          InLaks
+          Inlaks
       </InlaksText>
 
 

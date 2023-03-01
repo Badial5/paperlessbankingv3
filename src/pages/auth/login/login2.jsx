@@ -82,6 +82,7 @@ import PhoneTextField from "mui-phone-textfield";
 // import { EmailContext } from '../../../context/emailContext';
 
 import { EmailContext, EmailProvider } from '../../../context/emailContext';
+import { BottonComp } from './login.styles';
 
 
 
@@ -109,7 +110,8 @@ export default function Login2Form() {
   // const ref = useRef(null)
   const inputRef = useRef(null)
 
-  const { handleSubmit, register, watch, setValue, formState: {errors}, reset, trigger } = useForm({
+  const { handleSubmit, register, watch, setValue, formState: {errors}, reset,
+  getValues, trigger } = useForm({
     mode: "onTouched",
     defaultValues: {
       
@@ -150,7 +152,11 @@ export default function Login2Form() {
 
   const isXsScreen = useMediaQuery('(max-width:600px)');
 
-  
+  //=========================================================================================================
+
+  const backgroundColorText = {
+    background: 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
+  };
 
 
 
@@ -232,62 +238,6 @@ function handleCheckboxChange(e) {
 
 
 
-// const onSubmit = async (data) => {
-//   console.log("Form Data: ", data)
-//   try {
-//     const response = await axios.post(baseUrl, data)
-//     const newResponse = response.data
-//     // console.log(newResponse)
-//     // newResponse()
-
-//     navigate("/phone-Otp")
- 
-//     console.log("Successful: ", newResponse)
-//   } catch (error) {
-//     setError(error.response.data)
-//     console.log("Error Message: ", error.response.data)
-//   }
-// }
-
-
-
-
-
-// const onSubmit = async (data) => {
-//   localStorage.setItem("email", data.email);
-//   console.log("Form Data: ", data)
-//   // registerForm()
-//   // reset()
-//   try {
-//     const response = await axios.post(baseUrl, data)
-//     const newResponse = response.data
-//     console.log(newResponse)
-//     // newResponse()
-    
-//     setCurrentEmail(email)
-//     console.log("EMail Context Value: ", email)
-
-//     console.log("Local Storage Mail ", email)
-
-  
-//     navigate("/phone-Otp")
-//     reset()
-
-//     // console.log("Successful: ", newResponse)
-//   } catch (error) {
-//     // setError(error.response.data)
-
-//     if (error.response.data.message === "Request failed with status code 500") {
-//       console.log("Sorry You made a bad request" )
-//       setError("You made a bad request\n Check the Email")
-//     } else {
-//       setError(error.response.data)
-//     }
-//     // console.log("Error Message: ", error.response.data)
-//     console.log("Error Message from state: ", error) 
-//   }
-// }
-
 
 const onSubmit = async (data) => {
   console.log("Form Data: ", data)
@@ -315,7 +265,20 @@ const onSubmit = async (data) => {
 
 }
 
+const [formComplete, setFormComplete] = useState({
+  email: null,
+  password: null
+});
 
+
+const handleInputChange = () => {
+  // check if all form fields are filled out
+  const formIsComplete = Object.values(getValues()).every(val => val !== '');
+  setFormComplete(formIsComplete);
+}
+
+
+console.log("Form Complete: ", formComplete)
 
 
 
@@ -348,6 +311,9 @@ const onSubmit = async (data) => {
     }}
     >
 
+<InlaksText sx={{mb: 0, mt: 5}}>
+  Inlaks
+</InlaksText>
 
 
 <ContainerWrapper component="main" maxWidth="xs" 
@@ -357,7 +323,7 @@ sx={{
   // alignItems: 'center',
   // justifyContent: 'center',
   // mx: 'auto',
-  my: 'auto',
+  // my: 'auto',
   padding: '20px 20px',
   // minHeight: {xs: "50vh", md: "80vh", lg: "70vh"},
 
@@ -487,8 +453,16 @@ value: /^[^\d][A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/,
 message: "Please enter a valid email address"
 }
 })}
-// autoComplete="email"
-// helperText={errors.email?.message}
+
+
+onChange={(event) => {
+  handleInputChange(event);
+  setFormComplete(prevState => ({
+    ...prevState,
+    email: event.target.value !== '',
+  }));
+}}
+
 
 />
 
@@ -530,13 +504,7 @@ borderRadius: "6px" }
 InputProps={{
 endAdornment: (
 <InputAdornment position="end">
-   {/* <IconButton
-    aria-label="toggle password visibility"
-    onClick={() => setShowPassword(!showPassword)}
-  >
-    {showPassword ? <Visibility /> : <VisibilityOff />}
-  </IconButton> */}
-
+  
   <IconButton
   onClick={() => setShowPassword(!showPassword)}
   >
@@ -564,15 +532,20 @@ message: "The Minimum length is 6"
 
 // ========================================================================== 
       
-value={inputValue}
-onChange={passwordStrengthChange}
-// helperText={errors.password1?.message}
+
+onChange={(event) => {
+  handleInputChange(event);
+  setFormComplete(prevState => ({
+    ...prevState,
+    password: event.target.value !== '',
+  }));
+}}
 
 placeholder="Password here" />
 
 
-<Link component={RouterLink} to="/forgotpassword" 
-sx={{padding: "5px 16px"}}>
+<Link component={RouterLink} to="/forgotpassword2" 
+sx={{padding: "5px 16px",}}>
               <Typography
               
                sx={{fontFamily: "Helvetica Neue", 
@@ -592,30 +565,46 @@ sx={{padding: "5px 16px"}}>
 
 
 
+
+
+
     {/* =================================== BUTTON ==================================================================================================== */}
     <LongTextFieldGridItem item xs={12}  sx={{height:50, width: "100%",
      
     }}>
 
-        <ButtonComponent type='submit'
-        // onClick={() => setValue("phone_number", phoneNumber) } 
-       fullWidth
-       
-        
-        sx={{ 
-        padding: "0px 0px", }}>
-          <ButtonText>
-            {loading ? ( <CircularProgress sx={{color: "#fff"}} size={24}  /> ) 
-            : 
-            "Login"}  
-          </ButtonText>
-        </ButtonComponent>
+
+      <BottonComp
+  type='submit'
+  fullWidth
+  sx={{
+    // width: {xs: "22rem", md: "21.5rem"},
+    mt: 3,
+    mb: 2,
+    background: Object.values(formComplete).every(Boolean)
+      ? 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)'
+      : '#F3F3F3',
+   
+  }}
+  disabled={!Object.values(formComplete).every(Boolean)}
+
+>
+  <ButtonText>
+    Login
+  </ButtonText>
+</BottonComp>
+
+
     </LongTextFieldGridItem>
+
+
+
 
 
     <Link component={RouterLink} to="/signup" textAlign={"center"} 
     sx={{display: "flex", marginLeft: "auto",
-    marginRight: "auto", textDecoration: "none"}}>
+    marginRight: "auto", textDecoration: "none", 
+    mt: 2}}>
         <SignupText textAlign="center">
         👋🏾 I don’t have an account? 
         <span style={{color: "#7833EE", 
