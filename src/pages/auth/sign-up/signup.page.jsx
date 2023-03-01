@@ -289,7 +289,7 @@ function handleCheckboxChange(e) {
 
 
 const onSubmit = async (data) => {
-  localStorage.setItem("email", data.email);
+  sessionStorage.setItem("email", data.email);
   console.log("Form Data: ", data)
   // registerForm()
   // reset()
@@ -302,7 +302,7 @@ const onSubmit = async (data) => {
     setCurrentEmail(email)
     console.log("EMail Context Value: ", email)
 
-    console.log("Local Storage Mail ", email)
+    console.log("Session Storage Email ", email)
 
   
     navigate("/phone-Otp")
@@ -748,8 +748,9 @@ message: "You’ve entered an invalid phone number"
   onChange={(event) => {
     // handleInputChange(event);
     // isocountry(event)
-    // handleFieldChange(event);
+   
     onChangeIso(event)
+    handleFieldChange(event); 
     setFormComplete(prevState => ({
       ...prevState,
       phone_number: event.target.value !== '',

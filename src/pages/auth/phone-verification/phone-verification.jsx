@@ -55,18 +55,18 @@ const PhoneOtp = () => {
   })
 
 
-  //============================= LOCAL STORAGE ==============================================
+  //============================= SESSION STORAGE ==============================================
   const [storedEmail, setStoredEmail] = useState(null);
 
   //=================================== useEffect ===========================================
 
   useEffect(() => {
-    setStoredEmail(localStorage.getItem("email"));
-    localStorage.clear("email")
+    setStoredEmail(sessionStorage.getItem("email"));
+    // localStorage.clear("email")
   }, []);
 
 
-  console.log("Local Storage Email Value: ", storedEmail)
+  console.log("Session Storage Email Value: ", storedEmail)
 
   //error state
 // const [error, setError] = useState(null) 

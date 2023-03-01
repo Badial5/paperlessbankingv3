@@ -95,6 +95,9 @@ function Copyright(props) {
   );
 }
 
+
+
+
 const drawerWidth = 240;
 
 // const sideMenuIcons = [ <Exchange width={18} height={18} />, <Transfer width={18} height={18} />, <Estimate width={18} height={18} />, <Payment width={18} height={18}/>, <Payee width={18} height={18} />, <Inquiry width={18} height={18} />, <Budget  width={18} height={18} />, <Back width={18} height={18} />, <Setting width={18} height={18} /> ]
@@ -456,7 +459,7 @@ export default function MiniDrawer() {
 
 <Drawer variant="permanent" open={open} >
         <DrawerHeader sx={{background: `linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)`}}>
-            <Typography sx={{fontSize: 12}}>
+            <Typography sx={{fontSize: 12, textAlign: "center"}}>
               User Name
             </Typography>
           <IconButton onClick={handleDrawerClose}>
