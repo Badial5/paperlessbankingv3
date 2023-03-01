@@ -19,6 +19,9 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Link,  Grid, Paper,Container  } from '@mui/material';
+import Badge from '@mui/material/Badge';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+
 
 // ============================================== MENU ICON AVATAR ================================================== 
 import Avatar from '@mui/material/Avatar';
@@ -28,11 +31,12 @@ import MenuItem from '@mui/material/MenuItem';
 // import Divider from '@mui/material/Divider';
 // import IconButton from '@mui/material/IconButton';
 // import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
+// import Tooltip from '@mui/material/Tooltip';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
-
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
 
 //icons
@@ -40,15 +44,28 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import CurrencyExchangeOutlinedIcon from '@mui/icons-material/CurrencyExchangeOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 
-import { ReactComponent as Exchange } from "../../assets/icons/transfer.svg"
-import { ReactComponent as Payment } from "../../assets/icons/payment.svg"
-import { ReactComponent as Payee } from "../../assets/icons/pay.svg"
-import { ReactComponent as Back } from "../../assets/icons/back.svg"
-import { ReactComponent as Estimate } from "../../assets/icons/estimate.svg"
-import { ReactComponent as Setting } from "../../assets/icons/setting.svg"
-import { ReactComponent as Inquiry }  from "../../assets/icons/Inquiry.svg"
-import { ReactComponent as Budget } from "../../assets/icons/budget.svg"
-import { ReactComponent as Transfer} from "../../assets/icons/transfer.svg"
+// import { ReactComponent as Exchange } from "../../assets/icons/transfer.svg"
+// import { ReactComponent as Payment } from "../../assets/icons/payment.svg"
+// import { ReactComponent as Payee } from "../../assets/icons/pay.svg"
+// import { ReactComponent as Back } from "../../assets/icons/back.svg"
+// import { ReactComponent as Estimate } from "../../assets/icons/estimate.svg"
+// import { ReactComponent as Setting } from "../../assets/icons/setting.svg"
+// import { ReactComponent as Inquiry }  from "../../assets/icons/Inquiry.svg"
+// import { ReactComponent as Budget } from "../../assets/icons/budget.svg"
+// import { ReactComponent as Transfer} from "../../assets/icons/transfer.svg"
+
+
+
+import   Payee  from "../../assets/icons/payee.svg"
+import Payment from "../../assets/icons/payment.svg"
+import BuyAirtime from "../../assets/icons/buyairtime.svg"
+import   Back  from "../../assets/icons/back.svg"
+import Accounts from "../../assets/icons/account.svg"
+import  Setting  from "../../assets/icons/setting.svg"
+import  CustomerRequest   from "../../assets/icons/Inquiry.svg"
+import LoanCalculator from "../../assets/icons/loancalculator.svg"
+import  Transfer from "../../assets/icons/transfer.svg"
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 
 
 import { mainListItems, secondaryListItems } from './const/listItems';
@@ -56,6 +73,7 @@ import Chart from "./const/chart"
 // import Title from "./const/title"
 import Deposits from "./const/deposit"
 import Orders from "./const/orders"
+import { LogoutOutlined } from '@mui/icons-material';
 
 
 function Copyright(props) {
@@ -79,7 +97,7 @@ function Copyright(props) {
 
 const drawerWidth = 240;
 
-const sideMenuIcons = [ <Exchange width={18} height={18} />, <Transfer width={18} height={18} />, <Estimate width={18} height={18} />, <Payment width={18} height={18}/>, <Payee width={18} height={18} />, <Inquiry width={18} height={18} />, <Budget  width={18} height={18} />, <Back width={18} height={18} />, <Setting width={18} height={18} /> ]
+// const sideMenuIcons = [ <Exchange width={18} height={18} />, <Transfer width={18} height={18} />, <Estimate width={18} height={18} />, <Payment width={18} height={18}/>, <Payee width={18} height={18} />, <Inquiry width={18} height={18} />, <Budget  width={18} height={18} />, <Back width={18} height={18} />, <Setting width={18} height={18} /> ]
 
 
 const openedMixin = (theme) => ({
@@ -130,6 +148,19 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
+
+
+const LightTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
+}));
+
 // const mdTheme = createTheme();
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
@@ -166,9 +197,9 @@ export default function MiniDrawer() {
 
   const [index, setIndex] = React.useState(0);
 
-  const handleNextIcon = () => {
-    setIndex((index + 1) % sideMenuIcons.length);
-  };
+  // const handleNextIcon = () => {
+  //   setIndex((index + 1) % sideMenuIcons.length);
+  // };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open2 = Boolean(anchorEl);
@@ -229,6 +260,36 @@ export default function MiniDrawer() {
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center', ml: "auto" }}>
         {/* <Typography sx={{ minWidth: 100 }}>Contact</Typography>
         <Typography sx={{ minWidth: 100 }}>Profile</Typography> */}
+
+            {/* =================================== MAILBOX AND THE NOTIFICATION BOX ============================================  */}
+
+            <MenuItem>
+        <IconButton size="small" aria-label="show 4 new mails" color="inherit" 
+        sx={{width: 3}}>
+          <Badge badgeContent={4} color="error" variant='dot' overlap='circular'>
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        {/* <p>Messages</p> */}
+      </MenuItem>
+      <MenuItem>
+        <IconButton
+        sx={{width: 3,}}
+          size="small"
+          aria-label="show 17 new notifications"
+          color="inherit"
+        >
+          <Badge badgeContent={17} color="secondary"  variant='dot' overlap='circular'>
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        {/* <p>Notifications</p> */}
+      </MenuItem>
+
+
+
+            {/* ================================== CLOSE OF THE MAIL AND THE NOTIFICATION BOX ====================================  */}
+
         <Tooltip title="Account settings">
           <IconButton
             onClick={handleClick}
@@ -284,7 +345,7 @@ export default function MiniDrawer() {
           <Avatar /> Profile
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Avatar /> My account
+           <Avatar /> My account
         </MenuItem>
         <Divider />
         <MenuItem onClick={handleClose}>
@@ -395,75 +456,166 @@ export default function MiniDrawer() {
 
 <Drawer variant="permanent" open={open} >
         <DrawerHeader sx={{background: `linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)`}}>
-
+            <Typography sx={{fontSize: 12}}>
+              User Name
+            </Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
 
-        <List>
-          {['Transfer Money', 'Payment', 'Buy Airtime', 'Accounts',
-           'Payee', 'Loan Calculator', 'Customer Request', 
-           'Bank Appointment'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                 
-                {/* {Icons[index % Icons.length]} */}
-                {index % 2 === 0 ? <InboxIcon />  : <Estimate width={18} height={18} />}  
+        <List sx={{background: `#fff`}}>
+          {/* ========== EXCHANGE: ICON 1 ===============  */}
+        <ListItem disablePadding>
+            <ListItemButton>
+              <LightTooltip title="Transfer Money" placement='right'>
+              <ListItemIcon>
+                <img src={Transfer} width={18} height={18} />
+              </ListItemIcon>
+              </LightTooltip>
+              <ListItemText primary="Transfer Money" />
+            </ListItemButton>
+          </ListItem>
 
 
-                {/* {sideMenuIcons[index % sideMenuIcons.length]} */}
+            {/* ============== PAYMENT: Icon 2 ===============================  */}
+          <ListItem disablePadding>
+            <ListItemButton>
 
-                {/* {sideMenuIcons[index % sideMenuIcons.length]} */}
-                
-                {console.log("Index: ", index)}
+            <LightTooltip title="Payment" placement='right'>
+              <ListItemIcon>
+                {/* <Exchange width={18} height={18} /> */}
+                <img src={Payment} width={18} height={18} />
+              </ListItemIcon>
+              </LightTooltip>
+              <ListItemText primary="Payment" />
+            </ListItemButton>
+          </ListItem>
 
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          {/* =============================  Buy Airtime Icon 3 ======================  */}
+          <ListItem disablePadding>
+            <ListItemButton>
+
+            <LightTooltip title="Buy Airtime" placement='right'>
+              <ListItemIcon>
+                {/* <Exchange width={18} height={18} /> */}
+                <img src={BuyAirtime} width={18} height={18} />
+              </ListItemIcon>
+              </LightTooltip>
+              <ListItemText primary="Buy Airtime" />
+            </ListItemButton>
+          </ListItem>
+
+
+           {/* =============================  Accounts  Icon 4======================  */}
+           <ListItem disablePadding>
+            <ListItemButton>
+
+            <LightTooltip title="Account" placement='right'>
+              <ListItemIcon>
+                {/* <Exchange width={18} height={18} /> */}
+                <img src={Accounts} width={18} height={18} />
+              </ListItemIcon>
+            </LightTooltip>
+              <ListItemText primary="Accounts" />
+            </ListItemButton>
+          </ListItem>
+
+
+           {/* =============================  Customer Request ======================  */}
+           <ListItem disablePadding>
+            <ListItemButton>
+
+            <LightTooltip title="Customer Request" placement='right'>
+              <ListItemIcon>
+                {/* <Exchange width={18} height={18} /> */}
+                <img src={CustomerRequest} width={18} height={18} />
+              </ListItemIcon>
+            </LightTooltip>
+              <ListItemText primary="Customer Request" />
+            </ListItemButton>
+          </ListItem>
+
+
+
+          {/* =============================  Payee ======================  */}
+          <ListItem disablePadding>
+            <ListItemButton>
+
+            <LightTooltip title="Payee" placement='right'>
+              <ListItemIcon>
+                {/* <Exchange width={18} height={18} /> */}
+                <img src={Payee} width={18} height={18} />
+              </ListItemIcon>
+            </LightTooltip>
+              <ListItemText primary="Payee" />
+            </ListItemButton>
+          </ListItem>
+
+
+           {/* =============================  Bank Appointment ======================  */}
+           <ListItem disablePadding>
+            <ListItemButton>
+
+            <LightTooltip title="Bank Appointment" placement='right'>
+              <ListItemIcon>
+                {/* <Exchange width={18} height={18} /> */}
+                <CalendarMonthOutlinedIcon width={18} height={18} />
+              </ListItemIcon>
+            </LightTooltip>
+              <ListItemText primary="Bank Appointment" />
+            </ListItemButton>
+          </ListItem>
+
+
+           {/* =============================  Loan Calculator ======================  */}
+           <ListItem disablePadding>
+            <ListItemButton>
+
+            <LightTooltip title="Loan Calculator" placement='right'>
+              <ListItemIcon>
+                {/* <Exchange width={18} height={18} /> */}
+                <img src={LoanCalculator} width={18} height={18} />
+              </ListItemIcon>
+            </LightTooltip>
+              <ListItemText primary="Loan Calculator" />
+            </ListItemButton>
+          </ListItem>
+
+
+         
+         
         </List>
 
         <Divider />
 
         <List>
-          {['Profile', 'Setting', 'Logout'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          
+        <ListItem disablePadding>
+            <ListItemButton>
+              <LightTooltip title="Transfer Money" placement='right'>
+              <ListItemIcon>
+                <img src={Setting} width={18} height={18} />
+              </ListItemIcon>
+              </LightTooltip>
+              <ListItemText primary="Setting" />
+            </ListItemButton>
+          </ListItem>
+
+
+          <ListItem disablePadding>
+            <ListItemButton>
+              <LightTooltip title="Log out" placement='right'>
+              <ListItemIcon>
+                <LogoutOutlinedIcon width={18} height={18} />
+              </ListItemIcon>
+              </LightTooltip>
+              <ListItemText primary="LogOut" />
+            </ListItemButton>
+          </ListItem>
+
+
         </List>
       </Drawer>
 

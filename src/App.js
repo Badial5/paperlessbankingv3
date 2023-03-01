@@ -49,6 +49,8 @@ import "./App.css"
 
   import PasswordResetOtp from './pages/ResetPassword/PasswordResetOtp/password-reset-otp'
 
+  //CreditCardForm
+  import CreditCardForm from './components/creditCard/creditCard'
 
 
 const App = () => {
@@ -77,6 +79,8 @@ const App = () => {
 
         <Route path='user-dashboard' element={<UserDashboard />} />
         <Route path='landing-page' element={<LandingPage />} />
+
+        <Route path='creditcard' element={<CreditCardForm />} />
 
       </Route>
     )
