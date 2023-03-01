@@ -62,6 +62,7 @@ const PhoneOtp = () => {
 
   useEffect(() => {
     setStoredEmail(localStorage.getItem("email"));
+    localStorage.clear("email")
   }, []);
 
 
