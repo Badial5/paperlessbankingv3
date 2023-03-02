@@ -69,10 +69,10 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 
 
 import { mainListItems, secondaryListItems } from './const/listItems';
-import Chart from "./const/chart"
+// import Chart from "./const/chart"
 // import Title from "./const/title"
-import Deposits from "./const/deposit"
-import Orders from "./const/orders"
+// import Deposits from "./const/deposit"
+// import Orders from "./const/orders"
 import { LogoutOutlined } from '@mui/icons-material';
 
 
@@ -647,7 +647,7 @@ export default function MiniDrawer() {
                     height: 240,
                   }}
                 >
-                  <Chart />
+                  {/* <Chart /> */}
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -660,13 +660,13 @@ export default function MiniDrawer() {
                     height: 240,
                   }}
                 >
-                  <Deposits />
+                  {/* <Deposits /> */}
                 </Paper>
               </Grid>
               {/* Recent Orders */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <Orders />
+                  {/* <Orders /> */}
                 </Paper>
               </Grid>
             </Grid>

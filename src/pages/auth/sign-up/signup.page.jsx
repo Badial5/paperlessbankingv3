@@ -484,16 +484,19 @@ sx={{
 
 </PageHeaderAndTitleContainer2>
 
+
+<LongTextFieldGridItem item xs={12} 
+sx={{padding: "5px 16px", }}>
 {(error && open ) &&  
- <Collapse in={open}>  
+ <Collapse in={open} sx={{mb: 3}}>  
         <ErrorAlert severity="error" onClose={() => setOpen(!open)}
-        sx={{
+        sx={{ mb: 3,
         "& .MuiAlert-icon": {
           color: "#fff"
         }, "& .MuiAlert-action": {
           color: "#fff"
         }, overflow: "hidden",  mr: "auto",
-        ml: "auto",  width: {xs: "21.5rem", md: "31.5rem"}, mb: 2
+        ml: "auto",  width: "100%", marginBottom: 3,
          }}>
           <ErrorAlertText >
           {Object.values(error)} 
@@ -505,7 +508,7 @@ sx={{
       
      </Collapse> 
 }
-
+</LongTextFieldGridItem>
 
 <GridContainer2 container component="form" 
 onSubmit={handleSubmit(onSubmit)}>
@@ -636,6 +639,8 @@ onChange={(event) => {
     last_name: event.target.value !== '',
   }));
 }}
+
+
 
 />
 
