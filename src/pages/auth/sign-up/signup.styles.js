@@ -45,7 +45,8 @@ height: 57px;
 /* left: 680px; */
 /* top: 63px; */
 
-font-family: 'Helvetica Neue';
+/* font-family: 'Helvetica Neue'; */
+font-family: 'Poppins', sans-serif;
 font-style: normal;
 font-weight: 800;
 font-size: 18px;
@@ -72,7 +73,7 @@ export const PageHeaderAndTitleContainer = styled(Box)`
 height: 75px;
 // left: 512px;
 // top: 269px;
-
+font-family: 'Poppins', sans-serif;
 margin-left: 40px;
 margin-right: 40px;
 margin-top: 50px;
@@ -82,7 +83,7 @@ export const PageHeaderAndTitleContainer2 = styled(Box)`
 
 height: 70px;
 width: 100%;
-
+font-family: 'Poppins', sans-serif;
 /* margin-left: 40px; */
 /* margin-right: 40px; */
 /* margin-top: 50px; */
@@ -95,9 +96,10 @@ height: 29px;
 
 font-family: 'Dela Gothic One';
 font-style: normal;
-font-weight: 400;
+font-weight: 800;
 font-size: 20px;
 line-height: 29px;
+font-family: 'Poppins', sans-serif;
 
 
 background: linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%);
@@ -115,7 +117,7 @@ font-weight: 400;
 font-size: 20px;
 line-height: 29px;
 text-align: center;
-
+font-family: 'Poppins', sans-serif;
 background: linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
@@ -137,13 +139,14 @@ line-height: 16px;
 text-align: center;
 /* Greyscale/#80 */
 color: #434344;
+font-family: 'Poppins', sans-serif;
 `;
 
 export const SubTitle2 = styled(Typography)`
 // width: 368px; 
 height: 42px;
 /* Text sm/regular */
-font-family: 'Helvetica Neue';
+/* font-family: 'Helvetica Neue'; */
 font-style: normal;
 font-weight: 400;
 font-size: 14px;
@@ -152,6 +155,7 @@ line-height: 16px;
 text-align: center;
 /* Greyscale/#80 */
 color: #434344;
+font-family: 'Poppins', sans-serif;
 `;
 
 
@@ -205,6 +209,7 @@ line-height: 10px;
 /* identical to box height, or 114% */
 /* Greyscale/#100 */
 color: #19191A;
+font-family: 'Poppins', sans-serif;
 `;
 
 
@@ -230,6 +235,7 @@ align-items: center;
 /* #red */
 
 color: #F2334A;
+font-family: 'Poppins', sans-serif;
 
 
 /* Inside auto layout */
@@ -257,7 +263,7 @@ padding: 0px;
 height: 55px;
 /* left: 430px;
 top: 344px; */
-
+font-family: 'Poppins', sans-serif;
 
 `;
 
@@ -283,7 +289,7 @@ background: #FFFFFF;
 
 border: 1px solid #E8E8EC;
 border-radius: 6px;
-
+font-family: 'Poppins', sans-serif;
 
 `;
 
@@ -309,7 +315,7 @@ margin-top: 0px;
 /* letter-spacing: -0.25px; */
 
 color: #000000;
-
+font-family: 'Poppins', sans-serif;
 
 /* Inside auto layout */
 `;
@@ -330,7 +336,7 @@ margin-top: 0.3rem;
 height: 144px;
 /* left: 430px; */
 /* top: 512px; */
-
+font-family: 'Poppins', sans-serif;
 `;
 
 
@@ -353,7 +359,7 @@ align-items: center;
 letter-spacing: -0.25px;
 
 /* Greyscale/#50 */
-
+font-family: 'Poppins', sans-serif;
 color: #89898A;
 
 
@@ -413,7 +419,7 @@ height: 35px;
 margin-top: 10px;
 
 /* Gradient/2 */
-
+font-family: 'Poppins', sans-serif;
 background: linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%);
 border-radius: 10px;
 `;
@@ -432,7 +438,7 @@ font-size: 14px;
 line-height: 16px;
 /* identical to box height, or 114% */
 text-transform: none;
-
+font-family: 'Poppins', sans-serif;
 /* Colors / Light / Base 1 */
 
 color: #FCFCFF;
@@ -467,6 +473,7 @@ height: 80px;
 // left: 403px;
 // top: 404px;
 // border: 2px solid red;
+font-family: 'Poppins', sans-serif;
 
 & .MuiFormHelperText-root {
     // width: 78px;
@@ -475,7 +482,9 @@ margin-bottom: 10px;
 
 /* Text xs/regular */
 
-font-family: 'Helvetica Neue';
+/* font-family: 'Helvetica Neue';  */
+
+font-family: 'Poppins', sans-serif;
 
 font-style: normal;
 font-weight: 400;
@@ -512,7 +521,7 @@ export const TncText = styled(Typography)`
 
 /* Text sm/regular */
 
-font-family: 'Helvetica Neue';
+/* font-family: 'Helvetica Neue'; */
 font-style: normal;
 font-weight: 400;
 font-size: 14px;
@@ -524,8 +533,9 @@ line-height: 16px;
 /* Greyscale/#80 */
 
 /* color: #434344; */
-font-family: 'Helvetica Neue';
+/* font-family: 'Helvetica Neue'; */
 color: #89898A;
+font-family: 'Poppins', sans-serif;
 
 `;
 
@@ -552,13 +562,13 @@ align-self: center;
 /* margin-top: 14px; */
 /* Text sm/regular */
 
-font-family: 'Helvetica Neue';
+/* font-family: 'Helvetica Neue'; */
 font-style: normal;
 font-weight: 400;
 font-size: 12px;
 line-height: 16px;
 /* identical to box height, or 114% */
-
+font-family: 'Poppins', sans-serif;
 
 color: #000000;
 text-decoration: none;
@@ -567,14 +577,14 @@ text-decoration: none;
 export const AlreadyHaveAccount = styled(Typography)`
 /* Text sm/regular */
 
-font-family: 'Helvetica Neue';
+/* font-family: 'Helvetica Neue'; */
 font-style: normal;
 font-weight: 400;
 font-size: 12px;
 line-height: 16px;
 /* identical to box height, or 114% */
 
-
+font-family: 'Poppins', sans-serif;
 color: #000000;
 `
 
@@ -588,7 +598,7 @@ display: flex;
 background: #D9D9D9;
 
 /* Inside auto layout */
-
+font-family: 'Poppins', sans-serif;
 `
 
 export const PasswordStrengthBarTwo = styled(Box)`
@@ -633,7 +643,7 @@ width: 100%;
 overflow-y: hidden; /* Hide vertical scrollbar */
   overflow-x: hidden; /* Hide horizontal scrollbar */
 
-font-family: 'Helvetica Neue';
+/* font-family: 'Helvetica Neue'; */
 display: flex;
 /* justify-content: center; */ 
 margin-left: 52px;
@@ -643,7 +653,7 @@ margin-right: 64px;
 /* Solid Colours/Brand/Error/600 */
 
 background: #DB2438;
-
+font-family: 'Poppins', sans-serif;
 `;
 
 
@@ -659,7 +669,8 @@ height: 24px;
 color: blue;
 /* Text sm/Medium */
 
-font-family: 'Helvetica Neue';
+/* font-family: 'Helvetica Neue'; */
+font-family: 'Poppins', sans-serif;
 font-style: normal;
 font-weight: 500;
 font-size: 0.9rem;

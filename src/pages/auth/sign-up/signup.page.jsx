@@ -414,7 +414,7 @@ console.log("Form Complete: ", formComplete)
       // backgroundColor: "yellow", 
       backgroundImage: `url(${signupImg})`,
       backgroundPosition: 'center',
-      backgroundSize: '100% 100%', 
+      backgroundSize: 'cover', 
       display: "flex",  
       alignItems: "center",
       // justifyContent: "center",
@@ -474,11 +474,11 @@ sx={{
 
 
 <PageHeaderAndTitleContainer2 >
-  <PageHeader2 >
+  <PageHeader2 sx={{fontFamily: "Poppins"}} >
     Let’s get started
   </PageHeader2>
 
-  <SubTitle2>
+  <SubTitle2 sx={{fontFamily: "Poppins"}}>
   Explore  banking and financial solutions that are right for you.
   </SubTitle2>
 
@@ -554,7 +554,7 @@ onSubmit={handleSubmit(onSubmit)}>
       style: {
         height: "2rem",
         fontSize: 12,
-        fontFamily: 'Helvetica Neue'
+        fontFamily: 'Poppins'
 },
 }}
 {...register("first_name", {required: {
@@ -619,7 +619,8 @@ onChange={(event) => {
       style: {
         height: "2rem",
         fontSize: 12,
-        fontFamily: 'Helvetica Neue'
+        // fontFamily: 'Helvetica Neue'
+        fontFamily: 'Poppins'
 },
 }}
 {...register("last_name", {required: {
@@ -799,7 +800,8 @@ variant="outlined" fullWidth
       style: {
         height: "2rem",
         fontSize: 12,
-        fontFamily: 'Helvetica Neue'
+        // fontFamily: 'Helvetica Neue'
+        fontFamily: 'Poppins'
 },
 }}
 
@@ -905,7 +907,8 @@ sx={{// Add a marginBottom property when errors.first_name?.message is present
       style: {
         height: "2rem",
         fontSize: 12,
-        fontFamily: 'Helvetica Neue'
+        // fontFamily: 'Helvetica Neue'
+        fontFamily: 'Poppins'
 },
 }}
 
@@ -1033,7 +1036,7 @@ placeholder="Password here"
 
 
 <PasswordStrengthText sx={{padding: "0px 16px", 
-fontFamily: 'Helvetica Neue', fontSize: 11}}>
+fontFamily: 'Poppins', fontSize: 11}}>
 Password strength
 </PasswordStrengthText>
 

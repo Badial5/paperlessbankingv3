@@ -74,6 +74,7 @@ import { mainListItems, secondaryListItems } from './const/listItems';
 // import Deposits from "./const/deposit"
 // import Orders from "./const/orders"
 import { LogoutOutlined } from '@mui/icons-material';
+import CreditCardPanel from "./const/cards"
 
 
 function Copyright(props) {
@@ -635,9 +636,11 @@ export default function MiniDrawer() {
           }}
         >
           <Toolbar />
+          
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+
             <Grid container spacing={3}>
-              {/* Chart */}
+              {/* Chart Card */}
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
@@ -645,12 +648,16 @@ export default function MiniDrawer() {
                     display: 'flex',
                     flexDirection: 'column',
                     height: 240,
+                    width: 340
                   }}
                 >
-                  {/* <Chart /> */}
+                  {/* <Chart />  */}
+                  <CreditCardPanel />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
+
+
+              {/* Recent Deposits Card */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
@@ -663,13 +670,19 @@ export default function MiniDrawer() {
                   {/* <Deposits /> */}
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
+
+
+              {/* Recent Orders Card*/}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   {/* <Orders /> */}
                 </Paper>
               </Grid>
+
+
             </Grid>
+
+            
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>

@@ -6,9 +6,9 @@ import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
   // spacing: [0, 4, 8, 16, 32, 64],
-
+  
     typography: {
-      fontFamily: [ 'Helvetica Neue',  'serif'].join(','),
+      fontFamily: [ 'Poppins',  'sansSerif'].join(','),
       fontSize: 14,
       fontStyle: "normal",
       // fontWeight: 400,

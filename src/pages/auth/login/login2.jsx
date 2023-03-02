@@ -296,7 +296,7 @@ console.log("Form Complete: ", formComplete)
       // backgroundColor: "yellow", 
       backgroundImage: `url(${signupImg})`,
       backgroundPosition: 'center',
-      backgroundSize: '100% 100%', 
+      backgroundSize: 'cover', 
       display: "flex",  
       alignItems: "center",
       flexDirection: "column",
