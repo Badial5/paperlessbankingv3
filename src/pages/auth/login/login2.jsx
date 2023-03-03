@@ -358,11 +358,11 @@ sx={{height:  {xs: 60, md: 70, } ,
 // height:  {xs: 60, md: 70, } 
 
 }} >
-  <PageHeader2 >
+  <PageHeader2 sx={{fontFamily: "Poppins", fontWeight: 800, }} >
       Welcome back!
   </PageHeader2>
 
-  <SubTitle2>
+  <SubTitle2 sx={{fontFamily: "Poppins", fontWeight: 400, }}>
   Enter your login credentials to access your account.
   </SubTitle2>
 

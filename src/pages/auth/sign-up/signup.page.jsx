@@ -474,7 +474,7 @@ sx={{
 
 
 <PageHeaderAndTitleContainer2 >
-  <PageHeader2 sx={{fontFamily: "Poppins"}} >
+  <PageHeader2 sx={{fontFamily: "Poppins", fontWeight: 800, }} >
     Let’s get started
   </PageHeader2>
 

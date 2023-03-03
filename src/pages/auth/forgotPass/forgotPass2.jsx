@@ -25,6 +25,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import IconButton from '@mui/material/IconButton';
 
+import EyeIcon from "../../../assets/svg/eye.svg"
 
 
 
@@ -36,15 +37,31 @@ import signupImg from "../../..//assets/images/signup2.jpg"
 
 
 
-import {  InlaksText, PageHeader,
-  SubTitle, PaperWrapper,
- ButtonSubmit, PageHeaderAndTitleContainer, InputFieldState, 
- InputFieldBox, InputLableText, InputTextField, InputFieldGrid,
-  HelperText, ForgotPassText, BottonComp, LoginText, IdontHaveAccount,
-    ContainerWrapper,
- } from "./forgotPass.styles"
+// import {  InlaksText, PageHeader,
+//   SubTitle, PaperWrapper,
+//  ButtonSubmit, PageHeaderAndTitleContainer, InputFieldState, 
+//  InputFieldBox, InputLableText, InputTextField, InputFieldGrid,
+//   HelperText, ForgotPassText, BottonComp, LoginText, IdontHaveAccount,
+//     ContainerWrapper,
+//  } from "./forgotPass.styles"
+
+
 import Collapse from '@mui/material/Collapse';
-import { ErrorAlert, ErrorAlertText, ErrorHelperTextContainer, LongTextFieldGridItem, NameLabel, PageHeaderAndTitleContainer2 } from '../sign-up/signup.styles';
+// import { ErrorAlert, ErrorAlertText, ErrorHelperTextContainer, LongTextFieldGridItem, NameLabel, PageHeaderAndTitleContainer2 } from '../sign-up/signup.styles'; 
+
+
+
+import { ContainerWrapper, GridContainer, GridItem, InlaksText, PageHeader, NameLabel,
+  PageHeaderAndTitleContainer, SubTitle, ErrorHelperTextContainer, 
+LongTextFieldGridItem, PasswordCheck, PasswordFeedback, PasswordStrengthContainer,
+PasswordStrengthText, ButtonComponent, InputFieldGrid, ButtonText, SignupText, 
+TncText, PasswordStrengthBarThree, PasswordStrengthBarOne, PasswordStrengthBarTwo,
+ PasswordStregthContainer, PasswordContainer, PasswordMinimumBox, ErrorAlertText,
+ ErrorAlert, AlreadyHaveAccount, BackgroundWrapper, PageHeaderAndTitleContainer2, 
+ PageHeader2, SubTitle2, GridContainer2} from '../sign-up/signup.styles';
+
+ import { BottonComp } from '../login/login.styles';
+
 
 
 // import PhoneInput from 'react-phone-number-input'
@@ -262,34 +279,60 @@ console.log("Form Complete: ", formComplete)
       {/* Paper Wrapper  */}
       {/* <PaperWrapper component="form" onSubmit={handleSubmit(onSubmit)} >  */}
 
-          <ContainerWrapper maxWidth="xs" 
-          sx={{   
-        width: "100%", }}
-          component="form" onSubmit={handleSubmit(onSubmit)} >
+      <ContainerWrapper component="main" maxWidth="xs" 
+sx={{
+  // display: 'flex',
+  // flexDirection: 'column',
+  // alignItems: 'center',
+  // justifyContent: 'center',
+  // mx: 'auto',
+  // my: 'auto',
+  padding: '20px 20px',
+  // minHeight: {xs: "50vh", md: "80vh", lg: "70vh"},
+
+}}>
+
+<Box
+    sx={{
       
-        {/* Heading  */}
-<Box sx={{padding: "1px 25px"}}>
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: "center",
+      // padding: "30px 14px", this gives it padding
+      // backgroundColor: "red",
+      padding: "10px 10px",
+      // marginBottom: "20px",
+      // padding: {xs: "40px 14px", md: "30px 14px"},
+      // padding: {xs: "40px 14px"},
+     
+      // minHeight: {xs: "80vh", md: "80vh", lg: "80vh"}, 
+      // maxHeight: {xs: "80vh", md: "80vh", lg: "80vh"},
+      // padding: { xs: "30px 15px" }
+      // border: "5px solid #fff"
+  }}>
 
-        <PageHeaderAndTitleContainer2 sx={{mr: "auto", ml: "auto", }}>
 
-          <PageHeader textAlign="center">
-          Forgot Password 
-          </PageHeader>
 
-          <SubTitle textAlign='center'>
-          Enter your account email to reset your password.
-          </SubTitle>
+<PageHeaderAndTitleContainer2 
+sx={{height:  {xs: 60, md: 70, } , 
 
-        </PageHeaderAndTitleContainer2>
-{/* 
-        {this.state.error && 
-        <Alert severity="error">{this.state.error}</Alert>
-      } */}
-        {/* { error && <Alert severity='error'>{error}</Alert> } */}
 
-        {/* {error && 
-        <Alert severity="error">{errorString}</Alert>
-      } */}
+// height:  {xs: 60, md: 70, } 
+
+}} >
+  <PageHeader2 sx={{fontFamily: "Poppins", fontWeight: 800, }} >
+  Forgot Password
+  </PageHeader2>
+
+  <SubTitle2 sx={{fontFamily: "Poppins", fontWeight: 400, }}>
+  Enter your account email to reset your password.
+  </SubTitle2>
+
+</PageHeaderAndTitleContainer2>
+
+
+
 
 
 {(error && open ) &&  
@@ -300,12 +343,9 @@ console.log("Form Complete: ", formComplete)
           color: "#fff"
         }, "& .MuiAlert-action": {
           color: "#fff"
-        }, overflow: "hidden", 
-        mr: "auto",
-        ml: "auto",  width: {xs: "20rem", md: "23rem"},
-        mt: 1, mb: 1
+        }, overflow: "hidden",  mr: "auto",
+        ml: "auto",  width: "21.5rem", mb: 2
          }}>
-          
           <ErrorAlertText >
           {Object.values(error)} 
           {/* { Object.entries(error).map(([key, val])=> <p key={key}>{key}: {val}</p>) }  */}
@@ -317,64 +357,20 @@ console.log("Form Complete: ", formComplete)
      </Collapse> 
 }
 
-     
 
-      
-   
 
-{/* <InputFieldGrid xs={12} >
-      <InputLableText>
-      Email 
-      </InputLableText>
 
-<TextField type="email"
-  error={Boolean(errors.email)}
-  variant="outlined" fullWidth
-  sx={{
-    "& .MuiOutlinedInput-root.Mui-focused": {
-      "& > fieldset": {
-borderColor: "#7833EE"
-      }
-    },  [`& fieldset`]:{
-      borderRadius: "6px" }
-  }}
-  InputProps={{
+
+
+
+
+<GridContainer2 container component="form" 
+onSubmit={handleSubmit(onSubmit)}>
+
+
     
-    style: {
-      height: "2rem",
-      
-    },
-  }}
+{/* ===================EMAIL ADDRESS ===========================================================================================  */}
 
-  id="email"
-  // label="Email Address"
-  placeholder='someexample@gmail.com'
-  {...register("email", {required: {
-    value: true,
-    message: "Email is required"
-  }, 
-  pattern: {
-    // value: /^\S+@\S+$/i,
-    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-    message: "Please enter a valid email address"
-  }
-})}
-  autoComplete="email"
- 
-  // helperText={errors.email?.message}
-/>
-
-<ErrorHelperTextContainer sx={{marginTop: errors.email?.message ? "3px": 0  }}>
-{errors.email?.message} 
-</ErrorHelperTextContainer>
-
-
- 
-
-
-</InputFieldGrid> */}
-
-{/* //CLOSE  */}
 
 {/* Email address  */}
 <LongTextFieldGridItem item xs={12} 
@@ -382,8 +378,7 @@ sx={{// Add a marginBottom property when errors.first_name?.message is present
   height: "65px",
   ...(errors.email?.message && {
     height: "70px"
-  }),  }}>
-
+  })}}>
   <NameLabel sx={{padding: "0px 16px",}}>Email Address</NameLabel>
     <TextField fullWidth type="email"
     id="email"
@@ -421,10 +416,7 @@ value: /^[^\d][A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/,
 message: "Please enter a valid email address"
 }
 })}
-// autoComplete="email"
-// helperText={errors.email?.message}
 
-// onChange={handleInputChange} 
 
 onChange={(event) => {
   handleInputChange(event);
@@ -434,12 +426,11 @@ onChange={(event) => {
   }));
 }}
 
+
 />
 
-<ErrorHelperTextContainer 
-sx={{padding: "5px 5px"}}>
-  {errors.email?.message}
-</ErrorHelperTextContainer>
+<ErrorHelperTextContainer
+>{errors.email?.message}</ErrorHelperTextContainer>
     
 </LongTextFieldGridItem>
 
@@ -447,46 +438,78 @@ sx={{padding: "5px 5px"}}>
 {/* ==================CLOSE OF EMAIL ADDRESS ===================================================================================  */}
 
 
-                
+      
 
 
 
-    
-
-    
 
 
 
-<BottonComp type='submit' sx={{padding: "5px 16px", 
-ml: "auto", mr: "auto",width: {xs: "90%", md: "90%", lg: "90%"},  }} 
-style={{
-  background: Object.values(formComplete).every(Boolean)
-  ? 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)'
-  : '#F3F3F3',
-}}
 
+
+
+
+
+
+    {/* =================================== BUTTON ==================================================================================================== */}
+    <LongTextFieldGridItem item xs={12}  sx={{height:50, width: "100%",
+     
+    }}>
+
+
+      <BottonComp
+  type='submit'
+  fullWidth
+  sx={{
+    // width: {xs: "22rem", md: "21.5rem"},
+    mt: 2,
+    mb: 0,
+    background: Object.values(formComplete).every(Boolean)
+      ? 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)'
+      : '#F3F3F3',
+   
+  }}
+  disabled={!Object.values(formComplete).every(Boolean)}
 
 >
-  <LoginText>
-    Reset password
-  </LoginText>
+  <ButtonText>
+    Login
+  </ButtonText>
 </BottonComp>
 
 
+    </LongTextFieldGridItem>
 
 
 
-<Link component={RouterLink} to="/login">
-<IdontHaveAccount textAlign="center">
-👈🏽Back to login
-</IdontHaveAccount>
-</Link>
+
+
+    <Link component={RouterLink} to="/signup" textAlign={"center"} 
+    sx={{display: "flex", marginLeft: "auto",
+    marginRight: "auto", textDecoration: "none", 
+    mt: 2}}>
+        <SignupText textAlign="center">
+        👋🏾 I don’t have an account? 
+        <span style={{color: "#7833EE", 
+      textDecoration: "underline"}}> Signup</span>
+        </SignupText>
+    </Link>
+
+    
+
+
+</GridContainer2>
+
+
+
 
 </Box>
+</ContainerWrapper>  
 
-      {/* </PaperWrapper>  */}
 
-    </ContainerWrapper>
+
+
+
       </Box>
 
       

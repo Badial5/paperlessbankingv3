@@ -74,7 +74,6 @@ import { mainListItems, secondaryListItems } from './const/listItems';
 // import Deposits from "./const/deposit"
 // import Orders from "./const/orders"
 import { LogoutOutlined } from '@mui/icons-material';
-import CreditCardPanel from "./const/cards"
 
 
 function Copyright(props) {
@@ -652,7 +651,6 @@ export default function MiniDrawer() {
                   }}
                 >
                   {/* <Chart />  */}
-                  <CreditCardPanel />
                 </Paper>
               </Grid>
 

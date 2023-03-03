@@ -421,7 +421,7 @@ sx={{
 
 <PageHeaderAndTitleContainer sx={{mr: "auto", ml: "auto", 
 }}>
-<PageHeader textAlign="center">
+<PageHeader textAlign="center" sx={{fontFamily: "Poppins", fontWeight: 800, }}>
 
   {/* Verify  your mobile number */}
   Verify your email
@@ -429,7 +429,7 @@ sx={{
 
 
 <SubTitle textAlign="center"
-
+sx={{fontFamily: "Poppins", fontWeight: 400, }}
 >
 Enter the 6 digit code sent to your email account: <br /> 
 {/* (+233) 025 3232 */}
