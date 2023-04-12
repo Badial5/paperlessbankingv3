@@ -90,7 +90,8 @@ import { EmailContext, EmailProvider } from '../../../context/emailContext';
 
 
 //SIGNUP API ENDPOINT
-const baseUrl = "https://api.inlakssolutions.com/accounts/v1/signup/"
+// const baseUrl = "https://api.inlakssolutions.com/accounts/v1/signup/" 
+const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/signup/"
 
 
 
@@ -341,35 +342,8 @@ const backgroundColorText = {
 //   setFormComplete(formIsComplete);
 // }
 
-const handleFieldChange = (e) => {
-  handleInputChange(e);
-  onChangeIso();
-}
 
-
-
-const handleFieldChangePassword = (e) => {
-  handleInputChange(e);
-  passwordStrengthChange();
-}
-
-
-// const [formComplete, setFormComplete] = useState({
-//   email: null,
-//   password: null
-// });
-
-
-// const handleInputChange = () => {
-//   // check if all form fields are filled out
-//   const formIsComplete = Object.values(getValues()).every(val => val !== '');
-//   setFormComplete(formIsComplete);
-// }
-
-
-
-// console.log("Form Complete: ", formComplete)
-
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 
@@ -379,18 +353,51 @@ const [formComplete, setFormComplete] = useState({
   first_name: null,
   last_name: null,
   email: null,
-  phone_number: null,
+  phone_number: "0550000000",
   password1: null,
 
 });
 
+// const handleInputChange = () => {
+//   // check if all form fields are filled out
+//   const formIsComplete = Object.values(getValues()).every(val => val !== '');
+//   // setFormComplete(formIsComplete);
+//   setFormComplete(prevState => ({...prevState, first_name: newValue}))
 
-const handleInputChange = () => {
-  // check if all form fields are filled out
-  const formIsComplete = Object.values(getValues()).every(val => val !== '');
-  setFormComplete(formIsComplete);
+// }
+
+
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
+
+const handleFieldChange = (e) => {
+  handleInputChange(e);
+  onChangeIso();
 }
 
+const handleFieldChangePassword = (e) => {
+  handleInputChange(e);
+  passwordStrengthChange();
+}
+const handleInputChange = (event) => {
+  const { name, value } = event.target;
+  setFormComplete(prevState => ({...prevState, [name]: value }));
+}
+
+const handleInputChangePhone = (event) => {
+  handleInputChange(event);
+  onChangeIso();
+  const { name, value } = event.target;
+  setFormComplete(prevState => ({...prevState, [name]: value }));
+}
+
+
+
+
+console.log("First Name: ", formComplete.first_name)
+console.log("Last Name: ", formComplete.last_name)
+console.log("Email: ", formComplete.email)
+console.log("Phone Number: ", formComplete.phone_number)
+console.log("Password: ", formComplete.password1)
 
 console.log("Form Complete: ", formComplete)
 
@@ -486,7 +493,13 @@ sx={{
 
 
 <LongTextFieldGridItem item xs={12} 
-sx={{padding: "5px 16px", }}>
+sx={{  height: 0, ...(error && {
+  mb: 2, 
+  mt: 0,
+  padding: "5px 16px",
+  height: 50
+  
+}) }}>
 {(error && open ) &&  
  <Collapse in={open} sx={{mb: 3}}>  
         <ErrorAlert severity="error" onClose={() => setOpen(!open)}
@@ -571,8 +584,8 @@ placeholder='eg. Joseph'
 onChange={(event) => {
   handleInputChange(event);
   setFormComplete(prevState => ({
+    first_name: event.target.value,
     ...prevState,
-    first_name: event.target.value !== '',
   }));
 }}
 
@@ -636,8 +649,9 @@ placeholder='eg. Asante'
 onChange={(event) => {
   handleInputChange(event);
   setFormComplete(prevState => ({
+   
+    last_name: event.target.value,
     ...prevState,
-    last_name: event.target.value !== '',
   }));
 }}
 
@@ -747,10 +761,7 @@ message: "You’ve entered an invalid phone number"
   value={isoValue}
   country={isocountry}
   onCountrySelect={onCountrySelect}
-  // onChange={onChangeIso}
-  // onChange={ () =>  onChangeIso handleInputChange}
-
-  // onChange={handleFieldChange}
+  
   onChange={(event) => {
     // handleInputChange(event);
     // isocountry(event)
@@ -758,10 +769,34 @@ message: "You’ve entered an invalid phone number"
     onChangeIso(event)
     handleFieldChange(event); 
     setFormComplete(prevState => ({
-      ...prevState,
       phone_number: event.target.value !== '',
+      ...prevState,
     }));
   }}
+
+  // onChange={(event) => {
+   
+  //   // handleFieldChange(event);
+  //   handleInputChangePhone(event)
+  //   setFormComplete(prevState => ({
+  //     phone_number: event.target.value,
+  //     ...prevState,
+  //   }));
+  // }}
+  
+  // setFormComplete(prevState => ({
+   
+  //   last_name: event.target.value,
+  //   ...prevState,
+  // }));
+
+  // onChange={(event) => {
+  //   handleInputChange(event);
+  //   setFormComplete(prevState => ({
+  //     first_name: event.target.value,
+  //     ...prevState,
+  //   }));
+  // }}
 
 // inputRef={register({ required: true, maxLength: 13, minLength: 12 })} 
 // onCountryChange={handleCountrySelection} 
@@ -935,8 +970,8 @@ message: "Please enter a valid email address"
 onChange={(event) => {
   handleInputChange(event);
   setFormComplete(prevState => ({
-    ...prevState,
     email: event.target.value !== '',
+    ...prevState,
   }));
 }}
 
@@ -1024,8 +1059,9 @@ onChange={(event) => {
   passwordStrengthChange(event)
   handleFieldChangePassword(event);
   setFormComplete(prevState => ({
-    ...prevState,
+    
     password1: event.target.value !== '',
+    ...prevState,
   }));
 }}
 
@@ -1110,24 +1146,26 @@ textDecoration: "underline"}}> Privacy Policy </span>
 
     {/* =================================== BUTTON ==================================================================================================== */}
     <LongTextFieldGridItem item xs={12}  sx={{height:105, width: "100%",
-     
+     height: 50,
     }}>
 
         <ButtonComponent type='submit'
-        // onClick={() => setValue("phone_number", phoneNumber) } 
        fullWidth
         onClick={ () => ButtonLoadinghandleClick, handleClick}
 
         disabled={!formComplete}
 
         style={{
-          background: formComplete ? backgroundColorText.background : "#F3F3F3",
+          background:( (formComplete.first_name) && (formComplete.first_name) 
+          && (formComplete.email) && (formComplete.phone_number) 
+          && (formComplete.password1  ) ) ? backgroundColorText.background : "#F3F3F3",
         }}
         
         sx={{ 
         padding: "0px 0px", }}>
           <ButtonText>
-            {loading ? ( <CircularProgress sx={{color: "#fff"}} size={24}  /> ) : "Create account"}  
+            {/* {loading ? ( <CircularProgress sx={{color: "#fff"}} size={24}  /> ) : "Create account"}   */}
+            Create account
           </ButtonText>
         </ButtonComponent>
     </LongTextFieldGridItem>
@@ -1135,7 +1173,7 @@ textDecoration: "underline"}}> Privacy Policy </span>
 
     <Link component={RouterLink} to="/login" textAlign={"center"} 
     sx={{display: "flex", marginLeft: "auto",
-    mt: -12,
+    mb: 5,
     marginRight: "auto", textDecoration: "none"}}>
         <SignupText textAlign="center">
         👋🏾 Already have an account? {" "}  

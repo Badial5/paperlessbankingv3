@@ -25,9 +25,13 @@ import { ContainerWrapper, ErrorAlert, ErrorAlertText } from '../sign-up/signup.
 
 // const baseUrl = "https://api.inlakssolutions.com/accounts/v1/signup/"
 
-const resendOtpUrl = "https://api.inlakssolutions.com/accounts/v1/resend-activation-otp/"
+// const resendOtpUrl = "https://api.inlakssolutions.com/accounts/v1/resend-activation-otp/"
 
-const activateAccount = "https://api.inlakssolutions.com/accounts/v1/activate-account/"
+// const activateAccount = "https://api.inlakssolutions.com/accounts/v1/activate-account/"
+
+const resendOtpUrl = "https://banking-api.inlakssolutions.com/accounts/v1/resend-activation-otp/"
+const activateAccount = "https://banking-api.inlakssolutions.com/accounts/v1/activate-account/"
+
 
 
 

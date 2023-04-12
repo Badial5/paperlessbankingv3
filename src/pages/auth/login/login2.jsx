@@ -95,9 +95,9 @@ import { BottonComp } from './login.styles';
 
 
 //SIGNUP API ENDPOINT
-const baseUrl = "https://api.inlakssolutions.com/accounts/v1/login/"
+// const baseUrl = "https://api.inlakssolutions.com/accounts/v1/login/"
 
-
+const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/login/"
 
 
 
