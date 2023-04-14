@@ -12,12 +12,32 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { AppBar, Box, ListItemButton, Toolbar, Typography } from '@mui/material';
-
+import { AppBar, Box, ListItemButton, Stack, Toolbar, Typography } from '@mui/material';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 
 import {ReactComponent as DashboardLogo} from "../assets/dashboard.svg"
 import {ReactComponent as EnquiryLogo} from "../assets/Enquiry.svg"
 import {ReactComponent as AccountLogo} from "../assets/AccountIcon.svg"
+import {ReactComponent as TransferLogo} from "../assets/Transfer.svg"
+import {ReactComponent as RequestLogo} from "../assets/Request.svg"
+import {ReactComponent as CallLogo} from "../assets/Call.svg"
+import {ReactComponent as CardLogo} from "../assets/Card Service.svg"
+import {ReactComponent as InvestmentLogo} from "../assets/Investment.svg"
+import {ReactComponent as LoanLogo} from "../assets/Loan.svg"
+import {ReactComponent as LogoutLogo} from "../assets/Logout.svg"
+import {ReactComponent as NeedHelpLogo} from "../assets/Needhelp.svg"
+import {ReactComponent as OtherLogo} from "../assets/Other.svg"
+import {ReactComponent as PaymentLogo} from "../assets/Payment.svg"
+
+
+
+import Divider from '@mui/material/Divider';
+import Paper from '@mui/material/Paper';
+// import Stack from '@mui/material/Stack';
+// import { styled } from '@mui/material/styles';
+
+
 
 
 const LeftAppBar = styled('div')(({ theme }) => ({
@@ -32,6 +52,14 @@ const LeftSideMenu = ({onOptionSelect}) => {
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
+  const [open3, setOpen3] = useState(false);
+  const [open4, setOpen4] = useState(false);
+  const [open5, setOpen5] = useState(false);
+  const [open6, setOpen6] = useState(false);
+  const [open7, setOpen7] = useState(false);
+  const [open8, setOpen8] = useState(false);
+  const [open9, setOpen9] = useState(false);
+  const [open10, setOpen10] = useState(false);
 
   const [selectedOption, setSelectedOption] = useState('default');
   const [borderStyle, setBorderStyle] = useState("")
@@ -48,21 +76,53 @@ const LeftSideMenu = ({onOptionSelect}) => {
     setOpen2(!open2);
   };
 
+  const handleClick3 = () => {
+    setOpen3(!open3);
+  };
+
+  const handleClick4 = () => {
+    setOpen4(!open4);
+  };
+
+  const handleClick5 = () => {
+    setOpen5(!open5);
+  };
+
+  const handleClick6 = () => {
+    setOpen6(!open6);
+  };
+
+  const handleClick7 = () => {
+    setOpen7(!open7);
+  };
+
+  const handleClick8 = () => {
+    setOpen8(!open8);
+  };
+
+  const handleClick9 = () => {
+    setOpen9(!open9);
+  };
+
+  const handleClick10 = () => {
+    setOpen10(!open10);
+  };
+
 
   // Enquiry 
-  const handleAccountBalance = () => {
+  const handleAccountBalanceClick = () => {
     navigate('/enquiry-balance');
   };
 
-  const handleAccountStatement = () => {
+  const handleAccountStatementClick = () => {
     navigate('/enquiry-statement');
   };
 
-  const handleAccountOfficerDetails = () => {
+  const handleAccountOfficerDetailsClick = () => {
     navigate('/enquiry-officer-details');
   };
 
-  const handleExchangeRate = () => {
+  const handleExchangeRateClick = () => {
     navigate('/enquiry-exchange-rate');
   };
 
@@ -99,10 +159,12 @@ const LeftSideMenu = ({onOptionSelect}) => {
     },
   };
 
+
+
   console.log("Selected Option: ", selectedOption)
 
   return (
-    <Box style={{width: "20vw"}}>
+    <Box style={{width: "20vw", fontSize: 10}}>
       <AppBar position="static" sx={{background: "#FBFCFC", color: "#000", borderRadius: 1,
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"}}>
         <Toolbar>
@@ -116,6 +178,8 @@ const LeftSideMenu = ({onOptionSelect}) => {
       </AppBar>
 
       <List>
+
+
         <ListItemButton
           selected={location.pathname === '/'}
           // onClick={() => navigate('/')} 
@@ -126,13 +190,13 @@ const LeftSideMenu = ({onOptionSelect}) => {
           sx={{background: "#9747FF",
           // borderLeft: "5px solid #1F8EA7",
           // lineHeight: "1px",
-          borderRadius: 1,
+          borderRadius: 1, color: "#fff",
           
           "&.MuiButtonBase-root:hover": {
             // bgcolor: "red"
             background: "#9747FF",
             color: "#ffffff"
-          }, color: "#fff" }}
+          },  }}
         >
 
           <ListItemIcon>
@@ -249,10 +313,436 @@ const LeftSideMenu = ({onOptionSelect}) => {
               <ListItemText primary="Account Officer Details" />
             </ListItemButton>
 
-            
           </List>
         </Collapse>
+
+
+
+          
+
+        {/* <ListItemButton onClick={handleClick}>
+        <ListItemIcon>
+          <AssignmentIcon />
+        </ListItemIcon>
+        <ListItemText primary="Transfer" />
+        {open ? <ExpandLess /> : <ExpandMore />}
+      </ListItemButton>
+      <Collapse in={open} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItemButton sx={{ pl: 4 }}>
+            <ListItemIcon>
+              <AssignmentIcon />
+            </ListItemIcon>
+            <ListItemText primary="Starred" />
+          </ListItemButton>
+          </List>
+          </Collapse> */}
+
+
+
+{/* =======================TRANSFER SERVICE =================================================== */}
+            {/* Transfer Service  */}
+        <ListItemButton
+          selected={location.pathname.includes('/transfer')}
+          onClick={handleClick3}
+          
+          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          <ListItemIcon>
+            <TransferLogo sx={{color: "#B5AFAF"}} />
+          </ListItemIcon>
+          <ListItemText primary="Transfer Service" />
+          {open3 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ListItemButton>
+
+        <Collapse in={open3} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton
+              selected={location.pathname === '/account-creation'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, }}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-creation');
+              }}
+              
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Transfer" />
+            </ListItemButton>
+
+            <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-officer');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Account Officer Details" />
+            </ListItemButton>
+
+          </List>
+        </Collapse>
+
+
+
+
+        
+{/* =======================REQUEST SERVICE =================================================== */}
+            {/* Request Service  */}
+            <ListItemButton
+          selected={location.pathname.includes('/transfer')}
+          onClick={handleClick4}
+          
+          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          <ListItemIcon>
+            <RequestLogo sx={{color: "#B5AFAF"}} />
+          </ListItemIcon>
+          <ListItemText primary="Request" />
+          {open4 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ListItemButton>
+
+        <Collapse in={open4} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton
+              selected={location.pathname === '/account-creation'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, }}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-creation');
+              }}
+              
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Transfer" />
+            </ListItemButton>
+
+            <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-officer');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Account Officer Details" />
+            </ListItemButton>
+
+          </List>
+        </Collapse>
+
+
+
+
+
+        {/* =======================PAYMENT SERVICE =================================================== */}
+            {/* Payment Service  */}
+            <ListItemButton
+          selected={location.pathname.includes('/transfer')}
+          onClick={handleClick5}
+          
+          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          <ListItemIcon>
+            <PaymentLogo sx={{color: "#B5AFAF"}} />
+          </ListItemIcon>
+          <ListItemText primary="Payment" />
+          {open5 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ListItemButton>
+
+        <Collapse in={open5} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton
+              selected={location.pathname === '/account-creation'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, }}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-creation');
+              }}
+              
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Transfer" />
+            </ListItemButton>
+
+            <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-officer');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Account Officer Details" />
+            </ListItemButton>
+
+          </List>
+        </Collapse>
+
+
+
+         {/* =======================CARD SERVICE =================================================== */}
+            {/* Card Service  */}
+            <ListItemButton
+          selected={location.pathname.includes('/transfer')}
+          onClick={handleClick6}
+          
+          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          <ListItemIcon>
+            <CardLogo sx={{color: "#B5AFAF"}} />
+          </ListItemIcon>
+          <ListItemText primary="Card Service" />
+          {open6 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ListItemButton>
+
+        <Collapse in={open6} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton
+              selected={location.pathname === '/account-creation'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, }}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-creation');
+              }}
+              
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Transfer" />
+            </ListItemButton>
+
+            <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-officer');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Account Officer Details" />
+            </ListItemButton>
+
+          </List>
+        </Collapse>
+
+
+
+          {/* =======================INVESTMENT SERVICE =================================================== */}
+            {/* Investment Service  */}
+            <ListItemButton
+          selected={location.pathname.includes('/transfer')}
+          onClick={handleClick7}
+          
+          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          <ListItemIcon>
+            <InvestmentLogo sx={{color: "#B5AFAF"}} />
+          </ListItemIcon>
+          <ListItemText primary="Investment" />
+          {open7 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ListItemButton>
+
+        <Collapse in={open7} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton
+              selected={location.pathname === '/account-creation'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, }}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-creation');
+              }}
+              
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Transfer" />
+            </ListItemButton>
+
+            <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-officer');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Account Officer Details" />
+            </ListItemButton>
+
+          </List>
+        </Collapse>
+
+
+
+          {/* =======================LOAN SERVICE =================================================== */}
+            {/* Loan Service  */}
+            <ListItemButton
+          selected={location.pathname.includes('/transfer')}
+          onClick={handleClick8}
+          
+          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          <ListItemIcon>
+            <LoanLogo sx={{color: "#B5AFAF"}} />
+          </ListItemIcon>
+          <ListItemText primary="Loan Service" />
+          {open8 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ListItemButton>
+
+        <Collapse in={open8} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton
+              selected={location.pathname === '/account-creation'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, }}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-creation');
+              }}
+              
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Transfer" />
+            </ListItemButton>
+
+            <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-officer');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Account Officer Details" />
+            </ListItemButton>
+
+          </List>
+        </Collapse>
+
+
+
+          {/* =======================OTHER SERVICE =================================================== */}
+            {/* Other Service  */}
+            <ListItemButton
+          selected={location.pathname.includes('/transfer')}
+          onClick={handleClick9}
+          
+          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          <ListItemIcon>
+            <OtherLogo sx={{color: "#B5AFAF"}} />
+          </ListItemIcon>
+          <ListItemText primary="Other Service" />
+          {open9 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+        </ListItemButton>
+
+        <Collapse in={open9} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <ListItemButton
+              selected={location.pathname === '/account-creation'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, }}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-creation');
+              }}
+              
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Transfer" />
+            </ListItemButton>
+
+            <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-officer');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Account Officer Details" />
+            </ListItemButton>
+
+          </List>
+        </Collapse>
+
+
+
+          {/* LOGOUT  */}
+        <ListItemButton
+          selected={location.pathname.includes('#')}
+          
+          
+          sx={{ pl: 1, borderLeft: '2px solid black', mt: 2,
+          
+          "&:hover": {
+            backgroundColor: "#9C8AD0"
+          },
+
+          "&:active": {
+            backgroundColor: "#9747FF"
+          },
+          
+          }}>
+          <ListItemIcon>
+            <OtherLogo sx={{color: "#B5AFAF"}} />
+          </ListItemIcon>
+          <ListItemText primary="Log out" />
+        
+        </ListItemButton>
+
+
       </List>
+
+
+      
     </Box>
   );
 };

@@ -76,13 +76,16 @@ const RightSideMenu = ({onOptionSelect}) => {
   };
 
   return (
-    <Box sx={{ width: "20vw", background: "#F4F7FF" }}>
+    <Box sx={{ width: "20vw", background: "#F4F7FF", fontSize: 10,
+    height: "100vh" }}>
       <AppBar position="static" 
       sx={{background: "#FBFCFC", color: "#000", 
       boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", borderRadius: 1,}}>
         <Toolbar>
        
 
+    
+    
     <AccountMenu />
 
     
@@ -93,7 +96,7 @@ const RightSideMenu = ({onOptionSelect}) => {
             // navigate('/account-creation');
             handleOptionClick('default');
           }} 
-        sx={{background: "#9747FF", color: "#fff", borderRadius: 1}}>
+        sx={{background: "#9747FF", color: "#fff", borderRadius: 1, }}>
           <ListItemIcon>
             <DashboardLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -101,14 +104,14 @@ const RightSideMenu = ({onOptionSelect}) => {
         </ListItem>
 
 
-        <ListItem Button>
+        <ListItem Button sx={{fontSize: 20}}>
           <ListItemIcon>
             {/* <Info sx={{color: "#B5AFAF"}} /> */}
           </ListItemIcon>
           <ListItemText primary="Quick Links" />
         </ListItem>
 
-        <ListItem Button style={{backgroundColor: "#fff", fontSize: "1rem", marginBottom: 10,
+        <ListItem Button style={{backgroundColor: "#fff", fontSize: "0.7rem", marginBottom: 10,
       height: "2rem", borderRadius: 1}}>
           <ListItemIcon>
            
@@ -116,7 +119,7 @@ const RightSideMenu = ({onOptionSelect}) => {
           <ListItemText primary="Bill Payments" />
         </ListItem>
 
-        <ListItem Button style={{backgroundColor: "#fff", fontSize: "1rem", marginBottom: 10,
+        <ListItem Button style={{backgroundColor: "#fff", fontSize: "0.7rem", marginBottom: 10,
       height: "2rem", borderRadius: 1}}>
           <ListItemIcon>
             
@@ -124,7 +127,7 @@ const RightSideMenu = ({onOptionSelect}) => {
           <ListItemText primary="Manage Beneficiary" />
         </ListItem>
 
-        <ListItem Button style={{backgroundColor: "#fff", fontSize: "1rem", marginBottom: 10,
+        <ListItem Button style={{backgroundColor: "#fff", fontSize: "0.7rem", marginBottom: 10,
       height: "2rem", borderRadius: 1}}>
           <ListItemIcon>
             
@@ -154,7 +157,7 @@ const RightSideMenu = ({onOptionSelect}) => {
           <ListItemText primary="Your Acount Officer" />
         </ListItem>
 
-        <Box style={{fontSize: 10}}>
+        <Box style={{fontSize: 10, }}>
           <Typography>Name: </Typography> 
           <Typography>Email: </Typography>
           <Typography>Phone: </Typography>
