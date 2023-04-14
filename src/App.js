@@ -40,8 +40,7 @@ import "./App.css"
   // import PassCongrat2 from './pages/auth/forgotPass/PassCongrat2'
 
   //Dashboard 
- 
-  import LandingPage from './pages/landingPage/landing-page'
+  import LandingPage from './pages/dashboard/landing-page'
   import UserDashboard from './pages/dashboard/dashboard'
 
 
@@ -49,8 +48,20 @@ import "./App.css"
 
   import PasswordResetOtp from './pages/ResetPassword/PasswordResetOtp/password-reset-otp'
 
-  //CreditCardForm
-  import CreditCardForm from './components/creditCard/creditCard'
+  //Enquiry
+  import AccountBalance from './pages/enquiry/accountBalance'
+  import AccountStatement from "./pages/enquiry/accountStatement"
+  import AccountOfficerDetails from "./pages/enquiry/accountOfficerDetails"
+  import ExchangeRate from "./pages/enquiry/exchangeRate"
+  
+
+
+  //Account Creation
+  import AccountCreation from './pages/account/account-creation'
+  import AccountOfficer from './pages/account/account-officer'
+
+  //Error Page
+  import ErrorPage from './error-page'
 
 
 const App = () => {
@@ -77,14 +88,28 @@ const App = () => {
 
         <Route path='password-reset-otp' element={<PasswordResetOtp />} />
 
-        <Route path='user-dashboard' element={<UserDashboard />} />
+        <Route path='user-dashboard' element={<UserDashboard />}  />
         <Route path='landing-page' element={<LandingPage />} />
 
-        <Route path='creditcard' element={<CreditCardForm />} />
+        {/* Enquiry  */}
+        <Route path='enquiry-balance' element={<AccountBalance />} />
+        <Route path='enquiry-statement' element={<AccountStatement />} />
+        <Route path='enquiry-officer-details' element={<AccountOfficerDetails />} />
+        <Route path='enquiry-exchange-rate' element={<ExchangeRate />} />
 
+         {/* Accounnt  */}
+        <Route path='account-creation' element={<AccountCreation />} />
+        <Route path='account-officer' element={<AccountOfficer />}  />
+
+
+
+        <Route errorElement={<ErrorPage />} />
       </Route>
-    )
+    ),
+
+   
   )
+
 
 
   return (

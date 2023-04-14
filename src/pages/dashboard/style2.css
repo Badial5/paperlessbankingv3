@@ -1,0 +1,31 @@
+.holy-grail {
+    display: flex;
+    flex-direction: column;
+}
+
+.holy-grail__main {
+    /* Take the remaining height */
+    flex-grow: 1;
+
+    /* Layout the left sidebar, main content and right sidebar */
+    display: flex;
+    flex-direction: row;
+}
+
+.holy-grail__left {
+    width: 20%;
+    background-color: blueviolet;
+}
+
+.holy-grail__middle {
+    /* Take the remaining width */
+    /* flex-grow: 1; */
+    width: 60%;
+    background-color: blue;
+}
+
+.holy-grail__right {
+    /* width: 200px; */
+    width: 20%;
+    background-color: aqua;
+}

@@ -32,9 +32,9 @@ const UserDashboard = () => {
 
   return (
     <DashboardContainer>
-      <LeftSideMenu onOptionSelect={handleOptionSelect} style={{width: "30vw"}}/>
-      <MainContent selectedOption={selectedOption} title="Main Content" style={{width: "100%"}}/>
-      <RightSideMenu onOptionSelect={handleOptionSelect} style={{width: "100%"}} />
+      <LeftSideMenu onOptionSelect={handleOptionSelect} />
+      <MainContent selectedOption={selectedOption} title="Main Content" />
+      <RightSideMenu onOptionSelect={handleOptionSelect}  />
     </DashboardContainer>
   );
 };
