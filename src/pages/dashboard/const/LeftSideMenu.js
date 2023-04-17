@@ -37,7 +37,7 @@ import Paper from '@mui/material/Paper';
 // import Stack from '@mui/material/Stack';
 // import { styled } from '@mui/material/styles';
 
-
+import ClipLoader from 'react-spinners/ClipLoader';
 
 
 const LeftAppBar = styled('div')(({ theme }) => ({
@@ -717,6 +717,32 @@ const LeftSideMenu = ({onOptionSelect}) => {
 
           {/* LOGOUT  */}
         <ListItemButton
+          selected={location.pathname.includes('#')}
+          
+          
+          sx={{ pl: 1, borderLeft: '2px solid black', mt: 2,
+          
+          "&:hover": {
+            backgroundColor: "#9C8AD0"
+          },
+
+          "&:active": {
+            backgroundColor: "#9747FF"
+          },
+          
+          }}>
+          <ListItemIcon>
+            <OtherLogo sx={{color: "#B5AFAF"}} />
+          </ListItemIcon>
+          <ListItemText primary="Log out" />
+        
+        </ListItemButton>
+
+
+
+
+          {/* LOGOUT  */}
+          <ListItemButton
           selected={location.pathname.includes('#')}
           
           

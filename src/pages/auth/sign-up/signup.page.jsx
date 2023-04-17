@@ -86,6 +86,16 @@ import { EmailContext, EmailProvider } from '../../../context/emailContext';
 // import AlertComponent from '../../../components/alerts/alert'; 
 
 
+// =========================== REACT ANIMATION SPINNER =========================================
+//REACT ANIMATION SPINNER 
+// import { ClipLoader } from 'react-spinners/ClipLoader';
+import {  BarLoader, ClipLoader, CircleLoader, ClimbingBoxLoader, ClockLoader, DotLoader, FadeLoader, GridLoader, HashLoader, MoonLoader, PacmanLoader, PropagateLoader, PuffLoader, PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader } from 'react-spinners';
+
+// import CircularProgress from '@mui/material';
+
+
+
+
 
 
 
@@ -241,11 +251,21 @@ const [email, setEmail] = useState('');
 
 const { setCurrentEmail } = useContext(EmailContext)
 
-
-
-
-
 // ====================================== CLOSE OF EMAIL CONTEXT ================================= ====== 
+
+
+
+// REACT SPINNER ANIMATION ===========================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+const [loadingInProgress, setLoadingInProgress] = useState(false);
+
+
+
+// ===============================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+
 
 //Password adornment
 const [showPassword, setShowPassword] = useState(false);
@@ -402,11 +422,49 @@ console.log("Password: ", formComplete.password1)
 console.log("Form Complete: ", formComplete)
 
 
+// useEffect(() => {
+//   setLoading(true)
+//   setTimeout(() => {  
+//     setLoading(false)
+//   }, 10000)
 
-  
+// }, [])
+
+
+useEffect(() => {
+  setLoadingInProgress(true)
+  const timer = setTimeout(() => {
+    setLoadingInProgress(false);
+  }, 3000);
+
+  return () => clearTimeout(timer);
+}, []);
 
 
       console.log('phoneNumber Outside Value: ', phoneNumber)
+
+
+
+      //REACT SPINNER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+      const Spinner = () => {
+        return (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "100vh",
+            }}
+          >
+            <PacmanLoader color="#8F45F2" size={25} />
+          </Box>
+        );
+      };
+      
+
+
+
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -415,8 +473,14 @@ console.log("Form Complete: ", formComplete)
       {/* <EmailContext.Provider value={email}>    */}
 
       {/* <EmailProvider> */}
+
+
+      {loadingInProgress ? (
+        <Spinner />
+      ) : (
       
 <Box  
+
      sx={{ 
       // backgroundColor: "yellow", 
       backgroundImage: `url(${signupImg})`,
@@ -434,7 +498,15 @@ console.log("Form Complete: ", formComplete)
       maxWidth: "100vw",
 
     }}
-    >
+    > 
+
+{/* <RingLoader color="#36d7b7"  isLoading={loading} /> */}
+
+{/* <PacmanLoader color="#8F45F2"  isLoading={loading} /> */}
+{/* <CircularProgress style={{ visibility: loading ? "visible" : "hidden" }} /> */}
+
+
+
 
       <InlaksText sx={{mt: 5}}>
       Inlaks
@@ -1206,7 +1278,9 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam repudiandae natus
 
 </Box>
 
-     
+      )}
+
+
 
       {/* </EmailProvider> */}
 
@@ -1216,3 +1290,4 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam repudiandae natus
     </ThemeProvider>
   );
 }
+

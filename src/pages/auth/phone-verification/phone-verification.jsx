@@ -8,6 +8,17 @@ import { useContext } from 'react';
 import { EmailContext } from '../../../context/emailContext'; 
 
 
+
+// =========================== REACT ANIMATION SPINNER =========================================
+//REACT ANIMATION SPINNER 
+// import { ClipLoader } from 'react-spinners/ClipLoader';
+import {  BarLoader, ClipLoader, CircleLoader, ClimbingBoxLoader, ClockLoader, DotLoader, FadeLoader, GridLoader, HashLoader, MoonLoader, PacmanLoader, PropagateLoader, PuffLoader, PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader } from 'react-spinners';
+
+
+
+
+
+
 //Image
 import signupImg from "../../../assets/images/signup2.jpg"
 
@@ -31,6 +42,14 @@ import { ContainerWrapper, ErrorAlert, ErrorAlertText } from '../sign-up/signup.
 
 const resendOtpUrl = "https://banking-api.inlakssolutions.com/accounts/v1/resend-activation-otp/"
 const activateAccount = "https://banking-api.inlakssolutions.com/accounts/v1/activate-account/"
+
+
+
+
+
+
+
+
 
 
 
@@ -102,6 +121,31 @@ const [open, setOpen] = useState(true);
   const [input, setInput] = useState('') // For input
 
 // =========================================================================
+
+
+
+// REACT SPINNER ANIMATION ===========================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+const [loadingInProgress, setLoadingInProgress] = useState(false);
+
+
+
+// ===============================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+
+useEffect(() => {
+  setLoadingInProgress(true)
+  const timer = setTimeout(() => {
+    setLoadingInProgress(false);
+  }, 3000);
+
+  return () => clearTimeout(timer);
+}, []);
+
+
+
+
 
 
 //useEffect for the Timer function
@@ -358,9 +402,40 @@ const onSubmit = async (data) => {
 // =============================================================================================================
 
 
+ //REACT SPINNER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ const Spinner = () => {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <PacmanLoader color="#8F45F2" size={25} />
+    </Box>
+  );
+};
+
+
+
+
+
+
+
+
 
   return (
     //Background Wallpaper
+
+    <>
+
+{loadingInProgress ? (
+        <Spinner />
+      ) : (
+
+
 
     <Box sx={{
        
@@ -825,6 +900,10 @@ flexDirection: "column", alignItems: "center",}}>
 {/* =============================================================================================  */}
       
     </Box>
+  
+      )}
+
+    </>
   )
 }
 

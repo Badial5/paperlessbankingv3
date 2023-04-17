@@ -7,6 +7,8 @@ import { CircularProgress } from '@mui/material';
 import { Collapse } from "@mui/material"
 import { useMediaQuery } from "@mui/material"
 
+import {  BarLoader, ClipLoader, CircleLoader, ClimbingBoxLoader, ClockLoader, DotLoader, FadeLoader, GridLoader, HashLoader, MoonLoader, PacmanLoader, PropagateLoader, PuffLoader, PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader } from 'react-spinners';
+
 
 
 
@@ -202,6 +204,16 @@ const [phone, setPhone] = useState()
 const [password, setPassword] = useState('');
 const [suggestion, setSuggestion] = useState('');
 
+
+// REACT SPINNER ANIMATION ===========================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+const [loadingInProgress, setLoadingInProgress] = useState(false);
+
+
+
+// ===============================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
 //CONTEXT API =====================================================================
 // export const EmailContext1 = createContext();
 
@@ -235,6 +247,18 @@ function handleChange(e) {
 function handleCheckboxChange(e) {
   setShowPassword(e.target.checked);
 }
+
+
+useEffect(() => {
+  setLoadingInProgress(true)
+  const timer = setTimeout(() => {
+    setLoadingInProgress(false);
+  }, 3000);
+
+  return () => clearTimeout(timer);
+}, []);
+
+
 
 
 
@@ -282,6 +306,24 @@ console.log("Form Complete: ", formComplete)
 
 
 
+  //REACT SPINNER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  const Spinner = () => {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <PacmanLoader color="#8F45F2" size={25} />
+      </Box>
+    );
+  };
+
+
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -290,6 +332,10 @@ console.log("Form Complete: ", formComplete)
       {/* <EmailContext.Provider value={email}>    */}
 
       {/* <EmailProvider> */}
+
+      {loadingInProgress ? (
+        <Spinner />
+      ) : (
       
 <Box  
      sx={{ 
@@ -628,6 +674,8 @@ sx={{padding: "5px 16px",}}>
 
 
 </Box>
+
+)}
 
      
 
