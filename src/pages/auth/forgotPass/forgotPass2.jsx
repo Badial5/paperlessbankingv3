@@ -25,6 +25,16 @@ import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import IconButton from '@mui/material/IconButton';
 
+
+// =========================== REACT ANIMATION SPINNER =========================================
+//REACT ANIMATION SPINNER 
+// import { ClipLoader } from 'react-spinners/ClipLoader';
+import {  BarLoader, ClipLoader, CircleLoader, ClimbingBoxLoader, ClockLoader, DotLoader, FadeLoader, GridLoader, HashLoader, MoonLoader, PacmanLoader, PropagateLoader, PuffLoader, PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader } from 'react-spinners';
+
+
+
+
+
 import EyeIcon from "../../../assets/svg/eye.svg"
 
 
@@ -61,6 +71,7 @@ TncText, PasswordStrengthBarThree, PasswordStrengthBarOne, PasswordStrengthBarTw
  PageHeader2, SubTitle2, GridContainer2} from '../sign-up/signup.styles';
 
  import { BottonComp } from '../login/login.styles';
+import { useEffect } from 'react';
 
 
 
@@ -127,6 +138,31 @@ console.log("Open value: ", open)
 const [inputValue, setInputValue] = useState('');
 
 
+// REACT SPINNER ANIMATION ===========================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+const [loadingInProgress, setLoadingInProgress] = useState(false);
+
+
+
+// ===============================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+useEffect(() => {
+  setLoadingInProgress(true)
+  const timer = setTimeout(() => {
+    setLoadingInProgress(false);
+  }, 3000);
+
+  return () => clearTimeout(timer);
+}, []);
+
+
+
+
+
+
+
+
   //react hookform 
   const { handleSubmit, register, watch, formState: {errors}, reset, trigger,
 getValues } = useForm({
@@ -144,25 +180,7 @@ getValues } = useForm({
     background: 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
   };
 
-  // const registerForm = async() => {
-  //   // e.preventDefault()
 
-    
-  //   try {
-  //     const response = await axios.post(`${baseUrl}`)
-  //     const newResponse = response.data
-  //     console.log(newResponse)
-  //     // newResponse()
-
-     
-      
-   
-  //     console.log("Successful: ", newResponse)
-  //   } catch (error) {
-  //     console.log("Error Message: ", error.response.data)
-  //   }
-    
-  // }
 
 
   const onSubmit = async (data) => {
@@ -239,7 +257,25 @@ console.log("Form Complete: ", formComplete)
 console.log("Form Complete: ", formComplete)
 
 
-
+ //REACT SPINNER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ const Spinner = () => {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+        backgroundImage: `url(${signupImg})`,
+        backgroundPosition: 'center',
+        backgroundSize: 'cover', 
+        objectFit: "cover",
+      }}
+    >
+      <PacmanLoader color="#8F45F2" size={25} />
+    </Box>
+  );
+};
 
 
 
@@ -248,6 +284,9 @@ console.log("Form Complete: ", formComplete)
   return (
     <ThemeProvider theme={theme}> 
 
+{loadingInProgress ? (
+        <Spinner />
+      ) : (
 
     <Box style={{
        
@@ -512,6 +551,7 @@ onChange={(event) => {
 
       </Box>
 
+      )}
       
       </ThemeProvider> 
   );

@@ -411,6 +411,10 @@ const onSubmit = async (data) => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
+        backgroundImage: `url(${signupImg})`,
+        backgroundPosition: 'center',
+        // backgroundSize: 'cover', 
+        objectFit: "cover",
       }}
     >
       <PacmanLoader color="#8F45F2" size={25} />

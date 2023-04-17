@@ -11,6 +11,14 @@ import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 
+// =========================== REACT ANIMATION SPINNER =========================================
+//REACT ANIMATION SPINNER 
+// import { ClipLoader } from 'react-spinners/ClipLoader';
+import {  BarLoader, ClipLoader, CircleLoader, ClimbingBoxLoader, ClockLoader, DotLoader, FadeLoader, GridLoader, HashLoader, MoonLoader, PacmanLoader, PropagateLoader, PuffLoader, PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader } from 'react-spinners';
+
+
+
+
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -27,6 +35,7 @@ import {  InlaksText,
  PageHeaderAndTitleContainer,  BottonComp, LoginText, InputFieldGrid2, ImageContainer, YourPassHasBeenSet, SubTitle2,
  } from "./pass-congrats.styles"
 import { Typography } from '@mui/material';
+import { useEffect } from 'react';
 
 
 // import PhoneInput from 'react-phone-number-input'
@@ -53,24 +62,53 @@ console.log("ThemeProvider Props:", theme)
 export default function PassCongrats() {
 
 
+// REACT SPINNER ANIMATION ===========================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+const [loadingInProgress, setLoadingInProgress] = useState(false);
+// ===============================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
 
+useEffect(() => {
+  setLoadingInProgress(true)
+  const timer = setTimeout(() => {
+    setLoadingInProgress(false);
+  }, 3000);
+
+  return () => clearTimeout(timer);
+}, []);
 
 
+  //REACT SPINNER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  const Spinner = () => {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          backgroundImage: `url(${signupImg})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover', 
+          objectFit: "cover",
+        }}
+      >
+        {/* <PacmanLoader color="#8F45F2" size={25} /> */}
+
+        <RingLoader color="#8F45F2" size={300} />
+      </Box>
+    );
+  };
+  
 
 
   return (
     // <ThemeProvider theme={theme}>
 
-
-      
-
-
-
-      
-
-     
+     <>
+    {loadingInProgress ? (
+      <Spinner />
+    ) : (
 
     <Box style={{
        
@@ -100,7 +138,7 @@ export default function PassCongrats() {
       
 
         <InlaksText>
-          InLaks
+          InLaks 
         </InlaksText>
 
       {/* Paper Wrapper  */}
@@ -167,6 +205,10 @@ ml: "auto", mr: "auto",width: "100%", width: {xs: "20rem", md: "23rem"}}}
 
 
       </Box>
+
+    )}
+
+    </>
 
       
     // {/* </ThemeProvider> */}

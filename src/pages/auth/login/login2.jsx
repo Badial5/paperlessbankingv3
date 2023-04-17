@@ -315,6 +315,10 @@ console.log("Form Complete: ", formComplete)
           justifyContent: "center",
           alignItems: "center",
           height: "100vh",
+          backgroundImage: `url(${signupImg})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover', 
+          objectFit: "cover",
         }}
       >
         <PacmanLoader color="#8F45F2" size={25} />
@@ -349,7 +353,7 @@ console.log("Form Complete: ", formComplete)
       boxSizing: "borderBox",
       backgroundRepeat: 'no-repeat', 
       width: "100%",
-      minHeight: {xs: "90vh", md: "100vh", lg: "100vh"},
+      minHeight: {xs: "100vh", md: "100vh", lg: "100vh"},
       mx: "auto",
       my:'auto',
       maxWidth: "100vw",

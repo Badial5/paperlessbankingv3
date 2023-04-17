@@ -28,6 +28,16 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useForm } from 'react-hook-form';
 
+
+// =========================== REACT ANIMATION SPINNER =========================================
+//REACT ANIMATION SPINNER 
+// import { ClipLoader } from 'react-spinners/ClipLoader';
+import {  BarLoader, ClipLoader, CircleLoader, ClimbingBoxLoader, ClockLoader, DotLoader, FadeLoader, GridLoader, HashLoader, MoonLoader, PacmanLoader, PropagateLoader, PuffLoader, PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader } from 'react-spinners';
+
+
+
+
+
 // import signupImg from "../../..//assets/images/signup2.jpg" 
 // import signupImg from "../../assets/images/signup2.jpg"
 import signupImg from "../../assets/images/signup2.jpg";
@@ -80,11 +90,21 @@ const theme = createTheme();
 
 export default function ResetPass2() {
 
+
   //USEREF FUNCTION 
   const ref = useRef(null)
 
   //Button Loading state ================================================================
   const [loading, setLoading] = useState(false);
+
+  // REACT SPINNER ANIMATION ===========================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+const [loadingInProgress, setLoadingInProgress] = useState(false);
+
+
+
+// ===============================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
 
   const { handleSubmit, register, watch, formState: {errors}, reset, trigger } = useForm({
     mode: "onTouched",
@@ -170,6 +190,17 @@ function handleCheckboxChange(e) {
 
 
 
+useEffect(() => {
+  setLoadingInProgress(true)
+  const timer = setTimeout(() => {
+    setLoadingInProgress(false);
+  }, 3000);
+
+  return () => clearTimeout(timer);
+}, []);
+
+
+
 const onSubmit = async (data) => {
   console.log("Form Data: ", data)
   // registerForm()
@@ -193,13 +224,36 @@ const onSubmit = async (data) => {
     setError(error.response.data)
     console.log("Error Message: ", error.response.data)
   }
-
-
 }
+
+
+  //REACT SPINNER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  const Spinner = () => {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          backgroundImage: `url(${signupImg})`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover', 
+          objectFit: "cover",
+        }}
+      >
+        <PacmanLoader color="#8F45F2" size={25} />
+      </Box>
+    );
+  };
   
 
   return (
     <ThemeProvider theme={theme}>
+
+{loadingInProgress ? (
+        <Spinner />
+      ) : (
 
 <Box  
      sx={{ 
@@ -224,7 +278,7 @@ const onSubmit = async (data) => {
 
 
       <InlaksText sx={{mx: "auto", mt: 2}}>
-        InLaks
+        InLaks 
       </InlaksText>
 
       <ContainerWrapper component="main" maxWidth="xs" 
@@ -566,6 +620,10 @@ placeholder="Password here"
       </ContainerWrapper>
 
       </Box>
+
+      )}
+
+
     </ThemeProvider>
   );
 

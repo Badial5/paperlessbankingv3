@@ -91,6 +91,12 @@ import { EmailContext, EmailProvider } from '../../../context/emailContext';
 // import { ClipLoader } from 'react-spinners/ClipLoader';
 import {  BarLoader, ClipLoader, CircleLoader, ClimbingBoxLoader, ClockLoader, DotLoader, FadeLoader, GridLoader, HashLoader, MoonLoader, PacmanLoader, PropagateLoader, PuffLoader, PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader } from 'react-spinners';
 
+
+
+
+
+
+
 // import CircularProgress from '@mui/material';
 
 
@@ -257,9 +263,6 @@ const { setCurrentEmail } = useContext(EmailContext)
 
 // REACT SPINNER ANIMATION ===========================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 const [loadingInProgress, setLoadingInProgress] = useState(false);
-
-
-
 // ===============================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
@@ -454,9 +457,13 @@ useEffect(() => {
               justifyContent: "center",
               alignItems: "center",
               height: "100vh",
+              backgroundImage: `url(${signupImg})`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover', 
+              objectFit: "cover",
             }}
           >
-            <PacmanLoader color="#8F45F2" size={25} />
+            <PacmanLoader color="#8F45F2" size={100} />
           </Box>
         );
       };
@@ -486,6 +493,7 @@ useEffect(() => {
       backgroundImage: `url(${signupImg})`,
       backgroundPosition: 'center',
       backgroundSize: 'cover', 
+      objectFit: "cover",
       display: "flex",  
       alignItems: "center",
       // justifyContent: "center",
@@ -493,7 +501,7 @@ useEffect(() => {
       boxSizing: "borderBox",
       backgroundRepeat: 'no-repeat', 
       width: "100%",
-      minHeight: {xs: "150vh"},
+      minHeight: {xs: "150vh", md: "110vh"},
       mx: "auto",
       maxWidth: "100vw",
 
