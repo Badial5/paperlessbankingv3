@@ -18,7 +18,7 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 
 import {ReactComponent as DashboardLogo} from "../assets/dashboard.svg"
 import {ReactComponent as EnquiryLogo} from "../assets/Enquiry.svg"
-import {ReactComponent as AccountLogo} from "../assets/AccountIcon.svg"
+import {ReactComponent as AccountLogo} from "../assets/AccountService.svg"
 import {ReactComponent as TransferLogo} from "../assets/Transfer.svg"
 import {ReactComponent as RequestLogo} from "../assets/Request.svg"
 import {ReactComponent as CallLogo} from "../assets/Call.svg"
@@ -213,7 +213,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
           selected={location.pathname.includes('/enquiry')}
           onClick={handleClick2}
           
-          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          sx={{ pl: 1,   mt: 1, }}>
           <ListItemIcon>
             <EnquiryLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -271,7 +271,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
           selected={location.pathname.includes('/account')}
           onClick={handleClick}
           
-          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          sx={{ pl: 1,   mt: 1, }}>
           <ListItemIcon>
             <AccountLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -346,7 +346,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
           selected={location.pathname.includes('/transfer')}
           onClick={handleClick3}
           
-          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          sx={{ pl: 1,   mt: 1, }}>
           <ListItemIcon>
             <TransferLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -401,7 +401,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
           selected={location.pathname.includes('/transfer')}
           onClick={handleClick4}
           
-          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          sx={{ pl: 1,   mt: 1,}}>
           <ListItemIcon>
             <RequestLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -456,7 +456,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
           selected={location.pathname.includes('/transfer')}
           onClick={handleClick5}
           
-          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          sx={{ pl: 1,   mt: 1, }}>
           <ListItemIcon>
             <PaymentLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -509,7 +509,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
           selected={location.pathname.includes('/transfer')}
           onClick={handleClick6}
           
-          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          sx={{ pl: 1,   mt: 1, }}>
           <ListItemIcon>
             <CardLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -562,7 +562,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
           selected={location.pathname.includes('/transfer')}
           onClick={handleClick7}
           
-          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          sx={{ pl: 1,   mt: 1, }}>
           <ListItemIcon>
             <InvestmentLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -615,7 +615,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
           selected={location.pathname.includes('/transfer')}
           onClick={handleClick8}
           
-          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          sx={{ pl: 1,   mt: 1, }}>
           <ListItemIcon>
             <LoanLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -668,7 +668,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
           selected={location.pathname.includes('/transfer')}
           onClick={handleClick9}
           
-          sx={{ pl: 1, borderLeft: '2px solid black' }}>
+          sx={{ pl: 1,   mt: 1,}}>
           <ListItemIcon>
             <OtherLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -720,19 +720,22 @@ const LeftSideMenu = ({onOptionSelect}) => {
           selected={location.pathname.includes('#')}
           
           
-          sx={{ pl: 1, borderLeft: '2px solid black', mt: 2,
+          sx={{ pl: 0.5,  mt: 2,
           
           "&:hover": {
-            backgroundColor: "#9C8AD0"
+            backgroundColor: "#9C8AD0",
+            borderRadius: 10,
+            borderLeft: "2px solid #9747FF"
           },
 
           "&:active": {
-            backgroundColor: "#9747FF"
+            backgroundColor: "#9747FF",
+            borderLeft: "2px solid #9747FF"
           },
           
           }}>
           <ListItemIcon>
-            <OtherLogo sx={{color: "#B5AFAF"}} />
+            <LogoutLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
           <ListItemText primary="Log out" />
         
@@ -741,26 +744,56 @@ const LeftSideMenu = ({onOptionSelect}) => {
 
 
 
-          {/* LOGOUT  */}
+          {/* NEED HELP  */}
           <ListItemButton
           selected={location.pathname.includes('#')}
           
           
-          sx={{ pl: 1, borderLeft: '2px solid black', mt: 2,
+          sx={{ pl: 1,   mt: 1,
           
           "&:hover": {
-            backgroundColor: "#9C8AD0"
+            backgroundColor: "#9C8AD0",
+            borderRadius: 10,
+            borderLeft: "2px solid #9747FF"
           },
 
           "&:active": {
-            backgroundColor: "#9747FF"
+            backgroundColor: "#9747FF",
+            borderLeft: "2px solid #9747FF"
           },
           
           }}>
           <ListItemIcon>
-            <OtherLogo sx={{color: "#B5AFAF"}} />
+            <NeedHelpLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
-          <ListItemText primary="Log out" />
+          <ListItemText primary="Need Help" />
+        
+        </ListItemButton>
+
+
+         {/* CALL CENTER  */}
+         <ListItemButton
+          selected={location.pathname.includes('#')}
+          
+          
+          sx={{ pl: 1,   mt: 1,
+          
+          "&:hover": {
+            backgroundColor: "#9C8AD0",
+            borderRadius: 10,
+            borderLeft: "2px solid #9747FF"
+          },
+
+          "&:active": {
+            backgroundColor: "#9747FF",
+            borderLeft: "2px solid #9747FF"
+          },
+          
+          }}>
+          <ListItemIcon>
+            <CallLogo sx={{color: "#B5AFAF"}} />
+          </ListItemIcon>
+          <ListItemText primary="Call Center" />
         
         </ListItemButton>
 

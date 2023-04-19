@@ -321,7 +321,7 @@ console.log("Form Complete: ", formComplete)
           objectFit: "cover",
         }}
       >
-        <PacmanLoader color="#8F45F2" size={25} />
+        <GridLoader color="#8F45F2" size={25} />
       </Box>
     );
   };

@@ -95,7 +95,7 @@ useEffect(() => {
       >
         {/* <PacmanLoader color="#8F45F2" size={25} /> */}
 
-        <RingLoader color="#8F45F2" size={300} />
+        <RingLoader color="#8F45F2" size={100} />
       </Box>
     );
   };

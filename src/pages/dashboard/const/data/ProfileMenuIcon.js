@@ -14,12 +14,45 @@ import Logout from '@mui/icons-material/Logout';
 import { styled } from '@mui/material/styles';
 import Badge from '@mui/material/Badge';
 
+import { useForm } from 'react-hook-form';
+import axios from "axios"
 
+import { Link as RouterLink, redirect, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
+
+
+
+
+const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/logout/"
+// const baseUrl = "/accounts/v1/logout/"
 
 
 export default function AccountMenu() {
 
+  const { handleSubmit, register, watch, setValue, formState: {errors}, reset, 
+  getValues, trigger } = useForm({
+    mode: "onTouched",
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      email: "",
+      phone_number: "",
+      password1: "",
+      // password2: "",
+      // tnc: ""
+    }
+  })
 
+
+
+
+     //error state
+  const [error, setError] = useState(null)
+  const [logoutStatus, setLogoutStatus] = useState('')
+
+
+  const navigate = useNavigate()
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -29,6 +62,44 @@ export default function AccountMenu() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  
+  const handleLogOut = async (data) => {
+    sessionStorage.setItem("email", data.email);
+    console.log("Form Data: ", data)
+    // registerForm()
+    // reset()
+    try {
+      const response = await axios.post(baseUrl, data)
+      const newResponse = response.data
+      console.log(newResponse)
+      // newResponse()
+      
+      // setCurrentEmail(email)
+      // console.log("EMail Context Value: ", email)
+  
+      // console.log("Session Storage Email ", email)
+      setLogoutStatus(newResponse)
+    
+      navigate("/")
+      reset()
+  
+      // console.log("Successful: ", newResponse)
+    } catch (error) {
+      // setError(error.response.data)
+  
+      if (error.response.data.message === "Request failed with status code 500") {
+        console.log("Sorry You made a bad request" )
+        setError("You made a bad request\n Check the Email")
+      } else {
+        setError(error.response.data)
+      }
+      // console.log("Error Message: ", error.response.data)
+      console.log("Error Message from state: ", error) 
+    }
+  }
+
+
 
 
   const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -70,7 +141,8 @@ export default function AccountMenu() {
 
   return (
     <React.Fragment>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center',
+    fontFamily: "Poppins" }}>
       
         <Tooltip title="Account settings">
           <IconButton
@@ -147,17 +219,22 @@ export default function AccountMenu() {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem onClick={handleClose}>
+
+        {/* ==================LOGOUT======================================================= */}
+
+        <MenuItem onClick={handleLogOut}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
           Logout
         </MenuItem>
+
+
       </Menu>
 
         <Box sx={{display: "flex", flexDirection: "column"}}>
       <Typography sx={{fontSize: 10}}>Welcome back</Typography>
-      <Box><Typography sx={{fontSize: 10}}>Calvin Williams</Typography></Box>
+      <Box><Typography sx={{fontSize: 10}}>Joseph</Typography></Box>
       </Box>
       </Box>
     </React.Fragment>

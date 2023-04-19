@@ -463,7 +463,7 @@ useEffect(() => {
               objectFit: "cover",
             }}
           >
-            <PacmanLoader color="#8F45F2" size={100} />
+            <GridLoader color="#8F45F2" size={25} />
           </Box>
         );
       };

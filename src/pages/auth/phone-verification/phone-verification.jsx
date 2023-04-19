@@ -417,7 +417,7 @@ const onSubmit = async (data) => {
         objectFit: "cover",
       }}
     >
-      <PacmanLoader color="#8F45F2" size={25} />
+      <GridLoader color="#8F45F2" size={25} />
     </Box>
   );
 };

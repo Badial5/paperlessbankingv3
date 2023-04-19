@@ -18,8 +18,14 @@ import {
 } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 
+
+import { StyledTextField } from "./style/account-creation"
+
+
+
 import UserImg from "./const/images/User.svg"
-import { ErrorHelperTextContainer, GridItem, NameLabel, PageHeader2, PageHeaderAndTitleContainer2, SubTitle2 } from "../auth/sign-up/signup.styles";
+import { ErrorHelperTextContainer, GridItem, NameLabel, PageHeader2, PageHeaderAndTitleContainer2, SubTitle2, ButtonComponent, ButtonText,
+  } from "./style/account-creation";
 
 const MyFormControl = styled(FormControl)({
   minWidth: 120,
@@ -85,6 +91,21 @@ const AccountCreation = () => {
   const [currency, setCurrency] = React.useState("$")
   const [accountType, setAccountType] = React.useState("")
 
+  const [formComplete, setFormComplete] = React.useState({
+
+    first_name: null,
+    last_name: null,
+    email: null,
+    phone_number: "0550000000",
+    password1: null,
+  
+  });
+
+
+  const backgroundColorText = {
+    background: 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
+  };
+
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
@@ -109,346 +130,368 @@ const AccountCreation = () => {
     setAccountType(event.target.value);
   };
 
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormComplete(prevState => ({...prevState, [name]: value }));
+  }
+
+
   return (
+    <Box
+      style={{
+        backgroundColor: "#fff",
+        height: "100vh",
+        borderRadius: 20,
+        marginTop: 30,
+        paddingLeft: 30,
+        paddingRight: 30
 
-    <Box >
-    
-   
-
-     
-
-
-<PageHeaderAndTitleContainer2 sx={{mt: 1, mx: "auto"}}  >
-  <PageHeader2 >
-  Create an account
-  </PageHeader2>
-
-  <SubTitle2>
-  Take a selfie and fill the form below with the appropriate information
-  </SubTitle2>
-
-</PageHeaderAndTitleContainer2>
-
-<Box sx={{maxWidth: "100%", ml: "auto", mr: "auto"}}>
-
-
-<Grid container spacing={1} columnSpacing={{ xs: 0.5, sm: 0.5, md: 0.5 }}
- sx={{ display: "flex", 
-justifyContent: "center", ml: "auto", mr: "auto" }}>
-
-    
-    {/* Title Select Field  */}
-<Grid item xs={12} sm={6} sx={{   }}>
-<Item> 
-  <MyFormControl variant="outlined">
-    <NameLabel id="title-label" sx={{ mb: 1 }}>
-      Title jkj
-    </NameLabel>
-    <TextField
-      select
-      labelId="title-label"
-      id="title"
-      value={title}
-      onChange={handleTitleChange}
-      sx={{
-        
-        "& .MuiOutlinedInput-root.Mui-focused": {
-          "& > fieldset": {
-            borderColor: "#7833EE",
-          },
-        },
-        "& fieldset": {
-          borderRadius: "6px",
-        },
-      }}
-      InputProps={{
-        style: {
-          height: "2rem",
-          fontSize: 12,
-          fontFamily: "Poppins",
-        },
       }}
     >
-      {titles.map((title) => (
-        <MenuItem key={title} value={title}>
-          {title}
-        </MenuItem>
-      ))}
-    </TextField>
-  </MyFormControl>
+      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 30}}>
+        <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, m: 5, mb: 10 }}>
+          <PageHeader2>Create an account</PageHeader2>
+          <SubTitle2>
+            Take a selfie and fill the form below with the appropriate information
+          </SubTitle2>
+        </PageHeaderAndTitleContainer2>
+  
+        <Grid item xs={6} sm={6}>
+          <NameLabel sx={{padding: "0px 17px"}}>First Name</NameLabel>
+  
+          <TextField 
+            type="text"
+            id="first_name"
+            error={Boolean(errors.first_name)}
+            variant="outlined" 
+            sx={{ 
+              padding: "5px 8px",
+              textAlign: "center",
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#7833EE"
+                }
+              },
+              [`& fieldset`]:{
+                borderRadius: "6px"
+              }
+            }}
+            InputProps={{
+              style: {
+                height: "2rem",
+                fontSize: 12,
+                fontFamily: 'Poppins'
+              },
+            }}
+            {...register("first_name", {
+              required: {
+                value: true,
+                message: "First name is required"
+              }
+            })}
+            placeholder='eg. Joseph'
+            onChange={(event) => {
+              handleInputChange(event);
+              setFormComplete(prevState => ({
+                first_name: event.target.value,
+                ...prevState,
+              }));
+            }}
+          />
+          { (errors.first_name?.message  ) &&
+            <ErrorHelperTextContainer>
+              {errors.first_name?.message}
+            </ErrorHelperTextContainer> 
+          }
+        </Grid>
+  
+        <Grid item xs={6} sm={6}>
+          <NameLabel sx={{padding: "0px 17px"}}>Last Name</NameLabel>
+  
+          <TextField
+            type="text"
+            id="last_name"
+            error={Boolean(errors.last_name)}
+            variant="outlined" 
+            sx={{ 
+              padding: "5px 8px",
+              textAlign: "center",
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#7833EE"
+                }
+              },
+              [`& fieldset`]:{
+                borderRadius: "6px"
+              }
+            }}
+            InputProps={{
+              style: {
+                height: "2rem",
+                fontSize: 12,
+                fontFamily: 'Poppins'
+              },
+            }}
+            {...register("last_name", {
+              required: {
+                value: true,
+                message: "Last name is required"
+              }
+            })}
+            placeholder='eg. Smith'
+            onChange={(event) => {
+              handleInputChange(event);
+              setFormComplete(prevState => ({
+                last_name: event.target.value,
+                ...prevState,
+              }));
+            }}
+          />
+  
+          { (errors.last_name?.message  ) &&
+            <ErrorHelperTextContainer>
+              {errors.last_name?.message}
+            </ErrorHelperTextContainer> 
+          }
+        </Grid>
 
-  </Item>
-</Grid>
 
 
 
 
-{/* ========================= END OF TITLE ===================================  */}
+        <Grid item xs={6} sm={6}>
+          <NameLabel sx={{padding: "0px 17px"}}>ID Card</NameLabel>
+  
+          <TextField 
+            type="text"
+            id="first_name"
+            error={Boolean(errors.first_name)}
+            variant="outlined" 
+            sx={{ 
+              padding: "5px 8px",
+              textAlign: "center",
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#7833EE"
+                }
+              },
+              [`& fieldset`]:{
+                borderRadius: "6px"
+              }
+            }}
+            InputProps={{
+              style: {
+                height: "2rem",
+                fontSize: 12,
+                fontFamily: 'Poppins'
+              },
+            }}
+            {...register("first_name", {
+              required: {
+                value: true,
+                message: "First name is required"
+              }
+            })}
+            placeholder='eg. Joseph'
+            onChange={(event) => {
+              handleInputChange(event);
+              setFormComplete(prevState => ({
+                first_name: event.target.value,
+                ...prevState,
+              }));
+            }}
+          />
+          { (errors.first_name?.message  ) &&
+            <ErrorHelperTextContainer>
+              {errors.first_name?.message}
+            </ErrorHelperTextContainer> 
+          }
+        </Grid>
+  
+        <Grid item xs={6} sm={6}>
+          <NameLabel sx={{padding: "0px 17px"}}>ID Number</NameLabel>
+  
+          <TextField
+            type="text"
+            id="last_name"
+            error={Boolean(errors.last_name)}
+            variant="outlined" 
+            sx={{ 
+              padding: "5px 8px",
+              textAlign: "center",
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#7833EE"
+                }
+              },
+              [`& fieldset`]:{
+                borderRadius: "6px"
+              }
+            }}
+            InputProps={{
+              style: {
+                height: "2rem",
+                fontSize: 12,
+                fontFamily: 'Poppins'
+              },
+            }}
+            {...register("last_name", {
+              required: {
+                value: true,
+                message: "Last name is required"
+              }
+            })}
+            placeholder='eg. Smith'
+            onChange={(event) => {
+              handleInputChange(event);
+              setFormComplete(prevState => ({
+                last_name: event.target.value,
+                ...prevState,
+              }));
+            }}
+          />
+  
+          { (errors.last_name?.message  ) &&
+            <ErrorHelperTextContainer>
+              {errors.last_name?.message}
+            </ErrorHelperTextContainer> 
+          }
+        </Grid>
 
 
-<Grid item xs={12} sm={8} lg={6} sx={{mx: {sm: -15}, }}>
-  <Item> 
-<NameLabel id="title-label" sx={{ mb: 1 }}>
-      Full Name
-    </NameLabel>
-  <TextField
-    id="full-name"
-    variant="outlined"
-    fullWidth
-    value={fullName}
-    onChange={handleFullNameChange}
-    sx={{
-      width: {sm: "40%", lg: "70%",},
-      "& .MuiOutlinedInput-root.Mui-focused": {
-        "& > fieldset": {
-          borderColor: "#7833EE",
-        },
-      },
-      "& fieldset": {
-        borderRadius: "6px",
-      },
-    }}
-    InputProps={{
-      style: {
-        height: "2rem",
-        fontSize: 12,
-        fontFamily: "Poppins",
-      },
-    }}
-    placeholder="Full Name"
-  />
-
-</Item>
-</Grid>
 
 
+        <Grid item xs={6} sm={6}>
+          <NameLabel sx={{padding: "0px 17px"}}>Email</NameLabel>
+  
+          <TextField 
+            type="text"
+            id="first_name"
+            error={Boolean(errors.first_name)}
+            variant="outlined" 
+            sx={{ 
+              padding: "5px 8px",
+              textAlign: "center",
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#7833EE"
+                }
+              },
+              [`& fieldset`]:{
+                borderRadius: "6px"
+              }
+            }}
+            InputProps={{
+              style: {
+                height: "2rem",
+                fontSize: 12,
+                fontFamily: 'Poppins'
+              },
+            }}
+            {...register("first_name", {
+              required: {
+                value: true,
+                message: "First name is required"
+              }
+            })}
+            placeholder='eg. Joseph'
+            onChange={(event) => {
+              handleInputChange(event);
+              setFormComplete(prevState => ({
+                first_name: event.target.value,
+                ...prevState,
+              }));
+            }}
+          />
+          { (errors.first_name?.message  ) &&
+            <ErrorHelperTextContainer>
+              {errors.first_name?.message}
+            </ErrorHelperTextContainer> 
+          }
+        </Grid>
+  
+        <Grid item xs={6} sm={6}>
+          <NameLabel sx={{padding: "0px 17px"}}>Phone Number</NameLabel>
+  
+          <TextField
+            type="text"
+            id="last_name"
+            error={Boolean(errors.last_name)}
+            variant="outlined" 
+            sx={{ 
+              padding: "5px 8px",
+              textAlign: "center",
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#7833EE"
+                }
+              },
+              [`& fieldset`]:{
+                borderRadius: "6px"
+              }
+            }}
+            InputProps={{
+              style: {
+                height: "2rem",
+                fontSize: 12,
+                fontFamily: 'Poppins'
+              },
+            }}
+            {...register("last_name", {
+              required: {
+                value: true,
+                message: "Last name is required"
+              }
+            })}
+            placeholder='eg. Smith'
+            onChange={(event) => {
+              handleInputChange(event);
+              setFormComplete(prevState => ({
+                last_name: event.target.value,
+                ...prevState,
+              }));
+            }}
+          />
+  
+          { (errors.last_name?.message  ) &&
+            <ErrorHelperTextContainer>
+              {errors.last_name?.message}
+            </ErrorHelperTextContainer> 
+          }
+        </Grid>
 
 
-   {/* Title Select Field  */}
-   <Grid item xs={12} sm={6} sx={{   }}>
-    {/* <Item> */}
-  <MyFormControl variant="outlined">
-    <NameLabel id="title-label" sx={{ mb: 1 }}>
-    ID Type
-    </NameLabel>
-    <TextField
-      select
-      labelId="title-label"
-      id="title"
-      value={idType}
-      onChange={handleIdTypeChange}
-      sx={{
+
+        <Box style={{width: 200, marginLeft: "auto", marginRight: "auto"}}>
+        <ButtonComponent type='submit'
+       fullWidth
+        onClick={ () => null}
+
+        disabled={formComplete}
+
+        style={{
+          background:( (formComplete.first_name) && (formComplete.first_name) 
+          && (formComplete.email) && (formComplete.phone_number) 
+          && (formComplete.password1  ) ) ? backgroundColorText.background : "#F3F3F3",
+        }}
         
-        "& .MuiOutlinedInput-root.Mui-focused": {
-          "& > fieldset": {
-            borderColor: "#7833EE",
-          },
-        },
-        "& fieldset": {
-          borderRadius: "6px",
-        },
-      }}
-      InputProps={{
-        style: {
-          height: "2rem",
-          fontSize: 12,
-          fontFamily: "Poppins",
-        },
-      }}
-    >
-           {idTypes.map((idtype) => (
-        <MenuItem key={idtype} value={idtype}>
-          {idtype}
-        </MenuItem>
-      ))}
+        sx={{ 
+        padding: "0px 0px", }}>
+          <ButtonText>
+            {/* {loading ? ( <CircularProgress sx={{color: "#fff"}} size={24}  /> ) : "Create account"}   */}
+            Continue
+          </ButtonText>
+        </ButtonComponent>
 
-    </TextField>
-  </MyFormControl>
-  {/* </Item>  */}
-</Grid>
+        </Box>
 
 
-
-
-{/* ========================= END OF TITLE ===================================  */}
-
-
-<Grid item xs={12} sm={8} lg={6} sx={{mx: {sm: -15} }}>
-  {/* <Item>  */}
-<NameLabel id="title-label" sx={{ mb: 1 }}>
-ID Number
-    </NameLabel>
-  <TextField
-    id="id-number"
-    variant="outlined"
-    fullWidth
-    value={idNumber}
-    onChange={handleIdNumberChange}
-
-    sx={{
-      width: "70%",
-      "& .MuiOutlinedInput-root.Mui-focused": {
-        "& > fieldset": {
-          borderColor: "#7833EE",
-        },
-      },
-      "& fieldset": {
-        borderRadius: "6px",
-      },
-    }}
-    InputProps={{
-      style: {
-        height: "2rem",
-        fontSize: 12,
-        fontFamily: "Poppins",
-      },
-    }}
-    placeholder="GHA-000-000-0000"
-  />
-
-  {/* </Item> */}
-</Grid>
-
-
-
-
-    {/* ACCOUNT INFORMATION SECTION  */}
-<Grid item xs={12}>
-{/* <Item> */}
-<Typography sx={{ml: 13, mt: 0, fontSize: 12, padding: "0px 10px"}}>
-  Account Information 
-</Typography>
-{/* </Item> */}
-</Grid>
-
-
-
- {/* Title Select Field  */}
- <Grid item xs={12} sm={4} lg={6} sx={{   }}>
-
- {/* <Item>  */}
-  <MyFormControl variant="outlined">
-    <NameLabel id="title-label" sx={{ mb: 1 }}>
-    Currency
-    </NameLabel>
-    <TextField
-      select
-      labelId="title-label"
-      id="title"
-      value={currency}
-      onChange={handleCurrencyTypeChange}
-
-
-      sx={{
-        
-        "& .MuiOutlinedInput-root.Mui-focused": {
-          "& > fieldset": {
-            borderColor: "#7833EE",
-          },
-        },
-        "& fieldset": {
-          borderRadius: "6px",
-        },
-      }}
-      InputProps={{
-        style: {
-          height: "2rem",
-          fontSize: 12,
-          fontFamily: "Poppins",
-        },
-      }}
-    >
-           {currencies2.map((currencydiff) => (
-        <MenuItem key={currencydiff} value={currencydiff}>
-          {currencydiff}
-        </MenuItem>
-
-      ))}
-
-    </TextField>
-  </MyFormControl>
-
-  {/* </Item>  */}
-</Grid>
-
-
-
-
-{/* ========================= END OF TITLE ===================================  */}
-
-
-<Grid item xs={12} sm={8} lg={6} sx={{mx: {sm: -15} }}>
-{/* <Item>  */}
-
-<NameLabel id="currency-label" sx={{ mb: 1, }}>
-  Account type
-</NameLabel>
-  <TextField
-    id="id-number"
-    variant="outlined"
-    fullWidth
-    value={accountType}
-    onChange={handleAccountTypeChange}
-
-    sx={{
-      width: "70%",
-      "& .MuiOutlinedInput-root.Mui-focused": {
-        "& > fieldset": {
-          borderColor: "#7833EE",
-        },
-      },
-      "& fieldset": {
-        borderRadius: "6px",
-      },
-    }}
-    InputProps={{
-      style: {
-        height: "2rem",
-        fontSize: 12,
-        fontFamily: "Poppins",
-      },
-    }}
-    placeholder="eg. Saving Account"
-  />
-{/* </Item>  */}
-</Grid>
-
-{/* Some details  */}
-
-    {/* CONTACT INFORMATION SECTION  */}
-   
-
-
-
-
-
-       {/* ACCOUNT INFORMATION SECTION  */}
-<Grid item xs={12}>
-{/* <Item>  */}
-<Typography sx={{ml: 13, mt: 0, fontSize: 12, padding: "0px 10px"}}>
-  Contact Information 
-</Typography>
-{/* </Item>  */}
-</Grid>
-
-
-
-
-
-{/* ========================= END OF TITLE ===================================  */}
-
-
-
-
-
-
-
-
-</Grid>
-</Box>
-
+      </Grid>
     </Box>
   );
+  
+  
 };
 
 export default AccountCreation;
