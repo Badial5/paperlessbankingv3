@@ -62,6 +62,8 @@ import "./App.css"
 
   //Error Page
   import ErrorPage from './error-page'
+import { Box } from '@mui/material'
+import BankAppointment from './pages/banks/appointments/appointment'
 
 
 const App = () => {
@@ -102,6 +104,11 @@ const App = () => {
         <Route path='account-officer' element={<AccountOfficer />}  />
 
 
+         {/* Bank Appointment  */}
+         <Route path='bank-appointment' element={<BankAppointment />} />
+        {/* <Route path='account-officer' element={<AccountOfficer />}  /> */}
+
+
 
         <Route errorElement={<ErrorPage />} />
       </Route>
@@ -113,11 +120,11 @@ const App = () => {
 
 
   return (
-    <div>
+    <Box>
 
       <RouterProvider router={router} />
       
-    </div>
+    </Box>
   )
 }
 

@@ -315,9 +315,6 @@ const LeftSideMenu = ({onOptionSelect}) => {
 
           </List>
         </Collapse>
-
-
-
           
 
         {/* <ListItemButton onClick={handleClick}>
@@ -412,7 +409,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
         <Collapse in={open4} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItemButton
-              selected={location.pathname === '/account-creation'}
+              selected={location.pathname === '/bank-appointment'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
               sx={{pl:3, }}
               onClick={() => {
@@ -424,7 +421,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
               <ListItemIcon>
                 <CreateIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Transfer" />
+              <ListItemText primary="Bank Appointment" />
             </ListItemButton>
 
             <ListItemButton

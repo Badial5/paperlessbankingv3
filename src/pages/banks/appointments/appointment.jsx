@@ -22,13 +22,13 @@ import {
 import { AccountCircle } from "@mui/icons-material";
 
 
-import { StyledTextField } from "./style/account-creation"
 
 
 
-import UserImg from "./const/images/User.svg"
+
+// import UserImg from "./const/images/User.svg"
 import { ErrorHelperTextContainer, GridItem, NameLabel, PageHeader2, PageHeaderAndTitleContainer2, SubTitle2, ButtonComponent, ButtonText,
-  } from "./style/account-creation";
+  } from "../../account/style/account-creation";
 import { red } from "@mui/material/colors";
 import { useState } from "react";
 
@@ -122,7 +122,7 @@ const Item = styled(Box)(({ theme }) => ({
 
 
 
-const AccountCreation = () => {
+const BankAppointment = () => {
 
   const [mode, setMode] = useState('light');
 
@@ -670,5 +670,5 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
   
 };
 
-export default AccountCreation;
+export default BankAppointment;
 

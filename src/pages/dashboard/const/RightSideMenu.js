@@ -183,7 +183,7 @@ const RightSideMenu = ({onOptionSelect}) => {
         </ListItem>
 
         <ListItem Button style={{backgroundColor: "#fff", fontSize: "0.7rem", marginBottom: 10,
-      height: "2rem", borderRadius: 1}}>
+      height: "2rem", borderRadius: 4}}>
           <ListItemIcon>
            
           </ListItemIcon>
@@ -191,7 +191,7 @@ const RightSideMenu = ({onOptionSelect}) => {
         </ListItem>
 
         <ListItem Button style={{backgroundColor: "#fff", fontSize: "0.7rem", marginBottom: 10,
-      height: "2rem", borderRadius: 1}}>
+      height: "2rem", borderRadius: 4}}>
           <ListItemIcon>
             
           </ListItemIcon>
@@ -199,7 +199,7 @@ const RightSideMenu = ({onOptionSelect}) => {
         </ListItem>
 
         <ListItem Button style={{backgroundColor: "#fff", fontSize: "0.7rem", marginBottom: 10,
-      height: "2rem", borderRadius: 1}}>
+      height: "2rem", borderRadius: 4}}>
           <ListItemIcon>
             
           </ListItemIcon>
@@ -228,10 +228,10 @@ const RightSideMenu = ({onOptionSelect}) => {
           <ListItemText primary="Your Acount Officer" />
         </ListItem>
 
-        <Box style={{fontSize: 10,mt: 100 }}>
-          <Typography>Name: </Typography> 
-          <Typography>Email: </Typography>
-          <Typography>Phone: </Typography>
+        <Box style={{fontSize: 12, marginTop: 20, fontFamily: "Poppins", }}>
+          <Typography style={{}}>Name:  <span style={{marginLeft: 10, color: "#9747FF", fontSize: 12, my: "auto"  }}>Joseph Smith</span> </Typography> 
+          <Typography>Email: <span style={{marginLeft: 10, color: "#9747FF", fontSize: 12 }}>josephsmith@domain.com</span> </Typography>
+          <Typography>Phone: <span style={{marginLeft: 10, color: "#9747FF", fontSize: 12 }}>+233557000000</span> </Typography>
         </Box>
         
         

@@ -52,7 +52,7 @@ margin-top: 50px;
 
 export const PageHeaderAndTitleContainer2 = styled(Box)`
 
-height: 70px;
+height: 20px;
 width: 100%;
 font-family: 'Poppins', sans-serif;
 /* margin-left: 40px; */
@@ -141,7 +141,7 @@ export const NameLabel = styled(Typography)`
 /* bottom: 10%; */
 /* Text sm/regular */
 /* padding: "10px 16px"; */
-font-family: 'Helvetica Neue';
+font-family: 'Poppins';
 font-style: normal;
 font-weight: 400;
 font-size: 12px;
@@ -161,7 +161,7 @@ height: 6px;
 /* margin-bottom: 600px; */
 margin-bottom: 4px;
 margin-left: 16px;
-font-family: 'Source Sans Pro';
+font-family: 'Poppins';
 font-style: normal;
 font-weight: 400;
 font-size: 12px;

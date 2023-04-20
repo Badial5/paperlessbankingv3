@@ -1,7 +1,4 @@
 import * as React from "react";
-
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-
 import { useForm } from "react-hook-form";
 import { styled } from "@mui/material/styles";
 import {
@@ -29,8 +26,6 @@ import { StyledTextField } from "./style/account-creation"
 import UserImg from "./const/images/User.svg"
 import { ErrorHelperTextContainer, GridItem, NameLabel, PageHeader2, PageHeaderAndTitleContainer2, SubTitle2, ButtonComponent, ButtonText,
   } from "./style/account-creation";
-import { red } from "@mui/material/colors";
-import { useState } from "react";
 
 const MyFormControl = styled(FormControl)({
   minWidth: 120,
@@ -76,61 +71,7 @@ const Item = styled(Box)(({ theme }) => ({
 }));
 
 
-
-// ========================================================================= 
-
-// const theme = createTheme({
-//   components: {
-//     MuiButton: {
-//       styleOverrides: {
-//         root: {
-//           fontSize: '1rem',
-//         },
-//       },
-//     },
-//     MuiInputBase: {
-//       styleOverrides: {
-//         root: {
-//           height: '2rem',
-//           color: 'blue',
-//           width: 120,
-//           fontSize: 10,
-//           textAlign: 'center',
-//           fontFamily: 'Poppins',
-//           m: 1,
-//           '& > fieldset': {
-//             borderColor: '#7833EE',
-//           },
-//           [`& fieldset`]: {
-//             borderRadius: '6px',
-//           },
-//         },
-//         // Separate InputProps object
-//         input: {
-//           height: '2rem',
-//           fontSize: 10,
-//           fontFamily: 'Poppins',
-//         },
-        
-//       },
-//     },
-//   },
-// });
-
-
-
-
-
-
 const AccountCreation = () => {
-
-  const [mode, setMode] = useState('light');
-
-  const toggleMode = () => {
-    setMode(mode === 'light' ? 'dark' : 'light');
-  };
-
-
   const { handleSubmit, register, watch, setValue, formState: {errors}, reset, trigger } = useForm({
     mode: "onTouched",
     defaultValues: {
@@ -197,9 +138,6 @@ const AccountCreation = () => {
 
 
   return (
-    // <ThemeProvider theme={theme}>
-
-    
     <Box
       style={{
         backgroundColor: "#fff",
@@ -218,70 +156,13 @@ const AccountCreation = () => {
             Take a selfie and fill the form below with the appropriate information
           </SubTitle2>
         </PageHeaderAndTitleContainer2>
-
-
-        {/* <Grid item xs={12}>
-        <TextField variant="outlined" placeholder="Hello" />
-        </Grid>
-
-        <Grid item xs={12}>
-        <TextField  variant="outlined" placeholder="World" />
-        </Grid> */}
-
-{/* ================================= BEGIN OF NAME =================================  */}
-
-
-{/* Title  */}
-<Grid item xs={2}>
-  <NameLabel sx={{ padding: "0px 17px", fontSize: 12, lineHeight: "16px", 
-fontFamily: 'Poppins', fontWeight: 400 }}>Title</NameLabel>
-
-  <FormControl
-    fullWidth
-    sx={{
-      "& .MuiSelect-root": {
-        height: "2rem",
-        width: 200,
-        borderRadius: 100
-      },
-      "& .MuiInputBase-input": {
-        padding: "5px 8px",
-        textAlign: "center",
-        fontSize: 12,
-        fontFamily: 'Poppins'
-      },
-      "& .MuiOutlinedInput-root.Mui-focused": {
-        "& fieldset": {
-          borderColor: "#7833EE"
-        }
-      },
-      "& fieldset": {
-        borderRadius: "6px"
-      }
-    }}
-  >
-    <Select />
-
-   
-  </FormControl>
-
-  {(errors.first_name?.message) && (
-    <ErrorHelperTextContainer>
-      {errors.first_name?.message}
-    </ErrorHelperTextContainer>
-  )}
-</Grid>
-
-       
-
-
-        <Grid item xs={5} >
+  
+        <Grid item xs={6} sm={6}>
           <NameLabel sx={{padding: "0px 17px"}}>First Name</NameLabel>
   
           <TextField 
             type="text"
             id="first_name"
-            fullWidth
             error={Boolean(errors.first_name)}
             variant="outlined" 
             sx={{ 
@@ -325,13 +206,12 @@ fontFamily: 'Poppins', fontWeight: 400 }}>Title</NameLabel>
           }
         </Grid>
   
-        <Grid item xs={5} >
+        <Grid item xs={6} sm={6}>
           <NameLabel sx={{padding: "0px 17px"}}>Last Name</NameLabel>
   
           <TextField
             type="text"
             id="last_name"
-            fullWidth
             error={Boolean(errors.last_name)}
             variant="outlined" 
             sx={{ 
@@ -377,164 +257,13 @@ fontFamily: 'Poppins', fontWeight: 400 }}>Title</NameLabel>
         </Grid>
 
 
-{/* ============================= END OF NAME ======================================= */}
 
 
 
-{/* ============================= BEGIN OF SECOND FORM ========================== */}
-
-
-        
-
-        {/* Title  */}
-<Grid item xs={2}>
-  <NameLabel sx={{ padding: "0px 17px", fontSize: 12, lineHeight: "16px", 
-fontFamily: 'Poppins', fontWeight: 400,  }}>ID Type</NameLabel>
-
-  <FormControl
-    fullWidth
-    sx={{
-      "& .MuiSelect-root": {
-        height: "2rem",
-        width: 200,
-        borderRadius: 100
-      },
-      "& .MuiInputBase-input": {
-        padding: "5px 8px",
-        textAlign: "center",
-        fontSize: 12,
-        fontFamily: 'Poppins'
-      },
-      "& .MuiOutlinedInput-root.Mui-focused": {
-        "& fieldset": {
-          borderColor: "#7833EE"
-        }
-      },
-      "& fieldset": {
-        borderRadius: "6px"
-      }
-    }}
-  >
-    <Select />
-
-   
-  </FormControl>
-
-  {(errors.first_name?.message) && (
-    <ErrorHelperTextContainer>
-      {errors.first_name?.message}
-    </ErrorHelperTextContainer>
-  )}
-</Grid>
-       
-  
-        <Grid item xs={10} >
-          <NameLabel sx={{padding: "0px 17px"}}>ID Number</NameLabel>
-  
-          <TextField
-          fullWidth
-            type="text"
-            id="last_name"
-            error={Boolean(errors.last_name)}
-            variant="outlined" 
-            sx={{ 
-              padding: "5px 8px",
-              textAlign: "center",
-              "& .MuiOutlinedInput-root.Mui-focused": {
-                "& > fieldset": {
-                  borderColor: "#7833EE"
-                }
-              },
-              [`& fieldset`]:{
-                borderRadius: "6px"
-              }
-            }}
-            InputProps={{
-              style: {
-                height: "2rem",
-                fontSize: 12,
-                fontFamily: 'Poppins'
-              },
-            }}
-            {...register("last_name", {
-              required: {
-                value: true,
-                message: "Last name is required"
-              }
-            })}
-            placeholder='eg. ID Number'
-            onChange={(event) => {
-              handleInputChange(event);
-              setFormComplete(prevState => ({
-                last_name: event.target.value,
-                ...prevState,
-              }));
-            }}
-          />
-  
-          {/* { (errors.last_name?.message  ) &&
-            <ErrorHelperTextContainer>
-              {errors.last_name?.message}
-            </ErrorHelperTextContainer> 
-          } */}
-        </Grid>
-
-{/* ==================================== END OF SECOND ROW =================== */}
-
-
-{/* ============================ BEGIN OF THE THIRD ROW =========================  */}
-
-     {/* Account Type  */}
-     <Grid item xs={3}>
-  <NameLabel sx={{ padding: "0px 17px", fontSize: 10, lineHeight: "16px", 
-fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
-
-  <FormControl
-    fullWidth
-    sx={{
-      "& .MuiSelect-root": {
-        height: "2rem",
-        width: 200,
-        borderRadius: 100
-      },
-      "& .MuiInputBase-input": {
-        padding: "5px 8px",
-        textAlign: "center",
-        fontSize: 12,
-        fontFamily: 'Poppins'
-      },
-      "& .MuiOutlinedInput-root.Mui-focused": {
-        "& fieldset": {
-          borderColor: "#7833EE"
-        }
-      },
-      "& fieldset": {
-        borderRadius: "6px"
-      }
-    }}
-  >
-    <Select />
-
-   
-  </FormControl>
-
-  {(errors.first_name?.message) && (
-    <ErrorHelperTextContainer>
-      {errors.first_name?.message}
-    </ErrorHelperTextContainer>
-  )}
-</Grid>
-
-{/* ================================= END OF THE THIRD ROW =======================  */}
-
-
-{/* ================================= LAST ROW BEGIN ========================== */}
-
-        <Grid item xs={4}>
-          <NameLabel sx={{padding: "0px 17px"}}>Email</NameLabel>
+        <Grid item xs={6} sm={6}>
+          <NameLabel sx={{padding: "0px 17px"}}>ID Card</NameLabel>
   
           <TextField 
-          fullWidth
             type="text"
             id="first_name"
             error={Boolean(errors.first_name)}
@@ -564,7 +293,7 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
                 message: "First name is required"
               }
             })}
-            placeholder='eg. Email'
+            placeholder='eg. Joseph'
             onChange={(event) => {
               handleInputChange(event);
               setFormComplete(prevState => ({
@@ -573,18 +302,17 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
               }));
             }}
           />
-          {/* { (errors.first_name?.message  ) &&
+          { (errors.first_name?.message  ) &&
             <ErrorHelperTextContainer>
               {errors.first_name?.message}
             </ErrorHelperTextContainer> 
-          } */}
+          }
         </Grid>
   
-        <Grid item xs={5}>
-          <NameLabel sx={{padding: "0px 17px"}}>Phone Number</NameLabel>
+        <Grid item xs={6} sm={6}>
+          <NameLabel sx={{padding: "0px 17px"}}>ID Number</NameLabel>
   
           <TextField
-          fullWidth
             type="text"
             id="last_name"
             error={Boolean(errors.last_name)}
@@ -614,7 +342,7 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
                 message: "Last name is required"
               }
             })}
-            placeholder='eg. (+233) 557000000'
+            placeholder='eg. Smith'
             onChange={(event) => {
               handleInputChange(event);
               setFormComplete(prevState => ({
@@ -624,14 +352,114 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
             }}
           />
   
-          {/* { (errors.last_name?.message  ) &&
+          { (errors.last_name?.message  ) &&
             <ErrorHelperTextContainer>
               {errors.last_name?.message}
             </ErrorHelperTextContainer> 
-          } */}
+          }
         </Grid>
 
-{/* ================================= END OF THE ROW ==========================  */}
+
+
+
+        <Grid item xs={6} sm={6}>
+          <NameLabel sx={{padding: "0px 17px"}}>Email</NameLabel>
+  
+          <TextField 
+            type="text"
+            id="first_name"
+            error={Boolean(errors.first_name)}
+            variant="outlined" 
+            sx={{ 
+              padding: "5px 8px",
+              textAlign: "center",
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#7833EE"
+                }
+              },
+              [`& fieldset`]:{
+                borderRadius: "6px"
+              }
+            }}
+            InputProps={{
+              style: {
+                height: "2rem",
+                fontSize: 12,
+                fontFamily: 'Poppins'
+              },
+            }}
+            {...register("first_name", {
+              required: {
+                value: true,
+                message: "First name is required"
+              }
+            })}
+            placeholder='eg. Joseph'
+            onChange={(event) => {
+              handleInputChange(event);
+              setFormComplete(prevState => ({
+                first_name: event.target.value,
+                ...prevState,
+              }));
+            }}
+          />
+          { (errors.first_name?.message  ) &&
+            <ErrorHelperTextContainer>
+              {errors.first_name?.message}
+            </ErrorHelperTextContainer> 
+          }
+        </Grid>
+  
+        <Grid item xs={6} sm={6}>
+          <NameLabel sx={{padding: "0px 17px"}}>Phone Number</NameLabel>
+  
+          <TextField
+            type="text"
+            id="last_name"
+            error={Boolean(errors.last_name)}
+            variant="outlined" 
+            sx={{ 
+              padding: "5px 8px",
+              textAlign: "center",
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#7833EE"
+                }
+              },
+              [`& fieldset`]:{
+                borderRadius: "6px"
+              }
+            }}
+            InputProps={{
+              style: {
+                height: "2rem",
+                fontSize: 12,
+                fontFamily: 'Poppins'
+              },
+            }}
+            {...register("last_name", {
+              required: {
+                value: true,
+                message: "Last name is required"
+              }
+            })}
+            placeholder='eg. Smith'
+            onChange={(event) => {
+              handleInputChange(event);
+              setFormComplete(prevState => ({
+                last_name: event.target.value,
+                ...prevState,
+              }));
+            }}
+          />
+  
+          { (errors.last_name?.message  ) &&
+            <ErrorHelperTextContainer>
+              {errors.last_name?.message}
+            </ErrorHelperTextContainer> 
+          }
+        </Grid>
 
 
 
@@ -640,7 +468,7 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
        fullWidth
         onClick={ () => null}
 
-        // disabled={formComplete}
+        disabled={formComplete}
 
         style={{
           background:( (formComplete.first_name) && (formComplete.first_name) 
@@ -656,15 +484,11 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
           </ButtonText>
         </ButtonComponent>
 
-        
-
         </Box>
 
 
       </Grid>
     </Box>
-
-    // </ThemeProvider> 
   );
   
   
@@ -672,3 +496,87 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
 
 export default AccountCreation;
 
+
+
+
+ sx={{ 
+              padding: "5px 8px",
+              textAlign: "center",
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#7833EE"
+                }
+              },
+              [`& fieldset`]:{
+                borderRadius: "6px"
+              }
+            }}
+            InputProps={{
+              style: {
+                height: "2rem",
+                fontSize: 12,
+                fontFamily: 'Poppins'
+              },
+            }}
+
+
+
+
+
+
+
+
+
+
+
+
+==================================================================================
+
+ {/* <Grid item xs={6} sm={6}>
+          <NameLabel sx={{padding: "0px 17px"}}>ID type </NameLabel>
+  
+          <TextField 
+            type="text"
+            id="first_name"
+            error={Boolean(errors.first_name)}
+            variant="outlined" 
+            sx={{ 
+              padding: "5px 8px",
+              textAlign: "center",
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#7833EE"
+                }
+              },
+              [`& fieldset`]:{
+                borderRadius: "6px"
+              }
+            }}
+            InputProps={{
+              style: {
+                height: "2rem",
+                fontSize: 12,
+                fontFamily: 'Poppins'
+              },
+            }}
+            {...register("first_name", {
+              required: {
+                value: true,
+                message: "First name is required"
+              }
+            })}
+            placeholder='eg. ID Card'
+            onChange={(event) => {
+              handleInputChange(event);
+              setFormComplete(prevState => ({
+                first_name: event.target.value,
+                ...prevState,
+              }));
+            }}
+          />
+          {/* { (errors.first_name?.message  ) &&
+            <ErrorHelperTextContainer>
+              {errors.first_name?.message}
+            </ErrorHelperTextContainer> 
+          } */}
+        </Grid> */}
