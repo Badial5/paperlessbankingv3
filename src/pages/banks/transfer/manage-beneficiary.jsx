@@ -48,7 +48,7 @@ import { AccountCircle } from "@mui/icons-material";
 
 // import UserImg from "./const/images/User.svg"
 import { ErrorHelperTextContainer, GridItem, NameLabel, PageHeader2, PageHeaderAndTitleContainer2, SubTitle2, ButtonComponent, ButtonText,
-  } from "../account/style/account-creation";
+  } from "../../account/style/account-creation";
 import { red } from "@mui/material/colors";
 import { useState } from "react";
 import { useRef } from "react";
@@ -68,7 +68,7 @@ import { useRef } from "react";
 
 
 
-const AccountBalance = () => {
+const ManageBeneficiary = () => {
 
   const [mode, setMode] = useState('light');
 
@@ -152,66 +152,88 @@ const AccountBalance = () => {
     { field: 'id', headerName: '#', width: 20 },
 
     {
-      field: 'accountNumber',
-      headerName: 'Account Number',
-      width: 100,
+      field: 'name',
+      headerName: 'Name',
+      width: 60,
       editable: false,
       
     },
 
     {
-      field: 'accountName',
-      headerName: 'Account Name',
+      field: 'paymentMode',
+      headerName: 'Payment Mode',
       width: 110,
       editable: false,
     },
 
 
     {
-      field: 'accountType',
-      headerName: 'Account Type',
+      field: 'mainAccount',
+      headerName: 'Main Account',
       // type: 'number',
       width: 110,
       editable: false,
     },
     {
-      field: 'currency',
-      headerName: 'Currency',
-      width: 80,
+      field: 'source',
+      headerName: 'Source',
+      width: 60,
       editable: false,
       // valueGetter: (params) =>
       //   `${params.row.balance || ''} ${params.row.balance || ''}`,
     },
 
     {
-      field: 'balance',
-      headerName: 'Balance',
+      field: 'date',
+      headerName: 'Date',
       description: 'This column has a value getter and is not sortable.',
       type: "number",
       sortable: false,
-      width: 80,
+      width: 20,
       // valueGetter: (params) =>
       //   `${params.row.balance || ''} ${params.row.balance || ''}`,
     },
 
     {
-      field: 'status',
-      headerName: 'Status',
-      description: 'This column has a value getter and is not sortable.',
-      sortable: false,
-      width: 100,
-      // valueGetter: (params) =>
-      //   `${params.row.currency || ''} ${params.row.currency || ''}`,
-    },
+        field: 'action',
+        headerName: 'Action',
+        description: 'This column has a value getter and is not sortable.',
+        type: "number",
+        sortable: false,
+        width: 50,
+        // valueGetter: (params) =>
+        //   `${params.row.balance || ''} ${params.row.balance || ''}`,
+      },
+
+    // {
+    //   field: 'status',
+    //   headerName: 'Status',
+    //   description: 'This column has a value getter and is not sortable.',
+    //   sortable: false,
+    //   width: 90,
+    //   // valueGetter: (params) =>
+    //   //   `${params.row.currency || ''} ${params.row.currency || ''}`,
+    // },
+
+    // {
+    //     field: 'action',
+    //     headerName: 'Action',
+    //     description: 'This column has a value getter and is not sortable.',
+    //     sortable: false,
+    //     width: 90,
+    //     // valueGetter: (params) =>
+    //     //   `${params.row.currency || ''} ${params.row.currency || ''}`,
+    //   },
   ];
   
   const rows = [
-    { id: 1, accountNumber: '140004753009',
-    accountName: "Joseph Smith",
-    accountType: "Saving",
-    currency: "GHS", 
-    balance: "50000",
-    status: "Active" 
+    { id: "", accountNumber: "",
+    accountName: "",
+    destinationAccount: "No data available in table",
+    amount: "",
+    mainAccount: "No Data Available", 
+    balance: "",
+    status: "" 
   },
    
   ];
@@ -239,17 +261,19 @@ const AccountBalance = () => {
       </Button>
     </Box> */}
 
-      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 20, 
+      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 10, 
       height: window.innerHeight,
       // height: "50%",
        width: "100%"}}
       ref={componentRef} 
       >
-        <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, m: 5, mb: 10 }}>
-          <PageHeader2>Account Balance</PageHeader2>
-          <SubTitle2>
-          Track your finances with ease: Your account balance at a glance.
-          </SubTitle2>
+        <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, m: 5, mb: 10, display: "flex", justifyContent: "space-between"  }}>
+          <PageHeader2>Manage Beneficiary</PageHeader2>
+          {/* <SubTitle2>
+          Efficiently Organize and Support Your Beneficiaries with Manage Beneficiary Tools.
+          </SubTitle2> */}
+
+          <Button variant="contained" sx={{height: 30, background: "#7039d1", "&:hover": {background: "#7833EE"}}}>ADD NEW</Button>
         </PageHeaderAndTitleContainer2>
 
 
@@ -258,11 +282,11 @@ const AccountBalance = () => {
 
        
 
-  <Button variant="outlined"
+  {/* <Button variant="outlined"
   sx={{height: 30, }}
   onClick={handlePrint}
       >PDF
-    </Button>
+    </Button> */}
 
 
 
@@ -277,7 +301,7 @@ const AccountBalance = () => {
             type="text"
             id="recipient_account"
             
-            error={Boolean(errors.r_account)}
+            // error={Boolean(errors.r_account)}
             variant="outlined" 
             sx={{ 
               padding: "5px 8px",
@@ -404,5 +428,5 @@ const AccountBalance = () => {
   
 };
 
-export default AccountBalance;
+export default ManageBeneficiary;
 

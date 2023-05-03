@@ -110,7 +110,7 @@ const Item = styled(Box)(({ theme }) => ({
 
 
 
-const BankAppointment = () => {
+const BankBranch = () => {
 
   const [mode, setMode] = useState('light');
 
@@ -192,29 +192,30 @@ const BankAppointment = () => {
     >
       <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 30}}>
         <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, m: 5, mb: 10 }}>
-          <PageHeader2>Bank Appointment</PageHeader2>
+          <PageHeader2>Bank Branch</PageHeader2>
           <SubTitle2>
-          Schedule Your Personalized Bank Appointment Today!
+          Visit our bank branch for personalized financial solutions!
           </SubTitle2>
         </PageHeaderAndTitleContainer2>
 
 
 
-{/* ================================= BEGIN OF NAME =================================  */}
+{/* ================================= BEGIN OF Branch =================================  */}
 
-<Grid item xs={6} >
-          <NameLabel sx={{padding: "3px 6px", }}>Branch</NameLabel>
+<Grid item xs={12} >
+          <NameLabel sx={{padding: "0px 17px"}}>Select branch</NameLabel>
   
           
 
     <TextField
-      id="first_name"
+      id="branch"
       fullWidth
       error={Boolean(errors.branch)}
       variant="outlined"
 
       select
       sx={{
+        padding: "5px 8px",
         textAlign: "center",
         "& .MuiOutlinedInput-root.Mui-focused": {
           "& > fieldset": {
@@ -252,17 +253,16 @@ const BankAppointment = () => {
         </Grid>
 
 
-        <Grid item xs={6} >
-          <NameLabel sx={{padding: "0px 17px"}}>Banker</NameLabel>
+        <Grid item xs={12} >
+          <NameLabel sx={{padding: "0px 17px"}}>Name</NameLabel>
   
           <TextField 
             type="text"
-            id="banker"
+            id="name"
             fullWidth
-            error={Boolean(errors.banker)}
+            error={Boolean(errors.name)}
             variant="outlined" 
             sx={{ 
-              
               padding: "5px 8px",
               textAlign: "center",
               "& .MuiOutlinedInput-root.Mui-focused": {
@@ -284,10 +284,10 @@ const BankAppointment = () => {
             {...register("banker", {
               required: {
                 value: true,
-                message: "Banker name is required"
+                message: "Name is required"
               }
             })}
-            placeholder='Banker'
+            placeholder='Name'
             onChange={(event) => {
               handleInputChange(event);
               setFormComplete(prevState => ({
@@ -305,8 +305,8 @@ const BankAppointment = () => {
 
 
 
-        <Grid item xs={6} >
-          <NameLabel sx={{padding: "0px 17px"}}>Date</NameLabel>
+        {/* <Grid item xs={6} > */}
+          {/* <NameLabel sx={{padding: "0px 17px"}}>Date</NameLabel> */}
   
           {/* <TextField 
             type="text"
@@ -355,7 +355,7 @@ const BankAppointment = () => {
           } */}
 
 
-<LocalizationProvider dateAdapter={AdapterDayjs}>
+{/* <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker defaultValue={dayjs('2023-04-19')}
       format="YYYY/MM/DD"
       fullWidth
@@ -379,8 +379,7 @@ const BankAppointment = () => {
       
       
       sx={{ 
-        padding: "5px 1px",
-        width: "100%",
+        padding: "5px 8px",
         textAlign: "center",
         "& .MuiOutlinedInput-root.Mui-focused": {
           "& > fieldset": {
@@ -393,7 +392,7 @@ const BankAppointment = () => {
           fontSize: 12,
           fontFamily: 'Poppins',
           width: "100%",
-          // width: 300
+          width: 300
         },
 
         [`& fieldset`]:{
@@ -422,12 +421,12 @@ const BankAppointment = () => {
               {errors.date?.message}
             </ErrorHelperTextContainer> 
           }
-    </LocalizationProvider>
-        </Grid>
+    </LocalizationProvider> */}
+        {/* </Grid> */}
 
 
-        <Grid item xs={6} >
-          <NameLabel sx={{padding: "0px 17px"}}>Time</NameLabel>
+        {/* <Grid item xs={6} >
+          <NameLabel sx={{padding: "0px 17px"}}>Time</NameLabel> */}
 
         
           {/* <TextField 
@@ -476,10 +475,9 @@ const BankAppointment = () => {
             </ErrorHelperTextContainer> 
           } */}
 
-<LocalizationProvider dateAdapter={AdapterDayjs}>
+{/* <LocalizationProvider dateAdapter={AdapterDayjs}>
 <MobileTimePicker defaultValue={dayjs('2022-04-17T15:30')} 
   sx={{
-    padding: "5px 8px",
     height: "2rem",
     padding: "5px 8px",
     textAlign: "center",
@@ -494,7 +492,7 @@ const BankAppointment = () => {
       fontSize: 12,
       fontFamily: 'Poppins',
       width: "100%",
-      // width: 300
+      width: 300
     },
     [`& fieldset`]:{
       borderRadius: "6px"
@@ -528,14 +526,14 @@ const BankAppointment = () => {
             </ErrorHelperTextContainer> 
           }
 
-</LocalizationProvider>
-        </Grid>
+</LocalizationProvider> */}
+        {/* </Grid> */}
 
 
-        <Grid item xs={12} >
-          <NameLabel sx={{padding: "0px 17px"}}>Comment</NameLabel>
+        {/* <Grid item xs={12} >
+          <NameLabel sx={{padding: "0px 17px"}}>Comment</NameLabel> */}
           
-          <TextField 
+          {/* <TextField 
            id="outlined-multiline-static"
             fullWidth
             // id="comments"
@@ -578,13 +576,13 @@ const BankAppointment = () => {
                 ...prevState,
               }));
             }}
-          />
-          { (errors.comments?.message  ) &&
+          /> */}
+          {/* { (errors.comments?.message  ) &&
             <ErrorHelperTextContainer>
               {errors.comments?.message}
             </ErrorHelperTextContainer> 
           }
-        </Grid>
+        </Grid> */}
 
         
 
@@ -631,5 +629,5 @@ const BankAppointment = () => {
   
 };
 
-export default BankAppointment;
+export default BankBranch;
 

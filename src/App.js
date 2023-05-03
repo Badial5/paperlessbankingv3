@@ -64,6 +64,16 @@ import "./App.css"
   import ErrorPage from './error-page'
 import { Box } from '@mui/material'
 import BankAppointment from './pages/banks/appointments/appointment'
+import LeftDrawer from './pages/dashboard2/dashboard_const/LeftDrawer/LeftDrawer'
+import MainDashboard2 from './pages/dashboard2/dashboard2'
+import BankBranch from './pages/banks/branch/branch.bank'
+import BankTransfer from './pages/banks/transfer/bank.transfer'
+import MySchedules from './pages/banks/transfer/MySchedules'
+import TransferHistory from './pages/banks/transfer/transfer-history'
+import ManageBeneficiary from './pages/banks/transfer/manage-beneficiary'
+import OwnAccountTransfer from './pages/banks/transfer/ownAccount'
+import ThirdParty from './pages/banks/transfer/thirdParty'
+import MyForm from './pages/banks/transfer/reacthooktry'
 
 
 const App = () => {
@@ -92,9 +102,10 @@ const App = () => {
 
         <Route path='user-dashboard' element={<UserDashboard />}  />
         <Route path='landing-page' element={<LandingPage />} />
+        <Route path='dashboard2' element={<MainDashboard2 />}  />
 
         {/* Enquiry  */}
-        <Route path='enquiry-balance' element={<AccountBalance />} />
+        <Route path='account-balance' element={<AccountBalance />} />
         <Route path='enquiry-statement' element={<AccountStatement />} />
         <Route path='enquiry-officer-details' element={<AccountOfficerDetails />} />
         <Route path='enquiry-exchange-rate' element={<ExchangeRate />} />
@@ -104,9 +115,26 @@ const App = () => {
         <Route path='account-officer' element={<AccountOfficer />}  />
 
 
-         {/* Bank Appointment  */}
+         {/* Bank   */}
          <Route path='bank-appointment' element={<BankAppointment />} />
         {/* <Route path='account-officer' element={<AccountOfficer />}  /> */}
+
+        <Route path='bank-branch' element={<BankBranch />} />
+
+        <Route path='bank-transfer' element={<BankTransfer />} />
+
+
+
+        {/* Transfer  */}
+        
+        <Route path='react-myform' element={<MyForm />} />
+        <Route path='third-party-transfer' element={<ThirdParty />} />
+        <Route path='own-account-transfer' element={<OwnAccountTransfer />} />
+        <Route path='manage-beneficiary' element={<ManageBeneficiary />} />
+        <Route path='transfer-history' element={<TransferHistory />} />
+        <Route path='my-schedule' element={<MySchedules />} />
+
+        
 
 
 

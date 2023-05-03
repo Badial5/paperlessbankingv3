@@ -46,11 +46,19 @@ const TextFieldControl = styled(TextField)({
 });
 
 
-const options = [
-  { value: "option1", label: "Option 1" },
-  { value: "option2", label: "Option 2" },
-  { value: "option3", label: "Option 3" }
+
+
+const branchs = [
+  { value: "branch1", label: "Branch 1" },
+  { value: "branch2", label: "Branch 2" },
+  { value: "branch3", label: "Branch 3" }
 ];
+
+const accounts = [
+    { value: "account1", label: "Account 1" },
+    { value: "account2", label: "Account 2" },
+    { value: "account3", label: "Account 3" }
+  ];
 
 
 
@@ -110,7 +118,7 @@ const Item = styled(Box)(({ theme }) => ({
 
 
 
-const BankAppointment = () => {
+const OwnAccountTransfer = () => {
 
   const [mode, setMode] = useState('light');
 
@@ -118,11 +126,25 @@ const BankAppointment = () => {
     setMode(mode === 'light' ? 'dark' : 'light');
   };
 
-
+//   Form states 
   const [value1, setValue1] = useState("");
+
+    const [branches, setBranches] = useState('')
+    const [accountes, setAccountes] = useState('')
+
+
+
 
   const handleChange1 = (event) => {
     setValue1(event.target.value);
+  };
+
+  const handleSetBranch = (event) => {
+    setBranches(event.target.value);
+  };
+
+  const handleSetAccount = (event) => {
+    setAccountes(event.target.value);
   };
 
 
@@ -151,6 +173,10 @@ const BankAppointment = () => {
   const [comment, setComment] = React.useState("")
 
 
+  //SELECT OPTIONS 
+  const [fieldOption, setFieldOption] = useState("");
+
+
   const [formComplete, setFormComplete] = React.useState({
 
     date: null,
@@ -175,6 +201,14 @@ const BankAppointment = () => {
   }
 
 
+  const handleOptionChange = (event) => {
+    setFieldOption(event.target.value);
+  };
+
+
+
+
+
   return (
     // <ThemeProvider theme={theme}>
 
@@ -192,29 +226,37 @@ const BankAppointment = () => {
     >
       <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 30}}>
         <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, m: 5, mb: 10 }}>
-          <PageHeader2>Bank Appointment</PageHeader2>
-          <SubTitle2>
-          Schedule Your Personalized Bank Appointment Today!
-          </SubTitle2>
+          <PageHeader2>Transfer - Own Account transfer</PageHeader2>
+          {/* <SubTitle2>
+          Third Party Transfer requires that you add new beneficiary to your profile before transfer can be made to such beneficiary 
+          </SubTitle2> */}
         </PageHeaderAndTitleContainer2>
 
 
 
-{/* ================================= BEGIN OF NAME =================================  */}
+{/* ================================= BEGIN OF Branch =================================  */}
 
-<Grid item xs={6} >
-          <NameLabel sx={{padding: "3px 6px", }}>Branch</NameLabel>
+
+<Grid item xs={3}sx={{mt: 1.5}} >
+        
+        <NameLabel sx={{}}>Select branch <span style={{color: "red"}}>*</span> </NameLabel>
+</Grid>
+
+<Grid item xs={9} sx={{display: "flex"}} >
+          {/* <NameLabel >Select branch</NameLabel> */}
+          
   
           
 
     <TextField
-      id="first_name"
+      id="branch"
       fullWidth
       error={Boolean(errors.branch)}
       variant="outlined"
 
       select
       sx={{
+        padding: "5px 8px",
         textAlign: "center",
         "& .MuiOutlinedInput-root.Mui-focused": {
           "& > fieldset": {
@@ -239,30 +281,95 @@ const BankAppointment = () => {
         }
       })}
       // label="Branch"
-      value={value1}
-      onChange={handleChange1}
+      value={branches}
+      onChange={handleSetBranch}
     >
-      {options.map((option) => (
+      {branchs.map((option) => (
         <MenuItem key={option.value} value={option.value}>
           {option.label}
         </MenuItem>
       ))}
     </TextField>
 
-        </Grid>
+    
+
+</Grid>
 
 
-        <Grid item xs={6} >
-          <NameLabel sx={{padding: "0px 17px"}}>Banker</NameLabel>
+<Grid item xs={3}sx={{mt: 1.5}} >
+        
+        <NameLabel sx={{}}>Destination account <span style={{color: "red"}}>*</span></NameLabel>
+</Grid>
+
+<Grid item xs={9} sx={{display: "flex"}} >
+          {/* <NameLabel >Select branch</NameLabel> */}
+          
+  
+          
+
+    <TextField
+      id="d_account"
+      fullWidth
+      error={Boolean(errors.branch)}
+      variant="outlined"
+
+      select
+      sx={{
+        padding: "5px 8px",
+        textAlign: "center",
+        "& .MuiOutlinedInput-root.Mui-focused": {
+          "& > fieldset": {
+            borderColor: "#7833EE"
+          }
+        },
+        [`& fieldset`]: {
+          borderRadius: "6px"
+        }
+      }}
+      InputProps={{
+        style: {
+          height: "2rem",
+          fontSize: 12,
+          fontFamily: "Poppins"
+        }
+      }}
+      {...register("d_account", {
+        required: {
+          value: true,
+          message: "Destination account is required"
+        }
+      })}
+      // label="Branch"
+      placeholder="-----------Select-------------"
+      value={accountes}
+      onChange={handleSetAccount}
+    >
+      {accounts.map((option) => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label}
+        </MenuItem>
+      ))}
+    </TextField>
+
+</Grid>
+
+
+
+<Grid item xs={3}sx={{mt: 1.5}} >
+        
+        <NameLabel sx={{}}>Amount <span style={{color: "red"}}>*</span></NameLabel>
+</Grid>
+
+        <Grid item xs={9} >
+          {/* <NameLabel sx={{padding: "0px 17px"}}>Name</NameLabel> */}
   
           <TextField 
             type="text"
-            id="banker"
+            id="amount"
             fullWidth
-            error={Boolean(errors.banker)}
+            error={Boolean(errors.amount)}
             variant="outlined" 
             sx={{ 
-              
               padding: "5px 8px",
               textAlign: "center",
               "& .MuiOutlinedInput-root.Mui-focused": {
@@ -281,13 +388,74 @@ const BankAppointment = () => {
                 fontFamily: 'Poppins'
               },
             }}
-            {...register("banker", {
+            {...register("amount", {
               required: {
                 value: true,
-                message: "Banker name is required"
+                message: "Amount is required"
               }
             })}
-            placeholder='Banker'
+            placeholder='Amount'
+            onChange={(event) => {
+              handleInputChange(event);
+              setFormComplete(prevState => ({
+                amount: event.target.value,
+                ...prevState,
+              }));
+            }}
+          />
+          { (errors.amount?.message  ) &&
+            <ErrorHelperTextContainer>
+              {errors.amount?.message}
+            </ErrorHelperTextContainer> 
+          }
+        </Grid>
+
+
+
+
+
+
+        <Grid item xs={3}sx={{mt: 1.5}} >
+        
+        <NameLabel sx={{}}>Reference <span style={{color: "red"}}>*</span></NameLabel>
+</Grid>
+
+        <Grid item xs={9} >
+          {/* <NameLabel sx={{padding: "0px 17px"}}>Name</NameLabel> */}
+  
+          <TextField 
+            type="text"
+            id="reference"
+            
+            fullWidth
+            error={Boolean(errors.reference)}
+            variant="outlined" 
+            sx={{ 
+              padding: "5px 8px",
+              textAlign: "center",
+              "& .MuiOutlinedInput-root.Mui-focused": {
+                "& > fieldset": {
+                  borderColor: "#7833EE"
+                }
+              },
+              [`& fieldset`]:{
+                borderRadius: "6px"
+              }
+            }}
+            InputProps={{
+              style: {
+                height: "2rem",
+                fontSize: 12,
+                fontFamily: 'Poppins'
+              },
+            }}
+            {...register("reference", {
+              required: {
+                value: true,
+                message: "Reference is required"
+              }
+            })}
+            placeholder='Reference'
             onChange={(event) => {
               handleInputChange(event);
               setFormComplete(prevState => ({
@@ -296,17 +464,17 @@ const BankAppointment = () => {
               }));
             }}
           />
-          { (errors.banker?.message  ) &&
+          { (errors.reference?.message  ) &&
             <ErrorHelperTextContainer>
-              {errors.banker?.message}
+              {errors.reference?.message}
             </ErrorHelperTextContainer> 
           }
         </Grid>
 
 
 
-        <Grid item xs={6} >
-          <NameLabel sx={{padding: "0px 17px"}}>Date</NameLabel>
+        {/* <Grid item xs={6} > */}
+          {/* <NameLabel sx={{padding: "0px 17px"}}>Date</NameLabel> */}
   
           {/* <TextField 
             type="text"
@@ -355,7 +523,7 @@ const BankAppointment = () => {
           } */}
 
 
-<LocalizationProvider dateAdapter={AdapterDayjs}>
+{/* <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DatePicker defaultValue={dayjs('2023-04-19')}
       format="YYYY/MM/DD"
       fullWidth
@@ -379,8 +547,7 @@ const BankAppointment = () => {
       
       
       sx={{ 
-        padding: "5px 1px",
-        width: "100%",
+        padding: "5px 8px",
         textAlign: "center",
         "& .MuiOutlinedInput-root.Mui-focused": {
           "& > fieldset": {
@@ -393,7 +560,7 @@ const BankAppointment = () => {
           fontSize: 12,
           fontFamily: 'Poppins',
           width: "100%",
-          // width: 300
+          width: 300
         },
 
         [`& fieldset`]:{
@@ -422,12 +589,12 @@ const BankAppointment = () => {
               {errors.date?.message}
             </ErrorHelperTextContainer> 
           }
-    </LocalizationProvider>
-        </Grid>
+    </LocalizationProvider> */}
+        {/* </Grid> */}
 
 
-        <Grid item xs={6} >
-          <NameLabel sx={{padding: "0px 17px"}}>Time</NameLabel>
+        {/* <Grid item xs={6} >
+          <NameLabel sx={{padding: "0px 17px"}}>Time</NameLabel> */}
 
         
           {/* <TextField 
@@ -476,10 +643,9 @@ const BankAppointment = () => {
             </ErrorHelperTextContainer> 
           } */}
 
-<LocalizationProvider dateAdapter={AdapterDayjs}>
+{/* <LocalizationProvider dateAdapter={AdapterDayjs}>
 <MobileTimePicker defaultValue={dayjs('2022-04-17T15:30')} 
   sx={{
-    padding: "5px 8px",
     height: "2rem",
     padding: "5px 8px",
     textAlign: "center",
@@ -494,7 +660,7 @@ const BankAppointment = () => {
       fontSize: 12,
       fontFamily: 'Poppins',
       width: "100%",
-      // width: 300
+      width: 300
     },
     [`& fieldset`]:{
       borderRadius: "6px"
@@ -528,14 +694,14 @@ const BankAppointment = () => {
             </ErrorHelperTextContainer> 
           }
 
-</LocalizationProvider>
-        </Grid>
+</LocalizationProvider> */}
+        {/* </Grid> */}
 
 
-        <Grid item xs={12} >
-          <NameLabel sx={{padding: "0px 17px"}}>Comment</NameLabel>
+        {/* <Grid item xs={12} >
+          <NameLabel sx={{padding: "0px 17px"}}>Comment</NameLabel> */}
           
-          <TextField 
+          {/* <TextField 
            id="outlined-multiline-static"
             fullWidth
             // id="comments"
@@ -578,13 +744,13 @@ const BankAppointment = () => {
                 ...prevState,
               }));
             }}
-          />
-          { (errors.comments?.message  ) &&
+          /> */}
+          {/* { (errors.comments?.message  ) &&
             <ErrorHelperTextContainer>
               {errors.comments?.message}
             </ErrorHelperTextContainer> 
           }
-        </Grid>
+        </Grid> */}
 
         
 
@@ -594,7 +760,7 @@ const BankAppointment = () => {
 
 
 
-        <Box style={{width: 200, marginLeft: "auto", marginRight: "auto"}}>
+        <Box style={{width: 200, marginLeft: "auto", marginRight: "auto", display: "flex", }}>
         <ButtonComponent type='submit'
        fullWidth
         onClick={ () => null}
@@ -617,7 +783,8 @@ const BankAppointment = () => {
           </ButtonText>
         </ButtonComponent>
 
-        
+
+            
 
         </Box>
 
@@ -631,5 +798,5 @@ const BankAppointment = () => {
   
 };
 
-export default BankAppointment;
+export default OwnAccountTransfer;
 

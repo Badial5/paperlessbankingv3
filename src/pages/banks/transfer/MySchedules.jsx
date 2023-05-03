@@ -48,7 +48,7 @@ import { AccountCircle } from "@mui/icons-material";
 
 // import UserImg from "./const/images/User.svg"
 import { ErrorHelperTextContainer, GridItem, NameLabel, PageHeader2, PageHeaderAndTitleContainer2, SubTitle2, ButtonComponent, ButtonText,
-  } from "../account/style/account-creation";
+  } from "../../account/style/account-creation";
 import { red } from "@mui/material/colors";
 import { useState } from "react";
 import { useRef } from "react";
@@ -68,7 +68,7 @@ import { useRef } from "react";
 
 
 
-const AccountBalance = () => {
+const MySchedules = () => {
 
   const [mode, setMode] = useState('light');
 
@@ -152,31 +152,31 @@ const AccountBalance = () => {
     { field: 'id', headerName: '#', width: 20 },
 
     {
-      field: 'accountNumber',
-      headerName: 'Account Number',
+      field: 'requestType',
+      headerName: 'Request Type',
       width: 100,
       editable: false,
       
     },
 
     {
-      field: 'accountName',
-      headerName: 'Account Name',
-      width: 110,
+      field: 'period',
+      headerName: 'Period',
+      width: 60,
       editable: false,
     },
 
 
     {
-      field: 'accountType',
-      headerName: 'Account Type',
+      field: 'nextDatePayment',
+      headerName: 'Next Payment Date',
       // type: 'number',
-      width: 110,
+      width: 130,
       editable: false,
     },
     {
-      field: 'currency',
-      headerName: 'Currency',
+      field: 'amount',
+      headerName: 'Amount',
       width: 80,
       editable: false,
       // valueGetter: (params) =>
@@ -184,34 +184,55 @@ const AccountBalance = () => {
     },
 
     {
-      field: 'balance',
-      headerName: 'Balance',
+      field: 'debitAccount',
+      headerName: 'Debit Account',
       description: 'This column has a value getter and is not sortable.',
       type: "number",
       sortable: false,
-      width: 80,
+      width: 100,
       // valueGetter: (params) =>
       //   `${params.row.balance || ''} ${params.row.balance || ''}`,
     },
+
+    {
+        field: 'requestDate',
+        headerName: 'Request Date',
+        description: 'This column has a value getter and is not sortable.',
+        type: "number",
+        sortable: false,
+        width: 100,
+        // valueGetter: (params) =>
+        //   `${params.row.balance || ''} ${params.row.balance || ''}`,
+      },
 
     {
       field: 'status',
       headerName: 'Status',
       description: 'This column has a value getter and is not sortable.',
       sortable: false,
-      width: 100,
+      width: 90,
       // valueGetter: (params) =>
       //   `${params.row.currency || ''} ${params.row.currency || ''}`,
     },
+
+    {
+        field: 'action',
+        headerName: 'Action',
+        description: 'This column has a value getter and is not sortable.',
+        sortable: false,
+        width: 90,
+        // valueGetter: (params) =>
+        //   `${params.row.currency || ''} ${params.row.currency || ''}`,
+      },
   ];
   
   const rows = [
-    { id: 1, accountNumber: '140004753009',
-    accountName: "Joseph Smith",
-    accountType: "Saving",
-    currency: "GHS", 
-    balance: "50000",
-    status: "Active" 
+    { id: "", accountNumber: "",
+    accountName: "",
+    amount: "No data available in table",
+    currency: "", 
+    balance: "",
+    status: "" 
   },
    
   ];
@@ -239,16 +260,16 @@ const AccountBalance = () => {
       </Button>
     </Box> */}
 
-      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 20, 
+      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 10, 
       height: window.innerHeight,
       // height: "50%",
        width: "100%"}}
       ref={componentRef} 
       >
         <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, m: 5, mb: 10 }}>
-          <PageHeader2>Account Balance</PageHeader2>
+          <PageHeader2>My Schedules</PageHeader2>
           <SubTitle2>
-          Track your finances with ease: Your account balance at a glance.
+          Effortlessly Manage Your Finances with Bank My Schedule
           </SubTitle2>
         </PageHeaderAndTitleContainer2>
 
@@ -258,11 +279,11 @@ const AccountBalance = () => {
 
        
 
-  <Button variant="outlined"
+  {/* <Button variant="outlined"
   sx={{height: 30, }}
   onClick={handlePrint}
       >PDF
-    </Button>
+    </Button> */}
 
 
 
@@ -277,7 +298,7 @@ const AccountBalance = () => {
             type="text"
             id="recipient_account"
             
-            error={Boolean(errors.r_account)}
+            // error={Boolean(errors.r_account)}
             variant="outlined" 
             sx={{ 
               padding: "5px 8px",
@@ -404,5 +425,5 @@ const AccountBalance = () => {
   
 };
 
-export default AccountBalance;
+export default MySchedules;
 

@@ -12,7 +12,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { AppBar, Box, ListItemButton, Stack, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Drawer, ListItemButton, Stack, Toolbar, Typography } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 
@@ -62,9 +62,9 @@ const LeftSideMenu = ({onOptionSelect}) => {
   const [open10, setOpen10] = useState(false);
 
   const [selectedOption, setSelectedOption] = useState('default');
-  const [borderStyle, setBorderStyle] = useState("")
 
 
+const drawerWidth = 260
 
 
 
@@ -136,6 +136,10 @@ const LeftSideMenu = ({onOptionSelect}) => {
     navigate('/account-officer');
   };
 
+  const handleBankAppointment = () => {
+    navigate('/bank-appointment');
+  };
+
   // const handleOptionClick = (option) => {
   //   onOptionSelect(option);
   // };
@@ -147,37 +151,74 @@ const LeftSideMenu = ({onOptionSelect}) => {
     setSelectedOption(option);
   };
 
+  const handleOptionClick2 = (option) => {
+    sessionStorage.setItem('selectedOption', option);
+    onOptionSelect(option);
 
-  const selectedOptionStyle = {
-    borderLeft: '5px solid red',
-    '& .MuiListItemIcon-root': {
-      color: '#B5AFAF',
-    },
-    '&:hover': {
-      background: '#9747FF',
-      color: '#ffffff',
-    },
+    setSelectedOption(option);
   };
+
+
 
 
 
   console.log("Selected Option: ", selectedOption)
 
   return (
-    <Box style={{width: "20vw", fontSize: 10}}>
-      <AppBar position="static" sx={{background: "#FBFCFC", color: "#000", borderRadius: 1,
-    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"}}>
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1,
-          //  color: "#9747FF", 
-          color: "#000",
-        fontSize: 14, fontFamily: "Poppins",  }}>
-            Paperless Banking
-          </Typography>
-        </Toolbar>
-      </AppBar>
+    // <Box style={{width: "20vw", fontSize: 10}}>
+        
+     
 
-      <List>
+     
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+
+        <AppBar position="fixed" sx={{background: "#FBFCFC", color: "#000", borderRadius: 1,
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"}}>
+                <Toolbar>
+                  <Box sx={{display: "flex", justifyContent: "space-between"}}>
+                  <Typography variant="h6" component="div" sx={{ 
+                  //  color: "#9747FF", 
+                  color: "#000", width: 240,
+                fontSize: 14, fontFamily: "Poppins",  fontWeight: "300"}}>
+                    Paperless Banking
+                  </Typography>
+
+                  {/* <Typography variant="h6" component="div" sx={{ 
+                  //  color: "#9747FF", 
+                  color: "#000", width: 240,
+                fontSize: 14, fontFamily: "Poppins",  }}>
+                    Paperless Banking Games
+                  </Typography>
+
+                  <Typography variant="h6" component="div" sx={{ 
+                  //  color: "#9747FF", 
+                  color: "#000", width: 240,
+                fontSize: 14, fontFamily: "Poppins",  }}>
+                    Paperless Banking Games
+                  </Typography> */}
+
+                  </Box>
+                </Toolbar>
+        </AppBar>
+
+
+
+        <Toolbar></Toolbar>
+
+              
+
+      <List sx={{fontSize: 12}}>
 
 
         <ListItemButton
@@ -222,10 +263,10 @@ const LeftSideMenu = ({onOptionSelect}) => {
         </ListItemButton>
 
         <Collapse in={open2} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
+          {/* <List component="div" disablePadding>
 
             <ListItemButton
-              selected={location.pathname === '/enquiry-balance'}
+              selected={location.pathname === '/enquir'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
               sx={{pl:3, }}
               onClick={() => {
@@ -237,7 +278,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
               <ListItemIcon>
                 <CreateIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Enquiry Balance" />
+              <ListItemText primary="Account Balance" />
             </ListItemButton>
 
 
@@ -259,13 +300,47 @@ const LeftSideMenu = ({onOptionSelect}) => {
             </ListItemButton>
 
             
+          </List> */}
+           <List component="div" disablePadding>
+            <ListItemButton
+              selected={location.pathname === '/account-balance'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, }}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-balance');
+              }}
+              
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Account Balance" />
+            </ListItemButton>
+
+            <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('account-officer');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Account Officer Details" />
+            </ListItemButton>
+
           </List>
         </Collapse>
        
 
 
 
-
+{/* ============================================================================== */}
           {/* Account Service  */}
         <ListItemButton
           selected={location.pathname.includes('/account')}
@@ -353,36 +428,108 @@ const LeftSideMenu = ({onOptionSelect}) => {
 
         <Collapse in={open3} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItemButton
-              selected={location.pathname === '/account-creation'}
+
+
+          <ListItemButton
+              selected={location.pathname === '/third-party-transfer'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
               sx={{pl:3, }}
               onClick={() => {
                 // navigate('/account-creation');
-                handleOptionClick('account-creation');
+                handleOptionClick('third-party-transfer');
               }}
               
             >
               <ListItemIcon>
                 <CreateIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Transfer" />
+              <ListItemText primary="Third Party Transfer" />
+            </ListItemButton>
+
+
+
+          <ListItemButton
+              selected={location.pathname === '/own-account-transfer'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, }}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('own-account-transfer');
+              }}
+              
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Own Account Transfer" />
+            </ListItemButton>
+
+
+            <ListItemButton
+              selected={location.pathname === '/bank-transfer'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, }}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('bank-transfer');
+              }}
+              
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Bank Transfer" />
             </ListItemButton>
 
             <ListItemButton
-              selected={location.pathname === '/account-officer'}
+              selected={location.pathname === '/manage-beneficiary'}
               // sx={{ pl: 4 }}
               sx={{pl:3, }}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
-                handleOptionClick('account-officer');
+                handleOptionClick('manage-beneficiary');
               }}
             >
               <ListItemIcon>
                 <AssignmentIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Account Officer Details" />
+              <ListItemText primary="Manage Beneficiary" />
+            </ListItemButton>
+
+
+
+            <ListItemButton
+              selected={location.pathname === '/transfer-history'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('transfer-history');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Transfer History" />
+            </ListItemButton>
+
+
+            <ListItemButton
+              selected={location.pathname === '/my-schedule'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('my-schedule');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="My Schedules" />
             </ListItemButton>
 
           </List>
@@ -395,7 +542,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
 {/* =======================REQUEST SERVICE =================================================== */}
             {/* Request Service  */}
             <ListItemButton
-          selected={location.pathname.includes('/transfer')}
+          selected={location.pathname.includes('/bank')}
           onClick={handleClick4}
           
           sx={{ pl: 1,   mt: 1,}}>
@@ -408,37 +555,48 @@ const LeftSideMenu = ({onOptionSelect}) => {
 
         <Collapse in={open4} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItemButton
-              selected={location.pathname === '/bank-appointment'}
-              // sx={{ pl: 4, borderLeft: '2px solid red' }}
-              sx={{pl:3, }}
-              onClick={() => {
-                // navigate('/account-creation');
-                handleOptionClick('account-creation');
-              }}
-              
-            >
-              <ListItemIcon>
-                <CreateIcon sx={{color: "#B5AFAF"}} />
-              </ListItemIcon>
-              <ListItemText primary="Bank Appointment" />
-            </ListItemButton>
+          <ListItemButton
+       
+          selected={location.pathname === '/bank-appointment'}
+         
+          sx={{pl:3, }}
+        
+          onClick={() => {
+            // navigate('/bank-appointment');
+            handleOptionClick('bank-appointment');
+            // return handleBankAppointment
+          }}
+
+          
+        >
+          <ListItemIcon>
+            <CreateIcon sx={{color: "#B5AFAF"}} />
+          </ListItemIcon>
+          <ListItemText primary="Bank Appointment" />
+        </ListItemButton>
+
+
+
 
             <ListItemButton
-              selected={location.pathname === '/account-officer'}
+              selected={location.pathname === 'bank'}
               // sx={{ pl: 4 }}
               sx={{pl:3, }}
-              // onClick={handleAccountOfficerClick}
+              
               onClick={() => {
                 // navigate('/account-creation');
-                handleOptionClick('account-officer');
+                handleOptionClick('bank-branch');
+                // return handleBankAppointment
               }}
             >
               <ListItemIcon>
                 <AssignmentIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Account Officer Details" />
+              <ListItemText primary="Bank Branch" />
             </ListItemButton>
+
+
+            
 
           </List>
         </Collapse>
@@ -796,10 +954,10 @@ const LeftSideMenu = ({onOptionSelect}) => {
 
 
       </List>
+      </Drawer>
 
-
-      
-    </Box>
+  
+    //  </Box> 
   );
 };
 

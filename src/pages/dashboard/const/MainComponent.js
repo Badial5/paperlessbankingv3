@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 // import AccountCreation from './AccountCreation';
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { Dashboard } from '@mui/icons-material';
@@ -13,6 +13,15 @@ import { UserData, UserDepositWithdrawalData } from './data/userData';
 //MUI COMPONENTS 
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import BankAppointment from '../../banks/appointments/appointment';
+import BankBranch from '../../banks/branch/branch.bank';
+import BankTransfer from '../../banks/transfer/bank.transfer';
+import AccountBalance from '../../enquiry/accountBalance';
+import MySchedules from '../../banks/transfer/MySchedules';
+import TransferHistory from '../../banks/transfer/transfer-history';
+import ManageBeneficiary from '../../banks/transfer/manage-beneficiary';
+import OwnAccountTransfer from '../../banks/transfer/ownAccount';
+import ThirdParty from '../../banks/transfer/thirdParty';
 
 
 const DefaultContent = () => {
@@ -112,6 +121,11 @@ const MainContent = ({ title, children, selectedOption }) => {
   })
 
   switch (selectedOption) {
+    //enquiry
+    case 'account-balance':
+      content = <div style={{minWidth: "100%"}}> <AccountBalance /> </div>
+      break;
+
     case 'account-creation':
       content = <div style={{minWidth: "100%"}}> <AccountCreation /> </div>
       break;
@@ -119,9 +133,41 @@ const MainContent = ({ title, children, selectedOption }) => {
       content = <div style={{width: "100%"}}> <AccountOfficer /> </div>
       break;
 
-      case 'games':
-      content = <AccountOfficer />;
+      case 'bank-appointment':
+      content = <BankAppointment />;
       break;
+
+      case 'bank-branch':
+        content = <BankBranch />;
+        break;
+
+        // Transfer ===================================================
+
+        case 'third-party-transfer':
+          content = <ThirdParty />;
+          break;
+        
+        case 'own-account-transfer':
+          content = <OwnAccountTransfer />;
+          break;
+
+        case 'manage-beneficiary':
+          content = <ManageBeneficiary />;
+          break;
+
+        case 'transfer-history':
+        content = <TransferHistory />;
+        break;
+
+     case 'bank-transfer':
+        content = <BankTransfer />;
+        break;
+
+
+      case 'my-schedule':
+        content = <MySchedules />;
+        break;
+
 
 
     // default:
@@ -138,6 +184,7 @@ const MainContent = ({ title, children, selectedOption }) => {
 
   return (
     <Box sx={{ width: "60vw", background: "#F4F7FF" }}>
+      
       <AppBar position="static" 
       sx={{background: "#FBFCFC", color: "#000", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", 
       borderRadius: 1, display: "flex", justifyContent: "center"}} >
@@ -196,11 +243,15 @@ const MainContent = ({ title, children, selectedOption }) => {
         </Toolbar>
       </AppBar>
 
+
+
+
       <Box sx={{ p: 2, }}>
         {/* {location.pathname === '/account-creation' && <AccountCreation />} */}
         {/* {location.pathname === '/account-officer' && <AccountOfficer />} */}
 
         {content}
+        {/* <Outlet />  */}
 
       </Box>
     </Box>

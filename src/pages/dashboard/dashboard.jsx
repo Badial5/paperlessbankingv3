@@ -56,9 +56,7 @@ useEffect(() => {
 
   const [selectedOption, setSelectedOption] = useState(sessionStorage.getItem('selectedOption') || 'default');
 
-  // const handleOptionSelect = (option) => {
-  //   setSelectedOption(option);
-  // }
+
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
