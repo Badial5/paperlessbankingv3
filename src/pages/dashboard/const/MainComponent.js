@@ -22,6 +22,7 @@ import TransferHistory from '../../banks/transfer/transfer-history';
 import ManageBeneficiary from '../../banks/transfer/manage-beneficiary';
 import OwnAccountTransfer from '../../banks/transfer/ownAccount';
 import ThirdParty from '../../banks/transfer/thirdParty';
+import AddBeneficiary from '../../banks/transfer/Beneficiary/addBeneficiary';
 
 
 const DefaultContent = () => {
@@ -167,6 +168,10 @@ const MainContent = ({ title, children, selectedOption }) => {
       case 'my-schedule':
         content = <MySchedules />;
         break;
+
+        case 'add-beneficiary':
+          content = <AddBeneficiary />;
+          break;
 
 
 

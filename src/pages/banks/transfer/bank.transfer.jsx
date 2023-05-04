@@ -67,48 +67,6 @@ const Item = styled(Box)(({ theme }) => ({
 
 
 
-// ========================================================================= 
-
-// const theme = createTheme({
-//   components: {
-//     MuiButton: {
-//       styleOverrides: {
-//         root: {
-//           fontSize: '1rem',
-//         },
-//       },
-//     },
-//     MuiInputBase: {
-//       styleOverrides: {
-//         root: {
-//           height: '2rem',
-//           color: 'blue',
-//           width: 120,
-//           fontSize: 10,
-//           textAlign: 'center',
-//           fontFamily: 'Poppins',
-//           m: 1,
-//           '& > fieldset': {
-//             borderColor: '#7833EE',
-//           },
-//           [`& fieldset`]: {
-//             borderRadius: '6px',
-//           },
-//         },
-//         // Separate InputProps object
-//         input: {
-//           height: '2rem',
-//           fontSize: 10,
-//           fontFamily: 'Poppins',
-//         },
-        
-//       },
-//     },
-//   },
-// });
-
-
-
 
 
 
@@ -186,13 +144,19 @@ const BankTransfer = () => {
         backgroundColor: "#fff",
         height: "100vh",
         borderRadius: 20,
-        marginTop: 30,
-        paddingLeft: 30,
-        paddingRight: 30
-
+        // marginTop: 30,
+        // paddingLeft: 30,
+        // paddingRight: 30,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
       }}
     >
-      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 30}}>
+
+<Paper  elevation={12}
+sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
+
+      <Grid container spacing={2} style={{paddingLeft: 30, paddingRight: 30, rowGap: 30}}>
         <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, m: 5, mb: 10 }}>
           <PageHeader2>My Schedule</PageHeader2>
           <SubTitle2>
@@ -204,7 +168,7 @@ const BankTransfer = () => {
 
 {/* ================================= BEGIN OF NAME =================================  */}
 
-        <Grid item xs={6} >
+        <Grid item xs={12} >
           <NameLabel sx={{padding: "4px 6px", }}>Transfer type</NameLabel>
   
         <TextField
@@ -218,6 +182,7 @@ const BankTransfer = () => {
         sx={{
             textAlign: "center",
             ml:1,
+            width: 300,
             "& .MuiOutlinedInput-root.Mui-focused": {
             "& > fieldset": {
                 borderColor: "#7833EE"
@@ -231,7 +196,7 @@ const BankTransfer = () => {
             style: {
             height: "2rem",
             fontSize: 12,
-            width: "290px",
+            // width: "290px",
             fontFamily: "Poppins"
             }
         }}
@@ -307,7 +272,7 @@ const BankTransfer = () => {
           }
         </Grid> */}
 
-        <Grid item xs={6} >
+        <Grid item xs={12} sx={{}} >
                 <NameLabel sx={{padding: "4px 6px", }}>Source Account</NameLabel>
         
                 
@@ -321,9 +286,10 @@ const BankTransfer = () => {
 
                 select
                 sx={{
+                  width: 300,
                     textAlign: "center",
                     ml:1,
-                    width: "280px",
+                    // width: "280px",
                     "& .MuiOutlinedInput-root.Mui-focused": {
                     "& > fieldset": {
                         borderColor: "#7833EE"
@@ -336,7 +302,7 @@ const BankTransfer = () => {
                 InputProps={{
                     style: {
                     height: "2rem",
-                    width: "300px",
+                    // width: "300px",
                     fontSize: 12,
                     fontFamily: "Poppins"
                     }
@@ -402,6 +368,8 @@ const BankTransfer = () => {
         </Grid>
 
       </Grid>
+
+      </Paper>
     </Box>
 
     // </ThemeProvider> 

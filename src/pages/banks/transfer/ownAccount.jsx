@@ -220,11 +220,22 @@ const OwnAccountTransfer = () => {
         borderRadius: 20,
         marginTop: 30,
         paddingLeft: 30,
-        paddingRight: 30
+        paddingRight: 30,
+
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
 
       }}
     >
-      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 30}}>
+
+
+<Paper  elevation={12}
+sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
+  
+
+
+      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 20}}>
         <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, m: 5, mb: 10 }}>
           <PageHeader2>Transfer - Own Account transfer</PageHeader2>
           {/* <SubTitle2>
@@ -790,6 +801,9 @@ const OwnAccountTransfer = () => {
 
 
       </Grid>
+
+</Paper>
+
     </Box>
 
     // </ThemeProvider> 

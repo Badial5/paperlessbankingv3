@@ -33,7 +33,7 @@ import { AccountCircle } from "@mui/icons-material";
 
 // import UserImg from "./const/images/User.svg"
 import { ErrorHelperTextContainer, GridItem, NameLabel, PageHeader2, PageHeaderAndTitleContainer2, SubTitle2, ButtonComponent, ButtonText,
-  } from "../../account/style/account-creation";
+  } from "../../../account/style/account-creation";
 import { red } from "@mui/material/colors";
 import { useState } from "react";
 
@@ -103,53 +103,7 @@ const Item = styled(Box)(({ theme }) => ({
 }));
 
 
-
-// ========================================================================= 
-
-// const theme = createTheme({
-//   components: {
-//     MuiButton: {
-//       styleOverrides: {
-//         root: {
-//           fontSize: '1rem',
-//         },
-//       },
-//     },
-//     MuiInputBase: {
-//       styleOverrides: {
-//         root: {
-//           height: '2rem',
-//           color: 'blue',
-//           width: 120,
-//           fontSize: 10,
-//           textAlign: 'center',
-//           fontFamily: 'Poppins',
-//           m: 1,
-//           '& > fieldset': {
-//             borderColor: '#7833EE',
-//           },
-//           [`& fieldset`]: {
-//             borderRadius: '6px',
-//           },
-//         },
-//         // Separate InputProps object
-//         input: {
-//           height: '2rem',
-//           fontSize: 10,
-//           fontFamily: 'Poppins',
-//         },
-        
-//       },
-//     },
-//   },
-// });
-
-
-
-
-
-
-const ThirdParty = () => {
+const AddBeneficiary = () => {
 
   const [mode, setMode] = useState('light');
 
@@ -282,29 +236,16 @@ const ThirdParty = () => {
         backgroundColor: "#fff",
         height: "130vh",
         borderRadius: 20,
-        marginTop: 0,
+        marginTop: 30,
         paddingLeft: 30,
-        paddingRight: 30,
-        // display: "flex",
-        // justifyContent: "center"
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
+        paddingRight: 30
 
       }}
     >
-
-<Paper  elevation={12}
-sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
-  
-      <Grid container spacing={0} style={{
-        // paddingLeft: 30, paddingRight: 30, 
-        rowGap: 30, }}>
-        <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, 
-        // m: 5, 
-        mb: 10 }}>
+      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 30}}>
+        <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, m: 5, mb: 10 }}>
           <PageHeader2>Transfer - Third Party Transfer</PageHeader2>
-          <SubTitle2 sx={{fontSize: {xs: 8, md: 10, lg: 12, marginTop: 5 }}}>
+          <SubTitle2>
           Third Party Transfer requires that you add new beneficiary to your profile before transfer can be made to such beneficiary 
           </SubTitle2>
         </PageHeaderAndTitleContainer2>
@@ -314,15 +255,16 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
 {/* ================================= BEGIN OF Branch =================================  */}
 
 
-
-
 <Grid item xs={3}sx={{mt: 1.5}} >
         
         <NameLabel sx={{}}>Source Account <span style={{color: "red"}}>*</span> </NameLabel>
 </Grid>
 
 <Grid item xs={9} sx={{display: "flex"}} >
-          {/* <NameLabel >Select branch</NameLabel> */}       
+          {/* <NameLabel >Select branch</NameLabel> */}
+          
+  
+          
 
     <TextField
       id="branch"
@@ -332,7 +274,7 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
 
       select
       sx={{
-        // padding: "5px 8px",
+        padding: "5px 8px",
         textAlign: "center",
         "& .MuiOutlinedInput-root.Mui-focused": {
           "& > fieldset": {
@@ -367,7 +309,6 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
       ))}
     </TextField>
 
-
 </Grid>
 
 
@@ -390,7 +331,7 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
 
       select
       sx={{
-        // padding: "5px 8px",
+        padding: "5px 8px",
         textAlign: "center",
         "& .MuiOutlinedInput-root.Mui-focused": {
           "& > fieldset": {
@@ -449,6 +390,9 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
 
 <Grid item xs={9} sx={{display: "flex"}} >
           {/* <NameLabel >Select branch</NameLabel> */}
+          
+  
+          
 
     <TextField
       id="d_account"
@@ -458,7 +402,7 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
 
       select
       sx={{
-        // padding: "5px 8px", 
+        padding: "5px 8px",
         textAlign: "center",
         "& .MuiOutlinedInput-root.Mui-focused": {
           "& > fieldset": {
@@ -518,7 +462,7 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
             error={Boolean(errors.reference)}
             variant="outlined" 
             sx={{ 
-              // padding: "5px 8px",
+              padding: "5px 8px",
               textAlign: "center",
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -575,7 +519,7 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
             error={Boolean(errors.reference)}
             variant="outlined" 
             sx={{ 
-              // padding: "5px 8px", 
+              padding: "5px 8px",
               textAlign: "center",
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -615,6 +559,9 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
 
         <Grid item xs={9} sx={{display: "flex"}} >
           {/* <NameLabel >Network</NameLabel> */}
+          
+  
+          
 
     <TextField
       id="d_account"
@@ -624,7 +571,7 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
 
       select
       sx={{
-        // padding: "5px 8px", 
+        padding: "5px 8px",
         textAlign: "center",
         "& .MuiOutlinedInput-root.Mui-focused": {
           "& > fieldset": {
@@ -683,7 +630,7 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
             error={Boolean(errors.reference)}
             variant="outlined" 
             sx={{ 
-              // padding: "5px 8px",
+              padding: "5px 8px",
               textAlign: "center",
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -728,6 +675,9 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
 
         <Grid item xs={9} sx={{display: "flex"}} >
           {/* <NameLabel >Network</NameLabel> */}
+          
+  
+          
 
     <TextField
       id="d_account"
@@ -737,7 +687,7 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
 
       select
       sx={{
-        // padding: "5px 8px",
+        padding: "5px 8px",
         textAlign: "center",
         "& .MuiOutlinedInput-root.Mui-focused": {
           "& > fieldset": {
@@ -777,6 +727,10 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
 
         </Grid>
 
+
+
+
+
     
      </>)  
      
@@ -793,11 +747,12 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
             <TextField 
             type="text"
             id="reference"
+            
             fullWidth
             error={Boolean(errors.account_number)}
             variant="outlined" 
             sx={{ 
-              // padding: "5px 8px",
+              padding: "5px 8px",
               textAlign: "center",
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -838,6 +793,13 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
     )
 }
 
+
+
+
+
+
+
+
 {/* ================================================================================== */}
         
          
@@ -864,7 +826,7 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
             error={Boolean(errors.amount)}
             variant="outlined" 
             sx={{ 
-              // padding: "5px 8px",
+              padding: "5px 8px",
               textAlign: "center",
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -905,6 +867,10 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
         </Grid>
 
 
+
+
+
+
         <Grid item xs={3}sx={{mt: 1.5}} >
         
         <NameLabel sx={{}}>Reference <span style={{color: "red"}}>*</span></NameLabel>
@@ -916,11 +882,12 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
           <TextField 
             type="text"
             id="reference"
+            
             fullWidth
             error={Boolean(errors.reference)}
             variant="outlined" 
             sx={{ 
-              // padding: "5px 8px",
+              padding: "5px 8px",
               textAlign: "center",
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
@@ -963,6 +930,9 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
 
 
 
+   
+
+
 {/* ================================= END OF THE ROW ==========================  */}
 
 
@@ -995,15 +965,8 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
 
         </Box>
 
-      
 
       </Grid>
-
-
-    
-        
-        </Paper>
-
     </Box>
 
     // </ThemeProvider> 
@@ -1012,5 +975,5 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
   
 };
 
-export default ThirdParty;
+export default AddBeneficiary;
 

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 // import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 // import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -68,7 +69,13 @@ import { useRef } from "react";
 
 
 
-const ManageBeneficiary = () => {
+const ManageBeneficiary = ({onOptionSelect}) => {
+
+  //SESSION STORAGE STATES
+  const [selectedOption, setSelectedOption] = useState('default');
+
+
+  const navigate = useNavigate()
 
   const [mode, setMode] = useState('light');
 
@@ -110,6 +117,31 @@ const ManageBeneficiary = () => {
   const [comment, setComment] = React.useState("")
 
 
+  // ======================================================================================
+
+  const handleOptionClick = (option) => {
+    sessionStorage.setItem('selectedOption', option);
+    onOptionSelect(option);
+
+    setSelectedOption(option);
+  };
+
+  const handleOptionClick2 = (option) => {
+    sessionStorage.setItem('selectedOption', option);
+    onOptionSelect(option);
+
+    setSelectedOption(option);
+  };
+
+
+
+
+
+
+
+
+
+
   const [formComplete, setFormComplete] = React.useState({
 
     date: null,
@@ -141,6 +173,10 @@ const ManageBeneficiary = () => {
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormComplete(prevState => ({...prevState, [name]: value }));
+  }
+
+  const handleNavigate = () => {
+    navigate("/add-beneficiary")
   }
 
 
@@ -273,7 +309,7 @@ const ManageBeneficiary = () => {
           Efficiently Organize and Support Your Beneficiaries with Manage Beneficiary Tools.
           </SubTitle2> */}
 
-          <Button variant="contained" sx={{height: 30, background: "#7039d1", "&:hover": {background: "#7833EE"}}}>ADD NEW</Button>
+          <Button variant="contained" sx={{height: 30, background: "#7039d1", "&:hover": {background: "#7833EE"}}} onClick={handleOptionClick}>ADD NEW</Button>
         </PageHeaderAndTitleContainer2>
 
 

@@ -74,6 +74,7 @@ import ManageBeneficiary from './pages/banks/transfer/manage-beneficiary'
 import OwnAccountTransfer from './pages/banks/transfer/ownAccount'
 import ThirdParty from './pages/banks/transfer/thirdParty'
 import MyForm from './pages/banks/transfer/reacthooktry'
+import AddBeneficiary from './pages/banks/transfer/Beneficiary/addBeneficiary'
 
 
 const App = () => {
@@ -133,6 +134,7 @@ const App = () => {
         <Route path='manage-beneficiary' element={<ManageBeneficiary />} />
         <Route path='transfer-history' element={<TransferHistory />} />
         <Route path='my-schedule' element={<MySchedules />} />
+        <Route path='add-beneficiary' element={<AddBeneficiary />} />
 
         
 
