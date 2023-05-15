@@ -429,7 +429,7 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
         <Grid item xs={3}sx={{mt: 1.5}} >
         
         <NameLabel sx={{}}>Reference <span style={{color: "red"}}>*</span></NameLabel>
-</Grid>
+        </Grid>
 
         <Grid item xs={9} >
           {/* <NameLabel sx={{padding: "0px 17px"}}>Name</NameLabel> */}

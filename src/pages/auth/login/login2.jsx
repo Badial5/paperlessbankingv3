@@ -112,7 +112,7 @@ export default function Login2Form() {
   // const ref = useRef(null)
   const inputRef = useRef(null)
 
-  const { handleSubmit, register, watch, setValue, formState: {errors}, reset,
+  const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset,
   getValues, trigger } = useForm({
     mode: "onTouched",
     defaultValues: {
@@ -627,17 +627,20 @@ sx={{padding: "5px 16px",}}>
       <BottonComp
   type='submit'
   fullWidth
+  disabled={!isValid}
   sx={{
-    // width: {xs: "22rem", md: "21.5rem"},
+   
     mt: 3,
     mb: 2,
-    background: Object.values(formComplete).every(Boolean)
-      ? 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)'
-      : '#F3F3F3',
+    // background: Object.values(formComplete).every(Boolean)
+    //   ? 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)'
+    //   : '#F3F3F3',
+    background: isValid ? 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)': '#F3F3F3',
    
   }}
-  disabled={!Object.values(formComplete).every(Boolean)}
+  // disabled={!Object.values(formComplete).every(Boolean)}
 
+  
 >
   <ButtonText>
     Login

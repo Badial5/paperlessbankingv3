@@ -75,6 +75,19 @@ import OwnAccountTransfer from './pages/banks/transfer/ownAccount'
 import ThirdParty from './pages/banks/transfer/thirdParty'
 import MyForm from './pages/banks/transfer/reacthooktry'
 import AddBeneficiary from './pages/banks/transfer/Beneficiary/addBeneficiary'
+import ChequeBookRequest from './pages/banks/request/cheque-book'
+import RegisterMobileBanking from './pages/banks/request/register-mobile-banking'
+import ESubcriptionAlert from './pages/banks/request/e-subscription-alert'
+import EStatementAlert from './pages/banks/request/e-statement'
+import ChangeMobilePin from './pages/banks/request/changeMobilePin'
+import RequestHistory from './pages/banks/request/request-history'
+import StopCheque from './pages/banks/request/stop-cheque'
+import DebitCard from './pages/banks/card/debit-card-request'
+import BlockCard from './pages/banks/card/block-card'
+import UnblockCard from './pages/banks/card/unblock-card'
+import AmendCard from './pages/banks/card/amend-card'
+import PrepaidCardRequest from './pages/banks/card/prepaid-card'
+import CardStatement from './pages/banks/card/card-statement'
 
 
 const App = () => {
@@ -135,6 +148,28 @@ const App = () => {
         <Route path='transfer-history' element={<TransferHistory />} />
         <Route path='my-schedule' element={<MySchedules />} />
         <Route path='add-beneficiary' element={<AddBeneficiary />} />
+
+
+
+        {/* Request  */}
+        <Route path='chequebook-request' element={<ChequeBookRequest />} />
+        <Route path='register-mobile-banking' element={<RegisterMobileBanking />} />
+        <Route path='e-subscription-alert' element={<ESubcriptionAlert />} />
+        <Route path='stop-cheque' element={<StopCheque />} />
+        <Route path='e-statement-subscription' element={<EStatementAlert />} />
+        <Route path='change-mobile-banking' element={<ChangeMobilePin/>} />
+        <Route path='request-history' element={<RequestHistory/>} />
+
+
+
+
+         {/* Request  */}
+         <Route path='debitcard-service' element={<DebitCard />} />
+         <Route path='block-card' element={<BlockCard />} />
+         <Route path='amend-card' element={<AmendCard />} />
+         <Route path='unblock-card' element={<UnblockCard />} />
+         <Route path='prepaid-card-request' element={<PrepaidCardRequest />} />
+         <Route path='card-statement' element={<CardStatement />} />
 
         
 

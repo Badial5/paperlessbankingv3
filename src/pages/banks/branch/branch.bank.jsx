@@ -180,23 +180,50 @@ const BankBranch = () => {
 
     
     <Box
-      style={{
-        backgroundColor: "#fff",
-        height: "100vh",
-        borderRadius: 20,
-        marginTop: 30,
-        paddingLeft: 30,
-        paddingRight: 30
+    style={{
+      backgroundColor: "#fff",
+      height: "100vh",
+      borderRadius: 20,
+      marginTop: 0,
+      paddingLeft: 30,
+      paddingRight: 30,
+      // display: "flex",
+      // justifyContent: "center"
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
 
-      }}
-    >
-      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 30}}>
+    }}
+  >
+
+
+    
+<Paper  elevation={12}
+sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
+  
+      <Grid container spacing={0} style={{
+        // paddingLeft: 30, paddingRight: 30, 
+        rowGap: 20, }}>
+        <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, 
+        // m: 5, 
+        mb: 10 }}>
+          <PageHeader2>Bank Branch</PageHeader2>
+          <SubTitle2 sx={{fontSize: {xs: 8, md: 10, lg: 12, marginTop: 5 }}}>
+          Visit our bank branch for personalized financial solutions!
+          </SubTitle2>
+        </PageHeaderAndTitleContainer2>
+
+
+
+
+
+      {/* <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 30}}>
         <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, m: 5, mb: 10 }}>
           <PageHeader2>Bank Branch</PageHeader2>
           <SubTitle2>
           Visit our bank branch for personalized financial solutions!
           </SubTitle2>
-        </PageHeaderAndTitleContainer2>
+        </PageHeaderAndTitleContainer2> */}
 
 
 
@@ -621,6 +648,7 @@ const BankBranch = () => {
 
 
       </Grid>
+      </Paper>
     </Box>
 
     // </ThemeProvider> 

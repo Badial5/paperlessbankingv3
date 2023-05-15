@@ -23,6 +23,19 @@ import ManageBeneficiary from '../../banks/transfer/manage-beneficiary';
 import OwnAccountTransfer from '../../banks/transfer/ownAccount';
 import ThirdParty from '../../banks/transfer/thirdParty';
 import AddBeneficiary from '../../banks/transfer/Beneficiary/addBeneficiary';
+import ChequeBookRequest from '../../banks/request/cheque-book';
+import RegisterMobileBanking from '../../banks/request/register-mobile-banking';
+import EStatementAlert from '../../banks/request/e-statement';
+import ESubcriptionAlert from '../../banks/request/e-subscription-alert';
+import ChangeMobilePin from '../../banks/request/changeMobilePin';
+import RequestHistory from '../../banks/request/request-history';
+import StopCheque from '../../banks/request/stop-cheque';
+import DebitCard from '../../banks/card/debit-card-request';
+import BlockCard from '../../banks/card/block-card';
+import UnblockCard from '../../banks/card/unblock-card';
+import AmendCard from '../../banks/card/amend-card';
+import PrepaidCardRequest from '../../banks/card/prepaid-card.jsx'
+import CardStatement from '../../banks/card/card-statement';
 
 
 const DefaultContent = () => {
@@ -172,6 +185,76 @@ const MainContent = ({ title, children, selectedOption }) => {
         case 'add-beneficiary':
           content = <AddBeneficiary />;
           break;
+
+
+
+          // REQUEST 
+
+          case 'chequebook-request':
+            content = <ChequeBookRequest />;
+            break;
+
+
+            case 'register-mobile-banking':
+            content = <RegisterMobileBanking />;
+            break;
+
+            case 'e-subscription-alert':
+              content = <ESubcriptionAlert />;
+              break;
+
+
+              case 'stop-cheque':
+                content = <StopCheque />;
+               break;
+
+
+              case 'e-statement-subscription':
+                content = <EStatementAlert />;
+                break;
+
+            case 'change-mobile-banking':
+               content = <ChangeMobilePin />;
+              break;
+
+              case 'request-history':
+                content = <RequestHistory />;
+               break;
+
+
+
+
+
+                // ========================== DEBIT CARD SERVICE =================================== 
+                case 'debitcard-service':
+                  content = <DebitCard />;
+                 break;
+
+
+                 case 'block-card':
+                  content = <BlockCard />;
+                 break;
+
+
+                 case 'amend-card':
+                  content = <AmendCard />;
+                 break;
+
+
+                 case 'unblock-card':
+                  content = <UnblockCard />;
+                 break;
+
+
+                 case 'prepaid-card-request':
+                  content = <PrepaidCardRequest />;
+                 break;
+
+
+                 case 'card-statement':
+                  content = <CardStatement />;
+                 break;
+  
 
 
 

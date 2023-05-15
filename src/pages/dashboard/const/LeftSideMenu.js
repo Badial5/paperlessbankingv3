@@ -12,9 +12,11 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { AppBar, Box, Drawer, ListItemButton, Stack, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Drawer, ListItemButton, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
+import  { tooltipClasses } from '@mui/material/Tooltip';
+// import Typography from '@mui/material/Typography';
 
 import {ReactComponent as DashboardLogo} from "../assets/dashboard.svg"
 import {ReactComponent as EnquiryLogo} from "../assets/Enquiry.svg"
@@ -47,6 +49,23 @@ const LeftAppBar = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }));
 
+
+
+const BootstrapTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} arrow classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.arrow}`]: {
+    // color: theme.palette.common.black,
+    color: "#9747FF"
+  },
+  [`& .${tooltipClasses.tooltip}`]: {
+    // backgroundColor: theme.palette.common.black,
+    backgroundColor: "#9747FF",
+    fontSize: 12,
+    maxWidth: 100,
+  },
+}));
+
 const LeftSideMenu = ({onOptionSelect}) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -64,8 +83,7 @@ const LeftSideMenu = ({onOptionSelect}) => {
   const [selectedOption, setSelectedOption] = useState('default');
 
 
-const drawerWidth = 260
-
+const drawerWidth = 240
 
 
   const handleClick = () => {
@@ -555,6 +573,177 @@ const drawerWidth = 260
 
         <Collapse in={open4} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
+
+
+  <BootstrapTooltip title="Request for Cheque Book" 
+     placement="right-start" arrow>
+      <ListItemButton
+       selected={location.pathname === '/bank-request'}
+      
+       sx={{pl:3, }}
+     
+       onClick={() => {
+         // navigate('/bank-appointment');
+         handleOptionClick('chequebook-request');
+         // return handleBankAppointment
+       }}
+
+       
+     >
+       <ListItemIcon>
+         <CreateIcon sx={{color: "#B5AFAF"}} />
+       </ListItemIcon>
+       <ListItemText primary="Cheque Book Request" />
+     </ListItemButton>
+  </BootstrapTooltip>
+
+
+     <BootstrapTooltip title="Register Mobile Banking" 
+     placement="right-start" arrow>
+     <ListItemButton
+       selected={location.pathname === '/banking-request'}
+      
+       sx={{pl:3, }}
+     
+       onClick={() => {
+         // navigate('/bank-appointment');
+         handleOptionClick('register-mobile-banking');
+         // return handleBankAppointment
+       }}
+
+       
+     >
+       <ListItemIcon>
+         <CreateIcon sx={{color: "#B5AFAF"}} />
+       </ListItemIcon>
+       <ListItemText primary="Register Mobile Banking" />
+     </ListItemButton>
+     </BootstrapTooltip>
+
+
+     <BootstrapTooltip title="Activate SMS and Email notifications on your account" 
+     placement="right-start" arrow>
+     <ListItemButton
+       selected={location.pathname === '/banking-request'}
+      
+       sx={{pl:3, }}
+     
+       onClick={() => {
+         // navigate('/bank-appointment');
+         handleOptionClick('e-subscription-alert');
+         // return handleBankAppointment
+       }}
+
+       
+     >
+       <ListItemIcon>
+         <CreateIcon sx={{color: "#B5AFAF"}} />
+       </ListItemIcon>
+       <ListItemText primary="E-Alert Subscription" />
+     </ListItemButton>
+     </BootstrapTooltip>
+
+
+     <BootstrapTooltip title="Stop Cheque" 
+     placement="right-start" arrow>
+     <ListItemButton
+       selected={location.pathname === '/banking-request'}
+      
+       sx={{pl:3, }}
+     
+       onClick={() => {
+         // navigate('/bank-appointment');
+         handleOptionClick('stop-cheque');
+         // return handleBankAppointment
+       }}
+
+       
+     >
+       <ListItemIcon>
+         <CreateIcon sx={{color: "#B5AFAF"}} />
+       </ListItemIcon>
+       <ListItemText primary="Stop Cheque" />
+     </ListItemButton>
+     </BootstrapTooltip>
+
+
+
+     <BootstrapTooltip title="Request for electronic statements on your account" 
+     placement="right-start" arrow>
+     <ListItemButton
+       selected={location.pathname === '/banking-request'}
+      
+       sx={{pl:3, }}
+     
+       onClick={() => {
+         // navigate('/bank-appointment');
+         handleOptionClick('e-statement-subscription');
+         // return handleBankAppointment
+       }}
+
+       
+     >
+       <ListItemIcon>
+         <CreateIcon sx={{color: "#B5AFAF"}} />
+       </ListItemIcon>
+       <ListItemText primary="E-Statement Subscription" />
+     </ListItemButton>
+     </BootstrapTooltip>
+
+
+
+     <BootstrapTooltip title="Update your Mobile Banking PIN to ensure maximum security for your account" 
+     placement="right-start" arrow>
+     <ListItemButton
+       selected={location.pathname === '/banking-request'}
+      
+       sx={{pl:3, }}
+     
+       onClick={() => {
+         // navigate('/bank-appointment');
+         handleOptionClick('change-mobile-banking');
+         // return handleBankAppointment
+       }}
+
+       
+     >
+       <ListItemIcon>
+         <CreateIcon sx={{color: "#B5AFAF"}} />
+       </ListItemIcon>
+       <ListItemText primary="Change Mobile Banking PIN" />
+     </ListItemButton>
+     </BootstrapTooltip>
+
+
+     <BootstrapTooltip title="Request Log Record" 
+     placement="right-start" arrow>
+     <ListItemButton
+       selected={location.pathname === '/banking-request'}
+      
+       sx={{pl:3, }}
+     
+       onClick={() => {
+         // navigate('/bank-appointment');
+         handleOptionClick('request-history');
+         // return handleBankAppointment
+       }}
+
+       
+     >
+       <ListItemIcon>
+         <CreateIcon sx={{color: "#B5AFAF"}} />
+       </ListItemIcon>
+       <ListItemText primary="Request History" />
+     </ListItemButton>
+     </BootstrapTooltip>
+
+
+    
+
+
+
+     <BootstrapTooltip title="Securing Your Financial Future: A Bank Appointment You Can't Afford to Miss" 
+     placement="right-start" arrow>
           <ListItemButton
        
           selected={location.pathname === '/bank-appointment'}
@@ -574,10 +763,12 @@ const drawerWidth = 260
           </ListItemIcon>
           <ListItemText primary="Bank Appointment" />
         </ListItemButton>
+    </BootstrapTooltip>
 
 
 
-
+    <BootstrapTooltip title="Your One-Stop Destination for All Your Financial Needs: Welcome to Our Bank Branch" 
+     placement="right-start" arrow>
             <ListItemButton
               selected={location.pathname === 'bank'}
               // sx={{ pl: 4 }}
@@ -594,7 +785,11 @@ const drawerWidth = 260
               </ListItemIcon>
               <ListItemText primary="Bank Branch" />
             </ListItemButton>
+    </BootstrapTooltip>
 
+
+
+   
 
             
 
@@ -661,7 +856,7 @@ const drawerWidth = 260
          {/* =======================CARD SERVICE =================================================== */}
             {/* Card Service  */}
             <ListItemButton
-          selected={location.pathname.includes('/transfer')}
+          selected={location.pathname.includes('/debit')}
           onClick={handleClick6}
           
           sx={{ pl: 1,   mt: 1, }}>
@@ -674,37 +869,138 @@ const drawerWidth = 260
 
         <Collapse in={open6} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItemButton
-              selected={location.pathname === '/account-creation'}
-              // sx={{ pl: 4, borderLeft: '2px solid red' }}
-              sx={{pl:3, }}
-              onClick={() => {
-                // navigate('/account-creation');
-                handleOptionClick('account-creation');
-              }}
-              
-            >
-              <ListItemIcon>
-                <CreateIcon sx={{color: "#B5AFAF"}} />
-              </ListItemIcon>
-              <ListItemText primary="Transfer" />
-            </ListItemButton>
+
+
+
+            <BootstrapTooltip title="Debit Card Request" 
+     placement="right-start" arrow>
 
             <ListItemButton
-              selected={location.pathname === '/account-officer'}
+              selected={location.pathname === '/card-service'}
               // sx={{ pl: 4 }}
               sx={{pl:3, }}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
-                handleOptionClick('account-officer');
+                handleOptionClick('debitcard-service');
               }}
             >
               <ListItemIcon>
                 <AssignmentIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Account Officer Details" />
+              <ListItemText primary="Debit Card Request" />
             </ListItemButton>
+            </BootstrapTooltip>
+
+
+            <BootstrapTooltip title="Block Card" 
+     placement="right-start" arrow>
+
+            <ListItemButton
+              selected={location.pathname === '/card-service'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('block-card');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Block Card" />
+            </ListItemButton>
+            </BootstrapTooltip>
+
+
+            <BootstrapTooltip title="Change the spending limit on your card" 
+     placement="right-start" arrow>
+
+            <ListItemButton
+              selected={location.pathname === '/card-service'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('amend-card');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Amend Card Limit" />
+            </ListItemButton>
+            </BootstrapTooltip>
+
+
+
+            <BootstrapTooltip title="Unblock Card" 
+     placement="right-start" arrow>
+
+            <ListItemButton
+              selected={location.pathname === '/card-service'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('unblock-card');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="UnBlock Card" />
+            </ListItemButton>
+            </BootstrapTooltip>
+
+
+            <BootstrapTooltip title="Prepaid Card Request" 
+     placement="right-start" arrow>
+
+            <ListItemButton
+              selected={location.pathname === '/card-service'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('prepaid-card-request');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Prepaid Card Request" />
+            </ListItemButton>
+            </BootstrapTooltip>
+
+
+
+            <BootstrapTooltip title="View and generate your card statement" 
+     placement="right-start" arrow>
+
+            <ListItemButton
+              selected={location.pathname === '/card-service'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('card-statement');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Card Statement" />
+            </ListItemButton>
+            </BootstrapTooltip>
+
+
+
 
           </List>
         </Collapse>

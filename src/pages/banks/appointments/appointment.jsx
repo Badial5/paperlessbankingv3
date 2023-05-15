@@ -179,24 +179,63 @@ const BankAppointment = () => {
     // <ThemeProvider theme={theme}>
 
     
-    <Box
-      style={{
-        backgroundColor: "#fff",
-        height: "100vh",
-        borderRadius: 20,
-        marginTop: 30,
-        paddingLeft: 30,
-        paddingRight: 30
+    // <Box
+    //   style={{
+    //     backgroundColor: "#fff",
+    //     height: "100vh",
+    //     borderRadius: 20,
+    //     marginTop: 30,
+    //     paddingLeft: 30,
+    //     paddingRight: 30
 
-      }}
-    >
-      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 30}}>
+    //   }}
+    // >
+
+    <Box
+    style={{
+      backgroundColor: "#fff",
+      height: "100vh",
+      borderRadius: 20,
+      marginTop: 0,
+      paddingLeft: 30,
+      paddingRight: 30,
+      // display: "flex",
+      // justifyContent: "center"
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+
+    }}
+  >
+
+
+
+      
+<Paper  elevation={12}
+sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
+  
+      <Grid container spacing={0} style={{
+        // paddingLeft: 30, paddingRight: 30, 
+        rowGap: 20, }}>
+        <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, 
+        // m: 5, 
+        mb: 10 }}>
+          <PageHeader2>Bank Appointment</PageHeader2>
+          <SubTitle2 sx={{fontSize: {xs: 8, md: 10, lg: 12, marginTop: 5 }}}>
+          Schedule Your Personalized Bank Appointment Today!
+          </SubTitle2>
+        </PageHeaderAndTitleContainer2>
+
+
+
+
+      {/* <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 30}}>
         <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, m: 5, mb: 10 }}>
           <PageHeader2>Bank Appointment</PageHeader2>
           <SubTitle2>
           Schedule Your Personalized Bank Appointment Today!
           </SubTitle2>
-        </PageHeaderAndTitleContainer2>
+        </PageHeaderAndTitleContainer2> */}
 
 
 
@@ -618,11 +657,14 @@ const BankAppointment = () => {
         </ButtonComponent>
 
         
-
+      
         </Box>
 
 
       </Grid>
+
+      </Paper>
+
     </Box>
 
     // </ThemeProvider> 

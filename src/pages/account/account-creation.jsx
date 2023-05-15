@@ -41,30 +41,43 @@ const TextFieldControl = styled(TextField)({
 });
 
 
-const titles = ["Mr", "Mrs", "Miss", ];
+// const titles = ["Mr", "Mrs", "Miss", ];
 
-const idTypes = ["Passport", "Ghana Card", "Voter's Card", "DVLA" ];
+const titles = [
+  {value: "", label: "----------Select--------------"},
+  { value: "mr", label: "Mr" },
+  { value: "mrs", label: "Mrs" },
+  { value: "miss", label: "Miss" },
+  // { value: "gh_link", label: "Gh Link" },
 
-const currencies2 = ["GHS", "$", "¥"]
+]
 
-const currencies = [
-  {
-    value: 'USD',
-    label: '$',
-  },
-  {
-    value: 'EUR',
-    label: '€',
-  },
-  {
-    value: 'BTC',
-    label: '฿',
-  },
-  {
-    value: 'JPY',
-    label: '¥',
-  },
-];
+
+
+// const idTypes = ["Passport", "Ghana Card", "Voter's Card", "DVLA" ];
+
+
+const idTypes = [
+  {value: "", label: "----------Select--------------"},
+  { value: "passport", label: "Passport" },
+  { value: "ghanacard", label: "Ghana Card" },
+  { value: "votercard", label: "Voter's Card" },
+  { value: "dvla", label: "DVLA" },
+
+]
+
+
+const accountTypes = [
+  {value: "", label: "----------Select--------------"},
+  { value: "saving", label: "Saving" },
+  { value: "current", label: "Current" },
+  { value: "business", label: "Business" },
+  // { value: "dvla", label: "DVLA" },
+
+]
+
+
+
 
 // ============================ ITEM STYLING =========================================== 
 const Item = styled(Box)(({ theme }) => ({
@@ -77,52 +90,14 @@ const Item = styled(Box)(({ theme }) => ({
 
 
 
-// ========================================================================= 
-
-// const theme = createTheme({
-//   components: {
-//     MuiButton: {
-//       styleOverrides: {
-//         root: {
-//           fontSize: '1rem',
-//         },
-//       },
-//     },
-//     MuiInputBase: {
-//       styleOverrides: {
-//         root: {
-//           height: '2rem',
-//           color: 'blue',
-//           width: 120,
-//           fontSize: 10,
-//           textAlign: 'center',
-//           fontFamily: 'Poppins',
-//           m: 1,
-//           '& > fieldset': {
-//             borderColor: '#7833EE',
-//           },
-//           [`& fieldset`]: {
-//             borderRadius: '6px',
-//           },
-//         },
-//         // Separate InputProps object
-//         input: {
-//           height: '2rem',
-//           fontSize: 10,
-//           fontFamily: 'Poppins',
-//         },
-        
-//       },
-//     },
-//   },
-// });
-
 
 
 
 
 
 const AccountCreation = () => {
+
+  const [page, setPage] = useState(0)
 
   const [mode, setMode] = useState('light');
 
@@ -131,24 +106,90 @@ const AccountCreation = () => {
   };
 
 
-  const { handleSubmit, register, watch, setValue, formState: {errors}, reset, trigger } = useForm({
+  const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset, trigger } = useForm({
     mode: "onTouched",
     defaultValues: {
       first_name: "",
       last_name: "",
-      email: "",
+      title: "",
       phone_number: "",
-      password1: "",
-      // password2: "",
-      // tnc: ""
+      id_type: "",
+      id_number: "",
+      account_type: "",
+      email: "",
+
     }
   })
-  const [title, setTitle] = React.useState("Mr");
-  const [fullName, setFullName] = React.useState("");
-  const [idType, setIdType] = React.useState("Passport");
-  const [idNumber, setIdNumber] = React.useState("");
-  const [currency, setCurrency] = React.useState("$")
-  const [accountType, setAccountType] = React.useState("")
+
+
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    title: "",
+    phone_number: "",
+    id_type: "",
+    id_number: "",
+    account_type: "",
+    email: "",
+    upload: "",
+  })
+
+  const FormTitles = ["Create an account", "Upload Image", "Confirm Details"]
+ 
+
+  // const [fullName, setFullName] = React.useState("");
+  const [titleState, setTitleState] = React.useState("Mr");
+  const [firstNameState, setFirstNameState] = useState('')
+  const [lastNameState, setLastNameState] = useState('')
+
+  const [idTypeState, setIdTypeState] = React.useState("Passport");
+  const [idNumberState, setIdNumberState] = React.useState("");
+
+
+  const [accountTypeState, setAccountTypeState] = React.useState("")
+  const [emailState, setEmailState] = useState('')
+  const [phoneState, setPhoneState] = useState('')
+
+
+  const handleTitle = (e) => {
+    setTitleState(e.target.value)
+  }
+
+  const handleFirstName = (e) => {
+    setFirstNameState(e.target.value)
+  }
+
+
+  const handleLastName = (e) => {
+    setLastNameState(e.target.value)
+  }
+
+
+  const handleIdType = (e) => {
+    setIdTypeState(e.target.value)
+  }
+
+  const handleNumber = (e) => {
+    setIdNumberState(e.target.value)
+  }
+
+  const handleAccountType = (e) => {
+    setAccountTypeState(e.target.value)
+  }
+
+  const handleEmail= (e) => {
+    setEmailState(e.target.value)
+  }
+
+  const handlePhone = (e) => {
+    setPhoneState(e.target.value)
+  }
+
+
+
+
+
+
 
   const [formComplete, setFormComplete] = React.useState({
 
@@ -165,35 +206,9 @@ const AccountCreation = () => {
     background: 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
   };
 
-  const handleTitleChange = (event) => {
-    setTitle(event.target.value);
-  };
-
-  const handleFullNameChange = (event) => {
-    setFullName(event.target.value);
-  };
-
-  const handleIdTypeChange = (event) => {
-    setIdType(event.target.value);
-  };
-
-  const handleIdNumberChange = (event) => {
-    setIdNumber(event.target.value);
-  };
-
-  const handleCurrencyTypeChange = (event) => {
-    setCurrency(event.target.value);
-  };
-
-  const handleAccountTypeChange = (event) => {
-    setAccountType(event.target.value);
-  };
-
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormComplete(prevState => ({...prevState, [name]: value }));
-  }
+ const onSubmit = (data) => {
+  console.log(data)
+ }
 
 
   return (
@@ -205,14 +220,28 @@ const AccountCreation = () => {
         backgroundColor: "#fff",
         height: "100vh",
         borderRadius: 20,
-        marginTop: 30,
+        marginTop: 0,
         paddingLeft: 30,
-        paddingRight: 30
+        paddingRight: 30,
+        // display: "flex",
+        // justifyContent: "center"
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
 
       }}
     >
-      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 30}}>
-        <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, m: 5, mb: 10 }}>
+
+<Paper  elevation={12}
+sx={{width: "40rem", display: "flex", padding: "10px 30px", borderRadius: 10 }}>
+  
+      <form onSubmit={handleSubmit(onSubmit)}>
+
+      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 20}}
+      >
+
+        
+        <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 0, m: 5, mb: 10 }}>
           <PageHeader2>Create an account</PageHeader2>
           <SubTitle2>
             Take a selfie and fill the form below with the appropriate information
@@ -236,7 +265,7 @@ const AccountCreation = () => {
   <NameLabel sx={{ padding: "0px 17px", fontSize: 12, lineHeight: "16px", 
 fontFamily: 'Poppins', fontWeight: 400 }}>Title</NameLabel>
 
-  <FormControl
+  {/* <FormControl
     fullWidth
     sx={{
       "& .MuiSelect-root": {
@@ -263,16 +292,59 @@ fontFamily: 'Poppins', fontWeight: 400 }}>Title</NameLabel>
     <Select />
 
    
-  </FormControl>
+  </FormControl> */}
 
-  {(errors.first_name?.message) && (
+<TextField
+      id="d_account"
+      fullWidth
+      error={Boolean(errors.branch)}
+      variant="outlined"
+
+      select
+      sx={{
+        // padding: "5px 8px",
+        textAlign: "center",
+        "& .MuiOutlinedInput-root.Mui-focused": {
+          "& > fieldset": {
+            borderColor: "#7833EE"
+          }
+        },
+        [`& fieldset`]: {
+          borderRadius: "6px"
+        }
+      }}
+      InputProps={{
+        style: {
+          height: "2rem",
+          fontSize: 12,
+          fontFamily: "Poppins"
+        }
+      }}
+      {...register("title", {
+        required: {
+          value: true,
+          message: "Title is required"
+        }
+      })}
+      // label="Branch"
+      // placeholder="Please select Your title"
+      value={titleState}
+      onChange={handleTitle}
+    >
+      {titles.map((option) => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label}
+        </MenuItem>
+      ))}
+    </TextField>
+
+
+  {/* {(errors.first_name?.message) && (
     <ErrorHelperTextContainer>
       {errors.first_name?.message}
     </ErrorHelperTextContainer>
-  )}
+  )} */}
 </Grid>
-
-       
 
 
         <Grid item xs={5} >
@@ -310,13 +382,9 @@ fontFamily: 'Poppins', fontWeight: 400 }}>Title</NameLabel>
               }
             })}
             placeholder='eg. Joseph'
-            onChange={(event) => {
-              handleInputChange(event);
-              setFormComplete(prevState => ({
-                first_name: event.target.value,
-                ...prevState,
-              }));
-            }}
+            value={firstNameState}
+            onChange={handleFirstName}
+            
           />
           { (errors.first_name?.message  ) &&
             <ErrorHelperTextContainer>
@@ -360,13 +428,8 @@ fontFamily: 'Poppins', fontWeight: 400 }}>Title</NameLabel>
               }
             })}
             placeholder='eg. Smith'
-            onChange={(event) => {
-              handleInputChange(event);
-              setFormComplete(prevState => ({
-                last_name: event.target.value,
-                ...prevState,
-              }));
-            }}
+            value={lastNameState}
+            onChange={handleLastName}
           />
   
           { (errors.last_name?.message  ) &&
@@ -387,11 +450,12 @@ fontFamily: 'Poppins', fontWeight: 400 }}>Title</NameLabel>
         
 
         {/* Title  */}
-<Grid item xs={2}>
+<Grid item xs={3}>
   <NameLabel sx={{ padding: "0px 17px", fontSize: 12, lineHeight: "16px", 
 fontFamily: 'Poppins', fontWeight: 400,  }}>ID Type</NameLabel>
 
-  <FormControl
+
+  {/* <FormControl
     fullWidth
     sx={{
       "& .MuiSelect-root": {
@@ -418,24 +482,69 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>ID Type</NameLabel>
     <Select />
 
    
-  </FormControl>
+  </FormControl> */}
 
-  {(errors.first_name?.message) && (
+<TextField
+      id="id_type"
+      fullWidth
+      error={Boolean(errors.id_type)}
+      variant="outlined"
+
+      select
+      sx={{
+        // padding: "5px 8px",
+        textAlign: "center",
+        "& .MuiOutlinedInput-root.Mui-focused": {
+          "& > fieldset": {
+            borderColor: "#7833EE"
+          }
+        },
+        [`& fieldset`]: {
+          borderRadius: "6px"
+        }
+      }}
+      InputProps={{
+        style: {
+          height: "2rem",
+          fontSize: 12,
+          fontFamily: "Poppins"
+        }
+      }}
+      {...register("id_type", {
+        required: {
+          value: true,
+          message: "ID Type is required"
+        }
+      })}
+      // label="Branch"
+      placeholder="Please select Card type"
+      value={idTypeState}
+      onChange={handleIdType}
+    >
+      {idTypes.map((option) => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label}
+        </MenuItem>
+      ))}
+    </TextField>
+
+
+  {/* {(errors.first_name?.message) && (
     <ErrorHelperTextContainer>
       {errors.first_name?.message}
     </ErrorHelperTextContainer>
-  )}
+  )} */}
 </Grid>
        
   
-        <Grid item xs={10} >
+        <Grid item xs={9} >
           <NameLabel sx={{padding: "0px 17px"}}>ID Number</NameLabel>
   
           <TextField
           fullWidth
             type="text"
-            id="last_name"
-            error={Boolean(errors.last_name)}
+            id="id_type"
+            error={Boolean(errors.id_number)}
             variant="outlined" 
             sx={{ 
               padding: "5px 8px",
@@ -456,20 +565,15 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>ID Type</NameLabel>
                 fontFamily: 'Poppins'
               },
             }}
-            {...register("last_name", {
+            {...register("id_number", {
               required: {
                 value: true,
-                message: "Last name is required"
+                message: "ID number is required"
               }
             })}
             placeholder='eg. ID Number'
-            onChange={(event) => {
-              handleInputChange(event);
-              setFormComplete(prevState => ({
-                last_name: event.target.value,
-                ...prevState,
-              }));
-            }}
+           value={idNumberState}
+           onChange={handleNumber}
           />
   
           {/* { (errors.last_name?.message  ) &&
@@ -485,11 +589,11 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>ID Type</NameLabel>
 {/* ============================ BEGIN OF THE THIRD ROW =========================  */}
 
      {/* Account Type  */}
-     <Grid item xs={3}>
-  <NameLabel sx={{ padding: "0px 17px", fontSize: 10, lineHeight: "16px", 
+     <Grid item xs={2}>
+  <NameLabel sx={{  fontSize: 10, lineHeight: "16px", 
 fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
 
-  <FormControl
+  {/* <FormControl
     fullWidth
     sx={{
       "& .MuiSelect-root": {
@@ -512,17 +616,71 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
         borderRadius: "6px"
       }
     }}
+    value={accountTypeState}
+    onChange={handleAccountType}
   >
+    {
+      
+      accountTypes.map(account => (
+        <MenuItem key={account.value} value={account.value}>
+          {account.label}
+        </MenuItem>
+      ))
+    }
     <Select />
 
    
-  </FormControl>
+  </FormControl> */}
 
-  {(errors.first_name?.message) && (
+<TextField
+      id="id_type"
+      fullWidth
+      error={Boolean(errors.id_type)}
+      variant="outlined"
+
+      select
+      sx={{
+        // padding: "5px 8px",
+        textAlign: "center",
+        "& .MuiOutlinedInput-root.Mui-focused": {
+          "& > fieldset": {
+            borderColor: "#7833EE"
+          }
+        },
+        [`& fieldset`]: {
+          borderRadius: "6px"
+        }
+      }}
+      InputProps={{
+        style: {
+          height: "2rem",
+          fontSize: 12,
+          fontFamily: "Poppins"
+        }
+      }}
+      {...register("account_type", {
+        required: {
+          value: true,
+          message: "Account type is required"
+        }
+      })}
+      // label="Branch"
+      placeholder="Please select account type"
+      value={accountTypeState}
+      onChange={handleAccountType}
+    >
+      {accountTypes.map((option) => (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label}
+        </MenuItem>
+      ))}
+    </TextField>
+
+  {/* {(errors.first_name?.message) && (
     <ErrorHelperTextContainer>
       {errors.first_name?.message}
     </ErrorHelperTextContainer>
-  )}
+  )} */}
 </Grid>
 
 {/* ================================= END OF THE THIRD ROW =======================  */}
@@ -530,7 +688,7 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
 
 {/* ================================= LAST ROW BEGIN ========================== */}
 
-        <Grid item xs={4}>
+        <Grid item xs={5}>
           <NameLabel sx={{padding: "0px 17px"}}>Email</NameLabel>
   
           <TextField 
@@ -558,20 +716,16 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
                 fontFamily: 'Poppins'
               },
             }}
-            {...register("first_name", {
+            {...register("email", {
               required: {
                 value: true,
-                message: "First name is required"
+                message: "Email is required"
               }
             })}
             placeholder='eg. Email'
-            onChange={(event) => {
-              handleInputChange(event);
-              setFormComplete(prevState => ({
-                first_name: event.target.value,
-                ...prevState,
-              }));
-            }}
+            value={emailState}
+            onChange={handleEmail}
+          
           />
           {/* { (errors.first_name?.message  ) &&
             <ErrorHelperTextContainer>
@@ -608,20 +762,15 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
                 fontFamily: 'Poppins'
               },
             }}
-            {...register("last_name", {
+            {...register("phone_number", {
               required: {
                 value: true,
-                message: "Last name is required"
+                message: "Phone number is required"
               }
             })}
             placeholder='eg. (+233) 557000000'
-            onChange={(event) => {
-              handleInputChange(event);
-              setFormComplete(prevState => ({
-                last_name: event.target.value,
-                ...prevState,
-              }));
-            }}
+           value={phoneState}
+           onChange={handlePhone}
           />
   
           {/* { (errors.last_name?.message  ) &&
@@ -641,12 +790,15 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
         onClick={ () => null}
 
         // disabled={formComplete}
+        disabled={!isValid}
 
-        style={{
-          background:( (formComplete.first_name) && (formComplete.first_name) 
-          && (formComplete.email) && (formComplete.phone_number) 
-          && (formComplete.password1  ) ) ? backgroundColorText.background : "#F3F3F3",
-        }}
+        // style={{
+        //   background:( (formComplete.first_name) && (formComplete.first_name) 
+        //   && (formComplete.email) && (formComplete.phone_number) 
+        //   && (formComplete.password1  ) ) ? backgroundColorText.background : "#F3F3F3",
+        // }}
+
+        style={{ background: !isValid ? "#F3F3F3" : 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)' }}
         
         sx={{ 
         padding: "0px 0px", }}>
@@ -662,6 +814,10 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
 
 
       </Grid>
+
+      </form>
+
+  </Paper>
     </Box>
 
     // </ThemeProvider> 
