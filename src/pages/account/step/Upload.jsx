@@ -49,7 +49,7 @@ const Upload = () => {
   if (file) {
     setIsUploading(true);
     // Simulate upload delay
-    await new Promise((resolve) => setTimeout(resolve, 4000));
+    await new Promise((resolve) => setTimeout(resolve, 6000));
     
     // Perform API request to submit the image
     try {

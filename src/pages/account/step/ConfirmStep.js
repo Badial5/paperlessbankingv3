@@ -3,7 +3,7 @@ import React from 'react'
 const ConfirmStep2 = () => {
   return (
     <div>
-      <h3>Confirm Step</h3>
+      <h3>Confirm Step Gmes</h3>
     </div>
   )
 }

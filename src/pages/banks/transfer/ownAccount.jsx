@@ -231,12 +231,12 @@ const OwnAccountTransfer = () => {
 
 
 <Paper  elevation={12}
-sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
+sx={{width: "30rem", display: "flex", padding: "20px 30px", borderRadius: 10 }}>
   
 
 
-      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 20}}>
-        <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 5, m: 5, mb: 10 }}>
+      <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 10}}>
+        <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 0, m: 5, mb: 3 }}>
           <PageHeader2>Transfer - Own Account transfer</PageHeader2>
           {/* <SubTitle2>
           Third Party Transfer requires that you add new beneficiary to your profile before transfer can be made to such beneficiary 

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useEffect, useRef } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -11,11 +12,51 @@ import AccountCreationJs from './step/account-creation';
 import Upload from './step/Upload';
 import ConfirmStep from './step/Confirm';
 
+// import FormCompleteAnimation from "./animation/json/formComplete.json"
+
+
+import Lottie from 'lottie-web';
+import FormCompleteAnimation from './animation/json/formComplete.json';
+
+
 const steps = ['Account Creation', 'Upload Image', 'Confirm Details'];
 
 export default function MainAccount() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
+
+
+  //Lottie
+  const animationContainer = useRef(null);
+
+
+  const [showAnimation, setShowAnimation] = React.useState(true);
+
+
+  useEffect(() => {
+    const anim = Lottie.loadAnimation({
+      container: animationContainer.current,
+      animationData: FormCompleteAnimation,
+      loop: false,
+      autoplay: true,
+      renderer: 'svg',
+    });
+  
+    anim.addEventListener('complete', () => {
+      // Animation completed, hide the animation and show the completion message
+      setShowAnimation(false);
+    });
+  
+    return () => {
+      anim.destroy(); // Cleanup the animation when the component unmounts
+    };
+  }, []);
+
+
+
+  
+
+
 
   const totalSteps = () => {
     return steps.length;
@@ -115,9 +156,32 @@ export default function MainAccount() {
 
 {/* ============== When the forms are completed, the feedback message =========== */}
 
-  <Typography sx={{ mt: 2, mb: 1 }}>
-  All steps completed - you're finished
+{/* <Box sx={{padding: "10rem 10rem"}}>
+  <Typography sx={{ mt: 2, mb: 1,  }}>
+  All steps completed - you're finished Games
   </Typography>
+</Box> */}
+
+{showAnimation ? (
+  <Box
+    ref={animationContainer}
+    sx={{ width: '100%', height: '100%' }}
+    // Adjust the styles as per your requirement
+  />
+) : (
+  <React.Fragment>
+    <Box sx={{ padding: '10rem 10rem' }}>
+      <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - you're finished Games</Typography>
+    </Box>
+
+    <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+      <Box sx={{ flex: '1 1 auto' }} />
+      <Button onClick={handleReset}>Reset</Button>
+    </Box>
+  </React.Fragment>
+)}
+
+
   <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
   <Box sx={{ flex: '1 1 auto' }} />
   <Button onClick={handleReset}>Reset</Button>
@@ -157,7 +221,9 @@ export default function MainAccount() {
               <Box sx={{ flex: '1 1 auto' }} />
 
               <Button onClick={handleNext} sx={{ mr: 1 }}>
-                {activeStep === totalSteps() - 1 ? 'Finish' : 'Next'}
+                {/* I remove Finish nd replace it with null value */}
+                {activeStep === totalSteps() - 1 ? '' : 'Next'}
+
               </Button>
 
               {activeStep !== steps.length &&
@@ -167,7 +233,7 @@ export default function MainAccount() {
                   </Typography>
                 ) : (
                   <Button onClick={handleComplete}>
-                    {completedSteps() === totalSteps() - 1 ? 'Finish' : 'Complete Step'}
+                    {completedSteps() === totalSteps() - 1 ? 'Done' : 'Complete Step'}
                   </Button>
                 ))}
             </Box>
