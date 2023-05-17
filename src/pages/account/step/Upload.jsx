@@ -1,39 +1,124 @@
-import React from 'react'
+import React, { useRef, useState } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
+import { Box, Typography, Button } from '@mui/material';
+import { styled } from '@mui/system';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Lottie from 'react-lottie';
+// import uploadAnimation from 'path/to/upload-animation.json';
+import uploadAnimation from "../animation/json/uploadAnimation.json"
+
+const Dropzone = styled('div')(({ theme }) => ({
+  width: '100%',
+  height: '200px',
+  border: `2px dashed ${theme.palette.secondary.main}`,
+  borderRadius: theme.shape.borderRadius,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  cursor: 'pointer',
+  transition: 'background-color 0.3s ease',
+  '&:hover': {
+    backgroundColor: theme.palette.secondary.light,
+  },
+}));
 
 const Upload = () => {
+  const { control, setValue } = useForm();
+  const imageFile = useWatch({ control, name: 'image' });
+  const dropzoneRef = useRef(null);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleDropzoneClick = () => {
+    dropzoneRef.current.click();
+  };
+
+  // const handleFileUpload = async (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     setIsUploading(true);
+  //     // Simulate upload delay
+  //     await new Promise((resolve) => setTimeout(resolve, 4000));
+  //     setValue('image', file);
+  //     setIsUploading(false);
+  //   }
+  // };
+
+
+  const handleFileUpload = async (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    setIsUploading(true);
+    // Simulate upload delay
+    await new Promise((resolve) => setTimeout(resolve, 4000));
+    
+    // Perform API request to submit the image
+    try {
+      const formData = new FormData();
+      formData.append('image', file);
+      
+      // Replace `API_ENDPOINT` with the actual API endpoint to submit the image
+      const response = await fetch('API_ENDPOINT', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      // Handle the response from the API as needed
+      if (response.ok) {
+        console.log('Image submitted successfully');
+      } else {
+        console.log('Error submitting image');
+      }
+    } catch (error) {
+      console.log('Error:', error);
+    }
+    
+    setValue('image', file);
+    setIsUploading(false);
+  }
+};
+
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: uploadAnimation,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
   return (
-    <Box
-    style={{
-      backgroundColor: "#fff",
-      height: "100vh",
-      borderRadius: 20,
-      marginTop: 0,
-      paddingLeft: 30,
-      paddingRight: 30,
-      // display: "flex",
-      // justifyContent: "center"
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-
-    }}
-  >
-
-    <Paper  elevation={12}
-    sx={{width: "40rem", display: "flex", padding: "10px 30px", borderRadius: 10 }}>
-
-
-
-        Hello World
-
-
-
-
-
-    </Paper>
-
+    <Box>
+      <Dropzone ref={dropzoneRef} onClick={handleDropzoneClick}>
+        {isUploading ? (
+          <Lottie options={defaultOptions} height={120} width={120} />
+        ) : imageFile ? (
+          <img
+            src={URL.createObjectURL(imageFile)}
+            alt="Uploaded"
+            style={{ maxWidth: '100%', maxHeight: '100%' }}
+          />
+        ) : (
+          <>
+            <CloudUploadIcon fontSize="large" color="action" />
+            <Typography variant="body1" color="textSecondary">
+              Click or drag and drop an image here
+            </Typography>
+          </>
+        )}
+      </Dropzone>
+      <input
+        type="file"
+        accept="image/*"
+        style={{ display: 'none' }}
+        ref={dropzoneRef}
+        onChange={handleFileUpload}
+      />
+      {!isUploading && (
+        <></>
+      )}
     </Box>
-  )
-}
+  );
+};
 
-export default Upload
+export default Upload;

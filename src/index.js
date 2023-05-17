@@ -8,14 +8,17 @@ import { ThemeProvider } from '@mui/material';
 
 //props
 import theme from './theme';
+import { SignUpProvider } from './pages/account/contexts/Sign-up.context';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
+      {/* <SignUpProvider> */}
     {/* <App  theme={theme}/> */}
     <App />
+    {/* </SignUpProvider> */}
     </ThemeProvider>
    
   </React.StrictMode>

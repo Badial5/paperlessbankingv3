@@ -1,11 +1,6 @@
 import * as React from "react";
 
-import { useContext } from "react";
-import { SignUpContext, SignUpProvider } from "./contexts/Sign-up.context";
-
-// import useSignUpFormContext from "./hooks/useSignUpHooks";
-
-// import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import { useForm } from "react-hook-form";
 import { styled } from "@mui/material/styles";
@@ -102,17 +97,6 @@ const Item = styled(Box)(({ theme }) => ({
 
 const AccountCreation = () => {
 
-
-
-  // const {
-  //   handleSubmit, register, watch, setValue, errors, isValid, reset, trigger, title, setSignUpFormData, signUpFormData, updateFormData, onNext
-  // } = useSignUpFormContext()
-
-  const {
-    handleSubmit, register, watch, setValue, errors, isValid, reset, trigger, title, setSignUpFormData, signUpFormData, updateFormData, onNext
-  } = SignUpContext
-
-
   const [page, setPage] = useState(0)
 
   const [mode, setMode] = useState('light');
@@ -122,20 +106,20 @@ const AccountCreation = () => {
   };
 
 
-  // const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset, trigger } = useForm({
-  //   mode: "onTouched",
-  //   defaultValues: {
-  //     first_name: "",
-  //     last_name: "",
-  //     title: "",
-  //     phone_number: "",
-  //     id_type: "",
-  //     id_number: "",
-  //     account_type: "",
-  //     email: "",
+  const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset, trigger } = useForm({
+    mode: "onTouched",
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      title: "",
+      phone_number: "",
+      id_type: "",
+      id_number: "",
+      account_type: "",
+      email: "",
 
-  //   }
-  // })
+    }
+  })
 
 
   const [formData, setFormData] = useState({
@@ -222,16 +206,9 @@ const AccountCreation = () => {
     background: 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
   };
 
-//  const onSubmit = (data) => {
-//   console.log(data)
-//  }
-
-const onSubmit = (data) => {
-  updateFormData(data);
+ const onSubmit = (data) => {
   console.log(data)
-  onNext();
-  console.log(`After onNext ${data}`)
-};
+ }
 
 
   return (
@@ -258,9 +235,7 @@ const onSubmit = (data) => {
 <Paper  elevation={12}
 sx={{width: "40rem", display: "flex", padding: "10px 30px", borderRadius: 10 }}>
   
-      <form 
-      onSubmit={handleSubmit(onSubmit)}
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
 
       <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 20}}
       >
@@ -810,22 +785,28 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
 
 
         <Box style={{width: 200, marginLeft: "auto", marginRight: "auto"}}>
-        {/* <ButtonComponent type='submit'
+        <ButtonComponent type='submit'
        fullWidth
         onClick={ () => null}
+
         // disabled={formComplete}
         disabled={!isValid}
+
+        // style={{
+        //   background:( (formComplete.first_name) && (formComplete.first_name) 
+        //   && (formComplete.email) && (formComplete.phone_number) 
+        //   && (formComplete.password1  ) ) ? backgroundColorText.background : "#F3F3F3",
+        // }}
+
         style={{ background: !isValid ? "#F3F3F3" : 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)' }}
+        
         sx={{ 
         padding: "0px 0px", }}>
           <ButtonText>
+            {/* {loading ? ( <CircularProgress sx={{color: "#fff"}} size={24}  /> ) : "Create account"}   */}
             Continue
           </ButtonText>
-        </ButtonComponent> */}
-
-<Button type="submit" disabled={!isValid} style={{ backgroundColor: isValid ? 'blue' : '#cecece' }}>
-        Continue
-      </Button>
+        </ButtonComponent>
 
         
 

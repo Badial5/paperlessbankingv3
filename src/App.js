@@ -88,6 +88,8 @@ import UnblockCard from './pages/banks/card/unblock-card'
 import AmendCard from './pages/banks/card/amend-card'
 import PrepaidCardRequest from './pages/banks/card/prepaid-card'
 import CardStatement from './pages/banks/card/card-statement'
+import AccountMain from './pages/account/AccountMain'
+import MainAccount from './pages/account/MainAccount12'
 
 
 const App = () => {
@@ -125,8 +127,13 @@ const App = () => {
         <Route path='enquiry-exchange-rate' element={<ExchangeRate />} />
 
          {/* Accounnt  */}
-        <Route path='account-creation' element={<AccountCreation />} />
+         
+        {/* <Route path='account-creation' element={<AccountCreation />} /> */}
         <Route path='account-officer' element={<AccountOfficer />}  />
+        {/* <Route path='account-creation' element={<AccountMain />} /> */}
+
+        <Route path='account-creation' element={<MainAccount />} />
+        
 
 
          {/* Bank   */}

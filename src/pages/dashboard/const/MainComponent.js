@@ -36,6 +36,8 @@ import UnblockCard from '../../banks/card/unblock-card';
 import AmendCard from '../../banks/card/amend-card';
 import PrepaidCardRequest from '../../banks/card/prepaid-card.jsx'
 import CardStatement from '../../banks/card/card-statement';
+import AccountMain from '../../account/AccountMain';
+import MainAccount from '../../account/MainAccount';
 
 
 const DefaultContent = () => {
@@ -140,9 +142,19 @@ const MainContent = ({ title, children, selectedOption }) => {
       content = <div style={{minWidth: "100%"}}> <AccountBalance /> </div>
       break;
 
+    // case 'account-creation':
+    //   content = <div style={{minWidth: "100%"}}> <AccountCreation /> </div>
+    //   break;
+
     case 'account-creation':
-      content = <div style={{minWidth: "100%"}}> <AccountCreation /> </div>
+      content = <div style={{minWidth: "100%"}}> <MainAccount /> </div>
       break;
+
+      case 'account-creation':
+        content = <div style={{minWidth: "100%"}}> <AccountMain /> </div>
+        break;
+
+
     case 'account-officer':
       content = <div style={{width: "100%"}}> <AccountOfficer /> </div>
       break;

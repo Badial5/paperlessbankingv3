@@ -1,11 +1,6 @@
 import * as React from "react";
 
-import { useContext } from "react";
-import { SignUpContext, SignUpProvider } from "./contexts/Sign-up.context";
-
-// import useSignUpFormContext from "./hooks/useSignUpHooks";
-
-// import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import { useForm } from "react-hook-form";
 import { styled } from "@mui/material/styles";
@@ -27,13 +22,14 @@ import {
 import { AccountCircle } from "@mui/icons-material";
 
 
-import { StyledTextField } from "./style/account-creation"
+import { StyledTextField } from "../style/account-creation"
 
 
 
-import UserImg from "./const/images/User.svg"
+import UserImg from "../const/images/User.svg"
+
 import { ErrorHelperTextContainer, GridItem, NameLabel, PageHeader2, PageHeaderAndTitleContainer2, SubTitle2, ButtonComponent, ButtonText,
-  } from "./style/account-creation";
+  } from "../style/account-creation";
 import { red } from "@mui/material/colors";
 import { useState } from "react";
 
@@ -100,18 +96,7 @@ const Item = styled(Box)(({ theme }) => ({
 
 
 
-const AccountCreation = () => {
-
-
-
-  // const {
-  //   handleSubmit, register, watch, setValue, errors, isValid, reset, trigger, title, setSignUpFormData, signUpFormData, updateFormData, onNext
-  // } = useSignUpFormContext()
-
-  const {
-    handleSubmit, register, watch, setValue, errors, isValid, reset, trigger, title, setSignUpFormData, signUpFormData, updateFormData, onNext
-  } = SignUpContext
-
+const AccountCreationJs = () => {
 
   const [page, setPage] = useState(0)
 
@@ -122,20 +107,22 @@ const AccountCreation = () => {
   };
 
 
-  // const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset, trigger } = useForm({
-  //   mode: "onTouched",
-  //   defaultValues: {
-  //     first_name: "",
-  //     last_name: "",
-  //     title: "",
-  //     phone_number: "",
-  //     id_type: "",
-  //     id_number: "",
-  //     account_type: "",
-  //     email: "",
+  const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset, trigger } = useForm({
+    mode: "onTouched",
+    defaultValues: {
+      first_name: "",
+      last_name: "",
+      title: "",
+      phone_number: "",
+      id_type: "",
+      id_number: "",
+      account_type: "",
+      email: "",
+      upload: "",
+      
 
-  //   }
-  // })
+    }
+  })
 
 
   const [formData, setFormData] = useState({
@@ -222,45 +209,39 @@ const AccountCreation = () => {
     background: 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
   };
 
-//  const onSubmit = (data) => {
-//   console.log(data)
-//  }
-
-const onSubmit = (data) => {
-  updateFormData(data);
+ const onSubmit = (data) => {
   console.log(data)
-  onNext();
-  console.log(`After onNext ${data}`)
-};
+ }
 
 
   return (
     // <ThemeProvider theme={theme}>
 
     
-    <Box
-      style={{
-        backgroundColor: "#fff",
-        height: "100vh",
-        borderRadius: 20,
-        marginTop: 0,
-        paddingLeft: 30,
-        paddingRight: 30,
-        // display: "flex",
-        // justifyContent: "center"
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
+//     <Box
+//       style={{
+//         backgroundColor: "#fff",
+//         height: "100vh",
+//         borderRadius: 20,
+//         marginTop: 0,
+//         paddingLeft: 30,
+//         paddingRight: 30,
+//         // display: "flex",
+//         // justifyContent: "center"
+//         display: "flex",
+//         alignItems: "center",
+//         justifyContent: "center"
 
-      }}
-    >
+//       }}
+//     >
 
-<Paper  elevation={12}
-sx={{width: "40rem", display: "flex", padding: "10px 30px", borderRadius: 10 }}>
+// <Paper  elevation={12}
+// sx={{width: "40rem", display: "flex", padding: "10px 30px", borderRadius: 10 }}>
   
-      <form 
-      onSubmit={handleSubmit(onSubmit)}
-      >
+
+
+
+      <form onSubmit={handleSubmit(onSubmit)}>
 
       <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 20}}
       >
@@ -269,7 +250,7 @@ sx={{width: "40rem", display: "flex", padding: "10px 30px", borderRadius: 10 }}>
         <PageHeaderAndTitleContainer2 sx={{ mx: "auto", pt: 0, m: 5, mb: 10 }}>
           <PageHeader2>Create an account</PageHeader2>
           <SubTitle2>
-            Take a selfie and fill the form below with the appropriate information
+          Open Your Account Today: Quick and Easy Steps to Get Started!
           </SubTitle2>
         </PageHeaderAndTitleContainer2>
 
@@ -618,44 +599,7 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>ID Type</NameLabel>
   <NameLabel sx={{  fontSize: 10, lineHeight: "16px", 
 fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
 
-  {/* <FormControl
-    fullWidth
-    sx={{
-      "& .MuiSelect-root": {
-        height: "2rem",
-        width: 200,
-        borderRadius: 100
-      },
-      "& .MuiInputBase-input": {
-        padding: "5px 8px",
-        textAlign: "center",
-        fontSize: 12,
-        fontFamily: 'Poppins'
-      },
-      "& .MuiOutlinedInput-root.Mui-focused": {
-        "& fieldset": {
-          borderColor: "#7833EE"
-        }
-      },
-      "& fieldset": {
-        borderRadius: "6px"
-      }
-    }}
-    value={accountTypeState}
-    onChange={handleAccountType}
-  >
-    {
-      
-      accountTypes.map(account => (
-        <MenuItem key={account.value} value={account.value}>
-          {account.label}
-        </MenuItem>
-      ))
-    }
-    <Select />
-
-   
-  </FormControl> */}
+  
 
 <TextField
       id="id_type"
@@ -810,22 +754,28 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
 
 
         <Box style={{width: 200, marginLeft: "auto", marginRight: "auto"}}>
-        {/* <ButtonComponent type='submit'
+        <ButtonComponent type='submit'
        fullWidth
         onClick={ () => null}
+
         // disabled={formComplete}
         disabled={!isValid}
+
+        // style={{
+        //   background:( (formComplete.first_name) && (formComplete.first_name) 
+        //   && (formComplete.email) && (formComplete.phone_number) 
+        //   && (formComplete.password1  ) ) ? backgroundColorText.background : "#F3F3F3",
+        // }}
+
         style={{ background: !isValid ? "#F3F3F3" : 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)' }}
+        
         sx={{ 
         padding: "0px 0px", }}>
           <ButtonText>
+            {/* {loading ? ( <CircularProgress sx={{color: "#fff"}} size={24}  /> ) : "Create account"}   */}
             Continue
           </ButtonText>
-        </ButtonComponent> */}
-
-<Button type="submit" disabled={!isValid} style={{ backgroundColor: isValid ? 'blue' : '#cecece' }}>
-        Continue
-      </Button>
+        </ButtonComponent>
 
         
 
@@ -836,8 +786,8 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
 
       </form>
 
-  </Paper>
-    </Box>
+  // </Paper>
+  //   </Box>
 
     // </ThemeProvider> 
   );
@@ -845,5 +795,5 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
   
 };
 
-export default AccountCreation;
+export default AccountCreationJs;
 
