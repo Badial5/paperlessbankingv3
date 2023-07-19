@@ -96,8 +96,10 @@ useEffect(() => {
     <Box>
     <DashboardContainer>
       <LeftSideMenu onOptionSelect={handleOptionSelect} style={{width: "30vw"}}/>
+
       <MainContent selectedOption={selectedOption} title="Main Content" style={{width: "100%"}}/>
-      <RightSideMenu onOptionSelect={handleOptionSelect} style={{width: "100%"}} />
+      
+      <RightSideMenu onOptionSelect={handleOptionSelect} style={{width: "30vw"}} />
     </DashboardContainer>
 
 

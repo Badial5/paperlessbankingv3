@@ -1,0 +1,23 @@
+.item {
+    width: 100%;
+    height: 100%; 
+    /* height: inherit; */
+    min-height: 100%;
+    object-fit: fill;
+    
+    border-radius: 20%;
+}
+
+.item img {
+    width: 100%;                /* Set the width of the image to 100% so it takes up the full width of its parent container */
+    height: auto;               /* Make sure the aspect ratio is maintained */
+ }
+
+ .alice-carousel {
+    width: 100%;
+    height: 400px; /* Set a fixed height for the carousel */
+  }
+  
+  .alice-carousel img {
+    object-fit: cover; /* Ensure that the image fills the entire space of its container without distorting the aspect ratio */
+  }

@@ -1,240 +1,516 @@
-// import * as React from 'react';
-import { useRef, useEffect } from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-// import MuiPhoneNumber from 'material-ui-phone-number';
-
-import EyeIcon from "../../../src/assets/svg/eye.svg"
-
-
-import { Collapse } from "@mui/material"
-
-import axios from "axios"
-
-
-import { Link as RouterLink, redirect, useNavigate } from 'react-router-dom';
-
-
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-
-
-// =========================== REACT ANIMATION SPINNER =========================================
-//REACT ANIMATION SPINNER 
-// import { ClipLoader } from 'react-spinners/ClipLoader';
-import {  BarLoader, ClipLoader, CircleLoader, ClimbingBoxLoader, ClockLoader, DotLoader, FadeLoader, GridLoader, HashLoader, MoonLoader, PacmanLoader, PropagateLoader, PuffLoader, PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader } from 'react-spinners';
-
+import { DevTool } from "@hookform/devtools";
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import axios from 'axios';
+import { motion } from 'framer-motion';
 
 
 
+import { Box, Button, Grid, Paper, TextField, Typography, CircularProgress } from '@mui/material';
 
-// import signupImg from "../../..//assets/images/signup2.jpg" 
-// import signupImg from "../../assets/images/signup2.jpg"
-import signupImg from "../../assets/images/signup2.jpg";
+//React Toasify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
-import { ContainerWrapper, GridContainer, GridItem, InlaksText, PageHeader, 
-  PageHeaderAndTitleContainer, SubTitle, ErrorHelperTextContainer, 
- PasswordCheck, PasswordFeedback, PasswordStrengthContainer, ButtonComponent, InputFieldGrid, ButtonText, SignupText, TncText, 
-PasswordStrengthBarThree, PasswordStrengthBarOne, PasswordStrengthBarTwo, 
-PasswordStregthContainer, PasswordContainer, PasswordMinimumBox,
-ErrorAlert, ErrorAlertText, Alert} from './resetPassword.styles';
 
-// import { ContainerWrapper, GridContainer, GridItem, InlaksText, PageHeader, 
-//   PageHeaderAndTitleContainer, SubTitle, ErrorHelperTextContainer, 
-//  PasswordCheck, PasswordFeedback, PasswordStrengthContainer, ButtonComponent, InputFieldGrid, ButtonText, SignupText, TncText, 
-// PasswordStrengthBarThree, PasswordStrengthBarOne, PasswordStrengthBarTwo, 
-// PasswordStregthContainer, PasswordContainer, PasswordMinimumBox,
-// ErrorAlert, ErrorAlertText, Alert, BottonComp, LoginText} from '../../pages/auth/login/login.styles';
 
-import { CircularProgress } from '@mui/material';  
+//Phone Input 
+import 'react-phone-input-2/lib/style.css'
+// import PhoneTextField from "mui-phone-textfield";
+
+//another
+import ReactPhoneInput from 'react-phone-input-material-ui';
+
 
 //Password visiblity
 import PasswordStrengthBar from 'react-password-strength-bar';
 
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+//Animations
+import {  BarLoader, ClipLoader, CircleLoader, ClimbingBoxLoader, ClockLoader, DotLoader, FadeLoader, GridLoader, HashLoader, MoonLoader, PacmanLoader, PropagateLoader, PuffLoader, PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader } from 'react-spinners';
+
+
+
+import signupImg from "../../assets/images/signup2.jpg"
+import EyeIcon from "../../assets/svg/eye.svg"
 import InputAdornment from '@mui/material/InputAdornment';
-
 import IconButton from '@mui/material/IconButton';
-import { useState } from 'react';
-
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
-import { GridContainer2, LongTextFieldGridItem, NameLabel, PageHeader2, PageHeaderAndTitleContainer2, PasswordStrengthText, SubTitle2 } from '../auth/sign-up/signup.styles';
-import { IdontHaveAccount } from '../auth/forgotPass/forgotPass.styles';
 
 
+// import { GlobalReactPhone, GlobalTextfieldEmail, PageSubtitle, PageTitle, TextFieldCustom } from './style/signup-styled';
+
+import { GlobalErrorHelperText, GlobalInputLabel, GlobalPaperStyle, GlobalTextfieldEmail, GlobalTextField, GlobalPageHeader, GlobalSubPageHeader, GlobalReactPhone, GlobalPageBackground, GlobalInlaksText, GlobalPasswordStrength, GlobalPasswordMinimumBox, GlobalButton, GlobalLink } from '../../assets/GlobalStyled/Globalstyles';
 
 
-
-//RESET PASSWORD API ENDPOINT
-const baseUrl = "https://api.inlakssolutions.com/accounts/v1/password-reset/"
+//LOADING ANIMATION
 
 
+import CircularIndeterminate from '../../assets/GlobalAnimation/ButtonAnimation/LoadingButton';
 
+// import { LazyMotion, domAnimation, m } from "framer-motion"
 
-
-
-const theme = createTheme();
-
-export default function ResetPass2() {
-
-
-  //USEREF FUNCTION 
-  const ref = useRef(null)
-
-  //Button Loading state ================================================================
-  const [loading, setLoading] = useState(false);
-
-  // REACT SPINNER ANIMATION ===========================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-const [loadingInProgress, setLoadingInProgress] = useState(false);
+// export const MyComponent = ({ isVisible }) => (
+//   <LazyMotion features={domAnimation}>
+//     <m.div animate={{ opacity: 1 }} />
+//   </LazyMotion>
+// )
 
 
 
-// ===============================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+//API PROTOCOL
+const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/password-reset/"
 
 
 
-  const { handleSubmit, register, watch, formState: {errors}, reset, trigger } = useForm({
+//STYLE FOR PHONE INPUT COMPONENT
+
+// const styles = {
+//   fontFamily: "Poppins",
+//   fontSize: 12,
+//   "& .MuiOutlinedInput-root.Mui-focused": {
+//     "& > fieldset": {
+//       borderColor: "#7833EE"
+//     }
+//   },
+//   "& fieldset": {
+//     borderRadius: "6px"
+//   },
+//   "& .MuiInputBase-root": {
+//     height: "2rem"
+//   }
+// };
+
+
+// const styles = {
+//     width: '100%',
+//     fontFamily: "Poppins",
+//     fontSize: 12,
+//     "& .MuiOutlinedInput-root.Mui-focused": {
+//         "& > fieldset": {
+//   borderColor: "#7833EE"
+//         }
+//       },  [`& fieldset`]:{
+//         borderRadius: "6px",  },
+//     "& .MuiInputBase-root": {
+//         height: "2rem",
+//       }
+//   };
+  
+
+
+const styles = {
+    width: '100%',
+    fontFamily: "Poppins",
+    fontSize: 12,
+    "& .MuiOutlinedInput-root.Mui-focused": {
+      "& > fieldset": {
+        borderColor: "#7833EE"
+      }
+    },
+    "& fieldset": {
+      borderRadius: "6px"
+    },
+    "& .MuiInputBase-root": {
+      height: "2rem"
+    }
+  };
+  
+
+
+
+const ResetPass2 = (props) => {
+
+  //FOR THE PASSWORD
+  const [passwordWarning, setPasswordWarning] = useState('')
+  const [passwordSuggestion, setPasswordSuggestion] = useState([])
+
+
+
+  const { value, defaultCountry, onChange, classes } = props;
+
+ //error state
+//  const [error, setError] = useState(null)
+
+
+
+  const [errorApi, setErrorApi] = useState('')
+
+//For the session storage 
+const [email, setEmail] = useState('');
+
+
+  const { handleSubmit, register, setValue,watch, control, formState: {errors, isValid, isLoading, isSubmitting, isSubmitted, isSubmitSuccessful
+  }, reset,} = useForm({
     mode: "onTouched",
     defaultValues: {
       new_password1: "",
       new_password2: "",
-      // password2: "",
-      // tnc: ""
+
+
     }
   })
 
-// ================================================================================================================== 
-  
 
-  //============================= LOCAL STORAGE ==============================================
-  const [storedEmail, setStoredEmail] = useState(null);
+ 
 
-  //=================================== useEffect ===========================================
-
-  useEffect(() => {
-    setStoredEmail(localStorage.getItem("email"));
-  }, []);
-
-
-  console.log("Local Storage Email Value: ", storedEmail)
-
-
-// ====================================================================================================================
-
-  //Will DELETE IT 
-
-  //API ENDPOINTS
-  // REACT COMPONENT USENAVIGATE
+  //router
   const navigate = useNavigate();
 
-  //error state
-  // const [errorss, setError] = useState([])
 
+  // REACT SPINNER ANIMATION ===========================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+const [loadingInProgress, setLoadingInProgress] = useState(false);
+// ===============================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-  //Password Strength bar
-const [inputValue, setInputValue] = useState('');
-const [value, setValue] = useState()
-const [passsuggestion, setPassSuggestion] = useState([])
-const [passwarning, setPassWarning] = useState('')
-
-const [phone, setPhone] = useState()
-// const [password, setPassword] = useState('');
-//   const [showPassword, setShowPassword] = useState(false);
-
-const [password, setPassword] = useState('');
-const [suggestion, setSuggestion] = useState('');
 
 //Password adornment
 const [showPassword, setShowPassword] = useState(false);
 const [showPassword2, setShowPassword2] = useState(false);
 
-//OPEN OR CLOSE
-const [open, setOpen] = useState(true);
 
-//ERROR 
-const [error, setError] = useState('')
+//background Color
+const backgroundColorText = {
+  background: 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
+};
+
+//Password Strength bar
+const [inputValue, setInputValue] = useState('');
+const [inputValue2, setInputValue2] = useState('');
+const [values, setValues] = useState()
+const [passsuggestion, setPassSuggestion] = useState([])
+const [passwarning, setPassWarning] = useState('')
 
 
-
-//Password adornment
-// const [showPassword, setShowPassword] = useState(false);
-const [state, setState] = useState("")
-const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-const handleClickShowPassword2 = () => setShowPassword2((show) => !show);
-
-const passwordStrengthChange = (e) => {
-  setInputValue(e.target.value);
-}
-
-function handleChange(e) {
-  setPassword(e.target.value);
-}
-
-function handleCheckboxChange(e) {
-  setShowPassword(e.target.checked);
-}
+//session storage
+const [sessionalEmail, setSessionalEmail] = useState(null);
 
 
 
+
+//React Spinner 
 useEffect(() => {
   setLoadingInProgress(true)
   const timer = setTimeout(() => {
     setLoadingInProgress(false);
-  }, 3000);
+  }, 1000);
 
   return () => clearTimeout(timer);
 }, []);
 
-
-
-const onSubmit = async (data) => {
-  console.log("Form Data: ", data)
-  // registerForm()
-  // reset()
-
-  try {
-// ========================================= LocalStorage ================================================= 
-    const response = await axios.post(baseUrl, {
-      new_password1: data.new_password1,
-      new_password2: data.new_password2,
-      email: storedEmail,
-    })
-    const newResponse = response.data
-    // console.log(newResponse)
-    // newResponse()
-
-    navigate("/password-congratulation")
- 
-    console.log("Successful: ", newResponse)
-  } catch (error) {
-    setError(error.response.data)
-    console.log("Error Message: ", error.response.data)
+const passwordStrengthChange = (e) => {
+    setInputValue(e.target.value);
   }
-}
+
+
+  const handleFieldChangePassword = (e) => {
+    handleInputChange(e);
+    passwordStrengthChange();
+  }
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    // setFormComplete(prevState => ({...prevState, [name]: value }));
+  }
+
+
+
+  //+++++++++++++ ONSUBMIT +=====================
+
+  // const onSubmit = async (data) => {
+  //   sessionStorage.setItem("email", data.email);
+  //   console.log("Form Data: ", data)
+   
+  //   try {
+  //     const response = await axios.post(baseUrl, data)
+  //     // const newResponse = response.data
+  //     // console.log("FORM RESPONSE: ", newResponse)
+  //     // newResponse()
+
+  //     console.log("Form Submitted", response)
+  //     console.log("Session Storage Email ", email)
+  //     navigate("/phone-Otp")
+  //     reset()
+  
+  //     // console.log("Successful: ", newResponse)
+  //   } catch (error) {
+  //     // setError(error.response.data
+  //     setErrorApi(error.response.data)
+  //   // setErrorApi((prevState) => ({...prevState, error.message}))
+  //   console.log("Call to the APi returns: ",errorApi)
+  //     // toast.error({...errorApi})
+  //     toast.error(errorApi.message); // Display the error message using toast.error()
+
+  //     console.log("Error Api: ", errorApi)
+   
+  //   }
+  // }
+
+
+  useEffect(() => {
+
+    // Read data from sessionStorage on component mount
+    const storedData = sessionStorage.getItem('sessionEmail');
+    setSessionalEmail(storedData);
+
+    // Update sessionStorage when the data changes
+    sessionStorage.setItem('sessionEmail', storedData);
+
+  }, [])
+
+
+
+  const onSubmit = async (data) => {
+    sessionStorage.setItem("sessionEmail", data.email);
+    
+    console.log("Form Data: ", data);
+    console.log("Session Email at Password Reset: ", sessionalEmail)
+  
+    try {
+      const response = await axios.post(baseUrl, {
+        email: sessionalEmail,
+        new_password1: data.new_password1,
+        new_password2: data.new_password2
+
+      });
+      console.log("Form Submitted", response);
+      console.log("Session Storage Email ", email);
+     
+         // Check if this log is printed in the console
+      console.log('Before toast.success');
+      
+     
+      
+      reset();
+      navigate("/login");
+      toast.success('Password Reset Successful');
+
+
+    } catch (error) {
+
+      setErrorApi(error.response.data);
+      console.log("Call to the API returns: ", errorApi);
+
+      Object.values(errorApi).forEach(errors => {
+        errors.forEach(errorMessage => {
+          toast.error(errorMessage); // Display each error message using toast.error()
+          
+          // console.log("Error inside the Inner ForEach: ", errorMessage )
+        });
+        // I will do something here but I have forgotten 
+      });
+      console.log("Error Api: ", errorApi);
+    }
+  }
+
+  
+  
+  
+  
+  
+  
+
+
+  // const onSubmit = async (data) => {
+  //   sessionStorage.setItem("email", data.email);
+  //   console.log("Form Data: ", data)
+  //   // registerForm()
+  //   // reset()
+  //   try {
+  //     const response = await axios.post(baseUrl, data)
+  //     const newResponse = response.data
+  //     // console.log(newResponse)
+  //     // newResponse()
+      
+  //     // setCurrentEmail(email)
+  //     console.log("EMail Context Value: ", email)
+  
+  //     console.log("Session Storage Email ", email)
+  
+    
+  //     navigate("/phone-Otp")
+  //     reset()
+  
+  //     // console.log("Successful: ", newResponse)
+  //   } catch (error) {
+  //     // setError(error.response.data)
+  
+  //     if (error.response.data.message === "Request failed with status code 500") {
+  //       console.log("Sorry You made a bad request" )
+  //       setError("You made a bad request\n Check the Email")
+  //     } else {
+  //       setError(error.response.data)
+  //     }
+  //     // console.log("Error Message: ", error.response.data)
+  //     console.log("Error Message from state: ", error) 
+  //   }
+  // }
+  
+
+  //From the Login 
+  // const onSubmit = async (data) => {
+  //   console.log("Form Data: ", data)
+  //   // registerForm()
+  //   // reset()
+  
+  //   try {
+  //     const response = await axios.post(baseUrl, data)
+  //     const newResponse = response.data
+  //     console.log(newResponse)
+  //     // newResponse()
+  
+    
+  //     // navigate("/landing-page")
+  //     navigate("/user-dashboard")
+  //     reset()
+  
+  //     console.log("Successful: ", newResponse)
+  //   } catch (error) {
+  //     setErrorApi(error.response.data.error)
+  //     // setErrorApi(error.message)
+  //     toast.error(...errorApi)
+  //    console.log("Call to the APi returns: ",...errorApi)
+  //     // console.log("Error Message: ", error.response.data)
+  //     console.log("Error Message from state: ", ...errorApi)
+  //   }
+  
+  
+  // }
+
+
+// const onSubmit = async (data) => {
+//     sessionStorage.setItem("email", data.email);
+//     console.log("Form Data: ", data)
+   
+//     try {
+//       const response = await axios.post(baseUrl, data)
+//       const newResponse = response.data
+//     //   console.log(newResponse)
+    
+    
+//       navigate("/phone-Otp")
+//       reset()
+    
+//     } catch (error) {
+//       console.log("Call to the API returns: ", error)
+//       const errorMsg = error.response && error.response.data ? error.response.data : 'Something went wrong'
+//       toast.error(errorMsg, {
+//         position: "top-center",
+//         autoClose: 5000,
+//         hideProgressBar: false,
+//         closeOnClick: true,
+//         pauseOnHover: true,
+//         draggable: true,
+//         progress: undefined,
+//       });
+//     }
+//   }
+
+
+// const onSubmit = async (data) => {
+//   try {
+//     sessionStorage.setItem("email", data.email);
+//     console.log("Form Data: ", data);
+    
+//     const response = await fetch(baseUrl, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(data)
+//     });
+    
+//     if (!response.ok) {
+//       const errorData = await response.json();
+//       throw new Error(errorData.message);
+//     }
+    
+//     const responseData = await response.json();
+//     console.log(responseData);
+  
+//     navigate("/phone-Otp");
+//     reset();
+  
+//     return responseData;
+//   } catch (error) {
+//     console.error(error);
+    
+//     if (error.message === "Request failed with status code 500") {
+//       console.log("Sorry You made a bad request" )
+//       setErrorApi("You made a bad request\n Check the Email")
+//     } else {
+//       setErrorApi("An unexpected error occurred");
+//     }
+//   }
+// }
+
+// const onSubmit = async (data) => {
+//   try {
+//     sessionStorage.setItem("email", data.email);
+//     console.log("Form Data: ", data);
+
+//     fetch(baseUrl, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(data)
+//     })
+//     .then(response => {
+//       if (!response.ok) {
+//         return response.json().then(errorData => {
+//           throw new Error(errorData.message);
+//         });
+//       } else {
+//         return response.json();
+//       }
+//     })
+//     .then(responseData => {
+//       console.log(responseData);
+    
+//       navigate("/phone-Otp");
+//       reset();
+  
+//       return responseData;
+//     })
+//     .catch(error => {
+//       console.error(error);
+      
+//       if (error.message === "Request failed with status code 500") {
+//         console.log("Sorry You made a bad request" )
+//         setErrorApi("You made a bad request\n Check the Email")
+//       } else {
+//         setErrorApi("An unexpected error occurred");
+//       }
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
+// console.log('PASSWORD WARNING: ', passwordWarning)
+// console.log('PASSWORD SUGGESTION: ', passwordSuggestion)
+
+
+//TOASIFY ERROR
+
 
 
   //REACT SPINNER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const Spinner = () => {
     return (
       <Box
+      //   motion.Box 
+      // initial={{ opacity: 0, scale: 0.1 }}
+      // animate={{ opacity: 1, scale: 1 }}
+      // transition={{duration: 20}}
+
         sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          flexDirection: "colummn",
           height: "100vh",
           backgroundImage: `url(${signupImg})`,
           backgroundPosition: 'center',
@@ -246,387 +522,344 @@ const onSubmit = async (data) => {
       </Box>
     );
   };
+
+
   
 
   return (
-    <ThemeProvider theme={theme}>
-
-{loadingInProgress ? (
-        <Spinner />
-      ) : (
-
-<Box  
-     sx={{ 
-      // backgroundColor: "yellow", 
-      backgroundImage: `url(${signupImg})`,
-      backgroundPosition: 'center',
-      backgroundSize: 'cover', 
-      display: "flex",  
-      
-      flexDirection: "column",
-      boxSizing: "borderBox",
-      backgroundRepeat: 'no-repeat', 
-      width: "100%",
-      // height: {xs: "100vh"},
-      // mx: "auto",
-      // my:'auto',
-      maxWidth: "100vw",
-      minHeight: "100vh"
-
-    }}
-    >
-
-
-      <InlaksText sx={{mx: "auto", mt: 2}}>
-        InLaks 
-      </InlaksText>
-
-      <ContainerWrapper component="main" maxWidth="xs" 
-sx={{
-  // display: 'flex',
-  // flexDirection: 'column',
-  // alignItems: 'center',
-  // justifyContent: 'center',
-  // mx: 'auto',
-  // my: 'auto',
-  padding: '5px 20px',
-  // minHeight: {xs: "50vh", md: "80vh", lg: "70vh"},
-
-}}>
-
-<Box
-    sx={{
-      
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: "center",
-      // padding: "30px 14px", this gives it padding
-      // backgroundColor: "red",
-      padding: "30px 10px",
-      // marginBottom: "20px",
-      // padding: {xs: "40px 14px", md: "30px 14px"},
-      // padding: {xs: "40px 14px"},
-     
-      // minHeight: {xs: "80vh", md: "80vh", lg: "80vh"}, 
-      // maxHeight: {xs: "80vh", md: "80vh", lg: "80vh"},
-      // padding: { xs: "30px 15px" }
-      // border: "5px solid #fff"
-  }}>
+    <>
     
-      
-      
+
+    {loadingInProgress ? (
+        <Spinner />
+      ) : ( 
+
+
+        <GlobalPageBackground
+
+      >
+
+      {/* <InlaksText sx={{mt: 5}}>
+      Inlaks 
+      </InlaksText> */}
+
+      {/* {
+        errorApi ? <Box sx={{color: "red"}}> <ErrorToast /> </Box> : ""
+      } */}
+
+      <GlobalInlaksText>
+        Inlaks
+      </GlobalInlaksText>
+
+
+      {/* <Paper elevation={1} sx={{display: "flex", flexDirection: "column", rowGap: 5, width: {xs: "100%", sm: 600 }, height: "80vh", padding: '0px 30px', borderRadius: 10, fontFamily: "Poppins" }} > */}
+
+      <GlobalPaperStyle elevation={1} sx={{mb: 15, width: "30%"}} >
+
+
+
+      <>
+        <GlobalPageHeader sx={{marginLeft: 'auto', marginRight: 'auto', marginBottom: 1}}  >
+          Reset your password 
+        </GlobalPageHeader>
+
+        <GlobalSubPageHeader sx={{marginLeft: 'auto', marginRight: 'auto', marginBottom: 1}}>
+        Please set a new password for your account
+        </GlobalSubPageHeader>
+
+        {/* <Box>
+          {errorApi}
+        </Box> */}
+
+        </>
+
+
+
+
+
+
+        <Grid container spacing={1} component="form" 
+    onSubmit={handleSubmit(onSubmit)} sx={{padding: "5% 5%",}}>
+
+
+
+        {/* PASSWORD FIELD  */}
+
+        <Grid item xs={12} sm={12}>
+          <GlobalInputLabel htmlFor='password'>Password</GlobalInputLabel>
+
+          <GlobalTextField fullWidth id='password'
+          type={showPassword ? "text" : "password"}
+
+          error={Boolean(errors.new_password1)}
+
+
+          variant="outlined" 
+
+          {...register("new_password1",  {required: {
+            value: true,
+            message: "Password is required",
+            
+            }, 
+            minLength: {
+            value: 6,
+            message: "The Minimum length is 6"
+            } })}  
+
+
+          value={inputValue}
+
+          onChange={(event) => {
+            // handleInputChange(event);
+            passwordStrengthChange(event)
+            handleFieldChangePassword(event);
           
-          <PageHeaderAndTitleContainer sx={{mt: 0}}>
+          }}
 
-            <PageHeader textAlign="center">
-            Reset your password 
-            </PageHeader>
+       
+        
 
+          InputProps={{
+            endAdornment: (
+            <InputAdornment position="end">
+              
+            
+              <IconButton
+              onClick={() => setShowPassword(!showPassword)}
+              >
+              <img src={EyeIcon} />
+              </IconButton>
+            </InputAdornment>
 
-            <SubTitle textAlign="center">
-            Please set a new password for your account
-            </SubTitle>
+            )}}
 
+           
+                placeholder="Password here"
 
-          </PageHeaderAndTitleContainer>
-
-{/* =======================CLOSE OF PAGE HEADER AND SUBTITLE =================================================  */}
-
-
-{(error && open ) &&  
- <Collapse in={open}>  
-        <ErrorAlert severity="error" onClose={() => setOpen(!open)}
-        sx={{
-        "& .MuiAlert-icon": {
-          color: "#fff"
-        }, "& .MuiAlert-action": {
-          color: "#fff"
-        }, overflow: "hidden", 
-        ml: "auto"
-         }}>
-          
-          <ErrorAlertText >
-          {Object.values(error)} 
-          {/* { Object.entries(error).map(([key, val])=> <p key={key}>{key}: {val}</p>) }  */}
-          </ErrorAlertText>
-
-          </ErrorAlert>
-
-      
-     </Collapse> 
-}
+          />
 
 
-{/* ================================ END OF ERROR ALERT ==================================================  */}
-          <GridContainer container component="form" onSubmit={handleSubmit(onSubmit)} 
-           sx={{ width: "100%" }}>
+{errors.password1?.message && (
+  <GlobalErrorHelperText>{errors.password1.message}</GlobalErrorHelperText>
+)}
+
+
+
+{inputValue && (
+  <>
+    <GlobalPasswordStrength>
+      Password Strength
+    </GlobalPasswordStrength>
+
+    {/* <PasswordStrengthBar
+      style={{}}
+      password={inputValue}
+      scoreWords={[
+        'weak😪',
+        'okay 😅',
+        'strong 💪🏾',
+        'strong💪🏾',
+        'strong💪🏾'
+      ]}
+      shortScoreWord=""
+      onChangeScore={(score, feedback) => {
+        console.log(score, feedback);
+
+        setPassWarning(feedback.warning)
+        setPasswordSuggestion(feedback.suggestions)
+      }}
+    /> */}
+
+{/* <PasswordStrengthBar
+  style={{}}
+  password={inputValue}
+  scoreWords={[
+    'weak😪',
+    'okay 😅',
+    'strong 💪🏾',
+    'strong💪🏾',
+    'strong💪🏾'
+  ]}
+  shortScoreWord=""
+  onChangeScore={(score, feedback) => {
+    console.log(score, feedback);
+
+    if (feedback) {
+      setPassWarning(...feedback.warning);
+      setPasswordSuggestion(...feedback.suggestions);
+    }
+  }}
+/> */}
+
+<PasswordStrengthBar
+  style={{}}
+  password={inputValue}
+  scoreWords={[
+    'weak😪',
+    'okay 😅',
+    'strong 💪🏾',
+    'strong💪🏾',
+    'strong💪🏾'
+  ]}
+  shortScoreWord=""
+  onChangeScore={(score, feedback) => {
+    console.log(score, feedback);
+
+    if (feedback && feedback.warning) {
+      setPassWarning(...feedback.warning);
+      setPasswordSuggestion(...feedback.suggestions);
+    }
+  }}
+/>
+
+
+  </>
+)}
+
+{inputValue && (
+  <GlobalPasswordMinimumBox sx={{fontSize: {xs: 10, lg: 10 } }}>
+    Password must be a minimum of 6 characters, including one letter and a number or symbol
+  </GlobalPasswordMinimumBox>
+)}
+
+
+
+        </Grid>
+
+
+        <Grid item xs={12} sm={12}>
+          <GlobalInputLabel htmlFor='new_password2'>Confirm Password</GlobalInputLabel>
+
+          <GlobalTextField fullWidth id='new_password2'
+          type={showPassword2 ? "text" : "password"}
+
+          error={Boolean(errors.new_password2)}
+
+
+          variant="outlined" 
+
+          {...register("new_password2",  {required: {
+            value: true,
+            message: "Password is required",
+            
+            }, 
+            minLength: {
+            value: 6,
+            message: "The Minimum length is 6"
+            } })}  
+
+
+         
+
+         
+
+       
+        
+
+          InputProps={{
+            endAdornment: (
+            <InputAdornment position="end">
+              
+            
+              <IconButton
+              onClick={() => setShowPassword2(!showPassword2)}
+              >
+              <img src={EyeIcon} />
+              </IconButton>
+            </InputAdornment>
+
+            )}}
+
+           
+                placeholder="Password here"
+
+          />
+
+
+{errors.new_password2?.message && (
+  <GlobalErrorHelperText>{errors.new_password2.message}</GlobalErrorHelperText>
+)}
+
+
+
+
+
+{/* ============================ BUTTON ============================= */}
+
+        </Grid>
+
+    <Grid item xs={12} sx={{display: "flex", justifyContent: "center", }}>
+        <GlobalButton type='submit'
+            // color="secondary"
+            sx={{ background: !isValid ? "#cecece" : 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',}}
+            disabled={!isValid || isSubmitting}
+            size="small"
+            variant='contained'>
+            
+            {
+              isSubmitting ? <CircularIndeterminate /> :  "Submit"
+            }
+
+        </GlobalButton>
+    </Grid>
+
+        <GlobalLink component={RouterLink} to="/login" textAlign={"center"} 
+    sx={{display: "flex", marginLeft: "auto",
+    mb: 5,
+    marginRight: "auto", textDecoration: "none"}}>
+        {/* <SignupText textAlign="center">
+        👋🏾 Already have an account? {" "}  
+        <span style={{color: "#7833EE", 
+      textDecoration: "underline"}}> Login</span>
+        </SignupText> */}
+        👋🏾 Already have an account?  <span style={{color: "#7833EE", 
+      textDecoration: "underline", marginLeft: 3}}>{" Login"}</span>
+    </GlobalLink>
+
+        
+         
+        {/* end of the Grid container  */}
+        </Grid>
+
+        {/* <DevTool control={control} />  */}
+
+        {/* {process.env.NODE_ENV === 'development' && <DevTool control={control} />} */}
 
         
 
 
-           {/* =======================PASSWORD =================================================================================================  */}
-            
+
+
+      </GlobalPaperStyle>
+
+      <ToastContainer
+          position="top-right"
+          autoClose={10000}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+      />
+
+      </GlobalPageBackground>
+
+      ) }
+
+
+
+    
 
 
 
 
-  {/* =======================PASSWORD =================================================================================================  */}
-{/* <LongTextFieldGridItem item xs={12}  
-            sx={{height: 144}}> */}
-
-<LongTextFieldGridItem item xs={12}  
-      sx={{height: 130}}>
-
-
-
-<NameLabel sx={{padding: "0px 16px"}}>Password</NameLabel>
-
-
-<TextField  type={showPassword ? "text" : "password"}
-error={Boolean(errors.password1)}
-variant="outlined" 
-fullWidth
-sx={{ padding: "5px 16px", width: "100%",
-"& .MuiOutlinedInput-root.Mui-focused": {
-"& > fieldset": {
-borderColor: "#7833EE"
-}
-},  [`& fieldset`]:{
-borderRadius: "6px" }
-}}
-InputProps={{
-endAdornment: (
-<InputAdornment position="end">
-   {/* <IconButton
-    aria-label="toggle password visibility"
-    onClick={() => setShowPassword(!showPassword)}
-  >
-    {showPassword ? <Visibility /> : <VisibilityOff />}
-  </IconButton> */}
-
-  <IconButton
-  onClick={() => setShowPassword(!showPassword)}
-  >
-  <img src={EyeIcon} />
-  </IconButton>
-</InputAdornment>
-),
-
-style: {
-height: "2rem",
-fontSize: 12,
-fontFamily: 'Helvetica Neue'
-},
-}}
-
-{...register("new_password1",  {required: {
-value: true,
-message: "Password is required",
-
-}, 
-minLength: {
-value: 6,
-message: "The Minimum length is 6"
-} })}  
-
-// ========================================================================== 
-      
-value={inputValue}
-onChange={passwordStrengthChange}
-// helperText={errors.password1?.message}
-
-placeholder="Password here"
-/>
-
-{/* <ErrorHelperTextContainer>{errors.password1?.message}</ErrorHelperTextContainer> */}
-
-
-<PasswordStrengthText sx={{padding: "0px 16px", 
-fontFamily: 'Helvetica Neue' , fontSize: 12, 
-height: 10, mt: "0.5", mb: 1, }}>
-Password strength
-</PasswordStrengthText>
-
-
-
-
-<PasswordStrengthBar 
-style={{width: "100%" , padding: "0px 16px",}} password={inputValue} 
-
-scoreWords={['weak😪', 'okay 😅', 'strong 💪🏾', 'strong💪🏾', 'strong💪🏾']}
-shortScoreWord= ""
-onChangeScore={(score, feedback) => {
-console.log(score, feedback);
-// setPassSuggestion({...feedback.warning})
-setPassWarning(feedback.warning)
-setPassSuggestion(feedback.suggestions)
-
-}}
-
-/>
-
-{/* <Typography sx={{fontFamily: 'Helvetica Neue', fontSize: 12}}> 
-{ passwarning} 
-</Typography> */}
-
-{/* <Typography sx={{fontFamily: 'Helvetica Neue', fontSize: 12}}>
-{passsuggestion}
-</Typography> */}
-
-<PasswordMinimumBox sx={{padding: "0px 16px",
-color: " #ababab;"}}>
-Password must be a minimum of 6 character, including one letter and a number or a symbol
-</PasswordMinimumBox>
-
-{/* {passsuggestion.map((suggestion, index) => <p key={index}>{suggestion}</p>)} */}
-
-
-</LongTextFieldGridItem>
-
-
-
-
-<LongTextFieldGridItem item xs={12}>
-
-
-
-<NameLabel sx={{px: "16px", paddingTop: "13px"}}>Confirm Password</NameLabel>
-
-
-<TextField  type={showPassword2 ? "text" : "password"}
-error={Boolean(errors.password2)}
-variant="outlined" 
-fullWidth
-sx={{ padding: "5px 16px", width: "100%",
-"& .MuiOutlinedInput-root.Mui-focused": {
-"& > fieldset": {
-borderColor: "#7833EE"
-}
-},  [`& fieldset`]:{
-borderRadius: "6px" }
-}}
-InputProps={{
-endAdornment: (
-<InputAdornment position="end">
   
-
-  <IconButton
-  onClick={() => setShowPassword2(!showPassword2)}
-  >
-  <img src={EyeIcon} />
-  </IconButton>
-</InputAdornment>
-),
-
-style: {
-height: "2rem",
-fontSize: 12,
-fontFamily: 'Helvetica Neue'
-},
-}}
-
-{...register("new_password2",  {required: {
-value: true,
-message: "Password is required",
-
-}, 
-minLength: {
-value: 6,
-message: "The Minimum length is 6"
-} })}  
-
-// ========================================================================== 
-      
-
-// helperText={errors.password1?.message}
-
-placeholder="Password here"
-/>
-
-{/* <ErrorHelperTextContainer>{errors.password1?.message}</ErrorHelperTextContainer> */}
-
-</LongTextFieldGridItem>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* </PasswordContainer>  */}
-
-      
-{/* =============================== CLOSE OF PASSWORD ===================================================================================  */}
-      
-
-
-{/* ======================================= Close of Password Feedbck ==========================================================================  */}
-
-     
-
-{/* =================================== TNC ================================================================================================  */}
-
-         
-         
-
-
-
-
-
-
-{/* =======================================CLOSE TNC =================================================================================================  */}
-
-
-{/* =================================== BUTTON ==================================================================================================== */}
-          <LongTextFieldGridItem item xs={12}  sx={{height: 80, 
-          display: "flex", flexDirection: "column", alignItems: "center", 
-          mr: "auto", ml: "auto", mt: 2}}>
-
-              <ButtonComponent type='submit'
-              sx={{width: {xs: "20rem", md: "21.5rem"}, height: "30px"}}>
-                <ButtonText>
-                  Set Password 
-                </ButtonText>
-              </ButtonComponent>
-
-
-          <Link component={RouterLink} to="/login" textAlign={"center"} 
-          sx={{display: "flex", alignSelf: "center", mt: 1}}>
-              <SignupText textAlign="center">
-              👈🏽Back to login
-              </SignupText>
-          </Link>
-
-          </LongTextFieldGridItem>
-
-        
-            
-
-          </GridContainer>
-
-        {/* </Box> */}
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
-
-        </Box>
-      
-      </ContainerWrapper>
-
-      </Box>
-
-      )}
-
-
-    </ThemeProvider>
-  );
-
-
-
+    
+    </>
+  )
 }
+
+export default ResetPass2

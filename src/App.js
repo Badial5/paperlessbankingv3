@@ -61,27 +61,52 @@ import "./App.css"
   import AccountOfficer from './pages/account/account-officer'
 
   //Error Page
-  import ErrorPage from './error-page'
+  // import ErrorPage from './error-page'
+
+  import ErrorPage from './ErrorPage/ErrorPage'
+
+
+
 import { Box } from '@mui/material'
 import BankAppointment from './pages/banks/appointments/appointment'
 import LeftDrawer from './pages/dashboard2/dashboard_const/LeftDrawer/LeftDrawer'
 import MainDashboard2 from './pages/dashboard2/dashboard2'
+
 import BankBranch from './pages/banks/branch/branch.bank'
-import BankTransfer from './pages/banks/transfer/bank.transfer'
-import MySchedules from './pages/banks/transfer/MySchedules'
-import TransferHistory from './pages/banks/transfer/transfer-history'
-import ManageBeneficiary from './pages/banks/transfer/manage-beneficiary'
-import OwnAccountTransfer from './pages/banks/transfer/ownAccount'
-import ThirdParty from './pages/banks/transfer/thirdParty'
+
+import BankTransfer from './pages/banks/transfer/BankTransfer/BTFormContainer'
+import MySchedules from './pages/banks/transfer/MySchedule/MSFormContainer'
+import TransferHistory from './pages/banks/transfer/TransferHistory/THFormContainer'
+
+import ManageBeneficiary from './pages/banks/transfer/Beneficiary/ManageBeneficiary/MBFormContainer'
+import OwnAccountTransfer from './pages/banks/transfer/OwnAccount/OAFormContainer'
+import ThirdParty from './pages/banks/transfer/ThirdParty/TPFormContainer'
+import AddBeneficiary from './pages/banks/transfer/Beneficiary/AddBeneficiary/ABformContainer'
+
+
+
+
 import MyForm from './pages/banks/transfer/reacthooktry'
-import AddBeneficiary from './pages/banks/transfer/Beneficiary/addBeneficiary'
-import ChequeBookRequest from './pages/banks/request/cheque-book'
-import RegisterMobileBanking from './pages/banks/request/register-mobile-banking'
-import ESubcriptionAlert from './pages/banks/request/e-subscription-alert'
-import EStatementAlert from './pages/banks/request/e-statement'
-import ChangeMobilePin from './pages/banks/request/changeMobilePin'
-import RequestHistory from './pages/banks/request/request-history'
-import StopCheque from './pages/banks/request/stop-cheque'
+
+
+
+
+//Request
+import ChequeBookRequest from './pages/banks/request/ChequeBook/ChequeBookFormContainer.jsx'
+
+import RegisterMobileBanking from './pages/banks/request/RegisterMobileMoney/RMMFormContainer.jsx'
+
+import ESubcriptionAlert from './pages/banks/request/ESubcription/ESubFormContainer.jsx'
+
+import EStatementAlert from './pages/banks/request/E-Statement/ESFormContainer.jsx'
+
+import ChangeMobilePin from './pages/banks/request/ChangeMobilePin/CMPFormContainer.jsx'
+import RequestHistory from './pages/banks/request/RequestHistory/RHFormContainer.jsx'
+
+import StopCheque from './pages/banks/request/StopCheque/SCFormContainer.jsx'
+
+
+
 import DebitCard from './pages/banks/card/debit-card-request'
 import BlockCard from './pages/banks/card/block-card'
 import UnblockCard from './pages/banks/card/unblock-card'
@@ -92,104 +117,190 @@ import AccountMain from './pages/account/AccountMain'
 import MainAccount from './pages/account/MainAccount12'
 
 
+//MUlti Step Page
+import MultiStepForm from './pages/account/MultiStepPage'
+import RootLayout from './RootLayout'
+
+
 const App = () => {
 
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path='/' element={<NavigationRoute />} >    
-        // {/* // <Route path='/' element={<TrySignup />} > */} 
-        {/* // <Route index element={<SignUpForm />} >  */} 
-          {/* <Route path='login' element={<LoginForm />} />  */}
-      <Route path="/" element={<SignUpForm />} /> 
+      
+    //   <Route path='/' element={<NavigationRoute />} >    
+    //     // {/* // <Route path='/' element={<TrySignup />} > */} 
+    //     {/* // <Route index element={<SignUpForm />} >  */} 
+    //       {/* <Route path='login' element={<LoginForm />} />  */}
+    //   <Route path="/" element={<SignUpForm />} /> 
 
-      <Route path="signup" element={<SignUpForm />} /> 
-        <Route path="phone-Otp" element={<PhoneOtp />} />
-        <Route path='login' element={<Login2Form />} /> 
-        {/* <Route path='forgotpassword' element={<ForgotPassword />} /> */}
-        <Route path='forgotpassword2' element={<ForgotPass2 />} />
-        {/* <Route path="otp" element={<OTP />} /> */}
-        {/* <Route path="reset-password" element={<ResetPassword />} /> */}
-        <Route path="password-reset" element={<ResetPass2 />} />
-        {/* <Route path="password-set" element={<PassCongrat2 />} /> */}
-        <Route path='password-congratulation' element={<PassCongrats />} />
-        <Route path="password-timer" element={<PhoneVerificationTimer />} />
+    //   <Route path="signup" element={<SignUpForm />} /> 
+    //     <Route path="phone-Otp" element={<PhoneOtp />} />
+    //     <Route path='login' element={<Login2Form />} /> 
+    //     {/* <Route path='forgotpassword' element={<ForgotPassword />} /> */}
+    //     <Route path='forgotpassword2' element={<ForgotPass2 />} />
+    //     {/* <Route path="otp" element={<OTP />} /> */}
+    //     {/* <Route path="reset-password" element={<ResetPassword />} /> */}
+    //     <Route path="password-reset" element={<ResetPass2 />} />
+    //     {/* <Route path="password-set" element={<PassCongrat2 />} /> */}
+    //     <Route path='password-congratulation' element={<PassCongrats />} />
+    //     <Route path="password-timer" element={<PhoneVerificationTimer />} />
 
-        <Route path='password-reset-otp' element={<PasswordResetOtp />} />
+    //     <Route path='password-reset-otp' element={<PasswordResetOtp />} />
 
-        <Route path='user-dashboard' element={<UserDashboard />}  />
-        <Route path='landing-page' element={<LandingPage />} />
-        <Route path='dashboard2' element={<MainDashboard2 />}  />
+      
+    //     <Route path='user-dashboard' element={<UserDashboard />}  />
+    //     <Route path='landing-page' element={<LandingPage />} />
+    //     <Route path='dashboard2' element={<MainDashboard2 />}  />
 
-        {/* Enquiry  */}
-        <Route path='account-balance' element={<AccountBalance />} />
-        <Route path='enquiry-statement' element={<AccountStatement />} />
-        <Route path='enquiry-officer-details' element={<AccountOfficerDetails />} />
-        <Route path='enquiry-exchange-rate' element={<ExchangeRate />} />
+    //     {/* Enquiry  */}
+    //     <Route path='account-balance' element={<AccountBalance />} />
+    //     <Route path='enquiry-statement' element={<AccountStatement />} />
+    //     <Route path='enquiry-officer-details' element={<AccountOfficerDetails />} />
+    //     <Route path='enquiry-exchange-rate' element={<ExchangeRate />} />
 
-         {/* Accounnt  */}
+    //      {/* Accounnt  */}
          
-        {/* <Route path='account-creation' element={<AccountCreation />} /> */}
-        <Route path='account-officer' element={<AccountOfficer />}  />
-        {/* <Route path='account-creation' element={<AccountMain />} /> */}
+    //     {/* <Route path='account-creation' element={<AccountCreation />} /> */}
+    //     <Route path='account-officer' element={<AccountOfficer />}  />
+    //     {/* <Route path='account-creation' element={<AccountMain />} /> */}
 
-        <Route path='account-creation' element={<MainAccount />} />
+    //     <Route path='account-creation' element={<MainAccount />} />
         
 
 
-         {/* Bank   */}
-         <Route path='bank-appointment' element={<BankAppointment />} />
-        {/* <Route path='account-officer' element={<AccountOfficer />}  /> */}
+    //      {/* Bank   */}
+    //      <Route path='bank-appointment' element={<BankAppointment />} />
+    //     {/* <Route path='account-officer' element={<AccountOfficer />}  /> */}
 
-        <Route path='bank-branch' element={<BankBranch />} />
+    //     <Route path='bank-branch' element={<BankBranch />} />
 
-        <Route path='bank-transfer' element={<BankTransfer />} />
+    //     <Route path='bank-transfer' element={<BankTransfer />} />
 
 
 
-        {/* Transfer  */}
+    //     {/* Transfer  */}
         
-        <Route path='react-myform' element={<MyForm />} />
-        <Route path='third-party-transfer' element={<ThirdParty />} />
-        <Route path='own-account-transfer' element={<OwnAccountTransfer />} />
-        <Route path='manage-beneficiary' element={<ManageBeneficiary />} />
-        <Route path='transfer-history' element={<TransferHistory />} />
-        <Route path='my-schedule' element={<MySchedules />} />
-        <Route path='add-beneficiary' element={<AddBeneficiary />} />
+    //     <Route path='react-myform' element={<MyForm />} />
+    //     <Route path='third-party-transfer' element={<ThirdParty />} />
+    //     <Route path='own-account-transfer' element={<OwnAccountTransfer />} />
+    //     <Route path='manage-beneficiary' element={<ManageBeneficiary />} />
+    //     <Route path='transfer-history' element={<TransferHistory />} />
+    //     <Route path='my-schedule' element={<MySchedules />} />
+    //     <Route path='add-beneficiary' element={<AddBeneficiary />} />
 
 
 
-        {/* Request  */}
-        <Route path='chequebook-request' element={<ChequeBookRequest />} />
-        <Route path='register-mobile-banking' element={<RegisterMobileBanking />} />
-        <Route path='e-subscription-alert' element={<ESubcriptionAlert />} />
-        <Route path='stop-cheque' element={<StopCheque />} />
-        <Route path='e-statement-subscription' element={<EStatementAlert />} />
-        <Route path='change-mobile-banking' element={<ChangeMobilePin/>} />
-        <Route path='request-history' element={<RequestHistory/>} />
+    //     {/* Request  */}
+    //     <Route path='chequebook-request' element={<ChequeBookRequest />} />
+    //     <Route path='register-mobile-banking' element={<RegisterMobileBanking />} />
+    //     <Route path='e-subscription-alert' element={<ESubcriptionAlert />} />
+    //     <Route path='stop-cheque' element={<StopCheque />} />
+    //     <Route path='e-statement-subscription' element={<EStatementAlert />} />
+    //     <Route path='change-mobile-banking' element={<ChangeMobilePin/>} />
+    //     <Route path='request-history' element={<RequestHistory/>} />
 
 
 
 
-         {/* Request  */}
-         <Route path='debitcard-service' element={<DebitCard />} />
-         <Route path='block-card' element={<BlockCard />} />
-         <Route path='amend-card' element={<AmendCard />} />
-         <Route path='unblock-card' element={<UnblockCard />} />
-         <Route path='prepaid-card-request' element={<PrepaidCardRequest />} />
-         <Route path='card-statement' element={<CardStatement />} />
+    //      {/* Request  */}
+    //      <Route path='debitcard-service' element={<DebitCard />} />
+    //      <Route path='block-card' element={<BlockCard />} />
+    //      <Route path='amend-card' element={<AmendCard />} />
+    //      <Route path='unblock-card' element={<UnblockCard />} />
+    //      <Route path='prepaid-card-request' element={<PrepaidCardRequest />} />
+    //      <Route path='card-statement' element={<CardStatement />} />
 
         
 
 
 
-        <Route errorElement={<ErrorPage />} />
-      </Route>
-    ),
+    //     <Route errorElement={<ErrorPage />} />
+    //   </Route>
+    // ),
 
-   
+    // [
+    //   {
+    //     path: "/",
+    //     element: <SignUpForm />,
+    //     errorElement: <ErrorPage />,
+
+
+    //     children: [
+        
+
+    //     ]
+
+
+    //   },
+
+    
+    //   {
+    //     path: "login",
+    //     element: <Login2Form />,
+    //     errorElement: <ErrorPage />,
+    //   },
+
+    //   {
+    //     path: "forgotpassword2",
+    //     element: <ForgotPass2 />,
+    //     errorElement: <ErrorPage />,
+    //   },
+
+    //   {
+    //     path: "phone-Otp",
+    //     element: <PhoneOtp />,
+    //     errorElement: <ErrorPage />,
+    //   },
+
+    //   {
+    //     path: "user-dashboard",
+    //     element: <UserDashboard />,
+    //     errorElement: <ErrorPage />,
+
+    //     children: [
+    //       {
+    //         path: 'account-creation',
+    //         element: <AccountCreation />,
+    //         errorElement: <ErrorPage />
+    //       },
+
+          
+    //     ]
+    //   },
+
+
+     
+
+
+
+    // ]
+
+    <Route path='/' element={<RootLayout />} errorElement={<ErrorPage />} >
+
+      <Route index element={<SignUpForm />} errorElement={<ErrorPage />} />
+
+      <Route path='phone-Otp' element={<PhoneOtp />} errorElement={<ErrorPage />} />
+
+      <Route path='login' element={<Login2Form />} errorElement={<ErrorPage />} />
+
+      <Route path='forgotpassword2' element={<ForgotPass2 />} errorElement={<ErrorPage />} />
+
+      <Route path='password-reset-otp' element={<PasswordResetOtp /> } errorElement={<ErrorPage />} />
+
+      <Route path="password-reset" element={<ResetPass2 />} errorElement={<ErrorPage />} />
+
+
+          {/* USER DASHBOARD  */}
+
+      <Route path="user-dashboard" element={<UserDashboard />} errorElement={<ErrorPage />} /> 
+
+
+
+
+    </Route>
+
+    )
   )
-
-
 
   return (
     <Box>

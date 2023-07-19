@@ -1,0 +1,55 @@
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { DropzoneArea } from 'material-ui-dropzone';
+
+import { Button, Grid, Typography, Box, Container, Paper } from '@mui/material';
+
+const Upload = () => {
+  const { handleSubmit, control } = useForm();
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageUpload = (files) => {
+    setSelectedImage(files[0]);
+  };
+
+  const onSubmit = (data) => {
+    console.log(data);
+  };
+
+  return (
+    <Container maxWidth="sm">
+      <Paper elevation={3} sx={{ p: 4 }}>
+        <Typography variant="h4" align="center" sx={{ mb: 4 }}>
+          Upload Image
+        </Typography>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+            <DropzoneArea
+  control={control}
+  name="image"
+  onChange={(files) => handleImageUpload(files)}
+  filesLimit={1}
+  acceptedFiles={['image/*']}
+  showFileNames
+  dropzoneText="Drag and drop or click to upload an image"
+  showAlerts={false}
+  useChipsForPreview
+/>
+
+            </Grid>
+            <Grid item xs={12}>
+              <Box display="flex" justifyContent="center">
+                <Button type="submit" variant="contained">
+                  Upload
+                </Button>
+              </Box>
+            </Grid>
+          </Grid>
+        </form>
+      </Paper>
+    </Container>
+  );
+};
+
+export default Upload;

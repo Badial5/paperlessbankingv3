@@ -29,31 +29,32 @@ export const UserData = [
       userGain: 4300,
       userLost: 234,
     },
+
   ];
 
 
   export const UserDepositWithdrawalData = [
     {
       id: 1,
-      month: "January",
+      month: "Jan",
       deposit: 4500,
       withdrawal: 823,
     },
     {
         id: 2,
-        month: "February",
+        month: "Feb",
         deposit: 1000,
         withdrawal: 723,
       },
       {
         id: 3,
-        month: "March",
+        month: "Mar",
         deposit: 7500,
         withdrawal: 2023,
       },
       {
         id: 4,
-        month: "April",
+        month: "Apr",
         deposit: 700,
         withdrawal: 1000,
       },
@@ -66,7 +67,7 @@ export const UserData = [
 
       {
         id: 6,
-        month: "June",
+        month: "Jun",
         deposit: 2000,
         withdrawal: 2223,
       },
@@ -74,44 +75,45 @@ export const UserData = [
       
       {
         id: 7,
-        month: "July",
+        month: "Jul",
         deposit: 1000,
         withdrawal: 2223,
       },
 
       {
         id: 8,
-        month: "August",
+        month: "Aug",
         deposit: 500,
         withdrawal: 2123,
       },
 
       {
         id: 9,
-        month: "September",
+        month: "Sep",
         deposit: 1000,
         withdrawal: 500,
       },
 
       {
         id: 10,
-        month: "October",
+        month: "Oct",
         deposit: 400,
         withdrawal: 2223,
       },
 
       {
         id: 11,
-        month: "November",
+        month: "Nov",
         deposit: 500,
         withdrawal: 223,
       },
 
       {
         id: 12,
-        month: "December",
+        month: "Dec",
         deposit: 1000,
         withdrawal: 7203,
+        
       },
   ];
   

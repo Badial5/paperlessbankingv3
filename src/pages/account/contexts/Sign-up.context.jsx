@@ -20,36 +20,44 @@ export const SignUpProvider = ({children}) => {
     const [page, setPage] = useState(0)
     const [step, setStep] = useState(1);
 
-    const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset, trigger } = useForm({
-        mode: "onTouched",
-        defaultValues: {
-          first_name: "",
-          last_name: "",
-          title: "",
-          phone_number: "",
-          id_type: "",
-          id_number: "",
-          account_type: "",
-          email: "",
-          upload: "",
-          confirm: ""
-    
-        }
-      })
-
     const [signUpFormData, setSignUpFormData] = useState({
-        first_name: "",
-        last_name: "",
-        title: "",
-        phone_number: "",
-        id_type: "",
-        id_number: "",
-        account_type: "",
-        email: "",
-        upload: "",
-        confirm: ""
-    })
+      first_name: "",
+      last_name: "",
+      title: "",
+      phone_number: "",
+      id_type: "",
+      id_number: "",
+      account_type: "",
+      email: "",
+      upload: "",
+      confirm: ""
+  })
+  
+
+    // const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset, trigger } = useForm({
+    //     mode: "onTouched",
+    //     defaultValues: {
+    //       first_name: "",
+    //       last_name: "",
+    //       title: "",
+    //       phone_number: "",
+    //       id_type: "",
+    //       id_number: "",
+    //       account_type: "",
+    //       email: "",
+    //       upload: "",
+    //       confirm: ""
     
+    //     }
+    //   })
+
+
+    const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset, trigger } = useForm({
+      mode: "onTouched",
+      defaultValues: signUpFormData
+    })
+
+   
     const updateFormData = (data) => {
         setSignUpFormData((prevData) => ({
           ...prevData,

@@ -10,7 +10,8 @@ import uploadAnimation from "../animation/json/uploadAnimation.json"
 const Dropzone = styled('div')(({ theme }) => ({
   width: '100%',
   height: '200px',
-  border: `2px dashed ${theme.palette.secondary.main}`,
+  // border: `2px dashed ${theme.palette.secondary.main}`,
+  border: `2px dashed #9747FF`,
   borderRadius: theme.shape.borderRadius,
   display: 'flex',
   alignItems: 'center',
@@ -18,9 +19,10 @@ const Dropzone = styled('div')(({ theme }) => ({
   cursor: 'pointer',
   transition: 'background-color 0.3s ease',
   '&:hover': {
-    backgroundColor: theme.palette.secondary.light,
+    // backgroundColor: theme.palette.secondary.light,
+    backgroundColor: "#9747FF",
   },
-}));
+}))
 
 const Upload = () => {
   const { control, setValue } = useForm();
@@ -102,7 +104,7 @@ const Upload = () => {
           <>
             <CloudUploadIcon fontSize="large" color="action" />
             <Typography variant="body1" color="textSecondary">
-              Click or drag and drop an image here
+              Click or drag and drop an image here Old Upload Games
             </Typography>
           </>
         )}

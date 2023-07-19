@@ -7,6 +7,9 @@ import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Paper } from '@mui/material';
+
+import { useForm } from "react-hook-form";
+
 // import AccountCreation from './account-creation';
 import AccountCreationJs from './step/account-creation';
 import Upload from './step/Upload';
@@ -18,10 +21,30 @@ import ConfirmStep from './step/Confirm';
 import Lottie from 'lottie-web';
 import FormCompleteAnimation from './animation/json/formComplete.json';
 
+import { useState } from 'react';
+
 
 const steps = ['Account Creation', 'Upload Image', 'Confirm Details'];
 
 export default function MainAccount() {
+
+  const [formData, setFormData] = useState({
+    first_name: "",
+      last_name: "",
+      title: "",
+      phone_number: "",
+      id_type: "",
+      id_number: "",
+      account_type: "",
+      email: "",
+      upload: "",
+  })
+
+  const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset, trigger } = useForm({
+    mode: "onTouched",
+    defaultValues: formData
+  })
+
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
 
@@ -104,30 +127,31 @@ export default function MainAccount() {
     setCompleted({});
   };
 
+  const handleChange = input => e => {
+    setFormData({...formData, [input]: e.target. value})
+  }
+
   const renderStepContent = (step) => {
     switch (step) {
       case 0:
-        return <AccountCreationJs onNext={handleNext} />;
+        return <AccountCreationJs formData={formData} handleNext={handleNext} handleChange={handleChange} register={register} isValid={isValid} errors={errors}  />;
       case 1:
-        return <Upload onNext={handleNext} onBack={handleBack} />;
+        return <Upload  formData={formData} handleNext={handleNext} handleBack={handleBack} handleChange={handleChange} />;
       case 2:
-        return <ConfirmStep onNext={handleNext} onBack={handleBack} />;
+        
+        return <ConfirmStep formData={formData} handleNext={handleNext} handleBack={handleBack} handleChange={handleChange} reset={reset} trigger={trigger} setValue={setValue}  handleSubmit={handleSubmit} register={register} isValid={isValid} errors={errors}/>;
+
       default:
         return null;
     }
   };
 
+
+  console.log("Form Values: ", formData)
+
   return (
     <Box sx={{ width: '100%' }}>
-      <Stepper nonLinear activeStep={activeStep}>
-        {steps.map((label, index) => (
-          <Step key={label} completed={completed[index]}>
-            <StepButton color="inherit" onClick={handleStep(index)}>
-              {label}
-            </StepButton>
-          </Step>
-        ))}
-      </Stepper>
+     
 
       <Box
         style={{
@@ -143,8 +167,19 @@ export default function MainAccount() {
           flexDirection: 'column',
         }}
       >
+
         <Paper elevation={12} sx={{ width: '40rem', display: 'flex', flexDirection: "column", padding: '10px 30px', borderRadius: 10 }}
         >
+
+      <Stepper nonLinear activeStep={activeStep}>
+        {steps.map((label, index) => (
+          <Step key={label} completed={completed[index]}>
+            <StepButton color="inherit" onClick={handleStep(index)}>
+              {label}
+            </StepButton>
+          </Step>
+        ))}
+      </Stepper>
           
           <Box>
             {allStepsCompleted()
@@ -202,6 +237,7 @@ export default function MainAccount() {
 
 
 
+
 {/* ====================== This is the Page Content  ================================ */}
   <Box>{renderStepContent(activeStep)}</Box>
 
@@ -209,24 +245,24 @@ export default function MainAccount() {
 
 {/* ======================= This is the button content ============================  */}
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              <Button
+              {/* <Button
                 color="inherit"
                 disabled={activeStep === 0}
                 onClick={handleBack}
                 sx={{ mr: 1 }}
               >
                 Back
-              </Button>
+              </Button> */}
 
-              <Box sx={{ flex: '1 1 auto' }} />
+              {/* <Box sx={{ flex: '1 1 auto' }} /> */}
 
-              <Button onClick={handleNext} sx={{ mr: 1 }}>
+              {/* <Button onClick={handleNext} sx={{ mr: 1 }}> */}
                 {/* I remove Finish nd replace it with null value */}
-                {activeStep === totalSteps() - 1 ? '' : 'Next'}
+                {/* {activeStep === totalSteps() - 1 ? '' : 'Next'} */}
 
-              </Button>
+              {/* </Button> */}
 
-              {activeStep !== steps.length &&
+              {/* {activeStep !== steps.length &&
                 (completed[activeStep] ? (
                   <Typography variant="caption" sx={{ display: 'inline-block' }}>
                     Step {activeStep + 1} already completed
@@ -235,7 +271,7 @@ export default function MainAccount() {
                   <Button onClick={handleComplete}>
                     {completedSteps() === totalSteps() - 1 ? 'Done' : 'Complete Step'}
                   </Button>
-                ))}
+                ))} */}
             </Box>
 
 

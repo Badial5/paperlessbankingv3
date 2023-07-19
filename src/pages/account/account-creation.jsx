@@ -290,34 +290,7 @@ sx={{width: "40rem", display: "flex", padding: "10px 30px", borderRadius: 10 }}>
   <NameLabel sx={{ padding: "0px 17px", fontSize: 12, lineHeight: "16px", 
 fontFamily: 'Poppins', fontWeight: 400 }}>Title</NameLabel>
 
-  {/* <FormControl
-    fullWidth
-    sx={{
-      "& .MuiSelect-root": {
-        height: "2rem",
-        width: 200,
-        borderRadius: 100
-      },
-      "& .MuiInputBase-input": {
-        padding: "5px 8px",
-        textAlign: "center",
-        fontSize: 12,
-        fontFamily: 'Poppins'
-      },
-      "& .MuiOutlinedInput-root.Mui-focused": {
-        "& fieldset": {
-          borderColor: "#7833EE"
-        }
-      },
-      "& fieldset": {
-        borderRadius: "6px"
-      }
-    }}
-  >
-    <Select />
-
-   
-  </FormControl> */}
+ 
 
 <TextField
       id="d_account"
@@ -824,7 +797,7 @@ fontFamily: 'Poppins', fontWeight: 400,  }}>Account Type</NameLabel>
         </ButtonComponent> */}
 
 <Button type="submit" disabled={!isValid} style={{ backgroundColor: isValid ? 'blue' : '#cecece' }}>
-        Continue
+        Continue And Click
       </Button>
 
         

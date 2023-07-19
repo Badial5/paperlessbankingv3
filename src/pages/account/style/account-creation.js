@@ -164,7 +164,7 @@ margin-left: 16px;
 font-family: 'Poppins';
 font-style: normal;
 font-weight: 400;
-font-size: 12px;
+font-size: 8;
 line-height: 16px;
 /* identical to box height, or 133% */
 

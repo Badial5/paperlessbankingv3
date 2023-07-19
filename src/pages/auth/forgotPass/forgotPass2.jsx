@@ -26,6 +26,11 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import IconButton from '@mui/material/IconButton';
 
 
+//React Toasify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 // =========================== REACT ANIMATION SPINNER =========================================
 //REACT ANIMATION SPINNER 
 // import { ClipLoader } from 'react-spinners/ClipLoader';
@@ -72,12 +77,17 @@ TncText, PasswordStrengthBarThree, PasswordStrengthBarOne, PasswordStrengthBarTw
 
  import { BottonComp } from '../login/login.styles';
 import { useEffect } from 'react';
+import { GlobalButton, GlobalErrorHelperText, GlobalInlaksText, GlobalInputLabel, GlobalLink, GlobalPageBackground, GlobalPageHeader, GlobalPaperStyle, GlobalSubPageHeader, GlobalTextField } from '../../../assets/GlobalStyled/Globalstyles';
+import CircularIndeterminate from '../../../assets/GlobalAnimation/ButtonAnimation/LoadingButton';
+
 
 
 
 // import PhoneInput from 'react-phone-number-input'
 
-const baseUrl = "https://api.inlakssolutions.com/accounts/v1/password-reset-otp/"
+// const baseUrl1 = "https://api.inlakssolutions.com/accounts/v1/password-reset-otp/"
+
+const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/password-reset-otp/"
 
 
 
@@ -117,6 +127,16 @@ console.log("ThemeProvider Props:", theme)
 
 export default function ForgotPass2() {
 
+  const { handleSubmit, register, setValue,watch, control, formState: {errors, isValid, isLoading, isSubmitting, isSubmitted, isSubmitSuccessful
+  }, reset,} = useForm({
+    mode: "onChange",
+    defaultValues: {
+     
+      email: "",
+    
+    }
+  })
+
     // REACT COMPONENT USENAVIGATE
     const navigate = useNavigate();
 
@@ -127,8 +147,12 @@ const [showPassword, setShowPassword] = useState(false);
 //error state
 const [error, setError] = useState(null)
 
-// const EmailContext = createContext();
-const [email, setEmail] = useState('');
+
+const [errorApi, setErrorApi] = useState(null)
+
+
+
+
 
 //OPEN OR CLOSE
 const [open, setOpen] = useState(true);
@@ -162,18 +186,22 @@ useEffect(() => {
 
 
 
+//session storage
+const [sessionalEmail, setSessionalEmail] = useState(null);
 
-  //react hookform 
-  const { handleSubmit, register, watch, formState: {errors}, reset, trigger,
-getValues } = useForm({
-    mode: "onTouched",
-    
-    defaultValues: {
-      email: "",
-      // password: "",
-      // tnc: ""
-    }
-  })
+
+useEffect(() => {
+
+  // Read data from sessionStorage on component mount
+  const storedData = sessionStorage.getItem('sessionEmail');
+  setSessionalEmail(storedData);
+
+  // Update sessionStorage when the data changes
+  sessionStorage.setItem('sessionEmail', storedData);
+
+}, [])
+
+  
 
 
   const backgroundColorText = {
@@ -184,12 +212,17 @@ getValues } = useForm({
 
 
   const onSubmit = async (data) => {
-    localStorage.setItem("email", data.email);
+    // sessionStorage.setItem("sessionEmail", data.email);
+    setSessionalEmail(sessionStorage.setItem("sessionEmail", data.email));
+
+    const retrievedEmail = sessionStorage.getItem("sessionEmail")
+    console.log("Retrieved Email: ", retrievedEmail)
+
     console.log("Form Data: ", data)
     // registerForm()
     // reset()
 
-    console.log("Local Storage Mail ", email)
+    console.log("Session Storage Data ", sessionalEmail)
 
     try {
       const response = await axios.post(baseUrl, data)
@@ -203,8 +236,30 @@ getValues } = useForm({
       
 
       console.log("Successful: ", newResponse)
+
+      Object.values(newResponse).forEach(errors => {
+        errors.forEach(successMessage => {
+          toast.success(successMessage); // Display each error message using toast.error()
+          
+          // console.log("Error inside the Inner ForEach: ", errorMessage )
+        });
+        // I will do something here but I have forgotten 
+      });
+
     } catch (error) {
-      setError(error.response.data)
+      
+
+      setErrorApi(error.response.data);
+      console.log("Call to the API returns: ", errorApi);
+
+      Object.values(errorApi).forEach(errors => {
+        errors.forEach(errorMessage => {
+          toast.error(errorMessage); // Display each error message using toast.error()
+          
+          // console.log("Error inside the Inner ForEach: ", errorMessage )
+        });
+        // I will do something here but I have forgotten 
+      });
       // console.log("Error Message: ", error.response.data)
       console.log("Error Message from state: ", error)
     }
@@ -213,48 +268,13 @@ getValues } = useForm({
   }
 
 
-  // const errorString = JSON.stringify(error);
 
 
 
 
-const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-const handleMouseDownPassword = (event) => {
-  event.preventDefault();
-};
 
 
 
-// const [formComplete, setFormComplete] = useState(false);
-
-
-// const handleInputChange = () => {
-//   // check if all form fields are filled out
-//   const formIsComplete = Object.values(getValues()).every(val => val !== '');
-//   setFormComplete(formIsComplete);
-// }
-
-
-const [formComplete, setFormComplete] = useState({
-  email: null,
-  // password: null
-});
-
-
-const handleInputChange = () => {
-  // check if all form fields are filled out
-  const formIsComplete = Object.values(getValues()).every(val => val !== '');
-  setFormComplete(formIsComplete);
-}
-
-
-console.log("Form Complete: ", formComplete)
-
-
-
-
-console.log("Form Complete: ", formComplete)
 
 
  //REACT SPINNER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -282,165 +302,52 @@ console.log("Form Complete: ", formComplete)
 
 
   return (
-    <ThemeProvider theme={theme}> 
+<>
 
 {loadingInProgress ? (
         <Spinner />
       ) : (
 
-    <Box style={{
-       
-      // backgroundColor: "yellow", signupImg
-      backgroundImage: `url(${signupImg})` ,
-      backgroundPosition: 'center',
-      backgroundSize: 'cover',
-      display: "flex", justifyContent: "center",
-      alignItems: "center",
-      //  width: 1440, 
-      // height: 1024, 
-      // height: "100%", 
-      // width: "100%",
-      // width: "1440px", 
-      // height: "1024px",
-      width: "100vw",
-      height: "100vh",
-       flexDirection: "column",
-      backgroundRepeat: 'no-repeat', width: "100%",
-      
-    }}>
+    <GlobalPageBackground >
        <CssBaseline />
       
 
-        <InlaksText>
+        <GlobalInlaksText>
           InLaks 
-        </InlaksText>
-
-      {/* Paper Wrapper  */}
-      {/* <PaperWrapper component="form" onSubmit={handleSubmit(onSubmit)} >  */}
-
-      <ContainerWrapper component="main" maxWidth="xs" 
-sx={{
-  // display: 'flex',
-  // flexDirection: 'column',
-  // alignItems: 'center',
-  // justifyContent: 'center',
-  // mx: 'auto',
-  // my: 'auto',
-  padding: '20px 20px',
-  // minHeight: {xs: "50vh", md: "80vh", lg: "70vh"},
-
-}}>
-
-<Box
-    sx={{
-      
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: "center",
-      // padding: "30px 14px", this gives it padding
-      // backgroundColor: "red",
-      padding: "10px 10px",
-      // marginBottom: "20px",
-      // padding: {xs: "40px 14px", md: "30px 14px"},
-      // padding: {xs: "40px 14px"},
-     
-      // minHeight: {xs: "80vh", md: "80vh", lg: "80vh"}, 
-      // maxHeight: {xs: "80vh", md: "80vh", lg: "80vh"},
-      // padding: { xs: "30px 15px" }
-      // border: "5px solid #fff"
-  }}>
-
-
-
-<PageHeaderAndTitleContainer2 
-sx={{height:  {xs: 60, md: 70, } , 
-
-
-// height:  {xs: 60, md: 70, } 
-
-}} >
-  <PageHeader2 sx={{fontFamily: "Poppins", fontWeight: 800, }} >
-  Forgot Password
-  </PageHeader2>
-
-  <SubTitle2 sx={{fontFamily: "Poppins", fontWeight: 400, }}>
-  Enter your account email to reset your password.
-  </SubTitle2>
-
-</PageHeaderAndTitleContainer2>
-
-
-
-
-
-{(error && open ) &&  
- <Collapse in={open}>  
-        <ErrorAlert severity="error" onClose={() => setOpen(!open)}
-        sx={{
-        "& .MuiAlert-icon": {
-          color: "#fff"
-        }, "& .MuiAlert-action": {
-          color: "#fff"
-        }, overflow: "hidden",  mr: "auto",
-        ml: "auto",  width: "21.5rem", mb: 2
-         }}>
-          <ErrorAlertText >
-          {Object.values(error)} 
-          {/* { Object.entries(error).map(([key, val])=> <p key={key}>{key}: {val}</p>) }  */}
-          </ErrorAlertText>
-
-          </ErrorAlert>
-
-      
-     </Collapse> 
-}
-
-
-
-
-
-
-
-
-<GridContainer2 container component="form" 
-onSubmit={handleSubmit(onSubmit)}>
-
+        </GlobalInlaksText>
 
     
-{/* ===================EMAIL ADDRESS ===========================================================================================  */}
+
+      <GlobalPaperStyle elevation={20} sx={{mb: 15, width: "30%"}}>
+
+      <Box sx={{marginLeft: "auto", marginRight: "auto"}}>
+        <GlobalPageHeader>
+          Forgot Password
+        </GlobalPageHeader>
+
+        <GlobalSubPageHeader>
+        Enter your account email to reset your password.
+        </GlobalSubPageHeader>
+
+      </Box>
+
+
+
+      <Grid container spacing={1} component="form" 
+    onSubmit={handleSubmit(onSubmit)} >
+
+
 
 
 {/* Email address  */}
-<LongTextFieldGridItem item xs={12} 
-sx={{// Add a marginBottom property when errors.first_name?.message is present
-  height: "65px",
-  ...(errors.email?.message && {
-    height: "70px"
-  })}}>
-  <NameLabel sx={{padding: "0px 16px",}}>Email Address</NameLabel>
-    <TextField fullWidth type="email"
-    id="email"
-    error={Boolean(errors.email)}
-    variant="outlined" 
-    sx={{  padding: "5px 16px",
-      "& .MuiOutlinedInput-root.Mui-focused": {
-        "& > fieldset": {
-  borderColor: "#7833EE"
-        }
-      },  [`& fieldset`]:{
-        borderRadius: "6px" }
-    }}
-    InputProps={{
-      
-      style: {
-        height: "2rem",
-        fontSize: 12,
-        fontFamily: 'Helvetica Neue'
-},
-}}
+<Grid item xs={12} sx={{display: "flex", flexDirection: "column",  alignContent: "center", }}>
 
-// label="Email Address"
+<GlobalInputLabel htmlFor='email' sx={{justifyItems: "flex-start"}}>Email</GlobalInputLabel>
+
+  <GlobalTextField id='email' 
+  error={Boolean(errors.first_name)}
+  variant="outlined"
+
 placeholder='someexample@gmail.com'
 {...register("email", {required: {
 value: true,
@@ -448,30 +355,18 @@ message: "Email is required",
 
 }, 
 pattern: {
-// value: /^\S+@\S+$/i,
-// value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-
 value: /^[^\d][A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/,
 message: "Please enter a valid email address"
 }
 })}
 
-
-onChange={(event) => {
-  handleInputChange(event);
-  setFormComplete(prevState => ({
-    ...prevState,
-    email: event.target.value !== '',
-  }));
-}}
-
-
 />
 
-<ErrorHelperTextContainer
->{errors.email?.message}</ErrorHelperTextContainer>
-    
-</LongTextFieldGridItem>
+{ (errors.email?.message  ) &&
+  <GlobalErrorHelperText>{errors.email?.message}</GlobalErrorHelperText> 
+}
+
+</Grid>
 
 
 {/* ==================CLOSE OF EMAIL ADDRESS ===================================================================================  */}
@@ -491,69 +386,70 @@ onChange={(event) => {
 
 
     {/* =================================== BUTTON ==================================================================================================== */}
-    <LongTextFieldGridItem item xs={12}  sx={{height:50, width: "100%",
-     
-    }}>
-
-
-      <BottonComp
-  type='submit'
-  fullWidth
-  sx={{
-    // width: {xs: "22rem", md: "21.5rem"},
-    mt: 2,
-    mb: 0,
-    background: Object.values(formComplete).every(Boolean)
-      ? 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)'
-      : '#F3F3F3',
    
-  }}
-  disabled={!Object.values(formComplete).every(Boolean)}
 
->
-  <ButtonText>
-    Login
-  </ButtonText>
-</BottonComp>
+      <Grid item xs={12} sx={{display: "flex", justifyContent: "center", }}>
+        <GlobalButton type='submit'
+            // color="secondary"
+            sx={{ background: !isValid ? "#cecece" : 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',}}
+            disabled={!isValid || isSubmitting}
+            size="small"
+            variant='contained'>
+            
+            {
+              isSubmitting ? <CircularIndeterminate /> :  "Submit"
+            }
+
+        </GlobalButton>
+    </Grid>
 
 
-    </LongTextFieldGridItem>
 
-
-
-
-
-    <Link component={RouterLink} to="/signup" textAlign={"center"} 
+    <GlobalLink component={RouterLink} to="/" textAlign={"center"} 
     sx={{display: "flex", marginLeft: "auto",
-    marginRight: "auto", textDecoration: "none", 
-    mt: 2}}>
-        <SignupText textAlign="center">
-        👋🏾 I don’t have an account? 
-        <span style={{color: "#7833EE", 
-      textDecoration: "underline"}}> Signup</span>
-        </SignupText>
-    </Link>
+    mb: 5,
+    marginRight: "auto", textDecoration: "none"}}>
+      👋🏾 I don’t have an account? 
+      <span style={{color: "#7833EE", 
+      textDecoration: "underline", marginLeft: 3}}> Signup</span>
+    </GlobalLink>
+
+
+   
 
     
 
 
-</GridContainer2>
-
-
-
-
-</Box>
-</ContainerWrapper>  
+</Grid>
 
 
 
 
 
-      </Box>
+</GlobalPaperStyle>  
+
+
+
+<ToastContainer
+          position="top-right"
+          autoClose={10000}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+      />
+
+
+
+      </GlobalPageBackground>
 
       )}
       
-      </ThemeProvider> 
+      </>
   );
 }
 

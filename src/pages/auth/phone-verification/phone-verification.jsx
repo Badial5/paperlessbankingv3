@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography, Collapse } from '@mui/material'
+import { Box, Button, TextField, Typography, Collapse, Grid } from '@mui/material'
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useForm, } from "react-hook-form";
@@ -6,6 +6,13 @@ import { useNavigate } from 'react-router-dom';
 
 import { useContext } from 'react';
 import { EmailContext } from '../../../context/emailContext'; 
+
+
+//React Toasify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 
 
@@ -28,6 +35,8 @@ import { PaperWrapper, InlaksText, PageHeader,
   
  } from "./phone.styles.js"
 import { ContainerWrapper, ErrorAlert, ErrorAlertText } from '../sign-up/signup.styles';
+import { GlobalButton, GlobalDigitTextField, GlobalInlaksText, GlobalPageBackground, GlobalPageHeader, GlobalPaperStyle, GlobalSubPageHeader } from '../../../assets/GlobalStyled/Globalstyles';
+import CircularIndeterminate from '../../../assets/GlobalAnimation/ButtonAnimation/LoadingButton';
 
  //I will work on it later during the clean code stage 
  // or optimization period
@@ -53,8 +62,9 @@ const activateAccount = "https://banking-api.inlakssolutions.com/accounts/v1/act
 
 
 
-
 const PhoneOtp = () => {
+
+  const [errorApi, setErrorApi] = useState(null)
 
   // const { register, trigger, formState: { errors } } = useForm();
 
@@ -62,15 +72,20 @@ const PhoneOtp = () => {
     const navigate = useNavigate();
 
 
-// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
-
+// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   //react hookform 
-  const { handleSubmit, register, watch, setValue, formState: {errors}, reset, trigger } = useForm({
+  const { handleSubmit, register, watch, setValue, formState: {errors, isValid, isSubmitting}, reset, trigger } = useForm({
     mode: "onTouched",
     defaultValues: {
       otp: "",
       email: "",
+      field1: '',
+      field2: '',
+      field3: '',
+      field4: '',
+      field5: '',
+      field6: ''
       
       // password2: "",
       // tnc: ""
@@ -116,7 +131,7 @@ const [open, setOpen] = useState(true);
   const [isResendDisabled, setIsResendDisabled] = useState(false);
   const [message, setMessage] = useState("OTP sent to your phone");
 
-  const [error, setError] = useState('')
+  const [error, setError] = useState(null)
 
   const [input, setInput] = useState('') // For input
 
@@ -207,7 +222,19 @@ useEffect(() => {
         setMessage("OTP resent to your email");
       }
     } catch (error) {
-      setError(error.response.data)
+      // setError(error.response.data)
+
+      setErrorApi(error.response.data);
+      console.log("Call to the API returns: ", errorApi);
+
+      Object.values(errorApi).forEach(errors => {
+        errors.forEach(errorMessage => {
+          toast.error(errorMessage); // Display each error message using toast.error()
+
+          // console.log("Error inside the Inner ForEach: ", errorMessage )
+        });
+      });
+
       console.log("OTP Resend Error Message: ", error.response.data)
     }
   };
@@ -271,16 +298,6 @@ const handleTyping1 =  (e) => {
   }
 
 
-
-  // const inputRef1 = useRef(null);
-  // const inputRef2 = useRef(null);
-  // const inputRef3 = useRef(null);
-  // const inputRef4 = useRef(null);
-  // const inputRef5 = useRef(null);
-  // const inputRef6 = useRef(null);
-
-
-
  
  // when input is changing this function will get called
  const onChange = (e) => {
@@ -294,105 +311,83 @@ const handleTyping1 =  (e) => {
 
 
 
-// const submitData = () => {Number(`${value1}${value2}${value3}${value4}${value5}${value6}`)}
-
-
-
 // SUBMIT PHONE DATA ==========================================================================================
 
-// const submitData = () => { 
-//   const data = `${value1}${value2}${value3}${value4}${value5}${value6}`; 
-//   // const data = Number(`${value1}${value2}${value3}${value4}${value5}${value6}`) 
-//   console.log("Final Submit Value", data) 
-//   // setFinalOtp(data)
-//   // console.log("Final OTP CODE value: ", finalotp)
-// }
-
-console.log("Value 1: ", value1)
-console.log("Value 2: ", value2)
-console.log("Value 3: ", value3)
-console.log("Value 4: ", value4)
-console.log("Value 5: ", value5)
-console.log("Value 6: ", value6)
-
-// const allValues = () =>  Number(`${value1}${value2}${value3}${value4}${value5}${value6}`); 
-// const allValues = () =>  (`${value1}${value2}${value3}${value4}${value5}${value6}`); 
-// setValue("otpCode", allValues)
-// console.log("All Values: ", allValues)
-
-// console.log(submitData)
 
 const datas = `${value1}${value2}${value3}${value4}${value5}${value6}`;
 
 console.log("Data OTP: ", datas)
 
-// setValue("otpCode", datas)
 
-
-
-// console.log("CUSTOM OTP CODE: finalotp", finalotp) 
-
-// console.log(submitData )
 // ============================= TESTING ================================================================================
-
 
 
 // const onSubmit = async (data) => {
 //   console.log("Form Data: ", data)
-//   const datas = `${value1}${value2}${value3}${value4}${value5}${value6}`;
 //   // registerForm()
 //   // reset()
 
 //   try {
-//     const response = await axios.post(activateAccount, datas)
-//     const newResponse = response.data.datas
-//     console.log("newResponse value: ", newResponse)
-   
+//     const response = await axios.post(activateAccount, {
+//       email: storedEmail,
+//       otp: data.otp,
 
+      
+//     })
+   
+//     console.log("OTP Form Submitted", response);
 //     navigate("/user-dashboard")
  
-//     console.log("Successful: ", newResponse)
+ 
+
 //   } catch (error) {
-//     setError(error.response.data.datas)
-//     console.log("Error Message: ", error.response.data.datas)
+//     setError(error.response.data)
+//     console.log("Error Message: ", error.response.data)
 //   }
 
 
 // }
 
 
-
-// const emailContext = useContext(EmailContext); 
-
-
-// console.log("EMail Context: ", emailContext)
-// ============================== CORRECT ONE ========================================================================= 
-
 const onSubmit = async (data) => {
-  console.log("Form Data: ", data)
-  // registerForm()
-  // reset()
+  sessionStorage.setItem("email", data.email);
+  console.log("Form Data: ", data);
 
   try {
-    const response = await axios.post(activateAccount, {
-      email: storedEmail,
-      otp: data.otp,
-    })
-    const newResponse = response.data
-    // console.log(newResponse)
-    // newResponse()
+        const response = await axios.post(activateAccount, {
+          email: storedEmail,
+          otp: data.otp,
+        })
+       
+        // setValue("otp", data.datas)
 
-    // navigate("/landing-page")
-    navigate("/user-dashboard")
- 
-    console.log("Successful: ", newResponse)
+    
+
+    console.log("FORM SUBMITTED: ", response)
+    
+    reset();
+    console.log('Before toast.success'); // Check if this log is printed in the console
+    toast.success("Thank You for authentication")
+    
+    navigate("/user-dashboard");
+
+
   } catch (error) {
-    setError(error.response.data)
-    console.log("Error Message: ", error.response.data)
+
+    setErrorApi(error.response.data);
+    console.log("Call to the API returns: ", errorApi);
+
+    Object.values(errorApi).forEach(errors => {
+      errors.forEach(errorMessage => {
+        toast.error(errorMessage); // Display each error message using toast.error()
+
+        // console.log("Error inside the Inner ForEach: ", errorMessage )
+      });
+    });
+    console.log("Error Api: ", errorApi);
   }
-
-
 }
+
 
 
 
@@ -431,46 +426,30 @@ const onSubmit = async (data) => {
 
 
   return (
-    //Background Wallpaper
+
 
     <>
 
 {loadingInProgress ? (
         <Spinner />
-      ) : (
+      ) : 
+      
+      (
 
 
 
-    <Box sx={{
-       
-      // backgroundColor: "yellow", signupImg
-      backgroundImage: `url(${signupImg})` ,
-     
-      // objectFit: "cover",
-      backgroundPosition: 'center',
-      backgroundSize: '100% 100%',
-      display: "flex", justifyContent: "center",
-      alignItems: "center",
+    <>
 
-      width: "100vw",
-      height: "100vh",
-       flexDirection: "column",
-      backgroundRepeat: 'no-repeat', width: "100%",
-    
-    }}>
 {/* ===================================================================================  */}
 
 
-              {/* Inlak Text  */}
+      
+<GlobalPageBackground>
 
-   
-      {/* <InlaksText textAlign="center">
+
+    <GlobalInlaksText>
         Inlaks
-      </InlaksText> */}
-
-      <InlaksText textAlign="center">
-          Inlaks
-      </InlaksText>
+      </GlobalInlaksText>
 
 
 
@@ -479,303 +458,115 @@ const onSubmit = async (data) => {
 
 {/* ============================================================================================  */}
 
-{/* <PaperWrapper container component="form" 
-maxWidth="xs"
-sx={{}}
-onSubmit={handleSubmit(onSubmit)}> */}
 
-<ContainerWrapper  maxWidth="xs"
-component="form" onSubmit={handleSubmit(onSubmit)}
-sx={{
-  // display: 'flex',
-  // flexDirection: 'column',
-  // alignItems: 'center',
-  // justifyContent: 'center',
-  // mx: 'auto',
- 
-  padding: '20px 30px',
-  mb: 15,
-  // backgroundColor: "red"
-  // minHeight: {xs: "50vh", md: "80vh", lg: "70vh"},
-  
-}}>
+<GlobalPaperStyle elevation={20} sx={{mb: 15, width: "30%"}} >
 
   
 
-<PageHeaderAndTitleContainer sx={{mr: "auto", ml: "auto", 
-}}>
-<PageHeader textAlign="center" sx={{fontFamily: "Poppins", fontWeight: 800, }}>
+<GlobalPageHeader sx={{marginLeft: 'auto', marginRight: 'auto', marginBottom: 1}}  >
+          Verify Your Email
+</GlobalPageHeader>
 
-  {/* Verify  your mobile number */}
-  Verify your email
-</PageHeader>
-
-
-<SubTitle textAlign="center"
-sx={{fontFamily: "Poppins", fontWeight: 400, }}
->
-Enter the 6 digit code sent to your email account: <br /> 
-{/* (+233) 025 3232 */}
-</SubTitle>
-
-</PageHeaderAndTitleContainer>
+<GlobalSubPageHeader sx={{marginLeft: 'auto', marginRight: 'auto', marginBottom: 1}}>
+Enter the 6 digit code sent to your email account:
+</GlobalSubPageHeader>
 
 {/* ====================================ERROR ALERT =====================================================  */}
-
-
-{(error && open ) &&  
- <Collapse in={open}>  
-        
-
-<ErrorAlert severity="error" onClose={() => setOpen(!open)}
-        sx={{
-        "& .MuiAlert-icon": {
-          color: "#fff"
-        }, "& .MuiAlert-action": {
-          color: "#fff"
-        }, overflow: "hidden",  mr: "auto",
-        ml: "auto",  width: "21.5rem", mb: 2,
-        
-         }}>
-          <ErrorAlertText >
-          {Object.values(error)} 
-          {/* { Object.entries(error).map(([key, val])=> <p key={key}>{key}: {val}</p>) }  */}
-          </ErrorAlertText>
-
-          </ErrorAlert>
-
-      
-     </Collapse> 
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
 {/* =================================END OF ERROR ALERT ============================================================  */}
-<SixDigitBox sx={{marginLeft: "auto", marginRight: "auto", height: {xs: 60, md: 60},
-my: 1, display: "flex", justifyContent: "center"}}>
-
-{/* <SixDigitTextField
-style={{backgroundColor: "red"}}
->0</SixDigitTextField> */}
-
-{/* <SixDigitTextField>
-  0
-</SixDigitTextField> */}
-
-{/* <SixDigitTextField /> */}
 
 
 
-{/* =================================================  */}
+<Grid container spacing={0} component="form" 
+    onSubmit={handleSubmit(onSubmit)} sx={{padding: "5% 5%",}}>
 
-      {/* SIX DIGITS BOX  */}
 
-{/* <SixDigitTextField type="tel" id="1"
-onChange={handleTyping1}  inputProps={{ maxLength: 1 }}
- 
-sx={{
-  "& .MuiOutlinedInput-root.Mui-focused": {
-    "& > fieldset": {
-borderColor: "#7833EE"
-    }
-  }
-}}
- 
- /> */}
-  
-<SixDigitTextField type="tel" id="1" 
- onChange={handleTyping1} inputProps={{ maxLength: 1 }} 
+
+
+
+<Grid item xs={2}>
+<GlobalDigitTextField type="tel" id="1" 
+ inputProps={{ maxLength: 1 }} 
  placeholder="0"
- sx={{ width: "3rem", height: "1rem", fontFamily: 'Helvetica Neue', borderRadius: "8px",
- textAlign: "center",
-  "& .MuiOutlinedInput-root.Mui-focused": {
-    "& > fieldset": {
-borderColor: "#7833EE"
-    }
-  }
-}}
+ {...register('field1', {required: {value: true, message: 'required'}})}
 
-InputProps={{
-  inputProps: {
-    sx: {
-      textAlign: 'center',
-      height: "1rem",
-      fontFamily: 'Helvetica Neue'
-    },
-  },
-}}
+ onChange={handleTyping1}
+ 
  />
 
+ </Grid>
 
 
 
-<SixDigitTextField type="tel" id="2"
- onChange={handleTyping2} inputProps={{ maxLength: 1 }} 
+ <Grid item xs={2}>
+<GlobalDigitTextField type="tel" id="2"
+ inputProps={{ maxLength: 1 }} 
  placeholder="0"
- sx={{ width: "3rem", height: "1rem", fontFamily: 'Helvetica Neue', borderRadius: "8px",
+ 
+ {...register('field2', {required: {value: true, message: 'required'}})}
 
- "& .MuiOutlinedInput-root.Mui-focused": {
-   "& > fieldset": {
-borderColor: "#7833EE"
-   }
- }
-}}
-
-InputProps={{
-  inputProps: {
-    sx: {
-      textAlign: 'center',
-      height: "1rem",
-      fontFamily: 'Helvetica Neue'
-    },
-  },
-}}
+ onChange={handleTyping2}
  />
 
-
-<SixDigitTextField type="tel" id="3"
-onChange={handleTyping3} inputProps={{ maxLength: 1 }}
-placeholder="0"
-sx={{ width: "3rem", height: "1rem", fontFamily: 'Helvetica Neue', borderRadius: "8px",
-
-"& .MuiOutlinedInput-root.Mui-focused": {
-  "& > fieldset": {
-borderColor: "#7833EE"
-  }
-}
-}}
-
-InputProps={{
-  inputProps: {
-    sx: {
-      textAlign: 'center',
-      height: "1rem",
-      fontFamily: 'Helvetica Neue'
-    },
-  },
-}}
-
-/>
+ </Grid>
 
 
-<SixDigitTextField type="tel" id="4"
-onChange={handleTyping4} inputProps={{ maxLength: 1 }}
-placeholder="0"
-sx={{ width: "3rem", height: "1rem", fontFamily: 'Helvetica Neue', borderRadius: "8px",
-
-"& .MuiOutlinedInput-root.Mui-focused": {
-  "& > fieldset": {
-borderColor: "#7833EE"
-  }
-}
-}}
-
-InputProps={{
-  inputProps: {
-    sx: {
-      textAlign: 'center',
-      height: "1rem",
-      fontFamily: 'Helvetica Neue'
-    },
-  },
-}}
-
-/>
-
-
-<SixDigitTextField type="tel" id="5"
-onChange={handleTyping5} inputProps={{ maxLength: 1 }}
-
-placeholder="0"
-sx={{ width: "3rem", height: "1rem", 
-fontFamily: 'Helvetica Neue', borderRadius: "8px",
-
-"& .MuiOutlinedInput-root.Mui-focused": {
-  "& > fieldset": {
-borderColor: "#7833EE"
-  }
-}
-}}
-
-InputProps={{
-  inputProps: {
-    sx: {
-      textAlign: 'center',
-      height: "1rem",
-      fontFamily: 'Helvetica Neue'
-    },
-  },
-}}
-
-/>
-
-
-{/* <SixDigitTextField type="tel" id="6"
-onChange={handleTyping6}
+ <Grid item xs={2}>
+<GlobalDigitTextField type="tel" id="3"
  inputProps={{ maxLength: 1 }}
-
-sx={{
-  "& .MuiOutlinedInput-root.Mui-focused": {
-    "& > fieldset": {
-borderColor: "#7833EE"
-    }
-  }
-}}
-
-{...register("final", {required: "Required"})}
-// value={input} 
-// onChange={onChange}
-
-/> */}
-
-
-<SixDigitTextField type="tel" id="6"
-onChange={handleTyping6} inputProps={{ maxLength: 1,}}
 placeholder="0"
-sx={{ width: "3rem", height: "1rem", fontFamily: 'Helvetica Neue', 
 
-"& .MuiOutlinedInput-root.Mui-focused": {
-  "& > fieldset": {
-borderColor: "#7833EE"
-  }
-}
-}}
+{...register('field3', {required: {value: true, message: 'required'}})}
 
-InputProps={{
-  inputProps: {
-    sx: {
-      textAlign: 'center',
-      height: "1rem",
-      fontFamily: 'Helvetica Neue'
-    },
-  },
-}}
-
+ onChange={handleTyping3}
 />
+</Grid>
+
+
+<Grid item xs={2}>
+<GlobalDigitTextField type="tel" id="4"
+ inputProps={{ maxLength: 1 }}
+placeholder="0"
+
+{...register('field4', {required: {value: true, message: 'required'}})}
+
+ onChange={handleTyping4}
+/>
+</Grid>
+
+<Grid item xs={2}>
+<GlobalDigitTextField type="tel" id="5"
+ inputProps={{ maxLength: 1 }}
+placeholder="0"
+{...register('field5', {required: {value: true, message: 'required'}})}
+
+ onChange={handleTyping5}
+/>
+</Grid>
+
+
+<Grid item xs={2}>
+<GlobalDigitTextField type="tel" id="6"
+ inputProps={{ maxLength: 1,}}
+placeholder="0"
+{...register('field6', {required: {value: true, message: 'required'}})}
+
+ onChange={handleTyping6}
+/>
+</Grid>
 
 
 
 
 {/* =====================================================  */}
 
-</SixDigitBox>
+
+
+
+
 
 {/* ==============================================================  */}
   <Box sx={{ml: "auto", mr: "auto", display: "flex", 
@@ -817,7 +608,7 @@ flexDirection: "column", alignItems: "center",}}>
               cursor: "pointer"
             }}
             onClick={resendOtp} 
-            sx={{color: "#4A4AF4"}}
+            sx={{color: "#4A4AF4", fontSize: 10}}
           >
             Resend Code
           </Typography>
@@ -831,21 +622,8 @@ flexDirection: "column", alignItems: "center",}}>
 
  {/* ==========================================================================  */}
 
-      {/* Submit Button  */}
-
-
-
-      {/* <ButtonSubmit type='submit'
-      disabled={isButtonDisabled}>
-        Submit
-      </ButtonSubmit> */}
-
-      {/* <Box sx={{ml: 30, mr: 50}}>
-            <Button variant="contained" sx={{ml: "auto", mr: "auto"}}>
-              COntinue
-            </Button>
-      </Box> */}
-<Box sx={{padding: '20px 30px',}}>
+    
+{/* <Box sx={{padding: '20px 30px',}}>
 <ButtonSubmit
               type="submit"
               // onClick={ () => setValue("otpCode", finalotp)} 
@@ -879,10 +657,29 @@ flexDirection: "column", alignItems: "center",}}>
                 Continue 
               </Typography>
         </ButtonSubmit>
-</Box>
+</Box> */}
+
+<Grid item xs={12} sx={{display: "flex",  mb: 5, ml: 'auto', mr: 'auto' }}>
+        <GlobalButton type='submit'
+            // color="secondary"
+            sx={{ background: !isValid ? "#cecece" : 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',}}
+            disabled={ !isValid}
+            size="small"
+            variant='contained' 
+            
+            onClick={(prev) => setValue('otp', datas)}
+            >
+            
+            {
+              isSubmitting ? <CircularIndeterminate /> :  "Submit"
+            }
+
+        </GlobalButton>
+    </Grid>
 
 
 
+    </Grid>
 
 
 {/* ================================================================================  */}
@@ -893,18 +690,37 @@ flexDirection: "column", alignItems: "center",}}>
 
 
 
+
 {/* </PaperWrapper>  */}
 
-</ContainerWrapper>
+
+</GlobalPaperStyle>
 
 
 {/* ================================================================================================  */}
 
 
+<ToastContainer
+          position="top-right"
+          autoClose={10000}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+      />
+
 {/* =============================================================================================  */}
-      
-    </Box>
+            
+      </GlobalPageBackground>
+
+    </>
   
+      
+      
       )}
 
     </>

@@ -1,308 +1,297 @@
-
-import { useRef, useEffect, useContext} from 'react';
-
-import { CircularProgress } from '@mui/material';  
-// import { CircularProgress } from '@mui/joy/CircularProgress'; 
-
-import { Collapse } from "@mui/material"
-import { useMediaQuery } from "@mui/material"
-
-import {  BarLoader, ClipLoader, CircleLoader, ClimbingBoxLoader, ClockLoader, DotLoader, FadeLoader, GridLoader, HashLoader, MoonLoader, PacmanLoader, PropagateLoader, PuffLoader, PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader } from 'react-spinners';
-
-
-
-
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-
-import Box from '@mui/material/Box';
-// import MuiPhoneNumber from 'material-ui-phone-number';
-
-import axios from "axios"
-
-
-import { Link as RouterLink, redirect, useNavigate } from 'react-router-dom';
-
-
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { DevTool } from "@hookform/devtools";
+import { useNavigate, Link as RouterLink, Link } from 'react-router-dom';
+import axios from 'axios';
 
-// import signupImg from "../../..//assets/images/signup2.jpg"
-
-import signupImg from "../../../assets/images/signup2.jpg"
 
 
-import { ContainerWrapper, GridContainer, GridItem, InlaksText, PageHeader, NameLabel,
-  PageHeaderAndTitleContainer, SubTitle, ErrorHelperTextContainer, 
-LongTextFieldGridItem, PasswordCheck, PasswordFeedback, PasswordStrengthContainer,
-PasswordStrengthText, ButtonComponent, InputFieldGrid, ButtonText, SignupText, 
-TncText, PasswordStrengthBarThree, PasswordStrengthBarOne, PasswordStrengthBarTwo,
- PasswordStregthContainer, PasswordContainer, PasswordMinimumBox, ErrorAlertText,
- ErrorAlert, AlreadyHaveAccount, BackgroundWrapper, PageHeaderAndTitleContainer2, 
- PageHeader2, SubTitle2, GridContainer2} from '../sign-up/signup.styles';
+import { Box, Button, Grid, Paper, TextField, Typography, CircularProgress } from '@mui/material';
+
+//React Toasify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
+
+//Phone Input 
+import 'react-phone-input-2/lib/style.css'
+// import PhoneTextField from "mui-phone-textfield";
+
+//another
+import ReactPhoneInput from 'react-phone-input-material-ui';
 
 
 //Password visiblity
 import PasswordStrengthBar from 'react-password-strength-bar';
 
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+//Animations
+import {  BarLoader, ClipLoader, CircleLoader, ClimbingBoxLoader, ClockLoader, DotLoader, FadeLoader, GridLoader, HashLoader, MoonLoader, PacmanLoader, PropagateLoader, PuffLoader, PulseLoader, RingLoader, RiseLoader, RotateLoader, ScaleLoader, SkewLoader, SquareLoader, SyncLoader } from 'react-spinners';
 
-// ===========================================================================
 
+
+import signupImg from "../../../assets/images/signup2.jpg"
+import EyeIcon from "../../../assets/svg/eye.svg"
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 
-// import { PasswordEyeIcon } from "../../../assets/svg/eyeIcon.svg"
-// import PasswordEyePng from "../../../assets/svg/eyeIcon.png"
-import EyeIcon from "../../../assets/svg/eye.svg"
 
-// ===========================================================================
+// import { GlobalReactPhone, GlobalTextfieldEmail, PageSubtitle, PageTitle, TextFieldCustom } from './style/signup-styled';
 
-
-import { useState } from 'react';
-
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
-
-import PhoneTextField from "mui-phone-textfield";
+import { GlobalErrorHelperText, GlobalInputLabel, GlobalPaperStyle, GlobalTextfieldEmail, GlobalTextField, GlobalPageHeader, GlobalSubPageHeader, GlobalReactPhone, GlobalPageBackground, GlobalInlaksText, GlobalPasswordStrength, GlobalPasswordMinimumBox, GlobalButton, GlobalLink } from '../../../assets/GlobalStyled/Globalstyles';
 
 
-// CONTEXT API ======================================================================
-
-// import { EmailContext, EmailProvider } from '../../../context/emailContext';
-
-// import { EmailContext } from '../../../context/emailContext';
-
-import { EmailContext, EmailProvider } from '../../../context/emailContext';
-import { BottonComp } from './login.styles';
+//LOADING ANIMATION
 
 
-
-
-//ALERT ERRORS
-// import AlertComponent from '../../../components/alerts/alert'; 
+import CircularIndeterminate from '../../../assets/GlobalAnimation/ButtonAnimation/LoadingButton';
 
 
 
 
 
-//SIGNUP API ENDPOINT
-// const baseUrl = "https://api.inlakssolutions.com/accounts/v1/login/"
 
+//API PROTOCOL
 const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/login/"
 
 
 
 
-const theme = createTheme();
+const styles = {
+    width: '100%',
+    fontFamily: "Poppins",
+    fontSize: 12,
+    "& .MuiOutlinedInput-root.Mui-focused": {
+      "& > fieldset": {
+        borderColor: "#7833EE"
+      }
+    },
+    "& fieldset": {
+      borderRadius: "6px"
+    },
+    "& .MuiInputBase-root": {
+      height: "2rem"
+    }
+  };
+  
 
-export default function Login2Form() {
 
-  //USEREF FUNCTION 
-  // const ref = useRef(null)
-  const inputRef = useRef(null)
 
-  const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset,
-  getValues, trigger } = useForm({
-    mode: "onTouched",
+const Login2Form = (props) => {
+
+  const { value, defaultCountry, onChange, classes } = props;
+
+
+
+  const [errorApi, setErrorApi] = useState('')
+
+//For the session storage 
+const [email, setEmail] = useState('');
+
+
+  const { handleSubmit, register, setValue,watch, control, formState: {errors, isValid, isLoading, isSubmitting, isSubmitted, isSubmitSuccessful
+  }, reset,} = useForm({
+    mode: "onChange",
     defaultValues: {
-      
       email: "",
       password: "",
-      // password2: "",
-      // tnc: ""
     }
   })
 
-  // const { handleSubmit, register, watch, formState: {errors}, reset, trigger } = useForm({
-  //   mode: "onTouched",
-   
-  // })
 
-// ================================================================================================================== 
-  
-  //phone book
-  const [isoValue, setIsoValue] = useState(""); // The input value.
-  const [isocountry, setIsoCountry] = useState("GH"); // The selected country.
-  const [phoneNumber, setPhoneNumber] = useState(); // The PhoneNumber instance.
-  const [selectedCountry, setSelectedCountry] = useState(null);
+ 
 
-    //error state
-    const [error, setError] = useState(null)
-
-    const [mail, setMail] = useState("")
-
-    //Button Loading state ================================================================
-    const [loading, setLoading] = useState(false);
-
-
-    //OPEN 
-    const [open, setOpen] = useState(true)
-
-  //phone book
-  const [country, setCountry] = useState('');
-
-  const isXsScreen = useMediaQuery('(max-width:600px)');
-
-  //=========================================================================================================
-
-  const backgroundColorText = {
-    background: 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
-  };
-
-
-
-// const { number } = phoneNumber;
-
-//    console.log("Destructure Phone Number outseide: ", number)
-//    setValue("phone_number", phoneNumber)
-
-
-  
-// useEffect(() => {
-//   setValue("phone_number", phoneNumber);
-// }, [phoneNumber, setValue]);
-
-
-// ====================================================================================================================
-
-  //Will DELETE IT 
-
-  //API ENDPOINTS
-  // REACT COMPONENT USENAVIGATE
+  //router
   const navigate = useNavigate();
 
-//Button Loading State
-const ButtonLoadinghandleClick = () => {
-  setLoading(true);
-  // simulate an async action
-  setTimeout(() => {
-    setLoading(false);
-  }, 3000);
+
+  // REACT SPINNER ANIMATION ===========================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+const [loadingInProgress, setLoadingInProgress] = useState(false);
+// ===============================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+//Password adornment
+const [showPassword, setShowPassword] = useState(false);
+
+
+//background Color
+const backgroundColorText = {
+  background: 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
 };
 
-  //Password Strength bar
+//Password Strength bar
 const [inputValue, setInputValue] = useState('');
 const [values, setValues] = useState()
 const [passsuggestion, setPassSuggestion] = useState([])
 const [passwarning, setPassWarning] = useState('')
 
-const [phone, setPhone] = useState()
-// const [password, setPassword] = useState('');
-//   const [showPassword, setShowPassword] = useState(false);
-
-const [password, setPassword] = useState('');
-const [suggestion, setSuggestion] = useState('');
-
-
-// REACT SPINNER ANIMATION ===========================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-const [loadingInProgress, setLoadingInProgress] = useState(false);
-
-
-
-// ===============================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-
-//CONTEXT API =====================================================================
-// export const EmailContext1 = createContext();
-
-// const EmailContext = createContext();
-const [email, setEmail] = useState('');
-
-
-const { setCurrentEmail } = useContext(EmailContext)
 
 
 
 
-
-// ====================================== CLOSE OF EMAIL CONTEXT ================================= ====== 
-
-//Password adornment
-const [showPassword, setShowPassword] = useState(false);
-//Password adornment
-// const [showPassword, setShowPassword] = useState(false);
-const [state, setState] = useState("")
-const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-const passwordStrengthChange = (e) => {
-  setInputValue(e.target.value);
-}
-
-function handleChange(e) {
-  setPassword(e.target.value);
-}
-
-function handleCheckboxChange(e) {
-  setShowPassword(e.target.checked);
-}
-
-
+//React Spinner 
 useEffect(() => {
   setLoadingInProgress(true)
   const timer = setTimeout(() => {
     setLoadingInProgress(false);
-  }, 3000);
+  }, 1000);
 
   return () => clearTimeout(timer);
 }, []);
 
-
-
-
-
-
-const onSubmit = async (data) => {
-  console.log("Form Data: ", data)
-  // registerForm()
-  // reset()
-
-  try {
-    const response = await axios.post(baseUrl, data)
-    const newResponse = response.data
-    console.log(newResponse)
-    // newResponse()
-
-  
-    // navigate("/landing-page")
-    navigate("/user-dashboard")
-    reset()
-
-    console.log("Successful: ", newResponse)
-  } catch (error) {
-    setError(error.response.data)
-    // console.log("Error Message: ", error.response.data)
-    console.log("Error Message from state: ", error)
+const passwordStrengthChange = (e) => {
+    setInputValue(e.target.value);
   }
 
 
-}
+  const handleFieldChangePassword = (e) => {
+    handleInputChange(e);
+    passwordStrengthChange();
+  }
 
-const [formComplete, setFormComplete] = useState({
-  email: null,
-  password: null
-});
-
-
-const handleInputChange = () => {
-  // check if all form fields are filled out
-  const formIsComplete = Object.values(getValues()).every(val => val !== '');
-  setFormComplete(formIsComplete);
-}
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    // setFormComplete(prevState => ({...prevState, [name]: value }));
+  }
 
 
-console.log("Form Complete: ", formComplete)
+
+  //+++++++++++++ ONSUBMIT +=====================
+
+
+  // const onSubmit = async (data) => {
+  //   console.log("Form Data: ", data)
+  //   // registerForm()
+  //   // reset()
+  
+  //   try {
+  //     const response = await axios.post(baseUrl, data)
+  //     const newResponse = response.data
+  //     console.log(newResponse)
+  //     // newResponse()
+  
+    
+  //     // navigate("/landing-page")
+  //     navigate("/user-dashboard")
+  //     reset()
+  
+  //     console.log("Successful: ", newResponse)
+  //   } catch (error) {
+  //     setErrorApi(error.response.data)
+  //     // console.log("Error Message: ", error.response.data)
+  //     toast.error(errorApi)
+  //    console.log("Call to the APi returns: ",errorApi)
+  //     console.log("Error Message from state: ", error)
+  //   }
+  
+  
+  // }
+
+   //+++++++++++++ ONSUBMIT +=====================
+
+  //  const onSubmit = async (data) => {
+  //   sessionStorage.setItem("email", data.email);
+  //   console.log("Form Data: ", data)
+   
+  //   try {
+  //     const response = await axios.post(baseUrl, data)
+  //     const newResponse = response.data
+  //     console.log("FORM RESPONSE: ", newResponse)
+  //     // newResponse()
+      
+    
+  
+  //     console.log("Session Storage Email ", email)
+  
+    
+  //     navigate("/phone-Otp")
+  //     reset()
+  
+  //     // console.log("Successful: ", newResponse)
+  //   } catch (error) {
+  //     // setError(error.response.data
+  //   setErrorApi(error.message)
+
+  //     toast.error(errorApi)
+  //    console.log("Call to the APi returns: ",errorApi)
+
+
+   
+  //   }
+  // }
+
+
+  // const onSubmit = async (data) => {
+  //   console.log("Form Data: ", data)
+  //   // registerForm()
+  //   // reset()
+  
+  //   try {
+  //     const response = await axios.post(baseUrl, data)
+  //     const newResponse = response.data
+  //     console.log(newResponse)
+  //     // newResponse()
+  
+    
+  //     // navigate("/landing-page")
+  //     navigate("/user-dashboard")
+  //     reset()
+  
+  //     console.log("Successful: ", newResponse)
+  //   } catch (error) {
+  //     setErrorApi(error.response.data.error)
+  //     console.log("Error from Gh: ", error.response.data.error)
+  //     toast.error(...errorApi)
+  //    console.log("Call to the APi returns: ",...errorApi)
+  //     // console.log("Error Message: ", error.response.data)
+  //     console.log("Error Message from state: ", ...errorApi)
+  //   }
+  
+  
+  // }
+
+
+  const onSubmit = async (data) => {
+    sessionStorage.setItem("email", data.email);
+    console.log("Form Data: ", data)
+   
+    try {
+      const response = await axios.post(baseUrl, data)
+      const newResponse = response.data
+      console.log(newResponse)
+  
+      console.log("Session Storage Email ", email)
+  
+    
+ 
+      navigate("/user-dashboard")
+      reset()
+  
+   
+    } catch (error) {
+      // setError(error.response.data)
+  
+      setErrorApi(error.response.data);
+      console.log("Call to the API returns: ", errorApi);
+      
+
+
+      const errorMessage = error.message 
+      console.log("Error MEssage: ", errorMessage)
+
+
+
+      Object.values(errorApi).forEach(errors => {
+        errors.forEach(errorMessage => {
+          toast.error(errorMessage); // Display each error message using toast.error()
+
+          // console.log("Error inside the Inner ForEach: ", errorMessage )
+        });
+      });
+    }
+  }
+
 
 
 
@@ -314,6 +303,7 @@ console.log("Form Complete: ", formComplete)
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          flexDirection: "colummn",
           height: "100vh",
           backgroundImage: `url(${signupImg})`,
           backgroundPosition: 'center',
@@ -327,169 +317,75 @@ console.log("Form Complete: ", formComplete)
   };
 
 
-
+  
 
   return (
-    <ThemeProvider theme={theme}>
-
-      {/* <EmailProvider value={email} >  */}
-      {/* <EmailContext.Provider value={email}>    */}
-
-      {/* <EmailProvider> */}
-
-      {loadingInProgress ? (
-        <Spinner />
-      ) : (
-      
-<Box  
-     sx={{ 
-      // backgroundColor: "yellow", 
-      backgroundImage: `url(${signupImg})`,
-      backgroundPosition: 'center',
-      backgroundSize: 'cover', 
-      display: "flex",  
-      alignItems: "center",
-      flexDirection: "column",
-      boxSizing: "borderBox",
-      backgroundRepeat: 'no-repeat', 
-      width: "100%",
-      minHeight: {xs: "100vh", md: "100vh", lg: "100vh"},
-      mx: "auto",
-      my:'auto',
-      maxWidth: "100vw",
-
-    }}
-    >
-
-<InlaksText sx={{mb: 0, mt: 5}}>
-  Inlaks
-</InlaksText>
-
-
-<ContainerWrapper component="main" maxWidth="xs" 
-sx={{
-  // display: 'flex',
-  // flexDirection: 'column',
-  // alignItems: 'center',
-  // justifyContent: 'center',
-  // mx: 'auto',
-  // my: 'auto',
-  padding: '20px 20px',
-  // minHeight: {xs: "50vh", md: "80vh", lg: "70vh"},
-
-}}>
-
-<Box
-    sx={{
-      
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: "center",
-      // padding: "30px 14px", this gives it padding
-      // backgroundColor: "red",
-      padding: "10px 10px",
-      // marginBottom: "20px",
-      // padding: {xs: "40px 14px", md: "30px 14px"},
-      // padding: {xs: "40px 14px"},
-     
-      // minHeight: {xs: "80vh", md: "80vh", lg: "80vh"}, 
-      // maxHeight: {xs: "80vh", md: "80vh", lg: "80vh"},
-      // padding: { xs: "30px 15px" }
-      // border: "5px solid #fff"
-  }}>
-
-
-
-<PageHeaderAndTitleContainer2 
-sx={{height:  {xs: 60, md: 70, } , 
-
-
-// height:  {xs: 60, md: 70, } 
-
-}} >
-  <PageHeader2 sx={{fontFamily: "Poppins", fontWeight: 800, }} >
-      Welcome back!
-  </PageHeader2>
-
-  <SubTitle2 sx={{fontFamily: "Poppins", fontWeight: 400, }}>
-  Enter your login credentials to access your account.
-  </SubTitle2>
-
-</PageHeaderAndTitleContainer2>
-
-
-
-
-
-{(error && open ) &&  
- <Collapse in={open}>  
-        <ErrorAlert severity="error" onClose={() => setOpen(!open)}
-        sx={{
-        "& .MuiAlert-icon": {
-          color: "#fff"
-        }, "& .MuiAlert-action": {
-          color: "#fff"
-        }, overflow: "hidden",  mr: "auto",
-        ml: "auto",  width: "21.5rem", mb: 2
-         }}>
-          <ErrorAlertText >
-          {Object.values(error)} 
-          {/* { Object.entries(error).map(([key, val])=> <p key={key}>{key}: {val}</p>) }  */}
-          </ErrorAlertText>
-
-          </ErrorAlert>
-
-      
-     </Collapse> 
-}
-
-
-
-
-
-
-
-
-<GridContainer2 container component="form" 
-onSubmit={handleSubmit(onSubmit)}>
-
-
+    <>
     
-{/* ===================EMAIL ADDRESS ===========================================================================================  */}
+
+    {loadingInProgress ? (
+        <Spinner />
+      ) : ( 
 
 
-{/* Email address  */}
-<LongTextFieldGridItem item xs={12} 
-sx={{// Add a marginBottom property when errors.first_name?.message is present
-  height: "65px",
-  ...(errors.email?.message && {
-    height: "70px"
-  })}}>
-  <NameLabel sx={{padding: "0px 16px",}}>Email Address</NameLabel>
-    <TextField fullWidth type="email"
-    id="email"
-    error={Boolean(errors.email)}
-    variant="outlined" 
-    sx={{  padding: "5px 16px",
-      "& .MuiOutlinedInput-root.Mui-focused": {
-        "& > fieldset": {
-  borderColor: "#7833EE"
-        }
-      },  [`& fieldset`]:{
-        borderRadius: "6px" }
-    }}
-    InputProps={{
-      
-      style: {
-        height: "2rem",
-        fontSize: 12,
-        fontFamily: 'Helvetica Neue'
-},
-}}
+        <GlobalPageBackground
 
-// label="Email Address"
-placeholder='someexample@gmail.com'
+      >
+
+      {/* <InlaksText sx={{mt: 5}}>
+      Inlaks 
+      </InlaksText> */}
+
+      {/* {
+        errorApi ? <Box sx={{color: "red"}}> <ErrorToast /> </Box> : ""
+      } */}
+
+      <GlobalInlaksText>
+        Inlaks
+      </GlobalInlaksText>
+
+
+      {/* <Paper elevation={1} sx={{display: "flex", flexDirection: "column", rowGap: 5, width: {xs: "100%", sm: 600 }, height: "80vh", padding: '0px 30px', borderRadius: 10, fontFamily: "Poppins" }} > */}
+
+      <GlobalPaperStyle elevation={20}  sx={{mb: 15, width: "30%"}}>
+
+
+
+      <Box sx={{marginLeft: "auto", marginRight: "auto"}}>
+        <GlobalPageHeader>
+        Welcome back! 
+        </GlobalPageHeader>
+
+        <GlobalSubPageHeader>
+        Enter your login credentials to access your account.
+        </GlobalSubPageHeader>
+
+        {/* <Box>
+          {errorApi}
+        </Box> */}
+
+        </Box>
+
+
+
+
+
+
+        <Grid container spacing={1} component="form" 
+    onSubmit={handleSubmit(onSubmit)} sx={{padding: "1% 5%",}}>
+
+
+
+        {/* Email Address  */}
+
+        <Grid item xs={12} sm={12}>
+          <GlobalInputLabel htmlFor='email'>Email Address</GlobalInputLabel>
+
+          <GlobalTextField fullWidth id='email'
+          
+          error={Boolean(errors.email)}
+          variant="outlined" 
+          placeholder='someexample@gmail.com'
 {...register("email", {required: {
 value: true,
 message: "Email is required", 
@@ -503,97 +399,80 @@ value: /^[^\d][A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/,
 message: "Please enter a valid email address"
 }
 })}
+          />
 
 
-onChange={(event) => {
-  handleInputChange(event);
-  setFormComplete(prevState => ({
-    ...prevState,
-    email: event.target.value !== '',
-  }));
-}}
+{ (errors.email?.message  ) &&
+        <GlobalErrorHelperText>{errors.email?.message}</GlobalErrorHelperText> 
+        }
 
 
-/>
-
-<ErrorHelperTextContainer
->{errors.email?.message}</ErrorHelperTextContainer>
-    
-</LongTextFieldGridItem>
-
-
-{/* ==================CLOSE OF EMAIL ADDRESS ===================================================================================  */}
-
-
-      
+        </Grid>
 
 
 
 
-{/* =======================PASSWORD =================================================================================================  */}
-<LongTextFieldGridItem item xs={12}  
-      sx={{height: 80}}>
+        {/* PASSWORD FIELD  */}
+
+        <Grid item xs={12} sm={12}>
+          <GlobalInputLabel htmlFor='password'>Password</GlobalInputLabel>
+
+          <GlobalTextField fullWidth id='password'
+          type={showPassword ? "text" : "password"}
+
+          error={Boolean(errors.password)}
+
+
+          variant="outlined" 
+
+          {...register("password",  {required: {
+            value: true,
+            message: "Password is required",
+            
+            }, 
+            minLength: {
+            value: 6,
+            message: "The Minimum length is 6"
+            } })}  
+
+
+          value={inputValue}
+
+          onChange={(event) => {
+            // handleInputChange(event);
+            passwordStrengthChange(event)
+            handleFieldChangePassword(event);
+          
+          }}
+
+       
+        
+
+          InputProps={{
+            endAdornment: (
+            <InputAdornment position="end">
+              
+            
+              <IconButton
+              onClick={() => setShowPassword(!showPassword)}
+              >
+              <img src={EyeIcon} />
+              </IconButton>
+            </InputAdornment>
+
+            )}}
+
+           
+                placeholder="Password here"
+
+          />
 
 
 
-<NameLabel sx={{padding: "0px 16px"}}>Password</NameLabel>
 
 
-<TextField  type={showPassword ? "text" : "password"}
-error={Boolean(errors.password1)}
-variant="outlined" 
-fullWidth
-sx={{ padding: "5px 16px", width: "100%",
-"& .MuiOutlinedInput-root.Mui-focused": {
-"& > fieldset": {
-borderColor: "#7833EE"
-}
-},  [`& fieldset`]:{
-borderRadius: "6px" }
-}}
-InputProps={{
-endAdornment: (
-<InputAdornment position="end">
+
   
-  <IconButton
-  onClick={() => setShowPassword(!showPassword)}
-  >
-  <img src={EyeIcon} />
-  </IconButton>
-</InputAdornment>
-),
-
-style: {
-height: "2rem",
-fontSize: 12,
-fontFamily: 'Helvetica Neue'
-},
-}}
-
-{...register("password",  {required: {
-value: true,
-message: "Password is required",
-
-}, 
-minLength: {
-value: 6,
-message: "The Minimum length is 6"
-} })}  
-
-// ========================================================================== 
-      
-
-onChange={(event) => {
-  handleInputChange(event);
-  setFormComplete(prevState => ({
-    ...prevState,
-    password: event.target.value !== '',
-  }));
-}}
-
-placeholder="Password here" />
-
-
 <Link component={RouterLink} to="/forgotpassword2" 
 sx={{padding: "5px 16px",}}>
               <Typography
@@ -606,91 +485,89 @@ sx={{padding: "5px 16px",}}>
               cursor: "pointer"}}>
                 I forgot my password
               </Typography>
-            </Link>
-
-</LongTextFieldGridItem>
-
-  
+</Link>
 
 
 
 
 
+        </Grid>
 
+    <Grid item xs={12} sx={{display: "flex", justifyContent: "center", }}>
+        <GlobalButton type='submit'
+            // color="secondary"
+            sx={{ background: !isValid ? "cecece" : 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',}}
+            disabled={!isValid || isSubmitting}
+            size="small"
+            variant='contained'
+            
+            >
+         
+            
+            {
+              isSubmitting ? <CircularIndeterminate /> :  "Submit"
+            }
 
-    {/* =================================== BUTTON ==================================================================================================== */}
-    <LongTextFieldGridItem item xs={12}  sx={{height:50, width: "100%",
-     
-    }}>
+        </GlobalButton>
+    </Grid>
 
-
-      <BottonComp
-  type='submit'
-  fullWidth
-  disabled={!isValid}
-  sx={{
-   
-    mt: 3,
-    mb: 2,
-    // background: Object.values(formComplete).every(Boolean)
-    //   ? 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)'
-    //   : '#F3F3F3',
-    background: isValid ? 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)': '#F3F3F3',
-   
-  }}
-  // disabled={!Object.values(formComplete).every(Boolean)}
-
-  
->
-  <ButtonText>
-    Login
-  </ButtonText>
-</BottonComp>
-
-
-    </LongTextFieldGridItem>
-
-
-
-
-
-    <Link component={RouterLink} to="/signup" textAlign={"center"} 
+        <GlobalLink component={RouterLink} to="/" textAlign={"center"} 
     sx={{display: "flex", marginLeft: "auto",
-    marginRight: "auto", textDecoration: "none", 
-    mt: 2}}>
-        <SignupText textAlign="center">
-        👋🏾 I don’t have an account? 
+    mb: 5,
+    marginRight: "auto", textDecoration: "none"}}>
+        {/* <SignupText textAlign="center">
+        👋🏾 Already have an account? {" "}  
         <span style={{color: "#7833EE", 
-      textDecoration: "underline"}}> Signup</span>
-        </SignupText>
-    </Link>
+      textDecoration: "underline"}}> Login</span>
+        </SignupText> */}
+        👋🏾 Already have an account? <span style={{color: "#7833EE", 
+      textDecoration: "underline", marginLeft: 3}}>Sign up</span>
+    </GlobalLink>
+
+        
+         
+        {/* end of the Grid container  */}
+        </Grid>
+
+        {/* <DevTool control={control} />  */}
+
+        {/* {process.env.NODE_ENV === 'development' && <DevTool control={control} />} */}
+
+        
+
+
+
+
+      </GlobalPaperStyle>
+
+      <ToastContainer
+          position="top-right"
+          autoClose={10000}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+      />
+
+      </GlobalPageBackground>
+
+      ) }
+
+
 
     
 
 
-</GridContainer2>
 
 
-
-
-</Box>
-</ContainerWrapper>  
-
-
-
-
-
-</Box>
-
-)}
-
-     
-
-      {/* </EmailProvider> */}
-
-      {/* </EmailContext.Provider>   */}
-
-      {/* </EmailProvider>  */}
-    </ThemeProvider>
-  );
+  
+    
+    </>
+  )
 }
+
+export default Login2Form

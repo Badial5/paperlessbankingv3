@@ -15,21 +15,49 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import BankAppointment from '../../banks/appointments/appointment';
 import BankBranch from '../../banks/branch/branch.bank';
-import BankTransfer from '../../banks/transfer/bank.transfer';
 import AccountBalance from '../../enquiry/accountBalance';
-import MySchedules from '../../banks/transfer/MySchedules';
-import TransferHistory from '../../banks/transfer/transfer-history';
-import ManageBeneficiary from '../../banks/transfer/manage-beneficiary';
-import OwnAccountTransfer from '../../banks/transfer/ownAccount';
-import ThirdParty from '../../banks/transfer/thirdParty';
-import AddBeneficiary from '../../banks/transfer/Beneficiary/addBeneficiary';
-import ChequeBookRequest from '../../banks/request/cheque-book';
-import RegisterMobileBanking from '../../banks/request/register-mobile-banking';
-import EStatementAlert from '../../banks/request/e-statement';
-import ESubcriptionAlert from '../../banks/request/e-subscription-alert';
-import ChangeMobilePin from '../../banks/request/changeMobilePin';
-import RequestHistory from '../../banks/request/request-history';
-import StopCheque from '../../banks/request/stop-cheque';
+
+
+// import BankTransfer from '../../banks/transfer/bank.transfer';
+import BTFormContainer from '../../banks/transfer/BankTransfer/BTFormContainer';
+
+// import MySchedules from '../../banks/transfer/MySchedules';
+import MSFormContainer from '../../banks/transfer/MySchedule/MSFormContainer';
+
+// import TransferHistory from '../../banks/transfer/transfer-history';
+import THFormContainer from '../../banks/transfer/TransferHistory/THFormContainer';
+
+// import ManageBeneficiary from '../../banks/transfer/manage-beneficiary';
+import MBFormContainer from '../../banks/transfer/Beneficiary/ManageBeneficiary/MBFormContainer';
+
+// import OwnAccountTransfer from '../../banks/transfer/ownAccount';
+import OAFormContainer from '../../banks/transfer/OwnAccount/OAFormContainer';
+
+// import ThirdParty from '../../banks/transfer/thirdParty';
+import TPFormContainer from '../../banks/transfer/ThirdParty/TPFormContainer';
+
+
+// import AddBeneficiary from '../../banks/transfer/Beneficiary/addBeneficiary';
+import ABFormContainer from '../../banks/transfer/Beneficiary/AddBeneficiary/ABformContainer';
+
+//Request
+import ChequeBookRequest from '../../banks/request/ChequeBook/ChequeBookFormContainer.jsx';
+
+import RegisterMobileBanking from '../../banks/request/RegisterMobileMoney/RMMFormContainer.jsx';
+
+import EStatementAlert from '../../banks/request/E-Statement/ESFormContainer.jsx';
+
+import ESubcriptionAlert from '../../banks/request/ESubcription/ESubFormContainer.jsx';
+
+import ChangeMobilePin from '../../banks/request/ChangeMobilePin/CMPFormContainer';
+
+import RequestHistory from '../../banks/request/RequestHistory/RHFormContainer.jsx';
+
+import StopCheque from '../../banks/request/StopCheque/SCFormContainer.jsx';
+
+
+
+//CARD SERVICE
 import DebitCard from '../../banks/card/debit-card-request';
 import BlockCard from '../../banks/card/block-card';
 import UnblockCard from '../../banks/card/unblock-card';
@@ -38,6 +66,12 @@ import PrepaidCardRequest from '../../banks/card/prepaid-card.jsx'
 import CardStatement from '../../banks/card/card-statement';
 import AccountMain from '../../account/AccountMain';
 import MainAccount from '../../account/MainAccount';
+
+//Multi-Step Page 
+import MultiStepForm from '../../account/MultiStepPage';
+import MainAccount2 from '../../account2/MainAccount';
+import AccountFormContainer from '../../account3/MainAccount';
+import FormContainer from '../../account4/formContainer';
 
 
 const DefaultContent = () => {
@@ -138,8 +172,12 @@ const MainContent = ({ title, children, selectedOption }) => {
 
   switch (selectedOption) {
     //enquiry
+    // case 'account-balance':
+    //   content = <div style={{minWidth: "100%"}}> <AccountBalance /> </div>
+    //   break;
+
     case 'account-balance':
-      content = <div style={{minWidth: "100%"}}> <AccountBalance /> </div>
+      content = <div style={{minWidth: "100%"}}> <FormContainer /> </div>
       break;
 
     // case 'account-creation':
@@ -150,9 +188,26 @@ const MainContent = ({ title, children, selectedOption }) => {
       content = <div style={{minWidth: "100%"}}> <MainAccount /> </div>
       break;
 
-      case 'account-creation':
-        content = <div style={{minWidth: "100%"}}> <AccountMain /> </div>
-        break;
+      // case 'account-creation':
+      //   content = <div style={{minWidth: "100%"}}> <MainAccount2 /> </div>
+      //   break;
+
+      // case 'account-creation':
+      //   content = <div style={{minWidth: "100%"}}> <AccountMain /> </div>
+      //   break;
+
+
+        // case 'account-creation':
+        //   content = <div style={{minWidth: "100%"}}> <MultiStepForm /> </div>
+        //   break;
+
+        // case 'account-creation':
+        //   content = <div style={{minWidth: "100%"}}> <AccountFormContainer /> </div>
+        //   break;
+
+        // case 'account-creation':
+        //   content = <div style={{minWidth: "100%"}}> <FormContainer /> </div>
+        //   break;
 
 
     case 'account-officer':
@@ -167,40 +222,73 @@ const MainContent = ({ title, children, selectedOption }) => {
         content = <BankBranch />;
         break;
 
+
+
+        
         // Transfer ===================================================
 
+        // case 'third-party-transfer':
+        //   content = <ThirdParty />;
+        //   break;
+
         case 'third-party-transfer':
-          content = <ThirdParty />;
+          content = <TPFormContainer />;
           break;
         
+        // case 'own-account-transfer':
+        //   content = <OwnAccountTransfer />;
+        //   break;
+
         case 'own-account-transfer':
-          content = <OwnAccountTransfer />;
+          content = <OAFormContainer />;
           break;
+
+        // case 'manage-beneficiary':
+        //   content = <ManageBeneficiary />;
+        //   break;
 
         case 'manage-beneficiary':
-          content = <ManageBeneficiary />;
+          content = <MBFormContainer />;
           break;
+
+        // case 'transfer-history':
+        // content = <TransferHistory />;
+        // break;
 
         case 'transfer-history':
-        content = <TransferHistory />;
+          content = <THFormContainer />;
+          break;
+
+
+    //  case 'bank-transfer':
+    //     content = <BankTransfer />;
+    //     break;
+
+    case 'bank-transfer':
+        content = <BTFormContainer />;
         break;
 
-     case 'bank-transfer':
-        content = <BankTransfer />;
-        break;
 
+      // case 'my-schedule':
+      //   content = <MySchedules />;
+      //   break;
 
       case 'my-schedule':
-        content = <MySchedules />;
+        content = <MSFormContainer />;
         break;
 
+        // case 'add-beneficiary':
+        //   content = <AddBeneficiary />;
+        //   break;
+
         case 'add-beneficiary':
-          content = <AddBeneficiary />;
+          content = <ABFormContainer />;
           break;
 
 
 
-          // REQUEST 
+
+          // =========== REQUEST  ================================== 
 
           case 'chequebook-request':
             content = <ChequeBookRequest />;

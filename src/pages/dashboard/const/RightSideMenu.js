@@ -1,7 +1,16 @@
 import { useState } from 'react';
-import { AppBar, Box, Button, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, List, ListItem, ListItemIcon, ListItemText, Paper, Toolbar, Typography } from '@mui/material';
 import { Dashboard, ExpandLess, ExpandMore, Info } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+
+
+//Alice Carousel
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
+import "./asset/style/alice.css"
+// import 'react-alice-carousel/lib/alice-carousel.css';
+
+
 
 
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
@@ -21,6 +30,15 @@ import axios from "axios"
 
 // import { Link as RouterLink, redirect, useNavigate } from 'react-router-dom';
 // import { useState } from 'react';
+
+import Image1 from "./asset/images/Image1.jpg"
+import Image2 from "./asset/images/Image2.jpg"
+import Image3 from "./asset/images/Image3.jpg"
+import Image4 from "./asset/images/Image4.jpg"
+import Image5 from "./asset/images/Image5.jpg"
+import Image6 from "./asset/images/Image6.jpg"
+import Image7 from "./asset/images/Image7.jpeg"
+
 
 
 
@@ -67,6 +85,44 @@ const SmallAvatar = styled(Avatar)(({ theme }) => ({
 }));
 
 // END OF MUI COMPONENTS =========================================================
+
+
+// Alice Carousel 
+
+const handleDragStart = (e) => e.preventDefault();
+
+const AliceItems = [
+  <div className="item" data-value="1">
+    <img src={Image1} style={{ width: "100%", height: "100%" }} />
+  
+  </div>,
+
+  // <div className="item" data-value="2">
+  //   <img src={Image2} style={{ width: "100%", height: "100%" }} />
+  // </div>,
+
+  // <div className="item" data-value="3">
+  //   <img src={Image3} style={{ width: "100%", height: "100%" }} />
+  // </div>,
+
+  // <div className="item" data-value="4">
+  //   <img src={Image4} style={{ width: "100%", height: "100%" }} />
+  //   </div>,
+
+<div className="item" data-value="5">
+<img src={Image5} style={{ width: "100%", height: "100%" }} />
+</div>
+
+//  <div className="item" data-value="6">
+//     <img src={Image6} style={{ width: "100%", height: "100%" }}  />
+//     </div>, 
+
+//  <div className="item" data-value="7">
+// <img src={Image7} style={{ width: "100%", height: "100%" }} />
+// </div>
+  
+];
+
 
 
 
@@ -146,20 +202,18 @@ const RightSideMenu = ({onOptionSelect}) => {
   }
 
   return (
-    <Box sx={{ width: "20vw", background: "#F4F7FF", fontSize: 10 }}>
-      <AppBar position="static" 
+    <Box sx={{ width: 240, background: "#F4F7FF", fontSize: 10 }}>
+
+      {/* <AppBar position="static" 
       sx={{background: "#FBFCFC", color: "#000", 
       boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", borderRadius: 1,}}>
         <Toolbar>
-       
-
-    
-    
     <AccountMenu handleClick={handleLogOut} />
 
-    
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
+
+      <Toolbar></Toolbar>
 
 
       <List>
@@ -214,8 +268,32 @@ const RightSideMenu = ({onOptionSelect}) => {
         </ListItem> */}
 
         <Box style={{width: "20vw", height: 200}}>
-        <PictureFrame width={"20vw"} height={"100%"}/>
+          
+        {/* <PictureFrame width={"20vw"} height={"100%"}/> */}
+<Paper sx={{width: "100%", height: "100%", }}>
+        <AliceCarousel style={{width: "100px", height: '100px'}} className="item"
+        autoPlay
+        // autoPlayControls
+        autoPlayStrategy="none"
+        autoPlayInterval={3000}
+        animationDuration={3000}
+        animationType="slide"
+        infinite
+        touchTracking={false}
+        disableDotsControls
+        disableButtonsControls
+        items={AliceItems}
+        
+        // activeIndex={4}
+        
+
+    />
+
+</Paper>
+
         </Box>
+
+
 
         <ListItem Button  onClick={() => {
             // navigate('/account-creation');

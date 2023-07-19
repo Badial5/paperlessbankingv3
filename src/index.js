@@ -9,18 +9,20 @@ import { ThemeProvider } from '@mui/material';
 //props
 import theme from './theme';
 import { SignUpProvider } from './pages/account/contexts/Sign-up.context';
-
+import MultiStepProvider from './pages/account2/context/StepContext';
+import MultiStepContext from './pages/account2/context/StepContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
+    {/* <MultiStepProvider> */}
+    {/* <ThemeProvider theme={theme}> */}
       {/* <SignUpProvider> */}
     {/* <App  theme={theme}/> */}
     <App />
     {/* </SignUpProvider> */}
-    </ThemeProvider>
-   
+    {/* </ThemeProvider> */}
+    {/* </MultiStepProvider> */}
   </React.StrictMode>
 );
 

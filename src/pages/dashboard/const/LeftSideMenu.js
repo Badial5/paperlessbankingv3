@@ -9,7 +9,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import CreateIcon from '@mui/icons-material/Create';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AppBar, Box, Drawer, ListItemButton, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
@@ -17,6 +17,10 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import  { tooltipClasses } from '@mui/material/Tooltip';
 // import Typography from '@mui/material/Typography';
+
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+
 
 import {ReactComponent as DashboardLogo} from "../assets/dashboard.svg"
 import {ReactComponent as EnquiryLogo} from "../assets/Enquiry.svg"
@@ -32,7 +36,7 @@ import {ReactComponent as NeedHelpLogo} from "../assets/Needhelp.svg"
 import {ReactComponent as OtherLogo} from "../assets/Other.svg"
 import {ReactComponent as PaymentLogo} from "../assets/Payment.svg"
 
-
+import AccountMenu from './data/ProfileMenuIcon';
 
 import Divider from '@mui/material/Divider';
 import Paper from '@mui/material/Paper';
@@ -40,6 +44,13 @@ import Paper from '@mui/material/Paper';
 // import { styled } from '@mui/material/styles';
 
 import ClipLoader from 'react-spinners/ClipLoader';
+import axios from 'axios';
+
+//React Toasify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 
 const LeftAppBar = styled('div')(({ theme }) => ({
@@ -48,6 +59,9 @@ const LeftAppBar = styled('div')(({ theme }) => ({
   justifyContent: 'center',
   ...theme.mixins.toolbar,
 }));
+
+
+
 
 
 
@@ -80,9 +94,12 @@ const LeftSideMenu = ({onOptionSelect}) => {
   const [open9, setOpen9] = useState(false);
   const [open10, setOpen10] = useState(false);
 
+
+
   const [selectedOption, setSelectedOption] = useState('default');
 
 
+  //The width of the drawer
 const drawerWidth = 240
 
 
@@ -162,6 +179,26 @@ const drawerWidth = 240
   //   onOptionSelect(option);
   // };
 
+  //FOR LOGOUT API
+  const handleLogout = async () => {
+    try {
+      const response = await axios.get('https://banking-api.inlakssolutions.com/accounts/v1/logout/');
+      // Perform any necessary actions after successful logout
+      console.log(response.data); // Example: Log the response data
+  
+      // Show a success toast notification
+      toast.success('You have successfully logged out.');
+  
+      // Redirect the user to the homepage or perform any other necessary actions
+      window.location.href = '/'; // Replace with the appropriate homepage URL
+    } catch (error) {
+      // Handle any errors that occurred during the logout process
+      console.error(error);
+    }
+  }
+
+
+
   const handleOptionClick = (option) => {
     sessionStorage.setItem('selectedOption', option);
     onOptionSelect(option);
@@ -177,6 +214,11 @@ const drawerWidth = 240
   };
 
 
+  const handleLogOut = async (data) => {
+    
+  }
+
+
 
 
 
@@ -186,7 +228,7 @@ const drawerWidth = 240
     // <Box style={{width: "20vw", fontSize: 10}}>
         
      
-
+    <>
      
       <Drawer
         sx={{
@@ -205,26 +247,54 @@ const drawerWidth = 240
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"}}>
                 <Toolbar>
                   <Box sx={{display: "flex", justifyContent: "space-between"}}>
+
                   <Typography variant="h6" component="div" sx={{ 
                   //  color: "#9747FF", 
                   color: "#000", width: 240,
                 fontSize: 14, fontFamily: "Poppins",  fontWeight: "300"}}>
+
                     Paperless Banking
+
                   </Typography>
 
-                  {/* <Typography variant="h6" component="div" sx={{ 
-                  //  color: "#9747FF", 
-                  color: "#000", width: 240,
-                fontSize: 14, fontFamily: "Poppins",  }}>
-                    Paperless Banking Games
-                  </Typography>
+                  {/* Center AppBar Contents */}
+                  <Box sx={{display: 'flex', marginLeft: 30,  fontFamily: "Poppins", alignItems: 'center'}}>
+                    <Box sx={{border: "1px solid #9747FF", paddingLeft: 2, paddingRight: 2, borderRadius: 50, }}>
+                  <Typography sx={{fontWeight: 200, fontSize: 12,}}>Retail Banking </Typography>
+                  </Box>
 
-                  <Typography variant="h6" component="div" sx={{ 
-                  //  color: "#9747FF", 
-                  color: "#000", width: 240,
-                fontSize: 14, fontFamily: "Poppins",  }}>
-                    Paperless Banking Games
-                  </Typography> */}
+
+                  <Box sx={{display: 'flex',  marginLeft: 5, alignItems: 'center'}}>
+                    <LocationOnIcon fontSize='small' sx={{color: '#9747FF', mr: 1}} />
+                    <Box sx={{display: 'flex', flexDirection: 'column', }}>
+                    <Typography sx={{fontSize: 10, fontWeight: 300}}>197.221.82.30</Typography>
+
+                    <Typography sx={{fontSize: 10, fontWeight: 300, color: '#9747FF'}}>Last Login IP</Typography>
+
+                    </Box>
+                  </Box>
+
+
+
+
+                  <Box sx={{display: 'flex',  marginLeft: 5, alignItems: 'center'}}>
+                    <AccessTimeIcon fontSize='small' sx={{color: '#9747FF', mr: 1}} />
+                    <Box sx={{display: 'flex', flexDirection: 'column', }}>
+                    <Typography sx={{fontSize: 10, fontWeight: 300}}>19-Jun-2023 04 09 PM</Typography>
+
+                    <Typography sx={{fontSize: 10, fontWeight: 300, color: '#9747FF'}}>Last Login Date</Typography>
+
+                    </Box>
+                  </Box>
+                  </Box>
+
+                  <Box sx={{display: 'flex', marginLeft: 10}}>
+
+                  <AccountMenu handleClick={handleLogOut}  />
+
+                  </Box>
+
+                 
 
                   </Box>
                 </Toolbar>
@@ -326,6 +396,7 @@ const drawerWidth = 240
               sx={{pl:3, }}
               onClick={() => {
                 // navigate('/account-creation');
+                // Link="account-creation"
                 handleOptionClick('account-balance');
               }}
               
@@ -396,8 +467,8 @@ const drawerWidth = 240
               sx={{pl:3, }}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
-                // navigate('/account-creation');
-                handleOptionClick('account-officer');
+                // navigate('/account-officer');
+                // handleOptionClick('account-officer');
               }}
             >
               <ListItemIcon>
@@ -453,13 +524,13 @@ const drawerWidth = 240
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
               sx={{pl:3, }}
               onClick={() => {
-                // navigate('/account-creation');
+                // navigate('/account-balance');
                 handleOptionClick('third-party-transfer');
               }}
               
             >
               <ListItemIcon>
-                <CreateIcon sx={{color: "#B5AFAF"}} />
+                <CreateIcon sx={{color: "#B5AFAF",}} />
               </ListItemIcon>
               <ListItemText primary="Third Party Transfer" />
             </ListItemButton>
@@ -1252,8 +1323,22 @@ const drawerWidth = 240
       </List>
       </Drawer>
 
+
+    <ToastContainer
+    position="top-right"
+    autoClose={10000}
+    hideProgressBar={false}
+    newestOnTop={true}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+    theme="colored"
+    />
+
   
-    //  </Box> 
+     </> 
   );
 };
 

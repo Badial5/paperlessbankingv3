@@ -1,0 +1,54 @@
+import { Box, Button, Input } from '@mui/material'
+import axios from 'axios'
+import React, { useState } from 'react'
+
+
+
+const Upload = ({formData, handleChange, handleNext, handleBack, register, isValid, errors}) => {
+
+
+   //Destrucitng form values
+   const { upload } = formData
+
+  const [image, setImage] = useState('')
+
+
+const handleImage = (e) => {
+  console.log(e.target.files)
+  setImage(e.target.files[0])
+}
+
+const handleAPi = (data) => {
+  const formData = new FormData()
+  formData.append('image', image)
+  //handle your submission here
+  axios.post('url', formData).then((res) => (
+    console.log(res)
+  ))
+
+
+} 
+
+
+  return (
+    <Box sx={{mt: 10}}>
+
+      <Input type='file' name='file' onChange={handleImage} 
+      
+      {...register("upload", {
+        required: {
+          value: true,
+          message: "required"
+        }
+      })}
+      />
+
+      <Button onClick={handleAPi}
+      disabled={!isValid}
+      >Submit</Button>
+      
+    </Box>
+  )
+}
+
+export default Upload
