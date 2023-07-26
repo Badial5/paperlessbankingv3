@@ -73,7 +73,7 @@ const styles = {
 };
 
 
-const ConfirmPage2 = ({formData, handleChange, handleNext, handleBack, register, isValid, errors, upload, submitForm}, props) => {
+const ConfirmPage2 = ({formData, handleChange, handleNext, handleBack, register, isValid, errors, upload, submitForm, selfie_image}, props) => {
 
   //Phone Input
   const { value, defaultCountry, onChange, classes } = props;

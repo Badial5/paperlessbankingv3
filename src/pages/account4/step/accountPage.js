@@ -21,7 +21,7 @@ import { DashboardErrorHelperText, DashboardInputLabel, DashboardTextField, Glob
 
 const titles = [
   {value: "", label: "----------Select-----------"},
-  { value: "Mr", label: "Mr" },
+  { value: "Mr.", label: "Mr." },
   { value: "Mrs", label: "Mrs" },
   { value: "Miss", label: "Miss" },
 
@@ -34,19 +34,19 @@ const titles = [
 
 const idTypes = [
   {value: "", label: "----------Select--------------"},
-  { value: "passport", label: "Passport" },
-  { value: "ghanacard", label: "Ghana Card" },
-  { value: "votercard", label: "Voter's Card" },
-  { value: "dvla", label: "DVLA" },
+  { value: "Passport", label: "Passport" },
+  { value: "Ghanacard", label: "Ghana Card" },
+  { value: "Votercard", label: "Voter's Card" },
+  { value: "Dvla", label: "DVLA" },
 
 ]
 
 
 const accountTypes = [
   {value: "", label: "----------Select--------------"},
-  { value: "saving", label: "Saving" },
-  { value: "current", label: "Current" },
-  { value: "business", label: "Business" },
+  { value: "Saving", label: "Saving" },
+  { value: "Current Account", label: "Current" },
+  { value: "Business", label: "Business" },
   // { value: "dvla", label: "DVLA" },
 
 ]
@@ -78,7 +78,8 @@ const AccountPage2 = ({formData, handleChange, handleNext, handleBack, register,
   const { value, defaultCountry, onChange, classes } = props;
 
    //Destrucitng form values
-   const { first_name, last_name, title, phone_number, id_type, id_number, account_type, email } = formData
+   const { first_name, last_name, title, phone_number, 
+    id_type, id_number, account_type, email_address } = formData
 
 
   const onSubmit = (data) => {
@@ -159,12 +160,14 @@ const AccountPage2 = ({formData, handleChange, handleNext, handleBack, register,
             fullWidth
             error={Boolean(errors.first_name)}
             variant="outlined"  
-            {...register("first_name", {
-              required: {
-                value: true,
-                message: "First name is required"
-              }
-            })}
+            {...register("first_name", 
+            // {
+            //   required: {
+            //     value: true,
+            //     message: "First name is required"
+            //   }
+            // }
+            )}
 
             placeholder='eg. Joseph'
             value={first_name}
@@ -194,12 +197,14 @@ const AccountPage2 = ({formData, handleChange, handleNext, handleBack, register,
             fullWidth
             error={Boolean(errors.last_name)}
             variant="outlined"  
-            {...register("last_name", {
-              required: {
-                value: true,
-                message: "Last name is required"
-              }
-            })}
+            {...register("last_name", 
+            // {
+            //   required: {
+            //     value: true,
+            //     message: "Last name is required"
+            //   }
+            // }
+            )}
 
             placeholder='eg. Smith'
             value={last_name}
@@ -366,7 +371,7 @@ onChange={handleChange('account_type')}
       //   }
       // })}
 
-      {...register("email", {required: {
+      {...register("email_address", {required: {
         value: true,
         message: "required", 
         
@@ -381,8 +386,8 @@ onChange={handleChange('account_type')}
         })}
 
       placeholder='eg. someone@domain.com'
-      value={email}
-      onChange={handleChange('email')}
+      value={email_address}
+      onChange={handleChange('email_address')}
       >
 
   </DashboardTextField>

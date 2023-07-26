@@ -52,6 +52,8 @@ const FormContainer = () => {
 
   const [image, setImage] = useState(null);
 
+  const [globalImage, setGlobalImage] = useState(null)
+
 
   const [errorApi, setErrorApi] = useState("")
 
@@ -68,18 +70,31 @@ const FormContainer = () => {
   const [skipped, setSkipped] = useState(new Set());
 
 
-
-  //Form data values
+// ================================================================================
+  //Form data values ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const [formData, setFormData] = useState({
-    first_name: "",
-      last_name: "",
+      // first_name: "",
+      // last_name: "",
+      // phone_number: "",
+      // id_type: "",
+      // id_number: "",
+      // account_type: "",
+      // email: "",
+      // selfie_image: '',
+
       title: "",
-      phone_number: "",
+      first_name: "",
+      last_name: "",
+      full_name: "John Smith",
       id_type: "",
       id_number: "",
       account_type: "",
-      email: "",
-      upload: null,
+      phone_number: "",
+      email_address: "",
+      // use_selfie: true,
+      selfie_image: "",
+      signature: "",
+      status: "Pending"
   })
 
 
@@ -139,6 +154,9 @@ const FormContainer = () => {
   };
 
 
+
+ 
+
   //For next button
   const handleNextOld = () => {
     const newActiveStep =
@@ -182,6 +200,10 @@ const FormContainer = () => {
        return <UploadPage2
         image={image}
         setImage={setImage}
+
+        globalImage={globalImage}
+        setGlobalImage={setGlobalImage}
+        
         handleNext={handleNext}
         handleBack={handleBack}
         handleChange={handleChange}
@@ -197,7 +219,7 @@ const FormContainer = () => {
         
         return <ConfirmPage2 formData={formData} handleNext={handleNext} handleBack={handleBack} handleChange={handleChange} reset={reset} trigger={trigger} setValue={setValue}  handleSubmit={handleSubmit} register={register} isValid={isValid} errors={errors}
         upload={formData.upload} // Pass the 'upload' field value as the 'upload' prop
-
+        
         submitForm={submitForm} // Pass the submitForm function as a prop
         />;
 
@@ -224,45 +246,89 @@ const FormContainer = () => {
 
 
 
-   // Define function to handle next button click
+   //handleImageChange
 
+  //  const handleImageChange = (event) => {
+  //   const imageFile = event.target.files[0];
+  //   setFormData({ ...formData, selfie_image: imageFile });
+  // };
+  
+
+
+   // Define function to handle next button click
 
    const handleNext = async () => {
     if (activeStep === steps.length - 1) {
       // Send form data to server for processing
+  
+      // ACCESS TOKEN
+      const access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwNTE4ODg2LCJpYXQiOjE2OTAyNTk2ODYsImp0aSI6IjY0MmYxNGYyMWFjMDQ3NDQ4MmRhZjk2ZjUwYjc5MzUzIiwidXNlcl9pZCI6Nn0.FJ_LIbrrMvNK7RxB1iVzkwqNQTyV5OLOmGuHWaIt79M'; // Replace with your actual access token
+
+      console.log("+++FORM DATA: ", formData)
+  
       try {
-        const response = await axios.patch(baseUrl, formData); // Change "api/form-submit" to your server endpoint that handles form submission
-        if (response.status === 200) {
-          // Display success message to the user
-          // alert('Form submitted successfully!');
-          setActiveStep(0);
-          setFormData({
-            email: '',
-            password: '',
-            confirmPassword: '',
-            name: '',
-            age: '', 
-            gender: "",
-            nationality: '',
-            city: '',
-          });
-        } else {
-          // Display error message to the user
-          alert('Error submitting form. Please try again later.');
-        }
+        // Prepare the form data
+        const formDataToSend = new FormData();
+        formDataToSend.append('title', formData.title); // Replace 'Mr.' with the correct title value
+        // formDataToSend.append('full_name', formData.name); // Make sure the 'name' field in formData contains the full name
+
+        formDataToSend.append('full_name', formData.first_name + " "+ formData.last_name);
+
+        // formDataToSend.append('last_name', formData.last_name); 
+
+        formDataToSend.append('id_type', formData.id_type); // Replace 'Passport' with the correct ID type value
+
+        formDataToSend.append('id_number', formData.id_number); // Make sure the 'id_number' field in formData contains the user's ID number
+
+        formDataToSend.append('account_type', formData.account_type); // Replace 'Current Account' with the correct account type value
+        formDataToSend.append('phone_number', formData.phone_number); // Make sure the 'phone_number' field in formData contains the phone number
+        formDataToSend.append('email_address', formData.email); // Make sure the 'email' field in formData contains the email address
+        formDataToSend.append('use_selfie', true); // Replace 'true' with the actual value for use_selfie
+        formDataToSend.append('selfie_image', formData.image); // Make sure the 'image' field in formData contains the selfie image
+
+        formDataToSend.append('signature', formData.first_name + " " + formData.last_name);
+
+        console.log("FormDataToSend: ", formDataToSend)
+  
+        const response = await axios.post(baseUrl, formDataToSend, {
+          headers: {
+            // 'Content-Type': 'multipart/form-data',
+            'Content-Type': 'application/json', // Set the content type to JSON
+            Authorization: `Bearer ${access_token}`,
+          },
+        });
+  
+        // if (response.status === 200) {
+        //   // Display success message to the user
+        //   // alert('Form submitted successfully!');
+        //   setActiveStep(0);
+        //   setFormData({
+        //     // title: '',
+        //     email: '',
+        //     password: '',
+        //     confirmPassword: '',
+        //     name: '',
+        //     age: '', 
+        //     gender: "",
+        //     nationality: '',
+        //     city: '',
+        //     // image: null
+        //   });
+        // } else {
+        //   // Display error message to the user
+        //   alert('Error submitting form. Please try again later.');
+        // }
       } catch (error) {
         console.error(error);
-
+  
         setErrorApi(error.response.data);
-
+  
         // Display error message to the user
         alert('Error submitting form. Please try again later.');
-
+  
         Object.values(errorApi).forEach(errors => {
           errors.forEach(errorMessage => {
             toast.error(errorMessage); // Display each error message using toast.error()
-  
-            // console.log("Error inside the Inner ForEach: ", errorMessage )
           });
         });
       }
@@ -270,6 +336,62 @@ const FormContainer = () => {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
+
+  
+
+  //  const handleNext = async () => {
+  //   if (activeStep === steps.length - 1) {
+  //     // Send form data to server for processing
+
+  //     //ACCESS TOKEN
+  // const access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwNTE4ODg2LCJpYXQiOjE2OTAyNTk2ODYsImp0aSI6IjY0MmYxNGYyMWFjMDQ3NDQ4MmRhZjk2ZjUwYjc5MzUzIiwidXNlcl9pZCI6Nn0.FJ_LIbrrMvNK7RxB1iVzkwqNQTyV5OLOmGuHWaIt79M';
+
+  //     try {
+  //       const response = await axios.post(baseUrl, formData, {
+  //         headers: {
+  //           'Content-Type': 'multipart/form-data',
+  //           Authorization: `Bearer ${access_token}`,
+           
+  //         },}); // Change "api/form-submit" to your server endpoint that handles form submission
+  //       if (response.status === 200) {
+  //         // Display success message to the user
+  //         // alert('Form submitted successfully!');
+  //         setActiveStep(0);
+  //         setFormData({
+  //           email: '',
+  //           password: '',
+  //           confirmPassword: '',
+  //           name: '',
+  //           age: '', 
+  //           gender: "",
+  //           nationality: '',
+  //           city: '',
+  //           image: null
+  //         });
+  //       } else {
+  //         // Display error message to the user
+  //         alert('Error submitting form. Please try again later.');
+  //       }
+  //     } catch (error) {
+  //       console.error(error);
+
+  //       setErrorApi(error.response.data);
+
+  //       // Display error message to the user
+  //       alert('Error submitting form. Please try again later.');
+
+  //       Object.values(errorApi).forEach(errors => {
+  //         errors.forEach(errorMessage => {
+  //           toast.error(errorMessage); // Display each error message using toast.error()
+  
+  //           // console.log("Error inside the Inner ForEach: ", errorMessage )
+  //         });
+  //       });
+  //     }
+  //   } else {
+  //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  //   }
+  // };
 
 
   //  const handleNext = async () => {
@@ -358,7 +480,7 @@ const FormContainer = () => {
       }
   
       // Send the form data to the API using Axios
-      await axios.post('your_api_url', formData);
+      await axios.post(baseUrl, formData);
   
       // Handle success, e.g., show a success message or redirect to another page
       console.log('Form submitted successfully!');

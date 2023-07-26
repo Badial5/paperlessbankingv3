@@ -1,16 +1,47 @@
 import { Avatar, Box, Button, Input, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-const Upload = ({ image, setImage, formData, setFormData }) => {
+const Upload = ({ image, setImage, formData, setFormData, globalImage, setGlobalImage }) => {
+
+  
 
   const handleImage = (e) => {
+    
+    const { selfie_image } = formData
+
     const file = e.target.files[0];
     setFormData(prevState => ({
       ...prevState,
-      upload: URL.createObjectURL(file)
+      selfie_image: URL.createObjectURL(file)
     }));
     setImage(URL.createObjectURL(file));
   };
+
+// I will uncomment it after 
+  // const handleImage = (e) => {
+  //   const file = e.target.files[0];
+  //   setFormData(prevState => ({
+  //     ...prevState,
+  //     upload: URL.createObjectURL(file)
+  //   }));
+  //   setImage(URL.createObjectURL(file));
+  // };
+
+  const handleImageChange = (event) => {
+    const imageFile = event.target.files[0];
+    setFormData({ ...formData, selfie_image: imageFile });
+  };
+
+
+  const handleGlobalImageChange = (e) => {
+    const file = e.target.files[0];
+    setGlobalImage(prevState => ({
+      ...prevState,
+      upload: URL.createObjectURL(file)
+    }));
+    setGlobalImage(URL.createObjectURL(file));
+  };
+  
 
   return (
     <Box sx={{ mt: 3, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
@@ -18,8 +49,10 @@ const Upload = ({ image, setImage, formData, setFormData }) => {
       <Input
         type='file'
         name='file'
-        accept='.jpg,.jpeg,.png,.gif'
+        // accept='.jpg,.jpeg,.png,.gif'
+        accept="image/jpeg,image/png,image/gif"
         onChange={handleImage}
+        // onChange={handleGlobalImageChange}
         sx={{ display: 'none' }}
         id='upload-button'
       />
@@ -28,10 +61,10 @@ const Upload = ({ image, setImage, formData, setFormData }) => {
           variant='contained'
           component='span'
           sx={{
-            backgroundColor: '#3f51b5',
+            backgroundColor: '#9747FF',
             color: 'white',
             '&:hover': {
-              backgroundColor: '#303f9f'
+              backgroundColor: '#9747FF'
             }
           }}
         >
@@ -43,6 +76,12 @@ const Upload = ({ image, setImage, formData, setFormData }) => {
           <Avatar src={formData.upload} alt='Preview' sx={{ width: 200, height: 200 }} />
         </Box>
       )}
+
+{/* {globalImage && (
+        <Box sx={{ mt: 2 }}>
+          <Avatar src={formData.upload} alt='Preview' sx={{ width: 200, height: 200 }} />
+        </Box>
+      )} */}
       <Box sx={{ mt: 2 }}>
        
       </Box>

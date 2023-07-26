@@ -37,7 +37,7 @@ export default function MainAccount() {
       id_number: "",
       account_type: "",
       email: "",
-      upload: "",
+      upload: null,
   })
 
   const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset, trigger } = useForm({
