@@ -178,6 +178,10 @@ const MainContent = ({ title, children, selectedOption }) => {
     //   break;
 
     case 'account-balance':
+      content = <div style={{minWidth: "100%"}}> <AccountBalance /> </div>
+      break;
+
+    case 'account-create':
       content = <div style={{minWidth: "100%"}}> <FormContainer /> </div>
       break;
 

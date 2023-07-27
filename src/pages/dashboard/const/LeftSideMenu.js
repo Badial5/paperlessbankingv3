@@ -382,15 +382,16 @@ const drawerWidth = 240
         </ListItemButton>
 
         <Collapse in={open2} timeout="auto" unmountOnExit>
-          {/* <List component="div" disablePadding>
+          <List component="div" disablePadding>
 
             <ListItemButton
-              selected={location.pathname === '/enquir'}
+              selected={location.pathname === '/enquiry'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
               sx={{pl:3, }}
               onClick={() => {
                 // navigate('/account-creation');
-                handleOptionClick('/enquiry-balance');
+                // handleOptionClick('/enquiry-balance');
+                handleOptionClick('account-balance');
               }}
               
             >
@@ -419,7 +420,7 @@ const drawerWidth = 240
             </ListItemButton>
 
             
-          </List> */}
+          </List>
            <List component="div" disablePadding>
 
 
@@ -514,7 +515,7 @@ const drawerWidth = 240
                 // Link="account-creation" 
                 // <NavLink to="account-creation">Account Creation</NavLink>
 
-                handleOptionClick('account-balance');
+                handleOptionClick('account-create');
               }}
 
               // onClick={handleAccountCreationClick}
