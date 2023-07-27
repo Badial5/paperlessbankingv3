@@ -346,7 +346,7 @@ const drawerWidth = 240
           // borderLeft: "5px solid #1F8EA7",
           // lineHeight: "1px",
           borderRadius: 1, color: "#fff",
-          fontSize: 10,
+      
           
           "&.MuiButtonBase-root:hover": {
             // bgcolor: "red"
@@ -387,7 +387,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/enquiry'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
-              sx={{pl:3, }}
+              sx={{pl:3,  fontSize: 12}}
               onClick={() => {
                 // navigate('/account-creation');
                 // handleOptionClick('/enquiry-balance');

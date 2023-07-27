@@ -222,7 +222,7 @@ const MainContent = ({ title, children, selectedOption }) => {
 
 
     case 'account-officer':
-      content = <div style={{width: "100%"}}> <AccountOfficerDetails /> </div>
+      content = <div style={{width: "100%"}}> <AccountOfficer /> </div>
       break;
 
       case 'bank-appointment':
