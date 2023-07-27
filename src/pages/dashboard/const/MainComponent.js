@@ -72,6 +72,7 @@ import MultiStepForm from '../../account/MultiStepPage';
 import MainAccount2 from '../../account2/MainAccount';
 import AccountFormContainer from '../../account3/MainAccount';
 import FormContainer from '../../account4/formContainer';
+import AccountOfficerDetails from '../../enquiry/accountOfficerDetails';
 
 
 const DefaultContent = () => {
@@ -210,8 +211,14 @@ const MainContent = ({ title, children, selectedOption }) => {
         //   break;
 
 
+        //Old Account Officer Details
+    // case 'account-officer':
+    //   content = <div style={{width: "100%"}}> <AccountOfficer /> </div>
+    //   break;
+
+
     case 'account-officer':
-      content = <div style={{width: "100%"}}> <AccountOfficer /> </div>
+      content = <div style={{width: "100%"}}> <AccountOfficerDetails /> </div>
       break;
 
       case 'bank-appointment':

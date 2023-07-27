@@ -292,7 +292,17 @@ const App = () => {
 
           {/* USER DASHBOARD  */}
 
-      <Route path="user-dashboard" element={<UserDashboard />} errorElement={<ErrorPage />} /> 
+      {/* <Route path="user-dashboard" element={<UserDashboard />} errorElement={<ErrorPage />} />  */}
+
+
+      <Route path="user-dashboard" element={<UserDashboard />} errorElement={<ErrorPage />} >
+
+      <Route path="account-creation" element={<AccountCreation />}  /> 
+
+
+      </Route>
+
+
 
 
 

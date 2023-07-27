@@ -9,13 +9,17 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import CreateIcon from '@mui/icons-material/Create';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link, NavLink } from 'react-router-dom';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { AppBar, Box, Drawer, ListItemButton, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import  { tooltipClasses } from '@mui/material/Tooltip';
+
+import Avatar from '@mui/material/Avatar/Avatar';
+
+import Image from 'mui-image'
 // import Typography from '@mui/material/Typography';
 
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -51,6 +55,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
+//Logo Image
+import Image5 from "./asset/images/Image5.jpg"
 
 
 const LeftAppBar = styled('div')(({ theme }) => ({
@@ -233,6 +239,7 @@ const drawerWidth = 240
       <Drawer
         sx={{
           width: drawerWidth,
+          fontSize: 10,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
@@ -248,23 +255,42 @@ const drawerWidth = 240
                 <Toolbar>
                   <Box sx={{display: "flex", justifyContent: "space-between"}}>
 
-                  <Typography variant="h6" component="div" sx={{ 
+                  {/* <Typography variant="h6" component="div" sx={{ 
                   //  color: "#9747FF", 
                   color: "#000", width: 240,
                 fontSize: 14, fontFamily: "Poppins",  fontWeight: "300"}}>
 
-                    Paperless Banking
+                    Internet Banking
 
-                  </Typography>
+                  </Typography> */}
+
+                  {/* Image Box  */}
+                  <Box sx={{ width: 240, my: "auto", 
+                  marginRight: "auto"
+                  }}>
+                    <Image 
+                    // src="./asset/images/Image1.jpg" 
+                    src={Image5}
+                    width={150} height={50} 
+                    easing="ease-in-out"
+                    duration={325} 
+                    fit='cover'
+                    sx={{borderRadius: 16}}
+                     />
+
+                    {/* <Avatar 
+                    alt="Logo"
+                    src="./asset/images/Image5.jpg" /> */}
+                  </Box>
 
                   {/* Center AppBar Contents */}
                   <Box sx={{display: 'flex', marginLeft: 30,  fontFamily: "Poppins", alignItems: 'center'}}>
                     <Box sx={{border: "1px solid #9747FF", paddingLeft: 2, paddingRight: 2, borderRadius: 50, }}>
-                  <Typography sx={{fontWeight: 200, fontSize: 12,}}>Retail Banking </Typography>
+                  <Typography sx={{fontWeight: 200, fontSize: 9,}}>Retail Banking </Typography>
                   </Box>
 
 
-                  <Box sx={{display: 'flex',  marginLeft: 5, alignItems: 'center'}}>
+                  <Box sx={{display: 'flex',  marginLeft: 5, alignItems: 'center', width: "auto"}}>
                     <LocationOnIcon fontSize='small' sx={{color: '#9747FF', mr: 1}} />
                     <Box sx={{display: 'flex', flexDirection: 'column', }}>
                     <Typography sx={{fontSize: 10, fontWeight: 300}}>197.221.82.30</Typography>
@@ -320,6 +346,7 @@ const drawerWidth = 240
           // borderLeft: "5px solid #1F8EA7",
           // lineHeight: "1px",
           borderRadius: 1, color: "#fff",
+          fontSize: 10,
           
           "&.MuiButtonBase-root:hover": {
             // bgcolor: "red"
@@ -332,11 +359,15 @@ const drawerWidth = 240
             {/* <DashboardIcon sx={{color: "#B5AFAF"}} />  */}
             <DashboardLogo />
           </ListItemIcon>
-          <ListItemText primary="Dashboard" />
+          <ListItemText primary="Dashboard"  />
         </ListItemButton>
 
 
+
+
+
           {/* Enquiry tab  */}
+          {/* Enquiry Tab  */}
 
           <ListItemButton
           selected={location.pathname.includes('/enquiry')}
@@ -390,7 +421,9 @@ const drawerWidth = 240
             
           </List> */}
            <List component="div" disablePadding>
-            <ListItemButton
+
+
+            {/* <ListItemButton
               selected={location.pathname === '/account-balance'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
               sx={{pl:3, }}
@@ -404,8 +437,13 @@ const drawerWidth = 240
               <ListItemIcon>
                 <CreateIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Account Balance" />
-            </ListItemButton>
+              <ListItemText primary="Account Balance Games" />
+            </ListItemButton> */}
+
+
+
+
+
 
             <ListItemButton
               selected={location.pathname === '/account-officer'}
@@ -445,7 +483,11 @@ const drawerWidth = 240
 
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItemButton
+
+
+            {/* This is the Old Account Creation */}
+  {/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++           */}
+            {/* <ListItemButton
               selected={location.pathname === '/account-creation'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
               sx={{pl:3, }}
@@ -459,7 +501,33 @@ const drawerWidth = 240
                 <CreateIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
               <ListItemText primary="Account Creation" />
+            </ListItemButton> */}
+
+            <ListItemButton 
+            // component={Link} to="account-creation"
+              selected={location.pathname === '/account-create'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, }}
+              onClick={() => {
+                // navigate('account-creation');
+                // handleAccountCreationClick
+                // Link="account-creation" 
+                // <NavLink to="account-creation">Account Creation</NavLink>
+
+                handleOptionClick('account-balance');
+              }}
+
+              // onClick={handleAccountCreationClick}
+              
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Create Account" />
             </ListItemButton>
+
+
+
 
             <ListItemButton
               selected={location.pathname === '/account-officer'}

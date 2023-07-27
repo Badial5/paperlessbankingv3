@@ -3,7 +3,7 @@ import { Paper, styled, Typography, Box,
 import { style } from "@mui/system";
     
     
-    import HelveticaNeue from "../../assets/fonts/HelveticaNowText-Medium.otf"
+    // import HelveticaNeue from "../../assets/fonts/HelveticaNowText-Medium.otf"
     
     
     export const PaperWrapper = styled(Container)`
@@ -100,8 +100,9 @@ height: 32px;
 
 /* Text sm/regular */
 
-font-family: 'Helvetica Neue';
-// font-family:  url(${HelveticaNeue})
+font-family: 'Poppins';
+
+font-family: "Poppins";
 font-style: normal;
 font-weight: 400;
 font-size: 14px;
