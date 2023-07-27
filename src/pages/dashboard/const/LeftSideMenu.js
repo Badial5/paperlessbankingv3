@@ -16,6 +16,8 @@ import { AppBar, Box, Drawer, ListItemButton, Stack, Toolbar, Tooltip, Typograph
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import  { tooltipClasses } from '@mui/material/Tooltip';
+import CorporateFareIcon from '@mui/icons-material/CorporateFare';
+import Man3Icon from '@mui/icons-material/Man3';
 
 import Avatar from '@mui/material/Avatar/Avatar';
 
@@ -239,11 +241,12 @@ const drawerWidth = 240
       <Drawer
         sx={{
           width: drawerWidth,
-          fontSize: 10,
+          fontSize: 12,
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            fontSize: 12,
           },
         }}
         variant="permanent"
@@ -332,6 +335,9 @@ const drawerWidth = 240
 
               
 
+
+
+
       <List sx={{fontSize: 12}}>
 
 
@@ -346,8 +352,7 @@ const drawerWidth = 240
           // borderLeft: "5px solid #1F8EA7",
           // lineHeight: "1px",
           borderRadius: 1, color: "#fff",
-      
-          
+          fontSize: 12,
           "&.MuiButtonBase-root:hover": {
             // bgcolor: "red"
             background: "#9747FF",
@@ -373,9 +378,9 @@ const drawerWidth = 240
           selected={location.pathname.includes('/enquiry')}
           onClick={handleClick2}
           
-          sx={{ pl: 1,   mt: 1, }}>
+          sx={{ pl: 1,   mt: 1, fontSize: 12 }}>
           <ListItemIcon>
-            <EnquiryLogo sx={{color: "#B5AFAF"}} />
+            <EnquiryLogo sx={{color: "#9747FF"}} />
           </ListItemIcon>
           <ListItemText primary="Enquiry" />
           {open2 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -396,7 +401,7 @@ const drawerWidth = 240
               
             >
               <ListItemIcon>
-                <CreateIcon sx={{color: "#B5AFAF"}} />
+                <CorporateFareIcon sx={{color: "#9747FF"}} />
               </ListItemIcon>
               <ListItemText primary="Account Balance" />
             </ListItemButton>
@@ -404,24 +409,26 @@ const drawerWidth = 240
 
 
             <ListItemButton
-              selected={location.pathname === '/enquiry-statement'}
+              selected={location.pathname === '/exchange rates'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
-                handleOptionClick('enquiry-statement');
+                handleOptionClick('exchange rates');
               }}
             >
               <ListItemIcon>
-                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+                <AssignmentIcon sx={{color: "#9747FF"}} />
               </ListItemIcon>
-              <ListItemText primary="Enquiry Statement" />
+              <ListItemText primary="Exchange Rates" />
             </ListItemButton>
 
             
           </List>
-           <List component="div" disablePadding>
+
+
+           <List component="div" disablePadding sx={{fontSize: 12,}}>
 
 
             {/* <ListItemButton
@@ -449,7 +456,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/account-officer'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12, }}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -457,7 +464,7 @@ const drawerWidth = 240
               }}
             >
               <ListItemIcon>
-                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+                <Man3Icon sx={{color: "#9747FF"}} />
               </ListItemIcon>
               <ListItemText primary="Account Officer Details" />
             </ListItemButton>
@@ -474,9 +481,9 @@ const drawerWidth = 240
           selected={location.pathname.includes('/account')}
           onClick={handleClick}
           
-          sx={{ pl: 1,   mt: 1, }}>
+          sx={{ pl: 1,   mt: 1, fontSize: 12, }}>
           <ListItemIcon>
-            <AccountLogo sx={{color: "#B5AFAF"}} />
+            <AccountLogo sx={{color: "#9747FF"}} />
           </ListItemIcon>
           <ListItemText primary="Account Service" />
           {open ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -508,7 +515,7 @@ const drawerWidth = 240
             // component={Link} to="account-creation"
               selected={location.pathname === '/account-create'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               onClick={() => {
                 // navigate('account-creation');
                 // handleAccountCreationClick
@@ -522,7 +529,7 @@ const drawerWidth = 240
               
             >
               <ListItemIcon>
-                <CreateIcon sx={{color: "#B5AFAF"}} />
+                <CreateIcon sx={{color: "#9747FF"}} />
               </ListItemIcon>
               <ListItemText primary="Create Account" />
             </ListItemButton>
@@ -533,7 +540,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/account-officer'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12, }}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-officer');
@@ -541,7 +548,7 @@ const drawerWidth = 240
               }}
             >
               <ListItemIcon>
-                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+                <AssignmentIcon sx={{color: "#9747FF"}} />
               </ListItemIcon>
               <ListItemText primary="Account Officer Details" />
             </ListItemButton>
@@ -576,9 +583,9 @@ const drawerWidth = 240
           selected={location.pathname.includes('/transfer')}
           onClick={handleClick3}
           
-          sx={{ pl: 1,   mt: 1, }}>
+          sx={{ pl: 1,   mt: 1, fontSize: 12,}}>
           <ListItemIcon>
-            <TransferLogo sx={{color: "#B5AFAF"}} />
+            <TransferLogo sx={{color: "#9747FF"}} />
           </ListItemIcon>
           <ListItemText primary="Transfer Service" />
           {open3 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -591,7 +598,7 @@ const drawerWidth = 240
           <ListItemButton
               selected={location.pathname === '/third-party-transfer'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               onClick={() => {
                 // navigate('/account-balance');
                 handleOptionClick('third-party-transfer');
@@ -599,7 +606,7 @@ const drawerWidth = 240
               
             >
               <ListItemIcon>
-                <CreateIcon sx={{color: "#B5AFAF",}} />
+                <CreateIcon sx={{color: "#9747FF"}} />
               </ListItemIcon>
               <ListItemText primary="Third Party Transfer" />
             </ListItemButton>
@@ -609,7 +616,7 @@ const drawerWidth = 240
           <ListItemButton
               selected={location.pathname === '/own-account-transfer'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               onClick={() => {
                 // navigate('/account-creation');
                 handleOptionClick('own-account-transfer');
@@ -617,7 +624,7 @@ const drawerWidth = 240
               
             >
               <ListItemIcon>
-                <CreateIcon sx={{color: "#B5AFAF"}} />
+                <CreateIcon sx={{color: "#9747FF"}} />
               </ListItemIcon>
               <ListItemText primary="Own Account Transfer" />
             </ListItemButton>
@@ -626,7 +633,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/bank-transfer'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12, }}
               onClick={() => {
                 // navigate('/account-creation');
                 handleOptionClick('bank-transfer');
@@ -634,7 +641,7 @@ const drawerWidth = 240
               
             >
               <ListItemIcon>
-                <CreateIcon sx={{color: "#B5AFAF"}} />
+                <CreateIcon sx={{color: "#9747FF"}} />
               </ListItemIcon>
               <ListItemText primary="Bank Transfer" />
             </ListItemButton>
@@ -642,7 +649,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/manage-beneficiary'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -650,7 +657,7 @@ const drawerWidth = 240
               }}
             >
               <ListItemIcon>
-                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+                <AssignmentIcon sx={{color: "#9747FF"}} />
               </ListItemIcon>
               <ListItemText primary="Manage Beneficiary" />
             </ListItemButton>
@@ -660,7 +667,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/transfer-history'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -668,7 +675,7 @@ const drawerWidth = 240
               }}
             >
               <ListItemIcon>
-                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+                <AssignmentIcon sx={{color: "#9747FF"}} />
               </ListItemIcon>
               <ListItemText primary="Transfer History" />
             </ListItemButton>
@@ -677,7 +684,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/my-schedule'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -685,7 +692,7 @@ const drawerWidth = 240
               }}
             >
               <ListItemIcon>
-                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+                <AssignmentIcon sx={{color: "#9747FF"}} />
               </ListItemIcon>
               <ListItemText primary="My Schedules" />
             </ListItemButton>
@@ -703,7 +710,7 @@ const drawerWidth = 240
           selected={location.pathname.includes('/bank')}
           onClick={handleClick4}
           
-          sx={{ pl: 1,   mt: 1,}}>
+          sx={{ pl: 1,   mt: 1, fontSize: 12,}}>
           <ListItemIcon>
             <RequestLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -720,7 +727,7 @@ const drawerWidth = 240
       <ListItemButton
        selected={location.pathname === '/bank-request'}
       
-       sx={{pl:3, }}
+       sx={{pl:3, fontSize: 12,}}
      
        onClick={() => {
          // navigate('/bank-appointment');
@@ -743,7 +750,7 @@ const drawerWidth = 240
      <ListItemButton
        selected={location.pathname === '/banking-request'}
       
-       sx={{pl:3, }}
+       sx={{pl:3, fontSize: 12,}}
      
        onClick={() => {
          // navigate('/bank-appointment');
@@ -766,7 +773,7 @@ const drawerWidth = 240
      <ListItemButton
        selected={location.pathname === '/banking-request'}
       
-       sx={{pl:3, }}
+       sx={{pl:3, fontSize: 12, }}
      
        onClick={() => {
          // navigate('/bank-appointment');
@@ -789,7 +796,7 @@ const drawerWidth = 240
      <ListItemButton
        selected={location.pathname === '/banking-request'}
       
-       sx={{pl:3, }}
+       sx={{pl:3, fontSize: 12,}}
      
        onClick={() => {
          // navigate('/bank-appointment');
@@ -800,7 +807,7 @@ const drawerWidth = 240
        
      >
        <ListItemIcon>
-         <CreateIcon sx={{color: "#B5AFAF"}} />
+         <CreateIcon sx={{color: "#B5AFAF", fontSize: 12,}} />
        </ListItemIcon>
        <ListItemText primary="Stop Cheque" />
      </ListItemButton>
@@ -813,7 +820,7 @@ const drawerWidth = 240
      <ListItemButton
        selected={location.pathname === '/banking-request'}
       
-       sx={{pl:3, }}
+       sx={{pl:3, fontSize: 12, }}
      
        onClick={() => {
          // navigate('/bank-appointment');
@@ -837,7 +844,7 @@ const drawerWidth = 240
      <ListItemButton
        selected={location.pathname === '/banking-request'}
       
-       sx={{pl:3, }}
+       sx={{pl:3, fontSize: 12, }}
      
        onClick={() => {
          // navigate('/bank-appointment');
@@ -860,7 +867,7 @@ const drawerWidth = 240
      <ListItemButton
        selected={location.pathname === '/banking-request'}
       
-       sx={{pl:3, }}
+       sx={{pl:3, fontSize: 12, }}
      
        onClick={() => {
          // navigate('/bank-appointment');
@@ -888,7 +895,7 @@ const drawerWidth = 240
        
           selected={location.pathname === '/bank-appointment'}
          
-          sx={{pl:3, }}
+          sx={{pl:3, fontSize: 12, }}
         
           onClick={() => {
             // navigate('/bank-appointment');
@@ -912,7 +919,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === 'bank'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               
               onClick={() => {
                 // navigate('/account-creation');
@@ -946,7 +953,7 @@ const drawerWidth = 240
           selected={location.pathname.includes('/transfer')}
           onClick={handleClick5}
           
-          sx={{ pl: 1,   mt: 1, }}>
+          sx={{ pl: 1,   mt: 1, fontSize: 12,}}>
           <ListItemIcon>
             <PaymentLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -959,7 +966,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/account-creation'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               onClick={() => {
                 // navigate('/account-creation');
                 handleOptionClick('account-creation');
@@ -975,7 +982,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/account-officer'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -999,7 +1006,7 @@ const drawerWidth = 240
           selected={location.pathname.includes('/debit')}
           onClick={handleClick6}
           
-          sx={{ pl: 1,   mt: 1, }}>
+          sx={{ pl: 1,   mt: 1, fontSize: 12, }}>
           <ListItemIcon>
             <CardLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -1018,7 +1025,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/card-service'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -1039,7 +1046,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/card-service'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -1060,7 +1067,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/card-service'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -1082,7 +1089,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/card-service'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12, }}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -1103,7 +1110,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/card-service'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -1125,7 +1132,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/card-service'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -1153,7 +1160,7 @@ const drawerWidth = 240
           selected={location.pathname.includes('/transfer')}
           onClick={handleClick7}
           
-          sx={{ pl: 1,   mt: 1, }}>
+          sx={{ pl: 1,   mt: 1, fontSize: 12, }}>
           <ListItemIcon>
             <InvestmentLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -1166,7 +1173,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/account-creation'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12, }}
               onClick={() => {
                 // navigate('/account-creation');
                 handleOptionClick('account-creation');
@@ -1182,7 +1189,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/account-officer'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12, }}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -1206,7 +1213,7 @@ const drawerWidth = 240
           selected={location.pathname.includes('/transfer')}
           onClick={handleClick8}
           
-          sx={{ pl: 1,   mt: 1, }}>
+          sx={{ pl: 1,   mt: 1, fontSize: 12, }}>
           <ListItemIcon>
             <LoanLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -1219,7 +1226,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/account-creation'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               onClick={() => {
                 // navigate('/account-creation');
                 handleOptionClick('account-creation');
@@ -1235,7 +1242,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/account-officer'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12, }}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -1259,7 +1266,7 @@ const drawerWidth = 240
           selected={location.pathname.includes('/transfer')}
           onClick={handleClick9}
           
-          sx={{ pl: 1,   mt: 1,}}>
+          sx={{ pl: 1,   mt: 1, fontSize: 12,}}>
           <ListItemIcon>
             <OtherLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -1272,7 +1279,7 @@ const drawerWidth = 240
             <ListItemButton
               selected={location.pathname === '/account-creation'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               onClick={() => {
                 // navigate('/account-creation');
                 handleOptionClick('account-creation');
@@ -1282,13 +1289,13 @@ const drawerWidth = 240
               <ListItemIcon>
                 <CreateIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Transfer" />
+              <ListItemText primary="Transfer" sx={{fontSize: 12,}} />
             </ListItemButton>
 
             <ListItemButton
               selected={location.pathname === '/account-officer'}
               // sx={{ pl: 4 }}
-              sx={{pl:3, }}
+              sx={{pl:3, fontSize: 12,}}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
@@ -1311,17 +1318,19 @@ const drawerWidth = 240
           selected={location.pathname.includes('#')}
           
           
-          sx={{ pl: 0.5,  mt: 2,
+          sx={{ pl: 0.5,  mt: 2, fontSize: 12,
           
           "&:hover": {
             backgroundColor: "#9C8AD0",
             borderRadius: 10,
-            borderLeft: "2px solid #9747FF"
+            borderLeft: "2px solid #9747FF",
+            fontSize: 12,
           },
 
           "&:active": {
             backgroundColor: "#9747FF",
-            borderLeft: "2px solid #9747FF"
+            borderLeft: "2px solid #9747FF",
+            fontSize: 12,
           },
           
           }}>
@@ -1341,7 +1350,7 @@ const drawerWidth = 240
           
           
           sx={{ pl: 1,   mt: 1,
-          
+            fontSize: 12,
           "&:hover": {
             backgroundColor: "#9C8AD0",
             borderRadius: 10,
@@ -1350,7 +1359,8 @@ const drawerWidth = 240
 
           "&:active": {
             backgroundColor: "#9747FF",
-            borderLeft: "2px solid #9747FF"
+            borderLeft: "2px solid #9747FF",
+            fontSize: 12,
           },
           
           }}>
@@ -1372,24 +1382,30 @@ const drawerWidth = 240
           "&:hover": {
             backgroundColor: "#9C8AD0",
             borderRadius: 10,
-            borderLeft: "2px solid #9747FF"
+            borderLeft: "2px solid #9747FF",
+            fontSize: 12,
           },
 
           "&:active": {
             backgroundColor: "#9747FF",
-            borderLeft: "2px solid #9747FF"
+            borderLeft: "2px solid #9747FF",
+            fontSize: 12,
           },
           
           }}>
           <ListItemIcon>
             <CallLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
-          <ListItemText primary="Call Center" />
+          <ListItemText primary="Call Center" 
+          sx={{fontSize: 12,}}
+          />
         
         </ListItemButton>
 
 
       </List>
+
+
       </Drawer>
 
 

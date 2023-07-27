@@ -3,6 +3,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 // import AccountCreation from './AccountCreation';
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { Dashboard } from '@mui/icons-material';
+
+
 import AccountCreation from '../../account/account-creation';
 import AccountOfficer from "../../account/account-officer"
 import DashboardHomePage from './GraphDashboard';
@@ -73,6 +75,7 @@ import MainAccount2 from '../../account2/MainAccount';
 import AccountFormContainer from '../../account3/MainAccount';
 import FormContainer from '../../account4/formContainer';
 import AccountOfficerDetails from '../../enquiry/accountOfficerDetails';
+import ExchangeRate from '../../enquiry/exchangeRate';
 
 
 const DefaultContent = () => {
@@ -177,9 +180,19 @@ const MainContent = ({ title, children, selectedOption }) => {
     //   content = <div style={{minWidth: "100%"}}> <AccountBalance /> </div>
     //   break;
 
+    //ENQUIRY 
     case 'account-balance':
       content = <div style={{minWidth: "100%"}}> <AccountBalance /> </div>
       break;
+
+      case 'account-officer':
+        content = <div style={{width: "100%"}}> <AccountOfficer /> </div>
+        break;
+
+        case 'exchange rates':
+        content = <div style={{width: "100%"}}> <ExchangeRate /> </div>
+        break;
+  
 
     case 'account-create':
       content = <div style={{minWidth: "100%"}}> <FormContainer /> </div>
@@ -221,10 +234,7 @@ const MainContent = ({ title, children, selectedOption }) => {
     //   break;
 
 
-    case 'account-officer':
-      content = <div style={{width: "100%"}}> <AccountOfficer /> </div>
-      break;
-
+   
       case 'bank-appointment':
       content = <BankAppointment />;
       break;
