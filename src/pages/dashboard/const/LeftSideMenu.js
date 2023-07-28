@@ -12,7 +12,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useNavigate, useLocation, Link, NavLink } from 'react-router-dom';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { AppBar, Box, Drawer, ListItemButton, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
+import { AppBar, Box, Drawer, IconButton, ListItemButton, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import  { tooltipClasses } from '@mui/material/Tooltip';
@@ -26,6 +26,8 @@ import Image from 'mui-image'
 
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+
+
 
 
 import {ReactComponent as DashboardLogo} from "../assets/dashboard.svg"
@@ -59,6 +61,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 //Logo Image
 import Image5 from "./asset/images/Image5.jpg"
+
 
 
 const LeftAppBar = styled('div')(({ theme }) => ({
@@ -229,6 +232,8 @@ const drawerWidth = 240
 
 
 
+  
+
 
   console.log("Selected Option: ", selectedOption)
 
@@ -286,6 +291,19 @@ const drawerWidth = 240
                     src="./asset/images/Image5.jpg" /> */}
                   </Box>
 
+
+
+
+
+                   
+
+
+
+
+
+
+
+
                   {/* Center AppBar Contents */}
                   <Box sx={{display: 'flex', marginLeft: 30,  fontFamily: "Poppins", alignItems: 'center'}}>
                     <Box sx={{border: "1px solid #9747FF", paddingLeft: 2, paddingRight: 2, borderRadius: 50, }}>
@@ -303,6 +321,7 @@ const drawerWidth = 240
                     </Box>
                   </Box>
 
+                
 
 
 
@@ -362,7 +381,9 @@ const drawerWidth = 240
 
           <ListItemIcon>
             {/* <DashboardIcon sx={{color: "#B5AFAF"}} />  */}
-            <DashboardLogo />
+            <DashboardLogo 
+            // sx={{backgroundColor: "#000"}} 
+            />
           </ListItemIcon>
           <ListItemText primary="Dashboard"  />
         </ListItemButton>
@@ -380,7 +401,7 @@ const drawerWidth = 240
           
           sx={{ pl: 1,   mt: 1, fontSize: 12 }}>
           <ListItemIcon>
-            <EnquiryLogo sx={{color: "#9747FF"}} />
+            <EnquiryLogo sx={{color: "#fff"}} />
           </ListItemIcon>
           <ListItemText primary="Enquiry" />
           {open2 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -401,7 +422,10 @@ const drawerWidth = 240
               
             >
               <ListItemIcon>
-                <CorporateFareIcon sx={{color: "#9747FF"}} />
+                <CorporateFareIcon 
+                sx={{color: "#9747FF"}} 
+                // sx={{color: "#9747FF"}}
+                />
               </ListItemIcon>
               <ListItemText primary="Account Balance" />
             </ListItemButton>

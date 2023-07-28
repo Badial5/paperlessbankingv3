@@ -121,8 +121,14 @@ import MainAccount from './pages/account/MainAccount12'
 import MultiStepForm from './pages/account/MultiStepPage'
 import RootLayout from './RootLayout'
 
+import { useTheme } from '@mui/material/styles'
+import { useContext } from 'react'
+import { ColorModeContext } from './theme/ColorTheme'
 
 const App = () => {
+
+  const theme = useTheme();
+  const colorMode = useContext(ColorModeContext);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
