@@ -34,8 +34,8 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(name, USD, EURO, GBP,) {
+  return { name, USD, EURO, GBP, };
 }
 
 const rows = [
@@ -88,9 +88,9 @@ const ExchangeRate = () => {
               <StyledTableCell component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.calories}</StyledTableCell>
-              <StyledTableCell align="right">{row.fat}</StyledTableCell>
-              <StyledTableCell align="right">{row.carbs}</StyledTableCell>
+              <StyledTableCell align="right">{row.USD}</StyledTableCell>
+              <StyledTableCell align="right">{row.EURO}</StyledTableCell>
+              <StyledTableCell align="right">{row.GBP}</StyledTableCell>
               {/* <StyledTableCell align="right">{row.protein}</StyledTableCell> */}
             </StyledTableRow>
           ))}

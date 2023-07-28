@@ -6,7 +6,7 @@ const Upload = ({ image, setImage, formData, setFormData, globalImage, setGlobal
   
 
   const handleImage = (e) => {
-    
+
     const { selfie_image } = formData
 
     const file = e.target.files[0];
@@ -71,9 +71,13 @@ const Upload = ({ image, setImage, formData, setFormData, globalImage, setGlobal
           Choose File
         </Button>
       </label>
+
       {image && (
         <Box sx={{ mt: 2 }}>
-          <Avatar src={formData.upload} alt='Preview' sx={{ width: 200, height: 200 }} />
+          <Avatar 
+          // src={formData.upload} 
+          src={formData.selfie_image} 
+          alt='Preview' sx={{ width: 200, height: 200 }} />
         </Box>
       )}
 

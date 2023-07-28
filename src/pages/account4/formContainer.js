@@ -73,33 +73,21 @@ const FormContainer = () => {
 // ================================================================================
   //Form data values ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const [formData, setFormData] = useState({
-      // first_name: "",
-      // last_name: "",
-      // phone_number: "",
-      // id_type: "",
-      // id_number: "",
-      // account_type: "",
-      // email: "",
-      // selfie_image: '',
-
       title: "",
       first_name: "",
       last_name: "",
-      full_name: "John Smith",
+      full_name: "",
+      phone_number: "",
       id_type: "",
       id_number: "",
       account_type: "",
-      phone_number: "",
       email_address: "",
-      // use_selfie: true,
-      selfie_image: "",
-      signature: "",
-      status: "Pending"
+      selfie_image: '',
   })
 
 
 
-  const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset, trigger } = useForm({
+  const { handleSubmit, register, unregister, watch, setValue, formState: {errors, isValid}, reset, trigger } = useForm({
     mode: "onTouched",
     defaultValues: formData
   })
@@ -155,6 +143,17 @@ const FormContainer = () => {
 
 
 
+  // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+  useEffect(() => {
+    // Remove first_name and last_name from the form data
+    unregister('first_name');
+    unregister('last_name');
+  }, [unregister]);
+
+  // ====================================================================
+
  
 
   //For next button
@@ -191,7 +190,7 @@ const FormContainer = () => {
    const renderStepContent = (step) => {
     switch (step) {
       case 0:
-        return <AccountPage2 formData={formData} handleNext={handleNext} handleChange={handleChange} register={register} isValid={isValid} errors={errors}  />;
+        return <AccountPage2 formData={formData} handleNext={handleNext} handleChange={handleChange} register={register} isValid={isValid} errors={errors} setValue={setValue} watch={watch} unregister={unregister} />;
 
 
       case 1:
@@ -272,9 +271,11 @@ const FormContainer = () => {
         formDataToSend.append('title', formData.title); // Replace 'Mr.' with the correct title value
         // formDataToSend.append('full_name', formData.name); // Make sure the 'name' field in formData contains the full name
 
-        formDataToSend.append('full_name', formData.first_name + " "+ formData.last_name);
+        formDataToSend.append('first_name', formData.first_name);
 
-        // formDataToSend.append('last_name', formData.last_name); 
+        formDataToSend.append('last_name', formData.last_name);
+
+        // formDataToSend.append('full_name', `${formData.first_name} ${formData.last_name}`);
 
         formDataToSend.append('id_type', formData.id_type); // Replace 'Passport' with the correct ID type value
 
@@ -283,14 +284,14 @@ const FormContainer = () => {
         formDataToSend.append('account_type', formData.account_type); // Replace 'Current Account' with the correct account type value
         formDataToSend.append('phone_number', formData.phone_number); // Make sure the 'phone_number' field in formData contains the phone number
         formDataToSend.append('email_address', formData.email); // Make sure the 'email' field in formData contains the email address
-        formDataToSend.append('use_selfie', true); // Replace 'true' with the actual value for use_selfie
-        formDataToSend.append('selfie_image', formData.image); // Make sure the 'image' field in formData contains the selfie image
-
-        formDataToSend.append('signature', formData.first_name + " " + formData.last_name);
+        // formDataToSend.append('use_selfie', true);  // Replace 'true' with the actual value for use_selfie
+        formDataToSend.append('selfie_image', formData.selfie_image); // Make sure the 'image' field in formData contains the selfie image
 
         console.log("FormDataToSend: ", formDataToSend)
   
-        const response = await axios.post(baseUrl, formDataToSend, {
+        const response = await axios.post(baseUrl, {
+          formData: formDataToSend
+        }, {
           headers: {
             // 'Content-Type': 'multipart/form-data',
             'Content-Type': 'application/json', // Set the content type to JSON
@@ -298,26 +299,17 @@ const FormContainer = () => {
           },
         });
   
-        // if (response.status === 200) {
-        //   // Display success message to the user
-        //   // alert('Form submitted successfully!');
-        //   setActiveStep(0);
-        //   setFormData({
-        //     // title: '',
-        //     email: '',
-        //     password: '',
-        //     confirmPassword: '',
-        //     name: '',
-        //     age: '', 
-        //     gender: "",
-        //     nationality: '',
-        //     city: '',
-        //     // image: null
-        //   });
-        // } else {
-        //   // Display error message to the user
-        //   alert('Error submitting form. Please try again later.');
-        // }
+        if (response.status === 200) {
+          // Display success message to the user
+          // alert('Form submitted successfully!');
+          setActiveStep(0);
+          setFormData({
+           formData
+          });
+        } else {
+          // Display error message to the user
+          alert('Error submitting form. Please try again later.');
+        }
       } catch (error) {
         console.error(error);
   
@@ -595,7 +587,10 @@ const FormContainer = () => {
               </DashboardSkipButton>
             )}
 
-<DashboardNextButton elevation={20} onClick={handleNext} size='small'
+<DashboardNextButton elevation={20} 
+onClick={handleNext}
+// onClick={() => setValue(`${first_name} ${last_name}`, full_name), handleNext }
+size='small'
 //this will enable the button iff the forms are valid
  disabled={!isValid} >
   {activeStep === steps.length - 1 ? 'Finish' : 'Next'}

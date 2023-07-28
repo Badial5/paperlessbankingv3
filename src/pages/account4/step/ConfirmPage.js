@@ -73,13 +73,13 @@ const styles = {
 };
 
 
-const ConfirmPage2 = ({formData, handleChange, handleNext, handleBack, register, isValid, errors, upload, submitForm, selfie_image}, props) => {
+const ConfirmPage2 = ({formData, handleChange, handleNext, handleBack, register, isValid, errors, upload, submitForm, }, props) => {
 
   //Phone Input
   const { value, defaultCountry, onChange, classes } = props;
 
    //Destrucitng form values
-   const { first_name, last_name, title, phone_number, id_type, id_number, account_type, email,  } = formData
+   const { first_name, last_name, title, phone_number, id_type, id_number, account_type, selfie_image, email_address  } = formData
 
 
   const onSubmit = (data) => {
@@ -109,7 +109,10 @@ const ConfirmPage2 = ({formData, handleChange, handleNext, handleBack, register,
       {/* <Avatar  src={upload}  sx={{ width: 100, height: 56 }}
        /> */}
 
-<Avatar src={upload} alt='Preview' sx={{ mr: 'auto', ml: "auto", mt: 1, width: 100, height: 100}}  />
+<Avatar 
+// src={upload} 
+src={selfie_image}
+alt='Preview' sx={{ mr: 'auto', ml: "auto", mt: 1, width: 100, height: 100}}  />
 
 </Grid>
 
@@ -140,23 +143,23 @@ const ConfirmPage2 = ({formData, handleChange, handleNext, handleBack, register,
       })}
 
       value={title}
-      onChange={handleChange('title')}
+      // onChange={handleChange('title')}
       
       >
 
-        {titles.map((option) => (
+        {/* {titles.map((option) => (
         <MenuItem key={option.value} value={option.value}>
           {option.label}
         </MenuItem>
-      ))}
+      ))} */}
 
       </DashboardTextField>
 
-      {(errors.title?.message) && (
+      {/* {(errors.title?.message) && (
     <DashboardErrorHelperText>
       {errors.title?.message}
     </DashboardErrorHelperText>
-  )}
+  )} */}
 
       </Grid>
 
@@ -258,7 +261,7 @@ disabled
   }
 })}
 
-value={id_type}
+value={formData.id_type}
 onChange={handleChange('id_type')}
 placeholder="account"
 >
@@ -373,7 +376,7 @@ onChange={handleChange('account_type')}
   <DashboardTextField  type="text"
       id="email"
       fullWidth
-      error={Boolean(errors.email)}
+      error={Boolean(errors.email_address)}
       variant="outlined"  
       disabled
       // {...register("email", {
@@ -383,7 +386,7 @@ onChange={handleChange('account_type')}
       //   }
       // })}
 
-      {...register("email", {required: {
+      {...register("email_address", {required: {
         value: true,
         message: "required", 
         
@@ -398,15 +401,15 @@ onChange={handleChange('account_type')}
         })}
 
       placeholder='eg. someone@domain.com'
-      value={email}
-      onChange={handleChange('email')}
+      value={email_address}
+      onChange={handleChange('email_address')}
       >
 
   </DashboardTextField>
 
-  { (errors.email?.message  ) &&
+  { (errors.email_address?.message  ) &&
       <DashboardErrorHelperText>
-        {errors.email?.message}
+        {errors.email_address?.message}
       </DashboardErrorHelperText> 
     }
 

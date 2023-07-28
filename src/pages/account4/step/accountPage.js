@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 
 import {
   Typography,
@@ -72,14 +72,36 @@ const styles = {
 };
 
 
-const AccountPage2 = ({formData, handleChange, handleNext, handleBack, register, isValid, errors}, props) => {
+const AccountPage2 = ({formData, handleChange, handleNext, handleBack, register, isValid, errors, setValue, watch, unregister}, props) => {
 
   //Phone Input
   const { value, defaultCountry, onChange, classes } = props;
 
    //Destrucitng form values
-   const { first_name, last_name, title, phone_number, 
+   const { 
+    first_name, last_name,
+    full_name,
+    title, phone_number, 
     id_type, id_number, account_type, email_address } = formData
+
+
+
+    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    const firstName = watch('first_name');
+  const lastName = watch('last_name');
+
+  // useEffect(() => {
+  //   const fullName = `${firstName} ${lastName}`;
+  //   setValue('full_name', fullName);
+  // }, [firstName, lastName, setValue]);
+
+  useEffect(() => {
+    const fullName = `${firstName || ''} ${lastName || ''}`;
+    setValue('fullname', fullName);
+  }, [firstName, lastName, setValue]);
+
+
+
 
 
   const onSubmit = (data) => {
@@ -171,6 +193,7 @@ const AccountPage2 = ({formData, handleChange, handleNext, handleBack, register,
 
             placeholder='eg. Joseph'
             value={first_name}
+            // value={firstName}
             onChange={handleChange('first_name')}
             >
 
@@ -208,6 +231,7 @@ const AccountPage2 = ({formData, handleChange, handleNext, handleBack, register,
 
             placeholder='eg. Smith'
             value={last_name}
+            // value={lastName}
             onChange={handleChange('last_name')}
             >
 
