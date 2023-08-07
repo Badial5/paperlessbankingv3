@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 // form
-import { useFormContext, Controller } from 'react-hook-form';
+import { useFormContext, Controller, useForm } from 'react-hook-form';
 // @mui
 import { TextField } from '@mui/material';
 
@@ -12,7 +12,8 @@ RHFSelect.propTypes = {
 };
 
 export default function RHFSelect({ name, children, ...other }) {
-  const { control } = useFormContext();
+  // const { control } = useFormContext();
+  const { control } = useForm();
 
   return (
     <Controller

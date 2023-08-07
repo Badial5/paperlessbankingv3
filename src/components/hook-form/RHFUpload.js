@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 // form
-import { useFormContext, Controller } from 'react-hook-form';
+import { useFormContext, Controller, useForm } from 'react-hook-form';
 // @mui
 import { FormHelperText } from '@mui/material';
 // type
 import { UploadAvatar, UploadMultiFile, UploadSingleFile } from '../upload';
+
+
 
 // ----------------------------------------------------------------------
 
@@ -13,12 +15,13 @@ RHFUploadAvatar.propTypes = {
 };
 
 export function RHFUploadAvatar({ name, ...other }) {
-  const { control } = useFormContext();
+  // const { control } = useFormContext(); 
+  const { control } = useForm();
 
   return (
     <Controller
       name={name}
-      control={control}
+      control={control} 
       render={({ field, fieldState: { error } }) => {
         const checkError = !!error && !field.value;
 
@@ -44,12 +47,13 @@ RHFUploadSingleFile.propTypes = {
 };
 
 export function RHFUploadSingleFile({ name, ...other }) {
-  const { control } = useFormContext();
+  // const { control } = useFormContext();
+  const { control } = useForm();
 
   return (
     <Controller
       name={name}
-      control={control}
+      control={control} 
       render={({ field, fieldState: { error } }) => {
         const checkError = !!error && !field.value;
 
@@ -80,12 +84,13 @@ RHFUploadMultiFile.propTypes = {
 };
 
 export function RHFUploadMultiFile({ name, ...other }) {
-  const { control } = useFormContext();
+  // const { control } = useFormContext(); 
+  const { control } = useForm();
 
   return (
     <Controller
       name={name}
-      control={control}
+      control={control} 
       render={({ field, fieldState: { error } }) => {
         const checkError = !!error && field.value?.length === 0;
 

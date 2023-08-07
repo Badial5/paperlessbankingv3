@@ -1,10 +1,104 @@
-import React from 'react'
-import { Card, Grid, Box, Stack } from '@mui/material'
+import * as Yup from 'yup';
+import React, { useCallback } from 'react'
+import { Card, Grid, Box, Stack, Typography } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import { RHFUploadAvatar } from '../../components/hook-form/RHFUpload'
 
+import { useSnackbar } from 'notistack'
+// form
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+// _mock
+import { countries } from '../../_mock';
+
+// utils
+// import { fData } from '../../../../utils/formatNumber';
+import { fData } from '../../utils/formatNumber';
+
+
+import RHFSwitch from '../../components/hook-form/RHFSwitch';
+import useAuth from '../../hooks/useAuth';
+import RHFTextField from '../../components/hook-form/RHFTextField';
+import RHFSelect from '../../components/hook-form/RHFSelect';
+
 
 const AccountSettings2 = () => {
+
+  const { enqueueSnackbar } = useSnackbar();
+
+
+
+  const { user } = useAuth();
+
+
+
+  const UpdateUserSchema = Yup.object().shape({
+    displayName: Yup.string().required('Name is required'),
+  });
+
+  const defaultValues = {
+    displayName: user?.displayName || '',
+    email: user?.email || '',
+    photoURL: user?.photoURL || '',
+    phoneNumber: user?.phoneNumber || '',
+    country: user?.country || '',
+    address: user?.address || '',
+    state: user?.state || '',
+    city: user?.city || '',
+    zipCode: user?.zipCode || '',
+    about: user?.about || '',
+    isPublic: user?.isPublic || false,
+  };
+
+
+
+
+
+
+  const methods = useForm({
+    resolver: yupResolver(UpdateUserSchema),
+    defaultValues,
+  });
+
+
+
+  
+  const {
+    setValue,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = methods;
+
+  const onSubmit = async () => {
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      enqueueSnackbar('Update success!');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
+
+  const handleDrop = useCallback(
+    (acceptedFiles) => {
+      const file = acceptedFiles[0];
+  
+      if (file) {
+        setValue(
+          'photoURL',
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+          })
+        );
+      }
+    },
+    [setValue]
+  );
+
+
+
   return (
     <Grid container spacing={3}>
         <Grid item xs={12} md={4}>
@@ -30,7 +124,7 @@ const AccountSettings2 = () => {
               }
             />
 
-            {/* <RHFSwitch name="isPublic" labelPlacement="start" label="Public Profile" sx={{ mt: 5 }} /> */}
+            <RHFSwitch name="isPublic" labelPlacement="start" label="Public Profile" sx={{ mt: 5 }} />
           </Card>
         </Grid>
 
@@ -44,7 +138,7 @@ const AccountSettings2 = () => {
                 gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
               }}
             >
-              {/* <RHFTextField name="displayName" label="Name" />
+              <RHFTextField name="displayName" label="Name" />
               <RHFTextField name="email" label="Email Address" />
 
               <RHFTextField name="phoneNumber" label="Phone Number" />
@@ -62,7 +156,7 @@ const AccountSettings2 = () => {
               <RHFTextField name="state" label="State/Region" />
 
               <RHFTextField name="city" label="City" />
-              <RHFTextField name="zipCode" label="Zip/Code" /> */}
+              <RHFTextField name="zipCode" label="Zip/Code" />
             </Box>
 
             <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 // form
-import { useFormContext, Controller } from 'react-hook-form';
+import { useFormContext, Controller, useForm } from 'react-hook-form';
 // @mui
 import { Radio, RadioGroup, FormHelperText, FormControlLabel } from '@mui/material';
 
@@ -12,7 +12,8 @@ RHFRadioGroup.propTypes = {
 };
 
 export default function RHFRadioGroup({ name, options, ...other }) {
-  const { control } = useFormContext();
+  // const { control } = useFormContext();
+  const { control } = useForm();
 
   return (
     <Controller
