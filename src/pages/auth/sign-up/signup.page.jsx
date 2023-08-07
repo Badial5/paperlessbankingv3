@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { DevTool } from "@hookform/devtools";
+// import { DevTool } from "@hookform/devtools";
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
@@ -34,6 +34,8 @@ import {  BarLoader, ClipLoader, CircleLoader, ClimbingBoxLoader, ClockLoader, D
 
 import signupImg from "../../../assets/images/signup2.jpg"
 import EyeIcon from "../../../assets/svg/eye.svg"
+
+
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 
@@ -530,7 +532,7 @@ const ErrorToast = () => toast(errorApi);
       } */}
 
       <GlobalInlaksText>
-        Inlaks
+        Inlaks Calvin
       </GlobalInlaksText>
 
 

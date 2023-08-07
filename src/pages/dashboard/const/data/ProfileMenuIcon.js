@@ -45,7 +45,7 @@ const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/logout/"
 // const baseUrl = "/accounts/v1/logout/"
 
 
-export default function AccountMenu() {
+export default function AccountMenu({userName}) {
 
 
   //STATES FOR DIALOGS
@@ -76,7 +76,7 @@ export default function AccountMenu() {
    //FOR LOGOUT API
    const handleLogout = async () => {
     try {
-      const response = await axios.get('https://banking-api.inlakssolutions.com/accounts/v1/logout/');
+      const response = await axios.post('https://banking-api.inlakssolutions.com/accounts/v1/logout/', {}, {withCredentials: true});
       // Perform any necessary actions after successful logout
       console.log(response.data); // Example: Log the response data
   
@@ -412,9 +412,12 @@ const handleCloseSubscribe = () => {
       {/* </Paper> */}
 
 
-        <Box sx={{display: "flex", flexDirection: "column"}}>
+        <Box sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
       <Typography sx={{fontSize: 14, color: '#9747FF'}}>Welcome back</Typography>
-      <Box><Typography sx={{fontSize: 10}}>Joseph Smith</Typography></Box>
+      <Box><Typography sx={{fontSize: 10, ml: 1, fontWeight: 600}}>
+        {/* Joseph Smith  */}
+        {userName ?  userName : "User"}
+        </Typography></Box>
       </Box>
       
       <Tooltip title="Sign Out from online banking" placement='bottom'>

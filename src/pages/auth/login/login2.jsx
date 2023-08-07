@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { DevTool } from "@hookform/devtools";
+// import { DevTool } from "@hookform/devtools";
 import { useNavigate, Link as RouterLink, Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -256,86 +256,92 @@ const passwordStrengthChange = (e) => {
   // const access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwNTE4ODg2LCJpYXQiOjE2OTAyNTk2ODYsImp0aSI6IjY0MmYxNGYyMWFjMDQ3NDQ4MmRhZjk2ZjUwYjc5MzUzIiwidXNlcl9pZCI6Nn0.FJ_LIbrrMvNK7RxB1iVzkwqNQTyV5OLOmGuHWaIt79M';
 
 
-  // const onSubmit = async (data) => {
-  //   sessionStorage.setItem("email", data.email);
-  //   console.log("Form Data: ", data)
-   
-  //   try {
-  //     const response = await axios.post(baseUrl, data)
-  //     const newResponse = response.data
-  //     console.log(newResponse)
-  
-  //     console.log("Session Storage Email ", email)
-  
-    
- 
-  //     navigate("/user-dashboard")
-  //     reset()
-  
-   
-  //   } catch (error) {
-  //     // setError(error.response.data)
-  
-  //     setErrorApi(error.response.data);
-  //     console.log("Call to the API returns: ", errorApi);
-      
-
-
-  //     const errorMessage = error.message 
-  //     console.log("Error MEssage: ", errorMessage)
-
-
-
-  //     Object.values(errorApi).forEach(errors => {
-  //       errors.forEach(errorMessage => {
-  //         toast.error(errorMessage); // Display each error message using toast.error()
-
-  //         // console.log("Error inside the Inner ForEach: ", errorMessage )
-  //       });
-  //     });
-  //   }
-  // }
-
-
-
-
   const onSubmit = async (data) => {
     sessionStorage.setItem("email", data.email);
-    console.log("Form Data: ", data);
-
-    //ACCESS TOKEN
-  const access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwNTE4ODg2LCJpYXQiOjE2OTAyNTk2ODYsImp0aSI6IjY0MmYxNGYyMWFjMDQ3NDQ4MmRhZjk2ZjUwYjc5MzUzIiwidXNlcl9pZCI6Nn0.FJ_LIbrrMvNK7RxB1iVzkwqNQTyV5OLOmGuHWaIt79M';
-  
+    console.log("Form Data: ", data)
+   
     try {
-      const response = await axios.post(baseUrl, data, {
-        headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
-      });
-      const newResponse = response.data;
-      console.log(newResponse);
+      // const { data } = await axios.post(baseUrl, data)
+      const response = await axios.post(baseUrl, data)
+      // const response = await axios.post(baseUrl, data, {withCredentials: true})
+      // const newResponse = response.data 
+      // console.log(newResponse)
+
+      console.log("Response Data: ", response.data)
   
-      console.log("Session Storage Email ", email);
+      console.log("Session Storage Email ", email)
+
+      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data['token']}`
+    
+ 
+      navigate("/user-dashboard")
+      reset()
   
-      navigate("/user-dashboard");
-      reset();
+   
     } catch (error) {
       // setError(error.response.data)
   
       setErrorApi(error.response.data);
       console.log("Call to the API returns: ", errorApi);
-  
-      const errorMessage = error.message;
-      console.log("Error Message: ", errorMessage);
-  
-      Object.values(errorApi).forEach((errors) => {
-        errors.forEach((errorMessage) => {
+      
+
+
+      const errorMessage = error.message 
+      console.log("Error MEssage: ", errorMessage)
+
+
+
+      Object.values(errorApi).forEach(errors => {
+        errors.forEach(errorMessage => {
           toast.error(errorMessage); // Display each error message using toast.error()
+
           // console.log("Error inside the Inner ForEach: ", errorMessage )
         });
       });
     }
-  };
+  }
+
+
+
+
+  // const onSubmit = async (data) => {
+  //   sessionStorage.setItem("email", data.email);
+  //   console.log("Form Data: ", data);
+
+  //   //ACCESS TOKEN
+  // const access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwNTE4ODg2LCJpYXQiOjE2OTAyNTk2ODYsImp0aSI6IjY0MmYxNGYyMWFjMDQ3NDQ4MmRhZjk2ZjUwYjc5MzUzIiwidXNlcl9pZCI6Nn0.FJ_LIbrrMvNK7RxB1iVzkwqNQTyV5OLOmGuHWaIt79M';
+  
+  
+  //   try {
+  //     const response = await axios.post(baseUrl, data, {
+  //       headers: {
+  //         Authorization: `Bearer ${access_token}`,
+  //       },
+  //     });
+  //     const newResponse = response.data;
+  //     console.log(newResponse);
+  
+  //     console.log("Session Storage Email ", email);
+  
+  //     navigate("/user-dashboard");
+  //     reset();
+  //   } catch (error) {
+  //     // setError(error.response.data)
+  
+  //     setErrorApi(error.response.data);
+  //     console.log("Call to the API returns: ", errorApi);
+  
+  //     const errorMessage = error.message;
+  //     console.log("Error Message: ", errorMessage);
+  
+  //     Object.values(errorApi).forEach((errors) => {
+  //       errors.forEach((errorMessage) => {
+  //         toast.error(errorMessage); // Display each error message using toast.error()
+  //         // console.log("Error inside the Inner ForEach: ", errorMessage )
+  //       });
+  //     });
+  //   }
+  // };
 
 
 

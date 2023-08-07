@@ -54,6 +54,8 @@ import Paper from '@mui/material/Paper';
 import ClipLoader from 'react-spinners/ClipLoader';
 import axios from 'axios';
 
+import SettingsIcon from '@mui/icons-material/Settings';
+
 //React Toasify
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -91,7 +93,7 @@ const BootstrapTooltip = styled(({ className, ...props }) => (
   },
 }));
 
-const LeftSideMenu = ({onOptionSelect}) => {
+const LeftSideMenu = ({onOptionSelect, userName}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = useState(false);
@@ -338,7 +340,10 @@ const drawerWidth = 240
 
                   <Box sx={{display: 'flex', marginLeft: 10}}>
 
-                  <AccountMenu handleClick={handleLogOut}  />
+                  <AccountMenu handleClick={handleLogOut} userName={userName} />
+                  {
+                    console.log(userName)
+                  }
 
                   </Box>
 
@@ -1397,7 +1402,7 @@ const drawerWidth = 240
 
 
          {/* CALL CENTER  */}
-         <ListItemButton
+         {/* <ListItemButton
           selected={location.pathname.includes('#')}
           
           
@@ -1421,6 +1426,41 @@ const drawerWidth = 240
             <CallLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
           <ListItemText primary="Call Center" 
+          sx={{fontSize: 12,}}
+          />
+        
+        </ListItemButton> */}
+
+        
+<ListItemButton
+          selected={location.pathname.includes('#')}
+          
+          
+          sx={{ pl: 1,   mt: 1,
+          
+          "&:hover": {
+            backgroundColor: "#9C8AD0",
+            borderRadius: 10,
+            borderLeft: "2px solid #9747FF",
+            fontSize: 12,
+          },
+
+          "&:active": {
+            backgroundColor: "#9747FF",
+            borderLeft: "2px solid #9747FF",
+            fontSize: 12,
+          },
+          
+          }}
+          onClick={() => {
+            // navigate('/account-creation');
+            handleOptionClick('account-settings');
+          }}
+          >
+          <ListItemIcon >
+            <SettingsIcon sx={{color: "#B5AFAF", fontSize: 20}} />
+          </ListItemIcon>
+          <ListItemText primary="Settings" 
           sx={{fontSize: 12,}}
           />
         

@@ -35,7 +35,7 @@ import { ErrorHelperTextContainer, GridItem, NameLabel, PageHeader2, PageHeaderA
   } from "../../../../account/style/account-creation";
 import { red } from "@mui/material/colors";
 import { useState } from "react";
-import { GlobalInputLabel, GlobalPageHeader, GlobalSubPageHeader, GlobalTextField } from "../../../../../assets/GlobalStyled/Globalstyles";
+import { GlobalCurrencyTextField, GlobalErrorHelperText, GlobalInputLabel, GlobalPageHeader, GlobalSubPageHeader, GlobalTextField } from "../../../../../assets/GlobalStyled/Globalstyles";
 
 const MyFormControl = styled(FormControl)({
   minWidth: 120,
@@ -144,6 +144,25 @@ const Item = styled(Box)(({ theme }) => ({
 //   },
 // });
 
+
+const currencies = [
+  {
+    value: 'USD',
+    label: '$',
+  },
+  {
+    value: 'EUR',
+    label: '€',
+  },
+  {
+    value: 'BTC',
+    label: '฿',
+  },
+  {
+    value: 'JPY',
+    label: '¥',
+  },
+];
 
 
 
@@ -703,12 +722,31 @@ Third Party Transfer requires that you add new beneficiary to your profile befor
 
 
 
+{/* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
+{/* Amount +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */}
+
 <Grid item xs={3}sx={{mt: 1.5}} >
         
         <GlobalInputLabel sx={{}}>Amount <span style={{color: "red"}}>*</span></GlobalInputLabel>
 </Grid>
 
-        <Grid item xs={9} >
+        <Grid item xs={3}>
+          <GlobalCurrencyTextField
+          id="outlined-select-currency"
+          select
+          // label="Select"
+          defaultValue="EUR"
+          // helperText="Please select your currency" 
+        >
+          {currencies.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+          </GlobalCurrencyTextField>
+        </Grid>
+
+        <Grid item xs={6} >
           {/* <NameLabel sx={{padding: "0px 17px"}}>Name</NameLabel> */}
   
           <GlobalTextField
@@ -733,9 +771,9 @@ Third Party Transfer requires that you add new beneficiary to your profile befor
             }}
           />
           { (errors.amount?.message  ) &&
-            <ErrorHelperTextContainer>
+            <GlobalErrorHelperText sx={{fontSize: 10}}>
               {errors.amount?.message}
-            </ErrorHelperTextContainer> 
+            </GlobalErrorHelperText> 
           }
         </Grid>
 
@@ -773,9 +811,9 @@ Third Party Transfer requires that you add new beneficiary to your profile befor
             }}
           />
           { (errors.reference?.message  ) &&
-            <ErrorHelperTextContainer>
+            <GlobalErrorHelperText sx={{fontSize: 10}}>
               {errors.reference?.message}
-            </ErrorHelperTextContainer> 
+              </GlobalErrorHelperText>
           }
         </Grid>
 

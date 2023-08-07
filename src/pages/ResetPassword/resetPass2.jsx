@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { DevTool } from "@hookform/devtools";
+// import { DevTool } from "@hookform/devtools";
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';

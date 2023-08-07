@@ -149,6 +149,11 @@ export default function SignUpFormError() {
   const [phoneNumber, setPhoneNumber] = useState(); // The PhoneNumber instance.
   const [selectedCountry, setSelectedCountry] = useState(null);
 
+
+  //REFRESH AND ACCESSTOKEN STATES
+  const [accessToken, setAccessToken] = useState(null);
+  const [refreshToken, setRefreshToken] = useState(null);
+
     //error state
     // const [error, setError] = useState(null)
 
@@ -312,40 +317,110 @@ function handleCheckboxChange(e) {
 
 
 
-const onSubmit = async (data) => {
-  sessionStorage.setItem("email", data.email);
-  console.log("Form Data: ", data)
-  // registerForm()
-  // reset()
-  try {
-    const response = await axios.post(baseUrl, data)
-    const newResponse = response.data
-    // console.log(newResponse)
-    // newResponse()
+// const onSubmit = async (data) => {
+//   sessionStorage.setItem("email", data.email);
+//   console.log("Form Data: ", data)
+//   // registerForm()
+//   // reset()
+//   try {
+//     const response = await axios.post(baseUrl, data)
+//     const newResponse = response.data
+//     // console.log(newResponse)
+//     // newResponse()
     
-    setCurrentEmail(email)
-    console.log("EMail Context Value: ", email)
+//     setCurrentEmail(email)
+//     console.log("EMail Context Value: ", email)
 
-    console.log("Session Storage Email ", email)
+//     console.log("Session Storage Email ", email)
 
   
-    navigate("/phone-Otp")
-    reset()
+//     navigate("/phone-Otp")
+//     reset()
 
-    // console.log("Successful: ", newResponse)
-  } catch (error) {
-    // setError(error.response.data)
+//     // console.log("Successful: ", newResponse)
+//   } catch (error) {
+//     // setError(error.response.data)
 
-    if (error.response.data.message === "Request failed with status code 500") {
-      console.log("Sorry You made a bad request" )
-      setError("You made a bad request\n Check the Email")
-    } else {
-      setError(error.response.data)
+//     if (error.response.data.message === "Request failed with status code 500") {
+//       console.log("Sorry You made a bad request" )
+//       setError("You made a bad request\n Check the Email")
+//     } else {
+//       setError(error.response.data)
+//     }
+//     // console.log("Error Message: ", error.response.data)
+//     console.log("Error Message from state: ", error) 
+//   }
+// }
+
+
+
+const onSubmit = async (data) => {
+  sessionStorage.setItem('email', data.email);
+  console.log('Form Data: ', data);
+
+  try {
+    if (!accessToken) {
+      console.log('Access token not available. Requesting a new one...');
+      await requestAccessToken(data); // Request a new access token if not available
     }
-    // console.log("Error Message: ", error.response.data)
-    console.log("Error Message from state: ", error) 
+
+    const response = await axios.post(`${baseUrl}/protected`, data, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const newResponse = response.data;
+    console.log(newResponse);
+
+    console.log('Session Storage Email ', email);
+
+    navigate('/user-dashboard');
+    reset();
+  } catch (error) {
+    handleApiError(error);
   }
-}
+};
+
+const requestAccessToken = async (data) => {
+  try {
+    if (!refreshToken) {
+      console.log('Refresh token not available. User needs to log in.');
+      // Handle the case when the user needs to log in or obtain a new refresh token.
+      return;
+    }
+
+    console.log('Requesting a new access token using the refresh token...');
+    const refreshResponse = await axios.post(`${baseUrl}/refresh`, {
+      refresh_token: refreshToken,
+    });
+
+    const newAccessToken = refreshResponse.data.access_token;
+    setAccessToken(newAccessToken);
+
+    console.log('New access token received.');
+  } catch (error) {
+    console.error('Token refresh failed:', error);
+    // Handle token refresh failure, such as logging the user out or displaying an error message.
+  }
+};
+
+const handleApiError = (error) => {
+  setErrorApi(error.response?.data || {});
+  console.log('Call to the API returns:', errorApi);
+
+  const errorMessage = error.message;
+  console.log('Error Message:', errorMessage);
+
+  Object.values(errorApi).forEach((errors) => {
+    errors.forEach((errorMessage) => {
+      toast.error(errorMessage); // Display each error message using toast.error()
+    });
+  });
+};
+
+
+
 
 
 
@@ -477,7 +552,7 @@ useEffect(() => {
 
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
 
       {/* <EmailProvider value={email} >  */}
       {/* <EmailContext.Provider value={email}>    */}
@@ -1292,7 +1367,7 @@ Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam repudiandae natus
       {/* </EmailContext.Provider>   */}
 
       {/* </EmailProvider>  */}
-    </ThemeProvider>
+    </>
   );
 }
 

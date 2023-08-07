@@ -324,6 +324,7 @@ const AccountBalance = () => {
 
 <Box sx={{ height: 170, width: "100%", fontSize: 12, fontFamily: "Poppins" }}>
       <DataGrid
+      
         rows={rows}
         columns={columns}
         initialState={{

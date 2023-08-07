@@ -6,6 +6,9 @@ import { Box, Button, Container, FormHelperText, Grid, styled, TextField, Typogr
     Stepper,
     Link} from "@mui/material";
 
+
+ 
+
     import signupImg from "../../assets/images/signup2.jpg"
 
 
@@ -118,6 +121,46 @@ export const GlobalTextField = styled(TextField)({
           },
       }
 })
+
+
+export const GlobalCurrencyTextField = styled(TextField)({
+    
+    fontFamily: "Poppins",
+    fontSize: 12,
+    "& .MuiOutlinedInput-root.Mui-focused": {
+        "& > fieldset": {
+  borderColor: "#7833EE"
+        }
+      },  [`& fieldset`]:{
+        borderRadius: "6px",  },
+    "& .MuiInputBase-root": {
+        height: "2rem",
+        fontSize: 12,
+        "& input::placeholder": {
+            fontSize: 12,
+          },
+      }
+})
+
+
+// export const GlobalCurrencyTextField = styled(CurrencyTextField)({
+    
+//     fontFamily: "Poppins",
+//     fontSize: 12,
+//     "& .MuiOutlinedInput-root.Mui-focused": {
+//         "& > fieldset": {
+//   borderColor: "#7833EE"
+//         }
+//       },  [`& fieldset`]:{
+//         borderRadius: "6px",  },
+//     "& .MuiInputBase-root": {
+//         height: "2rem",
+//         fontSize: 12,
+//         "& input::placeholder": {
+//             fontSize: 12,
+//           },
+//       }
+// })
 
 
 export const GlobalDigitTextField = styled(TextField)({

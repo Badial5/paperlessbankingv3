@@ -78,6 +78,15 @@ import AccountOfficerDetails from '../../enquiry/accountOfficerDetails';
 import ExchangeRate from '../../enquiry/exchangeRate';
 
 
+
+//Account-settings
+// import AccountSettings from "../../../pages/@dashboard/user/account/index" 
+
+import AccountSettings2 from '../../AccountSettings/AccountSettings';
+
+
+
+
 const DefaultContent = () => {
   return <>
     DEFAULT CONTENT
@@ -375,6 +384,16 @@ const MainContent = ({ title, children, selectedOption }) => {
                  case 'card-statement':
                   content = <CardStatement />;
                  break;
+
+
+                //  case 'account-settings':
+                //   content = <AccountSettings />;
+                //  break;
+
+
+                case 'account-settings':
+                  content = <AccountSettings2 />;
+                 break;
   
 
 
@@ -382,6 +401,14 @@ const MainContent = ({ title, children, selectedOption }) => {
     // default:
     //   content = <DefaultContent />;
     //   break;
+
+    // default:
+    //   content = 
+    //   <div style={{width: "100%"}}>
+    //   <BarChart chartData={userTransaction} />
+    //   </div>
+    //   break;
+
 
     default:
       content = 
@@ -460,7 +487,7 @@ const MainContent = ({ title, children, selectedOption }) => {
         {/* {location.pathname === '/account-officer' && <AccountOfficer />} */}
 
         {content}
-        {/* <Outlet />  */}
+        <Outlet /> 
 
       </Box>
     </Box>

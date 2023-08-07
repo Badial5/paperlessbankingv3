@@ -20,6 +20,7 @@ import LeftSideMenu from './const/LeftSideMenu';
 
 import signupImg from "../../assets/images/signup2.jpg"
 import { Box } from '@mui/material';
+import axios from 'axios';
 
 //pages
 {/* <Route path='account-creation' element={<AccountCreation />} />
@@ -34,6 +35,36 @@ const DashboardContainer = styled('div')({
 
 const UserDashboard = () => {
   // const [selectedOption, setSelectedOption] = useState('default');
+
+  const [userData, setUserData ] = useState({
+    first_name: "",
+      last_name: "",
+      email: "",
+      phone_number: "",
+ 
+  })
+
+  const [name, setName] = useState("")
+
+
+  useEffect(() => {
+    (
+      async () => {
+        const {data} = await axios.get("https://banking-api.inlakssolutions.com/accounts/v1/users/")
+
+        setName(data.first_name)
+        
+      }
+    )();
+  }, [])
+
+  console.log("THis is my FIrst Name: ", name)
+
+
+
+
+
+
 
   // REACT SPINNER ANIMATION ===========================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 const [loadingInProgress, setLoadingInProgress] = useState(false);
@@ -95,7 +126,7 @@ useEffect(() => {
       ) : (
     <Box>
     <DashboardContainer>
-      <LeftSideMenu onOptionSelect={handleOptionSelect} style={{width: "30vw"}}/>
+      <LeftSideMenu userName={name} onOptionSelect={handleOptionSelect} style={{width: "30vw"}}/>
 
       <MainContent selectedOption={selectedOption} title="Main Content" style={{width: "100%"}}/>
       
