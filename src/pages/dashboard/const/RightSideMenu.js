@@ -221,7 +221,20 @@ const RightSideMenu = ({onOptionSelect}) => {
             // navigate('/account-creation');
             handleOptionClick('default');
           }} 
-        sx={{background: "#9747FF", color: "#fff", borderRadius: 1, }}>
+          sx={{
+            // background: "#9747FF",
+            background: "#00BFFF",
+          // borderLeft: "5px solid #1F8EA7",
+          // lineHeight: "1px",
+          borderRadius: 1, color: "#fff",
+          fontSize: 12,
+          "&.MuiButtonBase-root:hover": {
+            // bgcolor: "red"
+            // background: "#9747FF",
+            // background: "#00BFFF",
+            background:"#4166F5",
+            color: "#ffffff"
+          },  }}>
           <ListItemIcon>
             <DashboardLogo sx={{color: "#B5AFAF"}} />
           </ListItemIcon>
@@ -299,7 +312,10 @@ const RightSideMenu = ({onOptionSelect}) => {
             // navigate('/account-creation');
             handleOptionClick('default');
           }} 
-        sx={{background: "#9747FF", color: "#fff", mt: 1, height: "2rem", 
+        sx={{
+          // background: "#9747FF", 
+          background: "#00BFFF",
+          color: "#fff", mt: 1, height: "2rem", 
         borderRadius: 1}}>
           <ListItemIcon>
           </ListItemIcon>

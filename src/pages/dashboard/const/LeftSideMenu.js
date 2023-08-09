@@ -372,14 +372,18 @@ const drawerWidth = 240
             // navigate('/account-creation');
             handleOptionClick('default');
           }}
-          sx={{background: "#9747FF",
+          sx={{
+            // background: "#9747FF",
+            background: "#00BFFF",
           // borderLeft: "5px solid #1F8EA7",
           // lineHeight: "1px",
           borderRadius: 1, color: "#fff",
           fontSize: 12,
           "&.MuiButtonBase-root:hover": {
             // bgcolor: "red"
-            background: "#9747FF",
+            // background: "#9747FF",
+            background: "#00BFFF",
+            // background:"#4166F5",
             color: "#ffffff"
           },  }}
         >
@@ -428,7 +432,7 @@ const drawerWidth = 240
             >
               <ListItemIcon>
                 <CorporateFareIcon 
-                sx={{color: "#9747FF"}} 
+                sx={{color: "#00BFFF",}} 
                 // sx={{color: "#9747FF"}}
                 />
               </ListItemIcon>
@@ -448,7 +452,7 @@ const drawerWidth = 240
               }}
             >
               <ListItemIcon>
-                <AssignmentIcon sx={{color: "#9747FF"}} />
+                <AssignmentIcon sx={{color: "#00BFFF",}} />
               </ListItemIcon>
               <ListItemText primary="Exchange Rates" />
             </ListItemButton>
@@ -493,7 +497,7 @@ const drawerWidth = 240
               }}
             >
               <ListItemIcon>
-                <Man3Icon sx={{color: "#9747FF"}} />
+                <Man3Icon sx={{color: "#00BFFF",}} />
               </ListItemIcon>
               <ListItemText primary="Account Officer Details" />
             </ListItemButton>
@@ -558,7 +562,10 @@ const drawerWidth = 240
               
             >
               <ListItemIcon>
-                <CreateIcon sx={{color: "#9747FF"}} />
+                <CreateIcon sx={{
+                  // color: "#9747FF"
+                  color:   "#00BFFF",
+                  }} />
               </ListItemIcon>
               <ListItemText primary="Create Account" />
             </ListItemButton>
@@ -566,7 +573,7 @@ const drawerWidth = 240
 
 
 
-            <ListItemButton
+            {/* <ListItemButton
               selected={location.pathname === '/account-officer'}
               // sx={{ pl: 4 }}
               sx={{pl:3, fontSize: 12, }}
@@ -580,7 +587,7 @@ const drawerWidth = 240
                 <AssignmentIcon sx={{color: "#9747FF"}} />
               </ListItemIcon>
               <ListItemText primary="Account Officer Details" />
-            </ListItemButton>
+            </ListItemButton> */}
 
           </List>
         </Collapse>

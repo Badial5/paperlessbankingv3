@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 // import { DevTool } from "@hookform/devtools";
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { useNavigate, Link as RouterLink, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 
@@ -49,6 +49,7 @@ import { GlobalErrorHelperText, GlobalInputLabel, GlobalPaperStyle, GlobalTextfi
 
 
 import CircularIndeterminate from '../../../assets/GlobalAnimation/ButtonAnimation/LoadingButton';
+import { LoadingButton } from '@mui/lab';
 
 // import { LazyMotion, domAnimation, m } from "framer-motion"
 
@@ -66,6 +67,8 @@ import CircularIndeterminate from '../../../assets/GlobalAnimation/ButtonAnimati
 const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/signup/"
 
 const baseUrl2 = "https://banking-api.inlakssolutions.com/accounts/v1/signup/"
+
+const baseUrl3 = "https://api.inlakssolutions.com/accounts/v1/signup/"
 
 //STYLE FOR PHONE INPUT COMPONENT
 
@@ -129,6 +132,9 @@ const SignUpFormError = (props) => {
   const [passwordWarning, setPasswordWarning] = useState('')
   const [passwordSuggestion, setPasswordSuggestion] = useState([])
 
+  //REDIRECT
+  const [redirect, setRedirect] = useState(false)
+
 
 
   const { value, defaultCountry, onChange, classes } = props;
@@ -184,6 +190,15 @@ const [passsuggestion, setPassSuggestion] = useState([])
 const [passwarning, setPassWarning] = useState('')
 
 
+// Inside the component
+const handlePasswordChange = (event) => {
+  const newValue = event.target.value;
+  setInputValue(newValue);
+  passwordStrengthChange(newValue);
+  handleFieldChangePassword(newValue);
+};
+
+
 
 
 
@@ -197,14 +212,14 @@ useEffect(() => {
   return () => clearTimeout(timer);
 }, []);
 
-const passwordStrengthChange = (e) => {
-    setInputValue(e.target.value);
+const passwordStrengthChange = (event) => {
+    setInputValue(event.target.value);
   }
 
 
   const handleFieldChangePassword = (e) => {
     handleInputChange(e);
-    passwordStrengthChange();
+    passwordStrengthChange(e);
   }
 
   const handleInputChange = (event) => {
@@ -252,14 +267,14 @@ const passwordStrengthChange = (e) => {
     sessionStorage.setItem("email", data.email);
     console.log("Form Data: ", data);
 
-    data.preventDefault();
+    // data.preventDefault();
   
     try {
 
       
 
 
-      const response = await axios.post(baseUrl, data);
+      const response = await axios.post(baseUrl3, data);
       console.log("Form Submitted", response);
       console.log("Session Storage Email ", email);
      
@@ -267,7 +282,16 @@ const passwordStrengthChange = (e) => {
       console.log('Before toast.success'); // Check if this log is printed in the console
       toast.success('We sent you an email, check and authenticate it');
       
+      // setRedirect(true)
+
+      // if (redirect) {
+      //   return <Navigate to="/phone-Otp" />
+      // }
+
       reset();
+
+      console.log("Redirect Status: ", redirect)
+
       navigate("/phone-Otp");
 
 
@@ -502,7 +526,7 @@ const ErrorToast = () => toast(errorApi);
           objectFit: "cover",
         }}
       >
-        <GridLoader color="#8F45F2" size={25} />
+        <GridLoader color="#00BFFF" size={25} />
       </Box>
     );
   };
@@ -532,7 +556,7 @@ const ErrorToast = () => toast(errorApi);
       } */}
 
       <GlobalInlaksText>
-        Inlaks Calvin
+        Inlaks 
       </GlobalInlaksText>
 
 
@@ -734,6 +758,11 @@ message: "Please enter a valid email address"
           
           }}
 
+          // value={inputValue}
+          // onChange={handlePasswordChange} // Use the new function here
+
+  
+
        
         
 
@@ -847,7 +876,7 @@ message: "Please enter a valid email address"
     <Grid item xs={12} sx={{display: "flex", justifyContent: "center", }}>
         <GlobalButton type='submit'
             // color="secondary"
-            sx={{ background: !isValid ? "#cecece" : 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',}}
+            sx={{ background: !isValid ? "#cecece" : 'linear-gradient(90deg, #00BFFF 0%, #00BFFF 53.42%, #00BFFF 103.85%)',}}
             disabled={!isValid || isSubmitting}
             size="small"
             variant='contained'>
@@ -867,9 +896,11 @@ message: "Please enter a valid email address"
         <span style={{color: "#7833EE", 
       textDecoration: "underline"}}> Login</span>
         </SignupText> */}
-        👋🏾 Already have an account?  <span style={{color: "#7833EE", 
+        👋🏾 Already have an account?  <span style={{color: "#00BFFF", 
       textDecoration: "underline", marginLeft: 3}}>{" Login"}</span>
     </GlobalLink>
+
+    {/* <LoadingButton>LoadingTesting</LoadingButton> */}
 
         
          

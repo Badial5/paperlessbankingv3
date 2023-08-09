@@ -83,9 +83,10 @@ export const GlobalPageHeader = styled(Typography)({
     fontFamily: 'Poppins',
     marginTop: 30,
     marginBottom: 10,
-    backgroundImage:
-      'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
-    backgroundClip: 'text',
+    // backgroundImage:
+    //   'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
+    // backgroundClip: 'text',
+     background: "#00BFFF",
     '-webkit-background-clip': 'text', // for Safari
     color: 'transparent',
   });
@@ -96,6 +97,7 @@ export const GlobalSubPageHeader = styled(Typography)({
     fontStyle: 'normal',
     fontWeight: 400,
     fontSize: 12,
+
     lineHeight: "18px",
     textAlign: 'center',
     marginBottom: 30,

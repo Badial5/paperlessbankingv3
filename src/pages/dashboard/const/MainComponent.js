@@ -86,6 +86,12 @@ import AccountSettings2 from '../../AccountSettings/AccountSettings';
 
 
 
+import BankingDashboard from "../../@dashboard/general/banking/index"
+import GeneralBanking from '../../@dashboard/general/banking/BankingDashbord';
+import DashboardPage from '../dashboardProgress';
+
+
+
 
 const DefaultContent = () => {
   return <>
@@ -153,7 +159,9 @@ const MainContent = ({ title, children, selectedOption }) => {
         // "#f3ba2f",
         // "#2a71d0",
 
-        "#9747FF"
+        // "#9747FF"
+        //blue color
+        "#00BFFF",
         // `linear-gradient(180deg, #FFD572 0%, #FEBD38 100%)`
       ],
       
@@ -413,9 +421,38 @@ const MainContent = ({ title, children, selectedOption }) => {
     default:
       content = 
       <div style={{width: "100%"}}>
-      <BarChart chartData={userTransaction} />
+      <BarChart chartData={userTransaction} />  
+      {/* <DashboardPage  />  */}
       </div>
       break;
+
+
+    // default:
+    //   content = 
+    //   <div style={{width: "100%"}}>
+    //   <BarChart chartData={userTransaction} /> 
+    //   {/* <DashboardPage  />  */}
+    //   </div>
+    //   break;
+
+
+
+
+
+    // default:
+    //   content = 
+    //   <div style={{width: "100%"}}>
+    //   <BarChart chartData={userTransaction} />
+    //   </div>
+    //   break;
+
+
+    // default:
+    //   content = 
+    //   <div style={{width: "100%"}}>
+    //   <GeneralBanking />
+    //   </div>
+    //   break;
   }
 
   return (

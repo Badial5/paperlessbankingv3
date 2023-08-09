@@ -61,7 +61,10 @@ import CircularIndeterminate from '../../assets/GlobalAnimation/ButtonAnimation/
 
 
 //API PROTOCOL
-const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/password-reset/"
+//recently change it
+// const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/password-reset/"
+
+const baseUrl = "http://api.inlakssolutions.com/accounts/v1/password-reset/"
 
 
 

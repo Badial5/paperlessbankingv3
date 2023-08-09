@@ -49,8 +49,14 @@ import CircularIndeterminate from '../../../assets/GlobalAnimation/ButtonAnimati
 
 // const activateAccount = "https://api.inlakssolutions.com/accounts/v1/activate-account/"
 
-const resendOtpUrl = "https://banking-api.inlakssolutions.com/accounts/v1/resend-activation-otp/"
-const activateAccount = "https://banking-api.inlakssolutions.com/accounts/v1/activate-account/"
+
+//recently change it
+// const resendOtpUrl = "https://banking-api.inlakssolutions.com/accounts/v1/resend-activation-otp/"
+// const activateAccount = "https://banking-api.inlakssolutions.com/accounts/v1/activate-account/"
+
+
+const resendOtpUrl = "https://api.inlakssolutions.com/accounts/v1/resend-activation-otp/"
+const activateAccount = "https://api.inlakssolutions.com/accounts/v1/activate-account/"
 
 
 
@@ -357,13 +363,18 @@ const onSubmit = async (data) => {
         const response = await axios.post(activateAccount, {
           email: storedEmail,
           otp: data.otp,
-        })
+        }, { withCredentials: true } )
        
         // setValue("otp", data.datas)
+
+
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 
     
 
     console.log("FORM SUBMITTED: ", response)
+
+    toast.success("Thank You for authentication")
     
     reset();
     console.log('Before toast.success'); // Check if this log is printed in the console

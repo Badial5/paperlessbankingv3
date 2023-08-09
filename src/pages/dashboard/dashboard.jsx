@@ -47,18 +47,18 @@ const UserDashboard = () => {
   const [name, setName] = useState("")
 
 
-  useEffect(() => {
-    (
-      async () => {
-        const {data} = await axios.get("https://banking-api.inlakssolutions.com/accounts/v1/users/")
+  // useEffect(() => {
+  //   (
+  //     async () => {
+  //       const {data} = await axios.get("https://api.inlakssolutions.com/accounts/v1/users/")
 
-        setName(data.first_name)
+  //       setName(data.first_name)
         
-      }
-    )();
-  }, [])
+  //     }
+  //   )();
+  // }, [])
 
-  console.log("THis is my FIrst Name: ", name)
+
 
 
 
@@ -111,7 +111,7 @@ useEffect(() => {
           objectFit: "cover",
         }}
       >
-        <GridLoader color="#8F45F2" size={25} />
+        <GridLoader color="#00BFFF" size={25} />
       </Box>
     );
   };
@@ -126,7 +126,9 @@ useEffect(() => {
       ) : (
     <Box>
     <DashboardContainer>
-      <LeftSideMenu userName={name} onOptionSelect={handleOptionSelect} style={{width: "30vw"}}/>
+      <LeftSideMenu 
+      // userName={name}
+       onOptionSelect={handleOptionSelect} style={{width: "30vw"}}/>
 
       <MainContent selectedOption={selectedOption} title="Main Content" style={{width: "100%"}}/>
       

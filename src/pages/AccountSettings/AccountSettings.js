@@ -160,10 +160,10 @@ const AccountSettings2 = () => {
             </Box>
 
             <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
-              {/* <RHFTextField name="about" multiline rows={4} label="About" /> */}
+              <RHFTextField name="about" multiline rows={4} label="About" />
 
               <LoadingButton type="submit" variant="contained" 
-              // loading={isSubmitting}
+              loading={isSubmitting}
               >
                 Save Changes
               </LoadingButton>

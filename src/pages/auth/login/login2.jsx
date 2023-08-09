@@ -55,6 +55,8 @@ import CircularIndeterminate from '../../../assets/GlobalAnimation/ButtonAnimati
 //API PROTOCOL
 const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/login/"
 
+const baseUrl3 = "https://api.inlakssolutions.com/accounts/v1/login/"
+
 
 
 
@@ -147,7 +149,7 @@ const passwordStrengthChange = (e) => {
 
   const handleFieldChangePassword = (e) => {
     handleInputChange(e);
-    passwordStrengthChange();
+    passwordStrengthChange(e);
   }
 
   const handleInputChange = (event) => {
@@ -256,50 +258,86 @@ const passwordStrengthChange = (e) => {
   // const access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwNTE4ODg2LCJpYXQiOjE2OTAyNTk2ODYsImp0aSI6IjY0MmYxNGYyMWFjMDQ3NDQ4MmRhZjk2ZjUwYjc5MzUzIiwidXNlcl9pZCI6Nn0.FJ_LIbrrMvNK7RxB1iVzkwqNQTyV5OLOmGuHWaIt79M';
 
 
-  const onSubmit = async (data) => {
-    sessionStorage.setItem("email", data.email);
-    console.log("Form Data: ", data)
+  // const onSubmit = async (data) => {
+  //   sessionStorage.setItem("email", data.email);
+  //   console.log("Form Data: ", data)
    
-    try {
-      // const { data } = await axios.post(baseUrl, data)
-      const response = await axios.post(baseUrl, data)
-      // const response = await axios.post(baseUrl, data, {withCredentials: true})
-      // const newResponse = response.data 
-      // console.log(newResponse)
+  //   try {
+  //     // const { data } = await axios.post(baseUrl, data)
+  //     const response = await axios.post(baseUrl3, data, {withCredentials: true})
+  //     // const response = await axios.post(baseUrl, data, {withCredentials: true})
+  //     // const newResponse = response.data 
+  //     // console.log(newResponse)
 
-      console.log("Response Data: ", response.data)
+  //     console.log("Response Data: ", response.data)
   
-      console.log("Session Storage Email ", email)
+  //     console.log("Session Storage Email ", email)
 
-      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data['token']}`
+  //     // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data['token']}`
+
+  //     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
     
  
-      navigate("/user-dashboard")
-      reset()
+      
+  //     reset()
+  //     navigate("/user-dashboard")
   
    
-    } catch (error) {
-      // setError(error.response.data)
+  //   } catch (error) {
+  //     // setError(error.response.data)
   
-      setErrorApi(error.response.data);
-      console.log("Call to the API returns: ", errorApi);
+  //     setErrorApi(error.response.data);
+  //     console.log("Call to the API returns: ", errorApi);
       
 
 
-      const errorMessage = error.message 
-      console.log("Error MEssage: ", errorMessage)
+  //     const errorMessage = error.message 
+  //     console.log("Error MEssage: ", errorMessage)
 
 
 
+  //     Object.values(errorApi).forEach(errors => {
+  //       errors.forEach(errorMessage => {
+  //         toast.error(errorMessage); // Display each error message using toast.error()
+
+  //         // console.log("Error inside the Inner ForEach: ", errorMessage )
+  //       });
+  //     });
+  //   }
+  // }
+
+
+  const onSubmit = async (data) => {
+    sessionStorage.setItem("email", data.email);
+    console.log("Form Data: ", data);
+    
+    try {
+      const response = await axios.post(baseUrl3, data, { withCredentials: true });
+      console.log("Response Data: ", response.data);
+  
+      // Assuming 'response.data.email' contains the email value from the response
+      const email = response.data.email;
+      console.log("Session Storage Email ", email);
+  
+      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+  
+      reset();
+      navigate("/user-dashboard");
+    } catch (error) {
+      setErrorApi(error.response.data);
+      console.log("Call to the API returns: ", errorApi);
+  
+      const errorMessage = error.message;
+      console.log("Error Message: ", errorMessage);
+  
       Object.values(errorApi).forEach(errors => {
         errors.forEach(errorMessage => {
-          toast.error(errorMessage); // Display each error message using toast.error()
-
-          // console.log("Error inside the Inner ForEach: ", errorMessage )
+          toast.error(errorMessage);
         });
       });
     }
   }
+  
 
 
 
@@ -362,7 +400,7 @@ const passwordStrengthChange = (e) => {
           objectFit: "cover",
         }}
       >
-        <GridLoader color="#8F45F2" size={25} />
+        <GridLoader color="#00BFFF" size={25} />
       </Box>
     );
   };
@@ -547,7 +585,7 @@ sx={{padding: "5px 16px",}}>
     <Grid item xs={12} sx={{display: "flex", justifyContent: "center", }}>
         <GlobalButton type='submit'
             // color="secondary"
-            sx={{ background: !isValid ? "cecece" : 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',}}
+            sx={{ background: !isValid ? "cecece" : 'linear-gradient(90deg, ##00BFFF 0%, #00BFFF 53.42%, #00BFFF 103.85%)',}}
             disabled={!isValid || isSubmitting}
             size="small"
             variant='contained'
@@ -571,7 +609,7 @@ sx={{padding: "5px 16px",}}>
         <span style={{color: "#7833EE", 
       textDecoration: "underline"}}> Login</span>
         </SignupText> */}
-        👋🏾 Already have an account? <span style={{color: "#7833EE", 
+        👋🏾 Already have an account? <span style={{color: "#00BFFF", 
       textDecoration: "underline", marginLeft: 3}}>Sign up</span>
     </GlobalLink>
 

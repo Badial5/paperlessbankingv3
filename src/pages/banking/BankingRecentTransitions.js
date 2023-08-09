@@ -20,12 +20,12 @@ import {
   TableContainer,
 } from '@mui/material';
 // utils
-import { fCurrency } from '../../../../utils/formatNumber';
+import { fCurrency } from '../../utils/formatNumber';
 // components
-import Label from '../../../../components/Label';
-import Iconify from '../../../../components/Iconify';
-import Scrollbar from '../../../../components/Scrollbar';
-import { TableMoreMenu, TableHeadCustom } from '../../../../components/table';
+import Label from '../../components/Label';
+import Iconify from '../../components/Iconify';
+import Scrollbar from '../../components/Scrollbar';
+import { TableMoreMenu, TableHeadCustom } from '../../components/table';
 
 // ----------------------------------------------------------------------
 

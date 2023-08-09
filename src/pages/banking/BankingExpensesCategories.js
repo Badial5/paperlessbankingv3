@@ -5,9 +5,9 @@ import ReactApexChart from 'react-apexcharts';
 import { useTheme, styled } from '@mui/material/styles';
 import { Box, Card, Stack, Divider, CardHeader, Typography } from '@mui/material';
 // hooks
-import useResponsive from '../../../../hooks/useResponsive';
+import useResponsive from '../../hooks/useResponsive';
 // components
-import { BaseOptionChart } from '../../../../components/chart';
+import { BaseOptionChart } from '../../components/chart';
 
 // ----------------------------------------------------------------------
 

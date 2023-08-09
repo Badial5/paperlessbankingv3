@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { styled, alpha } from '@mui/material/styles';
 import { Box, Stack, Typography, Button, OutlinedInput } from '@mui/material';
 // components
-import Image from '../../../../components/Image';
+import Image from '../../components/Image';
 
 // ----------------------------------------------------------------------
 

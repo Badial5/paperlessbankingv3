@@ -5,10 +5,10 @@ import ReactApexChart from 'react-apexcharts';
 import { styled, useTheme } from '@mui/material/styles';
 import { Card, Typography, Stack } from '@mui/material';
 // utils
-import { fCurrency, fPercent } from '../../../../utils/formatNumber';
+import { fCurrency, fPercent } from '../../utils/formatNumber';
 // components
-import Iconify from '../../../../components/Iconify';
-import { BaseOptionChart } from '../../../../components/chart';
+import Iconify from '../../components/Iconify';
+import { BaseOptionChart } from '../../components/chart';
 
 // ----------------------------------------------------------------------
 

@@ -297,16 +297,22 @@ const ManageBeneficiary = ({onOptionSelect}) => {
           Efficiently Organize and Support Your Beneficiaries with Manage Beneficiary Tools.
           </GlobalSubPageHeader>
 
-          <Button variant="contained" sx={{height: 30, background: "#7039d1", "&:hover": {background: "#7833EE"}}} onClick={handleOptionClick}>ADD NEW
+          <Button variant="contained" sx={{height: 30, 
+          // background: "#7039d1", 
+          background: "#00BFFF",
+          "&:hover": {
+            // background: "#7833EE",
+            background: "#00BFFF",
+            }}} onClick={handleOptionClick}>ADD NEW
           </Button>
 
 
      
       <Grid container spacing={0} style={{paddingLeft: 30, paddingRight: 30, rowGap: 5, 
-      height: window.innerHeight,
+      // height: window.innerHeight,
       // height: "50%",
        width: "100%"}}
-      ref={componentRef} 
+      // ref={componentRef} 
       >
       
     
@@ -330,8 +336,8 @@ const ManageBeneficiary = ({onOptionSelect}) => {
           
             {...register("banker", {
               required: {
-                value: true,
-                message: "Account number is required"
+                value: false,
+                
               }
             })}
             placeholder=''
@@ -352,6 +358,7 @@ const ManageBeneficiary = ({onOptionSelect}) => {
 
 
 <Box sx={{ height: 'auto', width: "100%", fontSize: 12, fontFamily: "Poppins" }}>
+
       <DataGrid sx={{fontSize: 8, fontFamily: 'Poppins'}}
       autoHeight
       autoPageSize

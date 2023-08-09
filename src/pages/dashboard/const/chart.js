@@ -22,7 +22,7 @@ const data = [
 ];
 
 export default function Chart() {
-  const theme = useTheme();
+  // const theme = useTheme();
 
   return (
     <React.Fragment>

@@ -4,6 +4,7 @@ import { randomInArray, randomNumberRange } from './funcs';
 
 // ----------------------------------------------------------------------
 
+
 export const _invoices = [...Array(20)].map((_, index) => ({
   id: _mock.id(index),
   invoiceNumber: `${17048 + index}`,

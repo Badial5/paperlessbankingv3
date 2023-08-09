@@ -5,12 +5,12 @@ import Slider from 'react-slick';
 import { styled, useTheme } from '@mui/material/styles';
 import { Box, Typography, Stack, MenuItem, IconButton } from '@mui/material';
 // utils
-import { fCurrency } from '../../../../utils/formatNumber';
+import { fCurrency } from '../../utils/formatNumber';
 // components
-import Image from '../../../../components/Image';
-import Iconify from '../../../../components/Iconify';
-import MenuPopover from '../../../../components/MenuPopover';
-import { CarouselDots } from '../../../../components/carousel';
+import Image from '../../components/Image';
+import Iconify from '../../components/Iconify';
+import MenuPopover from '../../components/MenuPopover';
+import { CarouselDots } from '../../components/carousel';
 
 // ----------------------------------------------------------------------
 

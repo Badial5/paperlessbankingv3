@@ -21,9 +21,9 @@ import {
   Slider as MuiSlider,
 } from '@mui/material';
 // utils
-import { fCurrency } from '../../../../utils/formatNumber';
+import { fCurrency } from '../../utils/formatNumber';
 // components
-import { CarouselArrows } from '../../../../components/carousel';
+import { CarouselArrows } from '../../components/carousel';
 
 // ----------------------------------------------------------------------
 

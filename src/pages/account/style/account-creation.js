@@ -89,10 +89,12 @@ font-size: 20px;
 line-height: 29px;
 text-align: center;
 font-family: 'Poppins', sans-serif;
-background: linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
+/* background: linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%); */
+color: "#00BFFF";
+background: "#00BFFF";
+/* -webkit-background-clip: text; */
+/* -webkit-text-fill-color: transparent; */
+/* background-clip: text; */
 /* text-fill-color: transparent; */
 `;
 
@@ -109,7 +111,8 @@ line-height: 16px;
 /* identical to box height, or 114% */
 text-align: center;
 /* Greyscale/#80 */
-color: #434344;
+/* color: #434344; */
+color: "#00BFFF";
 font-family: 'Poppins', sans-serif;
 `;
 

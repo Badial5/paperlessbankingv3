@@ -42,12 +42,18 @@ const AccountOfficer = () => {
         <a href={emailLink}>
           <ContactMailIcon 
           // fontSize='large'
-           sx={{color: "#9747FF", fontSize: 50 }}  />
+           sx={{
+            // color: "#9747FF", 
+            color: "#00BFFF",
+            fontSize: 50 }}  />
         </a>
 
         <a href={phoneNumberLink}>
           <ContactPhoneIcon 
-           sx={{color: "#9747FF", fontSize: 50 }}
+           sx={{
+            // color: "#9747FF",
+            color: "#00BFFF",
+            fontSize: 50 }}
           />
           </a>
 

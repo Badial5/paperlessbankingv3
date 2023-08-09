@@ -5,7 +5,7 @@ import ReactApexChart from 'react-apexcharts';
 // @mui
 import { Card, CardHeader, Box, TextField } from '@mui/material';
 // components
-import { BaseOptionChart } from '../../../../components/chart';
+import { BaseOptionChart } from '../../components/chart';
 
 // ----------------------------------------------------------------------
 

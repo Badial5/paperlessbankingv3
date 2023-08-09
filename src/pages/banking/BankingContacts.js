@@ -2,7 +2,7 @@
 import PropTypes from 'prop-types';
 import { Box, Card, Stack, Button, Avatar, Tooltip, Typography, CardHeader, IconButton } from '@mui/material';
 // components
-import Iconify from '../../../../components/Iconify';
+import Iconify from '../../components/Iconify';
 
 // ----------------------------------------------------------------------
 

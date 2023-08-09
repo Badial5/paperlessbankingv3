@@ -79,10 +79,11 @@ import { IdontHaveAccount } from '../auth/forgotPass/forgotPass.styles';
 
 
 //RESET PASSWORD API ENDPOINT
-const baseUrl = "https://api.inlakssolutions.com/accounts/v1/password-reset/"
+//Recently change it 
+// const baseUrl = "https://api.inlakssolutions.com/accounts/v1/password-reset/"
 
 
-
+const baseUrl = "http://api.inlakssolutions.com/accounts/v1/password-reset/"
 
 
 

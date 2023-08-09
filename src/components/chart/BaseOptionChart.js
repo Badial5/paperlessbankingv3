@@ -26,12 +26,19 @@ export default function BaseOptionChart() {
   return {
     // Colors
     colors: [
-      theme.palette.primary.main,
-      theme.palette.chart.yellow[0],
-      theme.palette.chart.blue[0],
-      theme.palette.chart.violet[0],
-      theme.palette.chart.green[0],
-      theme.palette.chart.red[0],
+      // theme.palette.primary.main,
+      // theme.palette.chart.yellow[0],
+      // theme.palette.chart.blue[0],
+      // theme.palette.chart.violet[0],
+      // theme.palette.chart.green[0],
+      // theme.palette.chart.red[0],
+
+      '#4caf50', // Green
+    '#f44336', // Red
+    '#2196f3', // Blue
+    '#ff9800', // Orange
+    '#9c27b0', // Purple
+    '#607d8b', // Grey
     ],
 
     // Chart
