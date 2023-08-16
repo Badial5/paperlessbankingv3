@@ -263,22 +263,21 @@ const passwordStrengthChange = (event) => {
   //   }
   // }
 
+
+
   const onSubmit = async (data) => {
     sessionStorage.setItem("email", data.email);
     console.log("Form Data: ", data);
-
     // data.preventDefault();
-  
     try {
-
-      
-
-
-      const response = await axios.post(baseUrl3, data);
+      const response = await axios.post(
+        // baseUrl3, 
+        // "https://api.inlakssolutions.com/accounts/v1/signup/",
+        "accounts/v1/signup/",
+        data);
       console.log("Form Submitted", response);
       console.log("Session Storage Email ", email);
      
-
       console.log('Before toast.success'); // Check if this log is printed in the console
       toast.success('We sent you an email, check and authenticate it');
       
@@ -526,7 +525,10 @@ const ErrorToast = () => toast(errorApi);
           objectFit: "cover",
         }}
       >
-        <GridLoader color="#00BFFF" size={25} />
+        <GridLoader 
+        // color="#00BFFF" 
+        color='#4991ff'
+        size={25} />
       </Box>
     );
   };
@@ -876,7 +878,11 @@ message: "Please enter a valid email address"
     <Grid item xs={12} sx={{display: "flex", justifyContent: "center", }}>
         <GlobalButton type='submit'
             // color="secondary"
-            sx={{ background: !isValid ? "#cecece" : 'linear-gradient(90deg, #00BFFF 0%, #00BFFF 53.42%, #00BFFF 103.85%)',}}
+            sx={{ background: !isValid ? "#cecece" : 
+            // 'linear-gradient(90deg, #00BFFF 0%, #00BFFF 53.42%, #00BFFF 103.85%)',
+            'linear-gradient(90deg, #4991ff 0%, #4991ff 53.42%, #4991ff 103.85%)',
+          
+          }}
             disabled={!isValid || isSubmitting}
             size="small"
             variant='contained'>
@@ -896,7 +902,9 @@ message: "Please enter a valid email address"
         <span style={{color: "#7833EE", 
       textDecoration: "underline"}}> Login</span>
         </SignupText> */}
-        👋🏾 Already have an account?  <span style={{color: "#00BFFF", 
+        👋🏾 Already have an account?  <span style={{
+          // color: "#00BFFF", 
+          color: "#4991ff",
       textDecoration: "underline", marginLeft: 3}}>{" Login"}</span>
     </GlobalLink>
 

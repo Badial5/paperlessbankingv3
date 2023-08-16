@@ -90,8 +90,10 @@ line-height: 29px;
 text-align: center;
 font-family: 'Poppins', sans-serif;
 /* background: linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%); */
-color: "#00BFFF";
-background: "#00BFFF";
+/* color: "#00BFFF";  */
+color: "#4991ff";
+/* background: "#00BFFF"; */
+background: "#4991ff";
 /* -webkit-background-clip: text; */
 /* -webkit-text-fill-color: transparent; */
 /* background-clip: text; */
@@ -112,7 +114,8 @@ line-height: 16px;
 text-align: center;
 /* Greyscale/#80 */
 /* color: #434344; */
-color: "#00BFFF";
+/* color: "#00BFFF"; */
+color: "#4991ff";
 font-family: 'Poppins', sans-serif;
 `;
 

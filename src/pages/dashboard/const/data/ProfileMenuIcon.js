@@ -41,7 +41,7 @@ import UnSubscribeDialog from './menu-data/UNSUBSCRIBE/UnSubscribeDialog';
 
 
 
-const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/logout/"
+const baseUrl = "https://api.inlakssolutions.com/accounts/v1/logout/"
 // const baseUrl = "/accounts/v1/logout/"
 
 
@@ -76,7 +76,7 @@ export default function AccountMenu({userName}) {
    //FOR LOGOUT API
    const handleLogout = async () => {
     try {
-      const response = await axios.post('https://banking-api.inlakssolutions.com/accounts/v1/logout/', {}, {withCredentials: true});
+      const response = await axios.post('https://api.inlakssolutions.com/accounts/v1/logout/', {}, {withCredentials: true});
       // Perform any necessary actions after successful logout
       console.log(response.data); // Example: Log the response data
   
@@ -413,7 +413,7 @@ const handleCloseSubscribe = () => {
 
 
         <Box sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-      <Typography sx={{fontSize: 14, color: '#9747FF'}}>Welcome back</Typography>
+      <Typography sx={{fontSize: 14, color: '#4991ff'}}>Welcome back</Typography>
       <Box><Typography sx={{fontSize: 10, ml: 1, fontWeight: 600}}>
         {/* Joseph Smith  */}
         {userName ?  userName : "User"}

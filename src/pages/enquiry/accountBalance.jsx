@@ -154,7 +154,7 @@ const AccountBalance = () => {
     {
       field: 'accountNumber',
       headerName: 'Account Number',
-      width: 100,
+      width: 150,
       editable: false,
       
     },
@@ -285,7 +285,7 @@ const AccountBalance = () => {
               textAlign: "center",
               "& .MuiOutlinedInput-root.Mui-focused": {
                 "& > fieldset": {
-                  borderColor: "#7833EE"
+                  borderColor: "#4991ff"
                 }
               },
               [`& fieldset`]:{

@@ -89,6 +89,8 @@ import AccountSettings2 from '../../AccountSettings/AccountSettings';
 import BankingDashboard from "../../@dashboard/general/banking/index"
 import GeneralBanking from '../../@dashboard/general/banking/BankingDashbord';
 import DashboardPage from '../dashboardProgress';
+import NewBillPayment from '../../banks/payments/New_Bill/NewBill';
+import PaymentHistory from '../../banks/payments/History/Payment_history';
 
 
 
@@ -161,7 +163,8 @@ const MainContent = ({ title, children, selectedOption }) => {
 
         // "#9747FF"
         //blue color
-        "#00BFFF",
+        // "#00BFFF",
+        "#4991ff"
         // `linear-gradient(180deg, #FFD572 0%, #FEBD38 100%)`
       ],
       
@@ -361,6 +364,17 @@ const MainContent = ({ title, children, selectedOption }) => {
 
 
 
+// +++++++++++++++++++++++ PAYMENT ++++++++++++++++++++++++++++++++++++++
+
+              case 'new-bill-paymment':
+                content = <NewBillPayment />;
+               break;
+
+
+               case 'payment-history':
+                content = <PaymentHistory />;
+               break;
+
 
 
                 // ========================== DEBIT CARD SERVICE =================================== 
@@ -471,7 +485,7 @@ const MainContent = ({ title, children, selectedOption }) => {
          }}>
 
             <Box sx={{display: "flex", justifyContent: "space-between"}}>
-              <Typography sx={{fontSize: 8, border: "1px solid black", borderRadius: 2,
+              <Typography sx={{fontSize: 8, border: "1px solid #4991ff", borderRadius: 2,
             mr: 20,  p: 1}}>
                 Retail Banking
               </Typography>

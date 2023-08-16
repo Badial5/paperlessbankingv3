@@ -24,13 +24,21 @@ import axios from 'axios';
 
 // ----------------------------------------------------------------------
 
-const axiosInstance = axios.create({
-  baseURL: "https://banking-api.inlakssolutions.com/",
-});
+    //Example 2
 
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  (error) => Promise.reject((error.response && error.response.data) || 'Something went wrong')
-);
+// const axiosInstance = axios.create({
+//   baseURL: "https://api.inlakssolutions.com/",
+//   // baseURL: "https://api.inlakssolutions.com/accounts/v1/signup/",
+// });
 
-export default axiosInstance;
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   (error) => Promise.reject((error.response && error.response.data) || 'Something went wrong')
+// );
+
+// export default axiosInstance;
+
+
+// Example 3 
+
+axios.defaults.baseURL = "https://api.inlakssolutions.com/"

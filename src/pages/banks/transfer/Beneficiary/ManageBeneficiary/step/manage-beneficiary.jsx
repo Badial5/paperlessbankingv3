@@ -299,7 +299,8 @@ const ManageBeneficiary = ({onOptionSelect}) => {
 
           <Button variant="contained" sx={{height: 30, 
           // background: "#7039d1", 
-          background: "#00BFFF",
+          // background: "#00BFFF",
+          background: "#4991ff",
           "&:hover": {
             // background: "#7833EE",
             background: "#00BFFF",

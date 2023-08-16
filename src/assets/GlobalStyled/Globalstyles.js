@@ -86,7 +86,8 @@ export const GlobalPageHeader = styled(Typography)({
     // backgroundImage:
     //   'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',
     // backgroundClip: 'text',
-     background: "#00BFFF",
+    //  background: "#00BFFF",
+    background: "#4991ff",
     '-webkit-background-clip': 'text', // for Safari
     color: 'transparent',
   });

@@ -46,7 +46,7 @@ import AccountMenu from './data/ProfileMenuIcon';
 
 
 // const baseUrl = "/accounts/v1/logout/"
-const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/logout/"
+const baseUrl = "https://api.inlakssolutions.com/accounts/v1/logout/"
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -223,7 +223,8 @@ const RightSideMenu = ({onOptionSelect}) => {
           }} 
           sx={{
             // background: "#9747FF",
-            background: "#00BFFF",
+            // background: "#00BFFF",
+            background: "#4991ff",
           // borderLeft: "5px solid #1F8EA7",
           // lineHeight: "1px",
           borderRadius: 1, color: "#fff",
@@ -314,7 +315,8 @@ const RightSideMenu = ({onOptionSelect}) => {
           }} 
         sx={{
           // background: "#9747FF", 
-          background: "#00BFFF",
+          // background: "#00BFFF",
+          background: "#4991ff",
           color: "#fff", mt: 1, height: "2rem", 
         borderRadius: 1}}>
           <ListItemIcon>
@@ -323,9 +325,9 @@ const RightSideMenu = ({onOptionSelect}) => {
         </ListItem>
 
         <Box style={{fontSize: 12, marginTop: 20, fontFamily: "Poppins", }}>
-          <Typography style={{}}>Name:  <span style={{marginLeft: 10, color: "#9747FF", fontSize: 12, my: "auto"  }}>Joseph Smith</span> </Typography> 
-          <Typography>Email: <span style={{marginLeft: 10, color: "#9747FF", fontSize: 12 }}>josephsmith@domain.com</span> </Typography>
-          <Typography>Phone: <span style={{marginLeft: 10, color: "#9747FF", fontSize: 12 }}>+233557000000</span> </Typography>
+          <Typography style={{}}>Name:  <span style={{marginLeft: 10, color: "#4991ff", fontSize: 12, my: "auto"  }}>Joseph Smith</span> </Typography> 
+          <Typography>Email: <span style={{marginLeft: 10, color: "#4991ff", fontSize: 12 }}>josephsmith@domain.com</span> </Typography>
+          <Typography>Phone: <span style={{marginLeft: 10, color: "#4991ff", fontSize: 12 }}>+233557000000</span> </Typography>
         </Box>
         
         

@@ -18,7 +18,8 @@ export const options = {
         text: "Deposit and Withdrawal chart (One Year Period)",
         font: "bold",
         // color: "#9747FF"
-        color: "#00BFFF",
+        // color: "#00BFFF",
+        color: "#4991ff",
       }
     }
   }

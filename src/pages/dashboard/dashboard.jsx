@@ -45,14 +45,15 @@ const UserDashboard = () => {
   })
 
   const [name, setName] = useState("")
+  let userId = 0
 
 
   // useEffect(() => {
   //   (
   //     async () => {
-  //       const {data} = await axios.get("https://api.inlakssolutions.com/accounts/v1/users/")
+  //       const response = await axios.get("https://api.inlakssolutions.com/accounts/v1/users/")
 
-  //       setName(data.first_name)
+  //       setName(response.data.first_name)
         
   //     }
   //   )();
@@ -67,7 +68,31 @@ const UserDashboard = () => {
 
 
   // REACT SPINNER ANIMATION ===========================+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-const [loadingInProgress, setLoadingInProgress] = useState(false);
+
+
+  
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await axios.get(`https://api.inlakssolutions.com/accounts/v1/${userId}/`);
+        setName(response.data.first_name);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchUserData();
+  }, [userId]);
+
+
+
+
+
+
+
+
+
+  const [loadingInProgress, setLoadingInProgress] = useState(false);
 
 
 
@@ -111,7 +136,10 @@ useEffect(() => {
           objectFit: "cover",
         }}
       >
-        <GridLoader color="#00BFFF" size={25} />
+        <GridLoader 
+        // color="#00BFFF" 
+        color= "#4991ff"
+        size={25} />
       </Box>
     );
   };

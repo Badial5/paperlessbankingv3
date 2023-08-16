@@ -215,7 +215,11 @@ useEffect(() => {
       //   phoneNumber: "your phone number"
       // });
 
-      const res = await axios.post(resendOtpUrl, {
+      const res = await axios.post(
+        // resendOtpUrl,
+        "/accounts/v1/resend-activation-otp/",
+        
+        {
         email: storedEmail,
         
       } );
@@ -360,17 +364,20 @@ const onSubmit = async (data) => {
   console.log("Form Data: ", data);
 
   try {
-        const response = await axios.post(activateAccount, {
+        const response = await axios.post(
+          // activateAccount,
+          "/accounts/v1/activate-account/",
+           {
           email: storedEmail,
           otp: data.otp,
-        }, { withCredentials: true } )
+        }, 
+        // { withCredentials: true } 
+        )
        
         // setValue("otp", data.datas)
 
 
         axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-
-    
 
     console.log("FORM SUBMITTED: ", response)
 
@@ -379,9 +386,7 @@ const onSubmit = async (data) => {
     reset();
     console.log('Before toast.success'); // Check if this log is printed in the console
     toast.success("Thank You for authentication")
-    
     navigate("/user-dashboard");
-
 
   } catch (error) {
 
@@ -423,7 +428,10 @@ const onSubmit = async (data) => {
         objectFit: "cover",
       }}
     >
-      <GridLoader color="#8F45F2" size={25} />
+      <GridLoader 
+      // color="#00BFFF" 
+      color='#4991ff'
+      size={25} />
     </Box>
   );
 };
@@ -673,7 +681,11 @@ flexDirection: "column", alignItems: "center",}}>
 <Grid item xs={12} sx={{display: "flex",  mb: 5, ml: 'auto', mr: 'auto' }}>
         <GlobalButton type='submit'
             // color="secondary"
-            sx={{ background: !isValid ? "#cecece" : 'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)',}}
+            sx={{ background: !isValid ? "#cecece" : 
+            // 'linear-gradient(90deg, #00BFFF 0%, #00BFFF 53.42%, #00BFFF 103.85%)',
+            'linear-gradient(90deg, #4991ff 0%, #4991ff 53.42%, #4991ff 103.85%)',
+          
+          }}
             disabled={ !isValid}
             size="small"
             variant='contained' 

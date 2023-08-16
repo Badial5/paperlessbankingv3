@@ -12,7 +12,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import { useNavigate, useLocation, Link, NavLink } from 'react-router-dom';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { AppBar, Box, Drawer, IconButton, ListItemButton, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
+import { AppBar, Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, Drawer, IconButton, ListItemButton, Stack, Toolbar, Tooltip, Typography } from '@mui/material';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import  { tooltipClasses } from '@mui/material/Tooltip';
@@ -66,6 +66,24 @@ import Image5 from "./asset/images/Image5.jpg"
 
 
 
+//DIALOGS
+
+import ChangePasswordDialog from './data/menu-data/PASSWORD/changePasswordDialog';
+
+import ChangePinDialog from './data/menu-data/PIN/changeSecretPinDialog';
+
+import ForgotSecretPinDialog from './data/menu-data/FORGOTPIN/ForgotSecretPinDialog';
+
+import ConfirmSecurityAnswer from './data/menu-data/SECURITYANSWER/ConfirmSecurityA';
+
+import TinUpdateDialog from './data/menu-data/TINUPDATE/FORGOTPIN/TINUpdateDialog';
+
+import UnSubscribeDialog from './data/menu-data/UNSUBSCRIBE/UnSubscribeDialog';
+
+
+
+
+
 const LeftAppBar = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -109,7 +127,33 @@ const LeftSideMenu = ({onOptionSelect, userName}) => {
 
 
 
+
+  
+  //STATES FOR DIALOGS
+  const [openDialog, setOpenDialog] = useState(false);
+
+  const [openPasswordDialog, setOpenPasswordDialog] = useState(false);
+
+
+  const [openPinDialog, setOpenPinDialog] = useState(false)
+
+  //Forgot Secret Pin
+  const [openFSPDialog, setOpenFSPDialog] = useState(false)
+
+  //Forgot Security Answer
+  const [openForgotSecurityAnswer, setOpenForgotSecurityAnswer] = useState(false)
+
+  //TIN UPDATE
+  const[openTinUpdate, setOpenTinUpdate] = useState(false)
+
+  //UNSUBSCRIBE UPDATE
+  const[openUnsubscribe, setOpenUnsubscribe] = useState(false)
+
+
+
   const [selectedOption, setSelectedOption] = useState('default');
+
+  
 
 
   //The width of the drawer
@@ -195,7 +239,7 @@ const drawerWidth = 240
   //FOR LOGOUT API
   const handleLogout = async () => {
     try {
-      const response = await axios.get('https://banking-api.inlakssolutions.com/accounts/v1/logout/');
+      const response = await axios.get('/accounts/v1/logout/');
       // Perform any necessary actions after successful logout
       console.log(response.data); // Example: Log the response data
   
@@ -230,6 +274,67 @@ const drawerWidth = 240
   const handleLogOut = async (data) => {
     
   }
+
+
+  //FOR OTHER OPTIONS MENUS
+
+  //CHANGE PASSWORD
+  const handleOpenPasswordDialog = () => {
+    setOpenPasswordDialog(true);
+  };
+
+  const handleClosePasswordDialog = () => {
+    setOpenPasswordDialog(false);
+  };
+
+  //CHANGE SECURITY PIN
+  const handleOpenPinDialog = () => {
+    setOpenPinDialog(true);
+  };
+
+  const handleClosePinDialog = () => {
+    setOpenPinDialog(false);
+  };
+
+
+  //FORGOT SECURITY PIN
+  const handleOpenFSPDialog = () => {
+    setOpenFSPDialog(true)
+  }
+
+  const handleCloseFSPDialog = () => {
+    setOpenFSPDialog(false)
+  }
+
+
+  // FORGOT SECURITY ANSWER
+ const handleOpenForgotSecurityAnswer = () => {
+  setOpenForgotSecurityAnswer(true)
+ }
+
+ const handleCloseForgotSecurityAnswer = () => {
+  setOpenForgotSecurityAnswer(false)
+ }
+
+
+//  TIN HANDLERS 
+const handleOpenTin = () => {
+  setOpenTinUpdate(true)
+}
+
+const handleCloseTin = () => {
+  setOpenTinUpdate(false)
+}
+
+
+//  UNSUBSCRIBE HANDLER
+const handleOpenSubscribe = () => {
+  setOpenUnsubscribe(true)
+}
+
+const handleCloseSubscribe = () => {
+  setOpenUnsubscribe(false)
+}
 
 
 
@@ -308,17 +413,17 @@ const drawerWidth = 240
 
                   {/* Center AppBar Contents */}
                   <Box sx={{display: 'flex', marginLeft: 30,  fontFamily: "Poppins", alignItems: 'center'}}>
-                    <Box sx={{border: "1px solid #9747FF", paddingLeft: 2, paddingRight: 2, borderRadius: 50, }}>
-                  <Typography sx={{fontWeight: 200, fontSize: 9,}}>Retail Banking </Typography>
+                    <Box sx={{border: "1px solid #4991ff", paddingLeft: 2, paddingRight: 2, borderRadius: 50, }}>
+                  <Typography sx={{fontWeight: 200, fontSize: 9, color: "#4991ff"}}>Retail Banking </Typography>
                   </Box>
 
 
                   <Box sx={{display: 'flex',  marginLeft: 5, alignItems: 'center', width: "auto"}}>
-                    <LocationOnIcon fontSize='small' sx={{color: '#9747FF', mr: 1}} />
+                    <LocationOnIcon fontSize='small' sx={{color: '#4991ff', mr: 1}} />
                     <Box sx={{display: 'flex', flexDirection: 'column', }}>
                     <Typography sx={{fontSize: 10, fontWeight: 300}}>197.221.82.30</Typography>
 
-                    <Typography sx={{fontSize: 10, fontWeight: 300, color: '#9747FF'}}>Last Login IP</Typography>
+                    <Typography sx={{fontSize: 10, fontWeight: 300, color: '#4991ff'}}>Last Login IP</Typography>
 
                     </Box>
                   </Box>
@@ -328,11 +433,11 @@ const drawerWidth = 240
 
 
                   <Box sx={{display: 'flex',  marginLeft: 5, alignItems: 'center'}}>
-                    <AccessTimeIcon fontSize='small' sx={{color: '#9747FF', mr: 1}} />
+                    <AccessTimeIcon fontSize='small' sx={{color: '#4991ff', mr: 1}} />
                     <Box sx={{display: 'flex', flexDirection: 'column', }}>
-                    <Typography sx={{fontSize: 10, fontWeight: 300}}>19-Jun-2023 04 09 PM</Typography>
+                    <Typography sx={{fontSize: 10, fontWeight: 300, color: "#4991ff"}}>19-Jun-2023 04 09 PM</Typography>
 
-                    <Typography sx={{fontSize: 10, fontWeight: 300, color: '#9747FF'}}>Last Login Date</Typography>
+                    <Typography sx={{fontSize: 10, fontWeight: 300, color: '#4991ff'}}>Last Login Date</Typography>
 
                     </Box>
                   </Box>
@@ -374,7 +479,8 @@ const drawerWidth = 240
           }}
           sx={{
             // background: "#9747FF",
-            background: "#00BFFF",
+            // background: "#00BFFF",
+            background: "#4991ff",
           // borderLeft: "5px solid #1F8EA7",
           // lineHeight: "1px",
           borderRadius: 1, color: "#fff",
@@ -382,7 +488,8 @@ const drawerWidth = 240
           "&.MuiButtonBase-root:hover": {
             // bgcolor: "red"
             // background: "#9747FF",
-            background: "#00BFFF",
+            // background: "#00BFFF",
+            background: "#4991ff",
             // background:"#4166F5",
             color: "#ffffff"
           },  }}
@@ -432,7 +539,10 @@ const drawerWidth = 240
             >
               <ListItemIcon>
                 <CorporateFareIcon 
-                sx={{color: "#00BFFF",}} 
+                sx={{
+                  // color: "#00BFFF",
+                  color: "#4991ff"
+                }} 
                 // sx={{color: "#9747FF"}}
                 />
               </ListItemIcon>
@@ -452,7 +562,10 @@ const drawerWidth = 240
               }}
             >
               <ListItemIcon>
-                <AssignmentIcon sx={{color: "#00BFFF",}} />
+                <AssignmentIcon sx={{
+                  // color: "#00BFFF",
+                  color: "#4991ff"
+                  }} />
               </ListItemIcon>
               <ListItemText primary="Exchange Rates" />
             </ListItemButton>
@@ -497,7 +610,10 @@ const drawerWidth = 240
               }}
             >
               <ListItemIcon>
-                <Man3Icon sx={{color: "#00BFFF",}} />
+                <Man3Icon sx={{
+                  // color: "#00BFFF",
+                  color: "#4991ff"
+                  }} />
               </ListItemIcon>
               <ListItemText primary="Account Officer Details" />
             </ListItemButton>
@@ -564,7 +680,8 @@ const drawerWidth = 240
               <ListItemIcon>
                 <CreateIcon sx={{
                   // color: "#9747FF"
-                  color:   "#00BFFF",
+                  // color:   "#00BFFF",
+                  color: "#4991ff",
                   }} />
               </ListItemIcon>
               <ListItemText primary="Create Account" />
@@ -986,7 +1103,7 @@ const drawerWidth = 240
         {/* =======================PAYMENT SERVICE =================================================== */}
             {/* Payment Service  */}
             <ListItemButton
-          selected={location.pathname.includes('/transfer')}
+          selected={location.pathname.includes('/payment')}
           onClick={handleClick5}
           
           sx={{ pl: 1,   mt: 1, fontSize: 12,}}>
@@ -1000,35 +1117,35 @@ const drawerWidth = 240
         <Collapse in={open5} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItemButton
-              selected={location.pathname === '/account-creation'}
+              selected={location.pathname === '/payment'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
               sx={{pl:3, fontSize: 12,}}
               onClick={() => {
                 // navigate('/account-creation');
-                handleOptionClick('account-creation');
+                handleOptionClick('new-bill-paymment');
               }}
               
             >
               <ListItemIcon>
                 <CreateIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Transfer" />
+              <ListItemText primary="New Bill" />
             </ListItemButton>
 
             <ListItemButton
-              selected={location.pathname === '/account-officer'}
+              selected={location.pathname === '/payment'}
               // sx={{ pl: 4 }}
               sx={{pl:3, fontSize: 12,}}
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
-                handleOptionClick('account-officer');
+                handleOptionClick('payment-history');
               }}
             >
               <ListItemIcon>
                 <AssignmentIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Account Officer Details" />
+              <ListItemText primary="Payment History" />
             </ListItemButton>
 
           </List>
@@ -1310,42 +1427,140 @@ const drawerWidth = 240
           {open9 ? <ExpandLessIcon /> : <ExpandMoreIcon />}
         </ListItemButton>
 
+
+{/* ======================== collapsible option +++++++++++++++++++++++++++++++++++++++++++++ */}
+
         <Collapse in={open9} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItemButton
               selected={location.pathname === '/account-creation'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
               sx={{pl:3, fontSize: 12,}}
-              onClick={() => {
-                // navigate('/account-creation');
-                handleOptionClick('account-creation');
-              }}
+              // onClick={() => {
+              //   // navigate('/account-creation');
+              //   handleOptionClick('account-creation');
+              // }}
+
+              onClick={handleOpenTin}
               
             >
               <ListItemIcon>
                 <CreateIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Transfer" sx={{fontSize: 12,}} />
+              <ListItemText primary="Tin Update" sx={{fontSize: 12,}} />
             </ListItemButton>
+
+
+
+            <Dialog open={openTinUpdate} onClose={handleOpenTin}>
+        {/* <DialogTitle>Un-Subscribe Confirmation</DialogTitle> */}
+        {/* <DialogContent> */}
+
+         {/* CHANGE PASSWORD DIALOG  */}
+       <TinUpdateDialog openDialog={openTinUpdate} handleClose={handleCloseTin}  />
+
+            </Dialog>
+
+
+
+
 
             <ListItemButton
               selected={location.pathname === '/account-officer'}
               // sx={{ pl: 4 }}
               sx={{pl:3, fontSize: 12,}}
               // onClick={handleAccountOfficerClick}
-              onClick={() => {
-                // navigate('/account-creation');
-                handleOptionClick('account-officer');
-              }}
+              // onClick={() => {
+              //   // navigate('/account-creation');
+              //   handleOptionClick('account-officer');
+              // }}
+              onClick={handleOpenFSPDialog}
             >
               <ListItemIcon>
                 <AssignmentIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Account Officer Details" />
+              <ListItemText primary="Change Secret PIN" />
             </ListItemButton>
+
+
+            <Dialog open={openFSPDialog} onClose={handleOpenFSPDialog}>
+        <DialogTitle>Un-Subscribe Confirmation</DialogTitle>
+        {/* <DialogContent> */}
+
+         {/* CHANGE PASSWORD DIALOG  */}
+       <ForgotSecretPinDialog openDialog={openFSPDialog} handleClose={handleCloseFSPDialog}  />
+
+            </Dialog>
+
+
+
+
+
+
+
+
+            <ListItemButton
+              selected={location.pathname === '/account-creation'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, fontSize: 12,}}
+              // onClick={() => {
+              //   // navigate('/account-creation');
+              //   handleOptionClick('account-creation');
+              // }}
+              onClick={handleOpenPasswordDialog}
+              
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Change Password" sx={{fontSize: 12,}} />
+            </ListItemButton>
+
+            <Dialog open={openPasswordDialog} onClose={handleOpenPasswordDialog}>
+        <DialogTitle>Un-Subscribe Confirmation</DialogTitle>
+        {/* <DialogContent> */}
+
+         {/* CHANGE PASSWORD DIALOG  */}
+       <ChangePasswordDialog openDialog={openPasswordDialog} handleClose={handleClosePasswordDialog}  />
+
+            </Dialog>
+
+
+
+
+
+
+{/* =========================== UNSUBSCRIBE CHANGE =================================  */}
+            <ListItemButton
+              selected={location.pathname === '/account-creation'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, fontSize: 12,}}
+              onClick={handleOpenSubscribe}
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Un-Subscribe" sx={{fontSize: 12,}} />
+            </ListItemButton>
+
+            <Dialog open={openUnsubscribe} onClose={handleOpenSubscribe}>
+        <DialogTitle>Un-Subscribe Confirmation</DialogTitle>
+        {/* <DialogContent> */}
+
+         {/* TIN UPDATE DIALOG  */}
+       <UnSubscribeDialog openDialog={openUnsubscribe} handleClose={handleCloseSubscribe}  />
+
+            </Dialog>
 
           </List>
         </Collapse>
+
+
+
+
+{/* =+++++++++++++++++++++++++++++++++++++ END OF OTHER SERVICE ++++++++++++++++++++++++++++++++++++ */}
+
+
 
 
 

@@ -258,85 +258,97 @@ const passwordStrengthChange = (e) => {
   // const access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwNTE4ODg2LCJpYXQiOjE2OTAyNTk2ODYsImp0aSI6IjY0MmYxNGYyMWFjMDQ3NDQ4MmRhZjk2ZjUwYjc5MzUzIiwidXNlcl9pZCI6Nn0.FJ_LIbrrMvNK7RxB1iVzkwqNQTyV5OLOmGuHWaIt79M';
 
 
-  // const onSubmit = async (data) => {
-  //   sessionStorage.setItem("email", data.email);
-  //   console.log("Form Data: ", data)
-   
-  //   try {
-  //     // const { data } = await axios.post(baseUrl, data)
-  //     const response = await axios.post(baseUrl3, data, {withCredentials: true})
-  //     // const response = await axios.post(baseUrl, data, {withCredentials: true})
-  //     // const newResponse = response.data 
-  //     // console.log(newResponse)
-
-  //     console.log("Response Data: ", response.data)
-  
-  //     console.log("Session Storage Email ", email)
-
-  //     // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data['token']}`
-
-  //     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-    
- 
-      
-  //     reset()
-  //     navigate("/user-dashboard")
-  
-   
-  //   } catch (error) {
-  //     // setError(error.response.data)
-  
-  //     setErrorApi(error.response.data);
-  //     console.log("Call to the API returns: ", errorApi);
-      
-
-
-  //     const errorMessage = error.message 
-  //     console.log("Error MEssage: ", errorMessage)
-
-
-
-  //     Object.values(errorApi).forEach(errors => {
-  //       errors.forEach(errorMessage => {
-  //         toast.error(errorMessage); // Display each error message using toast.error()
-
-  //         // console.log("Error inside the Inner ForEach: ", errorMessage )
-  //       });
-  //     });
-  //   }
-  // }
-
-
   const onSubmit = async (data) => {
     sessionStorage.setItem("email", data.email);
-    console.log("Form Data: ", data);
-    
+    console.log("Form Data: ", data)
+   
     try {
-      const response = await axios.post(baseUrl3, data, { withCredentials: true });
-      console.log("Response Data: ", response.data);
-  
-      // Assuming 'response.data.email' contains the email value from the response
-      const email = response.data.email;
-      console.log("Session Storage Email ", email);
-  
+      // const { data } = await axios.post(baseUrl, data)
+      const response = await axios.post(
+        // baseUrl3,
+        "accounts/v1/login/",
+         data, 
+         {withCredentials: true}
+         )
+      console.log("Session Storage Email ", email)
+
+      // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data['token']}`
+
       axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+    
+      reset()
+      navigate("/user-dashboard")
   
-      reset();
-      navigate("/user-dashboard");
+   
     } catch (error) {
+      // setError(error.response.data)
+      
+      console.log("error.response.data: ", error.response.data)
       setErrorApi(error.response.data);
       console.log("Call to the API returns: ", errorApi);
-  
-      const errorMessage = error.message;
-      console.log("Error Message: ", errorMessage);
-  
+      
+
+      const errorMessage = error.message 
+      console.log("Error MEssage: ", errorMessage)
+
       Object.values(errorApi).forEach(errors => {
         errors.forEach(errorMessage => {
-          toast.error(errorMessage);
+          toast.error(errorMessage); // Display each error message using toast.error()
+
+          // console.log("Error inside the Inner ForEach: ", errorMessage )
         });
       });
     }
   }
+
+
+  // const onSubmit = async (data) => {
+  //   sessionStorage.setItem("email", data.email);
+  //   console.log("Form Data: ", data);
+    
+  //   try {
+  //     const response = await axios.post(
+  //       // baseUrl3,
+  //       "accounts/v1/login/",
+  //       data, { withCredentials: true });
+  //     console.log("Response Data: ", response.data);
+  
+  //     // Assuming 'response.data.email' contains the email value from the response
+  //     const email = response.data.email;
+  //     console.log("Session Storage Email ", email);
+  
+  //     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+  
+  //     reset();
+  //     navigate("/user-dashboard");
+
+
+  //   } catch (error) {
+  //     setErrorApi(error.response.data);
+  //     console.log("Call to the API returns: ", errorApi);
+  
+  //     const errorMessage = error.message;
+  //     console.log("Error Message: ", errorMessage);
+  
+  //     // Object.values(errorApi).forEach(errors => {
+  //     //   errors.forEach(errorMessage => {
+  //     //     toast.error(errorMessage);
+  //     //   });
+  //     // });
+
+  //     if (errorApi) {
+  //       Object.values(errorApi).forEach(errors => {
+  //         errors.forEach(errorMessage => {
+  //           toast.error(errorMessage);
+  //         });
+  //       });
+  //     } else {
+  //       // Handle the case when errorApi is undefined or null
+  //       console.error("errorApi is undefined or null");
+  //     }
+      
+  //   }
+  // }
   
 
 
@@ -385,6 +397,8 @@ const passwordStrengthChange = (e) => {
 
 
   //REACT SPINNER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  
+  
   const Spinner = () => {
     return (
       <Box
@@ -400,7 +414,10 @@ const passwordStrengthChange = (e) => {
           objectFit: "cover",
         }}
       >
-        <GridLoader color="#00BFFF" size={25} />
+        <GridLoader 
+        // color="#00BFFF" 
+        color='#4991ff'
+        size={25} />
       </Box>
     );
   };

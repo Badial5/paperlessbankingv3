@@ -44,7 +44,8 @@ const AccountOfficer = () => {
           // fontSize='large'
            sx={{
             // color: "#9747FF", 
-            color: "#00BFFF",
+            // color: "#00BFFF",
+            color: "#4991ff",
             fontSize: 50 }}  />
         </a>
 
@@ -52,7 +53,8 @@ const AccountOfficer = () => {
           <ContactPhoneIcon 
            sx={{
             // color: "#9747FF",
-            color: "#00BFFF",
+            // color: "#00BFFF",
+            color: "#4991ff",
             fontSize: 50 }}
           />
           </a>

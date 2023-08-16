@@ -57,7 +57,7 @@ const UnSubscribeDialog = ({ openDialog, handleClose, handleOpen }) => {
         PaperProps={{ sx: { borderRadius: 5 } }}
       >
         <Paper sx={{ backgroundColor: '#f5f5f5', width: '30vw', maxWidth: '600px', margin: '0 auto' }}>
-          <DialogTitle textAlign='center' sx={{ fontFamily: 'Poppins', backgroundColor: 'rgba(151, 71, 255, 0.5)', color: 'black', fontSize: 18 }}>
+          <DialogTitle textAlign='center' sx={{ fontFamily: 'Poppins', backgroundColor: 'RGBA(73, 145, 255, 0.5)', color: 'black', fontSize: 18 }}>
           Un-Subcribe from Online Banking
           </DialogTitle>
           <hr />
@@ -74,7 +74,7 @@ const UnSubscribeDialog = ({ openDialog, handleClose, handleOpen }) => {
                 <Tooltip title="Once you submit this request, you will no longer have access to online banking"  TransitionComponent={Zoom}
                   TransitionProps={{ timeout: 2000 }} placement='top' followCursor >
 
-                <ContactSupportIcon fontSize='large' sx={{color: '#9747FF', mx: 'auto'}} />
+                <ContactSupportIcon fontSize='large' sx={{color: '#4991ff', mx: 'auto'}} />
                 </Tooltip>
 
                 </Box>
@@ -90,7 +90,7 @@ const UnSubscribeDialog = ({ openDialog, handleClose, handleOpen }) => {
           <hr />
 
           <DialogActions sx={{ paddingRight: 5 }}>
-            <Button variant='outlined' color='secondary' onClick={handleClose}>Close</Button>
+            <Button variant='outlined' color='error' onClick={handleClose}>Close</Button>
 
             <Button variant='outlined' color='info' onClick={handleSaveChanges}>Save Request</Button>
           </DialogActions>
