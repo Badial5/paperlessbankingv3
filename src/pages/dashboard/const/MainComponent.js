@@ -4,6 +4,9 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { Dashboard } from '@mui/icons-material';
 
+//DASHBOARD MAIN
+import DashboardLayout from "../../../layouts/dashboard/index"
+
 
 import AccountCreation from '../../account/account-creation';
 import AccountOfficer from "../../account/account-officer"
@@ -91,6 +94,21 @@ import GeneralBanking from '../../@dashboard/general/banking/BankingDashbord';
 import DashboardPage from '../dashboardProgress';
 import NewBillPayment from '../../banks/payments/New_Bill/NewBill';
 import PaymentHistory from '../../banks/payments/History/Payment_history';
+
+
+//MY LOANS
+import MyLoan from '../../banks/Loans/MyLoans/MyLoan';
+import LoanRequestHistory from '../../banks/Loans/LoanRequestHistory/LoanRequestHistory';
+import LoanSnapCash from '../../banks/Loans/SnapCash/LoanSnapCash';
+import LoanManagement from '../../banks/Loans/LoanManagement/LoanManagement';
+import LoanRequest from '../../banks/Loans/LoanRequest/LoanRequest';
+import LoanCalculator from '../../banks/Loans/LoanCalculator/LoanCalculator';
+import TBill from '../../Investment/TBill/TBill';
+import FixedDeposit from '../../Investment/FixedDeposit/FixedDeposit';
+import SuperSaveRequest from '../../Investment/SuperSave/SuperSaveRequest';
+import MyInvestment from '../../Investment/MyInvestment/MyInvestment';
+import InvestmentRequestHistory from '../../Investment/InvestmentRequestHistory/InvestmentRequestHistory';
+import DashboardMainPage from '../DashboardMain';
 
 
 
@@ -416,6 +434,76 @@ const MainContent = ({ title, children, selectedOption }) => {
                 case 'account-settings':
                   content = <AccountSettings2 />;
                  break;
+
+
+
+
+
+            // +++++++++++++++++++++ LOAN SERVICE COMPONENTS ===================== 
+
+            case 'myloan':
+                  content = <MyLoan />;
+                 break;
+
+
+
+                 case 'loanrequest-history':
+                  content = <LoanRequestHistory />;
+                 break;
+
+
+                 case 'loansnapcash':
+                  content = <LoanSnapCash />;
+                 break;
+
+
+                 case 'loanmanagement':
+                  content = <LoanManagement />;
+                 break;
+
+
+                 case 'loanrequest':
+                  content = <LoanRequest />;
+                 break;
+
+
+                 case 'loancalculator':
+                  content = <LoanCalculator />;
+                 break;
+
+
+
+
+
+
+
+// ++++++++++++++++++++++++++ INVESTMENT ++++++++++++++++++++++++++++
+
+                  case 'tbill':
+                    content = <TBill />;
+                  break;
+
+
+                  case 'fixed-deposit':
+                    content = <FixedDeposit />;
+                  break;
+
+                  case 'supersave-request':
+                    content = <SuperSaveRequest />;
+                  break;
+
+                  case 'my-investment':
+                    content = <MyInvestment />;
+                  break;
+
+                  case 'investment-request-history':
+                    content = <InvestmentRequestHistory />;
+                  break;
+
+
+
+
+
   
 
 
@@ -435,7 +523,14 @@ const MainContent = ({ title, children, selectedOption }) => {
     default:
       content = 
       <div style={{width: "100%"}}>
-      <BarChart chartData={userTransaction} />  
+      {/* <BarChart chartData={userTransaction} />   */}
+
+      {/* <DashboardHomePage /> */}
+
+      {/* <DashboardMainPage /> */}
+
+      <DashboardLayout />
+
       {/* <DashboardPage  />  */}
       </div>
       break;

@@ -1,4 +1,11 @@
 import { useState } from 'react';
+
+
+//REDUX
+import { useDispatch, useSelector } from 'react-redux';
+import { clearToken } from '../../../Redux/reducers/user';
+
+
 import { styled } from '@mui/material/styles';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -114,6 +121,11 @@ const BootstrapTooltip = styled(({ className, ...props }) => (
 const LeftSideMenu = ({onOptionSelect, userName}) => {
   const navigate = useNavigate();
   const location = useLocation();
+
+  const dispatch = useDispatch()
+
+  
+
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
   const [open3, setOpen3] = useState(false);
@@ -239,13 +251,15 @@ const drawerWidth = 240
   //FOR LOGOUT API
   const handleLogout = async () => {
     try {
-      const response = await axios.get('/accounts/v1/logout/');
+      const response = await axios.post('/accounts/v1/logout/');
       // Perform any necessary actions after successful logout
       console.log(response.data); // Example: Log the response data
+      sessionStorage.clear
   
       // Show a success toast notification
       toast.success('You have successfully logged out.');
-  
+
+      dispatch(clearToken());
       // Redirect the user to the homepage or perform any other necessary actions
       window.location.href = '/'; // Replace with the appropriate homepage URL
     } catch (error) {
@@ -271,9 +285,7 @@ const drawerWidth = 240
   };
 
 
-  const handleLogOut = async (data) => {
-    
-  }
+
 
 
   //FOR OTHER OPTIONS MENUS
@@ -337,12 +349,17 @@ const handleCloseSubscribe = () => {
 }
 
 
-
-
-  
-
-
   console.log("Selected Option: ", selectedOption)
+
+
+  const isAuthenticated = useSelector(state => state.user.isAuthenticated);
+  // This line means you're using the useSelector hook to get the value of `isAuthenticated` from your Redux store's state.
+
+  const userToken = useSelector(state => state.user.token);
+  // Similarly, this line gets the value of `token` from the `user` slice of your Redux store's state.
+
+
+
 
   return (
     // <Box style={{width: "20vw", fontSize: 10}}>
@@ -413,17 +430,21 @@ const handleCloseSubscribe = () => {
 
                   {/* Center AppBar Contents */}
                   <Box sx={{display: 'flex', marginLeft: 30,  fontFamily: "Poppins", alignItems: 'center'}}>
-                    <Box sx={{border: "1px solid #4991ff", paddingLeft: 2, paddingRight: 2, borderRadius: 50, }}>
-                  <Typography sx={{fontWeight: 200, fontSize: 9, color: "#4991ff"}}>Retail Banking </Typography>
+                    <Box sx={{border: "1px solid #022964", paddingLeft: 2, paddingRight: 2, borderRadius: 50, }}>
+                  <Typography sx={{fontWeight: 200, fontSize: 9, 
+                    color:
+                    //  "#4991ff"
+                    "#022964"
+                    }}>Retail Banking </Typography>
                   </Box>
 
 
                   <Box sx={{display: 'flex',  marginLeft: 5, alignItems: 'center', width: "auto"}}>
-                    <LocationOnIcon fontSize='small' sx={{color: '#4991ff', mr: 1}} />
+                    <LocationOnIcon fontSize='small' sx={{color: '#022964', mr: 1}} />
                     <Box sx={{display: 'flex', flexDirection: 'column', }}>
                     <Typography sx={{fontSize: 10, fontWeight: 300}}>197.221.82.30</Typography>
 
-                    <Typography sx={{fontSize: 10, fontWeight: 300, color: '#4991ff'}}>Last Login IP</Typography>
+                    <Typography sx={{fontSize: 10, fontWeight: 300, color: '#022964'}}>Last Login IP</Typography>
 
                     </Box>
                   </Box>
@@ -433,11 +454,11 @@ const handleCloseSubscribe = () => {
 
 
                   <Box sx={{display: 'flex',  marginLeft: 5, alignItems: 'center'}}>
-                    <AccessTimeIcon fontSize='small' sx={{color: '#4991ff', mr: 1}} />
+                    <AccessTimeIcon fontSize='small' sx={{color: '#022964', mr: 1}} />
                     <Box sx={{display: 'flex', flexDirection: 'column', }}>
-                    <Typography sx={{fontSize: 10, fontWeight: 300, color: "#4991ff"}}>19-Jun-2023 04 09 PM</Typography>
+                    <Typography sx={{fontSize: 10, fontWeight: 300, color: "#022964"}}>19-Jun-2023 04 09 PM</Typography>
 
-                    <Typography sx={{fontSize: 10, fontWeight: 300, color: '#4991ff'}}>Last Login Date</Typography>
+                    <Typography sx={{fontSize: 10, fontWeight: 300, color: '#022964'}}>Last Login Date</Typography>
 
                     </Box>
                   </Box>
@@ -445,12 +466,23 @@ const handleCloseSubscribe = () => {
 
                   <Box sx={{display: 'flex', marginLeft: 10}}>
 
-                  <AccountMenu handleClick={handleLogOut} userName={userName} />
-                  {
-                    console.log(userName)
-                  }
+                  <AccountMenu onClick={handleLogout} 
+                  // userName={userName}
+                   />
+                 
 
                   </Box>
+
+
+      {/* {isAuthenticated ? (
+        <div>
+          <p>Welcome, user!</p>
+          <p>Your token: {userToken}</p>
+          {console.log("USER TOKEN: ", userToken)}
+        </div>
+      ) : (
+        <p>Please log in to view your profile.</p>
+      )} */}
 
                  
 
@@ -1323,20 +1355,38 @@ const handleCloseSubscribe = () => {
 
         <Collapse in={open7} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItemButton
+
+          <ListItemButton
               selected={location.pathname === '/account-creation'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
               sx={{pl:3, fontSize: 12, }}
               onClick={() => {
                 // navigate('/account-creation');
-                handleOptionClick('account-creation');
+                handleOptionClick('supersave-request');
               }}
               
             >
               <ListItemIcon>
                 <CreateIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Transfer" />
+              <ListItemText primary="Super Save Request" />
+            </ListItemButton>
+
+
+            <ListItemButton
+              selected={location.pathname === '/account-creation'}
+              // sx={{ pl: 4, borderLeft: '2px solid red' }}
+              sx={{pl:3, fontSize: 12, }}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('tbill');
+              }}
+              
+            >
+              <ListItemIcon>
+                <CreateIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Treasure Bill" />
             </ListItemButton>
 
             <ListItemButton
@@ -1346,14 +1396,51 @@ const handleCloseSubscribe = () => {
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
-                handleOptionClick('account-officer');
+                handleOptionClick('fixed-deposit');
               }}
             >
               <ListItemIcon>
                 <AssignmentIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Account Officer Details" />
+              <ListItemText primary="Fixed Deposit Request" />
             </ListItemButton>
+
+
+
+            <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, fontSize: 12, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('investment-request-history');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="My Investment Request History" />
+            </ListItemButton>
+
+
+            <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, fontSize: 12, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('my-investment');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="My Investment" />
+            </ListItemButton>
+
+
 
           </List>
         </Collapse>
@@ -1362,6 +1449,8 @@ const handleCloseSubscribe = () => {
 
           {/* =======================LOAN SERVICE =================================================== */}
             {/* Loan Service  */}
+
+
             <ListItemButton
           selected={location.pathname.includes('/transfer')}
           onClick={handleClick8}
@@ -1376,21 +1465,97 @@ const handleCloseSubscribe = () => {
 
         <Collapse in={open8} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
+
+          
+          <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, fontSize: 12, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('loancalculator');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Loan Calculator" />
+            </ListItemButton>
+
+        
+          <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, fontSize: 12, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('loanrequest');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Loan Request" />
+            </ListItemButton>
+
+
+
+          <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, fontSize: 12, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('loansnapcash');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Request Snap Cash" />
+            </ListItemButton>
+
+
+
+
+          <ListItemButton
+              selected={location.pathname === '/account-officer'}
+              // sx={{ pl: 4 }}
+              sx={{pl:3, fontSize: 12, }}
+              // onClick={handleAccountOfficerClick}
+              onClick={() => {
+                // navigate('/account-creation');
+                handleOptionClick('loanmanagement');
+              }}
+            >
+              <ListItemIcon>
+                <AssignmentIcon sx={{color: "#B5AFAF"}} />
+              </ListItemIcon>
+              <ListItemText primary="Snap Cash Repayment" />
+            </ListItemButton>   
+
+
+
             <ListItemButton
               selected={location.pathname === '/account-creation'}
               // sx={{ pl: 4, borderLeft: '2px solid red' }}
               sx={{pl:3, fontSize: 12,}}
               onClick={() => {
                 // navigate('/account-creation');
-                handleOptionClick('account-creation');
+                handleOptionClick('myloan');
               }}
               
             >
               <ListItemIcon>
                 <CreateIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Transfer" />
+              <ListItemText primary="My Loans" />
             </ListItemButton>
+
+
 
             <ListItemButton
               selected={location.pathname === '/account-officer'}
@@ -1399,17 +1564,23 @@ const handleCloseSubscribe = () => {
               // onClick={handleAccountOfficerClick}
               onClick={() => {
                 // navigate('/account-creation');
-                handleOptionClick('account-officer');
+                handleOptionClick('loanrequest-history');
               }}
             >
               <ListItemIcon>
                 <AssignmentIcon sx={{color: "#B5AFAF"}} />
               </ListItemIcon>
-              <ListItemText primary="Account Officer Details" />
+              <ListItemText primary="Loan Request History" />
             </ListItemButton>
+
+
+           
 
           </List>
         </Collapse>
+
+
+
 
 
 

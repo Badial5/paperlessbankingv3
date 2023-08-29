@@ -4,7 +4,14 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, Link as RouterLink, Link } from 'react-router-dom';
 import axios from 'axios';
 
+//react query
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { loginUsers } from '../../../apis/accountsApi';
+
+//REDUX
+import { useDispatch } from 'react-redux';
+import { setToken } from '../../../Redux/reducers/user';
 
 import { Box, Button, Grid, Paper, TextField, Typography, CircularProgress } from '@mui/material';
 
@@ -46,6 +53,7 @@ import { GlobalErrorHelperText, GlobalInputLabel, GlobalPaperStyle, GlobalTextfi
 
 
 import CircularIndeterminate from '../../../assets/GlobalAnimation/ButtonAnimation/LoadingButton';
+import api from '../../../Interceptors/tokenAxios';
 
 
 
@@ -82,6 +90,14 @@ const styles = {
 
 const Login2Form = (props) => {
 
+  //queryClient 
+  const queryClient = useQueryClient()
+
+  //dispatcher 
+  const dispatch = useDispatch();
+
+
+
   const { value, defaultCountry, onChange, classes } = props;
 
 
@@ -92,7 +108,7 @@ const Login2Form = (props) => {
 const [email, setEmail] = useState('');
 
 
-  const { handleSubmit, register, setValue,watch, control, formState: {errors, isValid, isLoading, isSubmitting, isSubmitted, isSubmitSuccessful
+  const { handleSubmit, register, setValue,watch, control, formState: {errors, isValid, isSubmitting, isSubmitted, isSubmitSuccessful
   }, reset,} = useForm({
     mode: "onChange",
     defaultValues: {
@@ -258,27 +274,61 @@ const passwordStrengthChange = (e) => {
   // const access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwNTE4ODg2LCJpYXQiOjE2OTAyNTk2ODYsImp0aSI6IjY0MmYxNGYyMWFjMDQ3NDQ4MmRhZjk2ZjUwYjc5MzUzIiwidXNlcl9pZCI6Nn0.FJ_LIbrrMvNK7RxB1iVzkwqNQTyV5OLOmGuHWaIt79M';
 
 
+  //REACT QUERY
+  // const {isLoading, isError, error, data: users} = useQuery({
+  //   queryKey: ["login"],
+  //   queryFn: loginUsers
+  // })
+
+
+  //Mutation 
+  // but since I am only logining in so there is no need 
+
+  // if (isLoading ) return "Loading....."
+
+  // if (isError) return error
+  
+
   const onSubmit = async (data) => {
     sessionStorage.setItem("email", data.email);
     console.log("Form Data: ", data)
    
     try {
       // const { data } = await axios.post(baseUrl, data)
-      const response = await axios.post(
-        // baseUrl3,
+      const response = await api.post(
         "accounts/v1/login/",
          data, 
-         {withCredentials: true}
+       
          )
       console.log("Session Storage Email ", email)
 
-      // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data['token']}`
 
-      axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-    
+      const responseApi = response.data
+
+
+      console.log("RESPONSE: ", responseApi)
+      console.log("Access Token: ", response.data.access_token )
+
+      // +++++++++++++++++++++++++++ SETTING THE TOKEN +++++++++++++++++++++
+
+     sessionStorage.setItem("Token", response.data.access_token);
+     sessionStorage.setItem("RefreshToken",  response.data.refresh_token)
+
+      sessionStorage.setItem("TokenExpiry", response.data.access_token_expiration);
+     sessionStorage.setItem("RefreshTokenExpiry",  response.data.refresh_token_expiration)
+
+      
+     
+
+
+
+      const Token = dispatch(setToken(response.data.access_token));
+
+     
+      console.log("Token Generated: ", Token )
       reset()
       navigate("/user-dashboard")
-  
+        
    
     } catch (error) {
       // setError(error.response.data)
@@ -300,6 +350,52 @@ const passwordStrengthChange = (e) => {
       });
     }
   }
+
+
+
+      //WORKING ONSUBMIT 
+  // const onSubmit = async (data) => {
+  //   sessionStorage.setItem("email", data.email);
+  //   console.log("Form Data: ", data)
+   
+  //   try {
+  //     // const { data } = await axios.post(baseUrl, data)
+  //     const response = await axios.post(
+  //       // baseUrl3,
+  //       "accounts/v1/login/",
+  //        data, 
+  //        {withCredentials: true}
+  //        )
+  //     console.log("Session Storage Email ", email)
+
+  //     // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data['token']}`
+
+  //     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+    
+  //     reset()
+  //     navigate("/user-dashboard")
+  
+   
+  //   } catch (error) {
+  //     // setError(error.response.data)
+      
+  //     console.log("error.response.data: ", error.response.data)
+  //     setErrorApi(error.response.data);
+  //     console.log("Call to the API returns: ", errorApi);
+      
+
+  //     const errorMessage = error.message 
+  //     console.log("Error MEssage: ", errorMessage)
+
+  //     Object.values(errorApi).forEach(errors => {
+  //       errors.forEach(errorMessage => {
+  //         toast.error(errorMessage); // Display each error message using toast.error()
+
+  //         // console.log("Error inside the Inner ForEach: ", errorMessage )
+  //       });
+  //     });
+  //   }
+  // }
 
 
   // const onSubmit = async (data) => {

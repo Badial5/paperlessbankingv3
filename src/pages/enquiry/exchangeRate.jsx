@@ -58,7 +58,7 @@ const ExchangeRate = () => {
           Exchange Forex Rate
         </GlobalPageHeader>
         <GlobalSubPageHeader>
-        Enquiry - Forex Rates as at Aug-02-2023
+        Enquiry - Forex Rates as at Aug-29-2023
         </GlobalSubPageHeader>
 
 

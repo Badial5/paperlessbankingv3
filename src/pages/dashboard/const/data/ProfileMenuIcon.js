@@ -16,6 +16,10 @@ import Badge from '@mui/material/Badge';
 import { Paper } from '@mui/material'
 import { motion } from "framer-motion"
 
+import { useDispatch, useSelector } from 'react-redux';
+import { clearToken } from '../../../../Redux/reducers/user';
+
+
 
 import { useForm } from 'react-hook-form';
 import axios from "axios"
@@ -45,7 +49,25 @@ const baseUrl = "https://api.inlakssolutions.com/accounts/v1/logout/"
 // const baseUrl = "/accounts/v1/logout/"
 
 
-export default function AccountMenu({userName}) {
+
+
+
+
+export default function AccountMenu({userName})
+ {
+
+
+  const isAuthenticated = useSelector(state => state.user.isAuthenticated);
+// This line means you're using the useSelector hook to get the value of `isAuthenticated` from your Redux store's state.
+
+const userToken = useSelector(state => state.user.token);
+// Similarly, this line gets the value of `token` from the `user` slice of your Redux store's state.
+
+const dispatch = useDispatch()
+
+
+ //router
+ const navigate = useNavigate();
 
 
   //STATES FOR DIALOGS
@@ -74,17 +96,38 @@ export default function AccountMenu({userName}) {
   //HANDLERS =======================+++++++++++++++++++++++++++++++++++++++++++++++
 
    //FOR LOGOUT API
-   const handleLogout = async () => {
+  //  const handleLogout = async () => {
+  //   try {
+  //     const response = await axios.post('https://api.inlakssolutions.com/accounts/v1/logout/', {}, {withCredentials: true});
+  //     // Perform any necessary actions after successful logout
+  //     console.log(response.data); // Example: Log the response data
+  
+  //     // Show a success toast notification
+  //     toast.success('You have successfully logged out.');
+  
+  //     // Redirect the user to the homepage or perform any other necessary actions
+  //     window.location.href = '/'; // Replace with the appropriate homepage URL
+  //   } catch (error) {
+  //     // Handle any errors that occurred during the logout process
+  //     console.error(error);
+  //   }
+  // }
+
+
+  const handleLogout = async () => {
     try {
-      const response = await axios.post('https://api.inlakssolutions.com/accounts/v1/logout/', {}, {withCredentials: true});
+      const response = await axios.post('/accounts/v1/logout/');
       // Perform any necessary actions after successful logout
       console.log(response.data); // Example: Log the response data
   
       // Show a success toast notification
       toast.success('You have successfully logged out.');
-  
+
+      dispatch(clearToken());
+
+      navigate("/login")
       // Redirect the user to the homepage or perform any other necessary actions
-      window.location.href = '/'; // Replace with the appropriate homepage URL
+      // window.location.href = '/'; // Replace with the appropriate homepage URL
     } catch (error) {
       // Handle any errors that occurred during the logout process
       console.error(error);
@@ -334,62 +377,62 @@ const handleCloseSubscribe = () => {
 
         {/* ============================================================================= */}
 
-        <MenuItem onClick={handleOpenPasswordDialog}  sx={{fontSize: 12, ":hover": {backgroundColor: '#9747FF', borderRadius: 5, color: '#fff' }}}>
+        <MenuItem onClick={handleOpenPasswordDialog}  sx={{fontSize: 12, ":hover": {backgroundColor: '#022964', borderRadius: 5, color: '#fff' }}}>
           <ListItemIcon >
-            <ArrowDropUpIcon fontSize="small"  sx={{color: '#9747FF', fontSize: 16}} />
+            <ArrowDropUpIcon fontSize="small"  sx={{color: '#022964', fontSize: 16}} />
           </ListItemIcon>
           Change Password
         </MenuItem>
 
 
-        <MenuItem onClick={handleOpenPinDialog} sx={{fontSize: 12, ":hover": {backgroundColor: '#9747FF', borderRadius: 5, color: '#fff' }}}>
+        <MenuItem onClick={handleOpenPinDialog} sx={{fontSize: 12, ":hover": {backgroundColor: '#022964', borderRadius: 5, color: '#fff' }}}>
           <ListItemIcon >
-            <ArrowDropUpIcon fontSize="small"   sx={{color: '#9747FF', fontSize: 16}} />
+            <ArrowDropUpIcon fontSize="small"   sx={{color: '#022964', fontSize: 16}} />
           </ListItemIcon>
           Change Secret Pin
         </MenuItem>
 
 
-        <MenuItem onClick={handleOpenFSPDialog} sx={{fontSize: 12, ":hover": {backgroundColor: '#9747FF', borderRadius: 5, color: '#fff' }}}>
+        <MenuItem onClick={handleOpenFSPDialog} sx={{fontSize: 12, ":hover": {backgroundColor: '#022964', borderRadius: 5, color: '#fff' }}}>
           <ListItemIcon >
-            <ArrowDropUpIcon fontSize="small"   sx={{color: '#9747FF', fontSize: 16}} />
+            <ArrowDropUpIcon fontSize="small"   sx={{color: '#022964', fontSize: 16}} />
           </ListItemIcon>
           Forgot Secret Pin
         </MenuItem>
 
 
-        <MenuItem onClick={handleOpenForgotSecurityAnswer} sx={{fontSize: 12, ":hover": {backgroundColor: '#9747FF', borderRadius: 5, color: '#fff' }}}>
+        <MenuItem onClick={handleOpenForgotSecurityAnswer} sx={{fontSize: 12, ":hover": {backgroundColor: '#022964', borderRadius: 5, color: '#fff' }}}>
           <ListItemIcon >
-            <ArrowDropUpIcon fontSize="small"   sx={{color: '#9747FF', fontSize: 16}} />
+            <ArrowDropUpIcon fontSize="small"   sx={{color: '#022964', fontSize: 16}} />
           </ListItemIcon>
           Forgot Secret Answers
         </MenuItem>
 
-        <MenuItem onClick={handleOpenTin} sx={{fontSize: 12, ":hover": {backgroundColor: '#9747FF', borderRadius: 5, color: '#fff' }}}>
+        <MenuItem onClick={handleOpenTin} sx={{fontSize: 12, ":hover": {backgroundColor: '#022964', borderRadius: 5, color: '#fff' }}}>
           <ListItemIcon >
-            <ArrowDropUpIcon fontSize="small"   sx={{color: '#9747FF', fontSize: 16}} />
+            <ArrowDropUpIcon fontSize="small"   sx={{color: '#022964', fontSize: 16}} />
           </ListItemIcon>
           TIN Update
         </MenuItem>
 
 
-        {/* <MenuItem onClick={handleLogOut} sx={{fontSize: 12, ":hover": {backgroundColor: '#9747FF', borderRadius: 5, color: '#fff' }}}>
+        {/* <MenuItem onClick={handleLogOut} sx={{fontSize: 12, ":hover": {backgroundColor: '#022964', borderRadius: 5, color: '#fff' }}}>
           <ListItemIcon >
-            <ArrowDropUpIcon fontSize="small"   sx={{color: '#9747FF', fontSize: 16}} />
+            <ArrowDropUpIcon fontSize="small"   sx={{color: '#022964', fontSize: 16}} />
           </ListItemIcon>
           Manage Your Account
         </MenuItem> */}
 
-        <MenuItem onClick={handleOpenSubscribe} sx={{fontSize: 12, ":hover": {backgroundColor: '#9747FF', borderRadius: 5, color: '#fff' }}}>
+        <MenuItem onClick={handleOpenSubscribe} sx={{fontSize: 12, ":hover": {backgroundColor: '#022964', borderRadius: 5, color: '#fff' }}}>
           <ListItemIcon >
-            <ArrowDropUpIcon fontSize="small"   sx={{color: '#9747FF', fontSize: 16}} />
+            <ArrowDropUpIcon fontSize="small"   sx={{color: '#022964', fontSize: 16}} />
           </ListItemIcon>
           Un-Subscribe
         </MenuItem>
 
-        {/* <MenuItem onClick={handleLogOut} sx={{fontSize: 12, ":hover": {backgroundColor: '#9747FF', borderRadius: 5, color: '#fff' }}}>
+        {/* <MenuItem onClick={handleLogOut} sx={{fontSize: 12, ":hover": {backgroundColor: '#022964', borderRadius: 5, color: '#fff' }}}>
           <ListItemIcon >
-            <ArrowDropUpIcon fontSize="small"   sx={{color: '#9747FF', fontSize: 16}} />
+            <ArrowDropUpIcon fontSize="small"   sx={{color: '#022964', fontSize: 16}} />
           </ListItemIcon>
           Proxy Management
         </MenuItem> */}
@@ -398,7 +441,7 @@ const handleCloseSubscribe = () => {
 
         <MenuItem onClick={handleLogout} sx={{fontSize: 12, ":hover": {backgroundColor: '#E0F3FF', borderRadius: 5, color: '#F7AD83' }}}>
           <ListItemIcon>
-            <Logout fontSize="small" sx={{color: '#9747FF', fontSize: 16}} />
+            <Logout fontSize="small" sx={{color: '#022964', fontSize: 16}} />
           </ListItemIcon>
           Logout
         </MenuItem>
@@ -413,17 +456,35 @@ const handleCloseSubscribe = () => {
 
 
         <Box sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
-      <Typography sx={{fontSize: 14, color: '#4991ff'}}>Welcome back</Typography>
-      <Box><Typography sx={{fontSize: 10, ml: 1, fontWeight: 600}}>
-        {/* Joseph Smith  */}
+      {/* <Typography sx={{fontSize: 14, color: '#022964'}}>Welcome back</Typography> */}
+
+      <Box>
+        {/* <Typography sx={{fontSize: 10, ml: 1, fontWeight: 600}}>
+        
         {userName ?  userName : "User"}
-        </Typography></Box>
+        </Typography> */}
+
+        {isAuthenticated ? (
+        <>
+          <Typography variant='caption' sx={{fontSize: 12, color: '#022964'}}>Welcome back</Typography>
+          <br />
+          <Typography variant='caption' sx={{fontSize: 10, color: '#022964'}}>User</Typography>
+          
+          {/* <p>Your token: {userToken}</p> */}
+          {console.log("USER TOKEN: ", userToken)}
+        </>
+      ) : (
+        // <p>Please log in to view your profile.</p>
+        <Typography sx={{fontSize: 10, color: '#022964'}}>Guest</Typography>
+        )}
+
+        </Box>
       </Box>
       
       <Tooltip title="Sign Out from online banking" placement='bottom'>
       <MenuItem onClick={handleLogout}  sx={{fontSize: 12, marginLeft: 5, ":hover": { borderRadius: 5, color: '#F7AD83', }}}>
           <ListItemIcon> 
-            <Logout fontSize="small" sx={{color: '#9747FF', fontSize: 16, ":hover": {backgroundColor: '#E0F3FF', borderRadius: 5, color: '#F7AD83' }}} />
+            <Logout fontSize="small" sx={{color: '#022964', fontSize: 16, ":hover": {backgroundColor: '#022964', borderRadius: 5, color: '#022964' }}} />
           </ListItemIcon>
         </MenuItem>
       </Tooltip>

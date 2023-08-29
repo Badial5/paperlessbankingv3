@@ -85,9 +85,9 @@ import CircularIndeterminate from '../../../assets/GlobalAnimation/ButtonAnimati
 
 // import PhoneInput from 'react-phone-number-input'
 
-// const baseUrl1 = "https://api.inlakssolutions.com/accounts/v1/password-reset-otp/"
+const baseUrl = "https://api.inlakssolutions.com/accounts/v1/password-reset-otp/"
 
-const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/password-reset-otp/"
+// const baseUrl2 = "https://banking-api.inlakssolutions.com/accounts/v1/password-reset-otp/"
 
 
 

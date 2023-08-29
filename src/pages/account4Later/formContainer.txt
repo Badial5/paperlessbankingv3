@@ -1,0 +1,160 @@
+import { Alert, Box, Button, Paper, Step, StepButton, StepLabel, Stepper, Typography } from '@mui/material';
+import React, { useState } from 'react'
+import axios from 'axios'; // Import Axios library
+import { useForm } from 'react-hook-form';
+
+import SignUp from "./steps/SignUp"
+import PersonalInfo from "./steps/PersonalInfo"
+import OtherInfo from './steps/OtherInfo';
+import { DashboardPaper, DashboardStepper, GlobalPaperStyle } from '../../../assets/GlobalStyled/Globalstyles';
+
+const FormContainer = () => {
+
+  //Form Data Values
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    title: "",
+    phone_number: "",
+    id_type: "",
+    id_number: "",
+    account_type: "",
+    email: "",
+    upload: "",
+  });
+
+ 
+
+  const { handleSubmit, register, watch, setValue, formState: {errors, isValid}, reset, trigger } = useForm({
+    mode: "onTouched",
+    defaultValues: formData
+  })
+
+  
+  
+  // Create state for active step
+  const [activeStep, setActiveStep] = useState(0);
+  
+  // Define the steps
+  const steps = ['Account Information', 'Upload Image', 'Confirmation'];
+
+  // Define function to handle next button click
+  const handleNext = async () => {
+    if (activeStep === steps.length - 1) {
+      // Send form data to server for processing
+      try {
+        const response = await axios.post('/api/form-submit', formData); // Change "api/form-submit" to your server endpoint that handles form submission
+        if (response.status === 200) {
+          // Display success message to the user
+          alert('Form submitted successfully!');
+          setActiveStep(0);
+          setFormData({
+            email: '',
+            password: '',
+            confirmPassword: '',
+            name: '',
+            age: '', 
+            gender: "",
+            nationality: '',
+            city: '',
+          });
+        } else {
+          // Display error message to the user
+          alert('Error submitting form. Please try again later.');
+        }
+      } catch (error) {
+        console.error(error);
+        // Display error message to the user
+        alert('Error submitting form. Please try again later.');
+      }
+    } else {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
+  };
+  
+  // Define function to handle back button click
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+  
+
+  //for tracking the titles
+  const FormTitles = ["Sign Up", "Personal Info", "Other"];
+
+  //Handle Change
+  const handleChange = input => e => {
+    setFormData({...formData, [input] : e.target.value})
+  }
+
+  const PageDisplay = () => {
+    if (activeStep === 0) {
+      return <SignUp formData={formData} setFormData={setFormData} handleChange={handleChange} handleNext={handleNext} handleBack={handleBack} />;
+
+    } else if (activeStep === 1) {
+      return <PersonalInfo formData={formData} setFormData={setFormData} handleChange={handleChange} handleNext={handleNext} handleBack={handleBack} />;
+    } else {
+
+      return <OtherInfo formData={formData} setFormData={setFormData} handleChange={handleChange} handleNext={handleNext} handleBack={handleBack}/>;
+    }
+  };
+
+
+  console.log("Form Data Vlaues: ", formData)
+
+  
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Box
+        style={{
+          backgroundColor: '#fff',
+          height: '100vh',
+          borderRadius: 20,
+          marginTop: 0,
+          paddingLeft: 30,
+          paddingRight: 30,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexDirection: 'column',
+        }}
+      >
+        <DashboardPaper elevation={20} >
+
+
+          <DashboardStepper sx={{width: "100%", mt: 2, }} activeStep={activeStep}>
+            {steps.map((label, index) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+              </Step>
+            ))}
+          </DashboardStepper>
+
+          {activeStep === steps.length ? (
+            <div>
+              <h3>Congratulations, you've completed all the steps! We will get back to You</h3>
+              <Button onClick={() => setActiveStep(0)} variant="contained" color="primary">
+                Start Over
+              </Button>
+            </div>
+          ) : 
+          (
+            <Box>
+              {PageDisplay()}
+
+              <Button disabled={activeStep === 0} onClick={handleBack} variant="contained">
+                Back
+              </Button>
+
+              <Button onClick={handleNext} variant="contained" color="primary">
+                {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
+              </Button>
+            </Box>
+          )}
+        </DashboardPaper>
+      </Box>
+    </Box>
+  )
+}
+
+export default FormContainer;

@@ -4,7 +4,8 @@ import { Box, Button, Container, FormHelperText, Grid, styled, TextField, Typogr
     FormLabel,
     InputLabel,
     Stepper,
-    Link} from "@mui/material";
+    Link,
+    FormControl} from "@mui/material";
 
 
  
@@ -112,7 +113,29 @@ export const GlobalTextField = styled(TextField)({
     fontSize: 12,
     "& .MuiOutlinedInput-root.Mui-focused": {
         "& > fieldset": {
-  borderColor: "#7833EE"
+//   borderColor: "#7833EE"
+    borderColor: "#4991FF"
+        }
+      },  [`& fieldset`]:{
+        borderRadius: "6px",  },
+    "& .MuiInputBase-root": {
+        height: "2rem",
+        fontSize: 12,
+        "& input::placeholder": {
+            fontSize: 12,
+          },
+      }
+})
+
+
+export const GlobalFormControl = styled(FormControl)({
+    
+    fontFamily: "Poppins",
+    fontSize: 12,
+    "& .MuiOutlinedInput-root.Mui-focused": {
+        "& > fieldset": {
+//   borderColor: "#7833EE"
+    borderColor: "#4991FF"
         }
       },  [`& fieldset`]:{
         borderRadius: "6px",  },
@@ -343,17 +366,36 @@ color: "#89898A"
 
 
 
-export const GlobalButton = styled(Button)({
-    width: 200,
-    alignSelf: "center",
-    borderRadius: 10,
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: 1,
-    color: "white",
-    background:  'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)'
+// export const GlobalButton = styled(Button)({
+//     width: 200,
+//     alignSelf: "center",
+//     borderRadius: 10,
+//     marginLeft: "auto",
+//     marginRight: "auto",
+//     marginTop: 1,
+//     color: "white",
+//     background:  'RGBA(73, 145, 255, 1)',
     
-})
+    
+// })
+
+export const GlobalButton = styled(Button)({
+  width: 200,
+  alignSelf: "center",
+  borderRadius: 10,
+  marginLeft: "auto",
+  marginRight: "auto",
+  marginTop: 1,
+  color: "white",
+  background: 'RGBA(73, 145, 255, 1)',
+  transition: 'background-color 0.3s ease', // Add a smooth transition effect
+  
+  '&:hover': {
+    background: 'RGBA(73, 145, 255, 0.8)', // Change the background color on hover
+    // Add other styles for hover state if needed
+  },
+});
+
 
 
 export const GlobalLink = styled(Link)({
@@ -419,7 +461,7 @@ export const DashboardTextField = styled(TextField)({
     fontSize: 12,
     '& .MuiOutlinedInput-root.Mui-focused': {
       '& > fieldset': {
-        borderColor: '#7833EE',
+        borderColor: "#4991FF",
       },
     },
     '& .MuiInputBase-root': {
@@ -463,7 +505,7 @@ export const DashboardNextButton = styled(Button)({
     marginRight: "auto",
     marginTop: 1,
     color: "white",
-    background:  'linear-gradient(90deg, #7833EE 0%, #8F45F2 53.42%, #A554F6 103.85%)'
+    background:  "#4991FF"
     
 })
 

@@ -318,7 +318,7 @@ sx={{width: "30rem", display: "flex", padding: "30px 30px", borderRadius: 10 }}>
         textAlign: "center",
         "& .MuiOutlinedInput-root.Mui-focused": {
           "& > fieldset": {
-            borderColor: "#7833EE"
+            borderColor: "#4991FF"
           }
         },
         [`& fieldset`]: {

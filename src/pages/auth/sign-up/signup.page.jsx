@@ -50,6 +50,7 @@ import { GlobalErrorHelperText, GlobalInputLabel, GlobalPaperStyle, GlobalTextfi
 
 import CircularIndeterminate from '../../../assets/GlobalAnimation/ButtonAnimation/LoadingButton';
 import { LoadingButton } from '@mui/lab';
+import api from '../../../Interceptors/tokenAxios';
 
 // import { LazyMotion, domAnimation, m } from "framer-motion"
 
@@ -270,11 +271,16 @@ const passwordStrengthChange = (event) => {
     console.log("Form Data: ", data);
     // data.preventDefault();
     try {
-      const response = await axios.post(
+      const response = await api.post(
         // baseUrl3, 
         // "https://api.inlakssolutions.com/accounts/v1/signup/",
         "accounts/v1/signup/",
-        data);
+        data, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Bearer ' + sessionStorage.getItem('Token')
+          },
+        } );
       console.log("Form Submitted", response);
       console.log("Session Storage Email ", email);
      
@@ -312,188 +318,7 @@ const passwordStrengthChange = (event) => {
 
   
   
-  
-  
-  
-  
 
-
-  // const onSubmit = async (data) => {
-  //   sessionStorage.setItem("email", data.email);
-  //   console.log("Form Data: ", data)
-  //   // registerForm()
-  //   // reset()
-  //   try {
-  //     const response = await axios.post(baseUrl, data)
-  //     const newResponse = response.data
-  //     // console.log(newResponse)
-  //     // newResponse()
-      
-  //     // setCurrentEmail(email)
-  //     console.log("EMail Context Value: ", email)
-  
-  //     console.log("Session Storage Email ", email)
-  
-    
-  //     navigate("/phone-Otp")
-  //     reset()
-  
-  //     // console.log("Successful: ", newResponse)
-  //   } catch (error) {
-  //     // setError(error.response.data)
-  
-  //     if (error.response.data.message === "Request failed with status code 500") {
-  //       console.log("Sorry You made a bad request" )
-  //       setError("You made a bad request\n Check the Email")
-  //     } else {
-  //       setError(error.response.data)
-  //     }
-  //     // console.log("Error Message: ", error.response.data)
-  //     console.log("Error Message from state: ", error) 
-  //   }
-  // }
-  
-
-  //From the Login 
-  // const onSubmit = async (data) => {
-  //   console.log("Form Data: ", data)
-  //   // registerForm()
-  //   // reset()
-  
-  //   try {
-  //     const response = await axios.post(baseUrl, data)
-  //     const newResponse = response.data
-  //     console.log(newResponse)
-  //     // newResponse()
-  
-    
-  //     // navigate("/landing-page")
-  //     navigate("/user-dashboard")
-  //     reset()
-  
-  //     console.log("Successful: ", newResponse)
-  //   } catch (error) {
-  //     setErrorApi(error.response.data.error)
-  //     // setErrorApi(error.message)
-  //     toast.error(...errorApi)
-  //    console.log("Call to the APi returns: ",...errorApi)
-  //     // console.log("Error Message: ", error.response.data)
-  //     console.log("Error Message from state: ", ...errorApi)
-  //   }
-  
-  
-  // }
-
-
-// const onSubmit = async (data) => {
-//     sessionStorage.setItem("email", data.email);
-//     console.log("Form Data: ", data)
-   
-//     try {
-//       const response = await axios.post(baseUrl, data)
-//       const newResponse = response.data
-//     //   console.log(newResponse)
-    
-    
-//       navigate("/phone-Otp")
-//       reset()
-    
-//     } catch (error) {
-//       console.log("Call to the API returns: ", error)
-//       const errorMsg = error.response && error.response.data ? error.response.data : 'Something went wrong'
-//       toast.error(errorMsg, {
-//         position: "top-center",
-//         autoClose: 5000,
-//         hideProgressBar: false,
-//         closeOnClick: true,
-//         pauseOnHover: true,
-//         draggable: true,
-//         progress: undefined,
-//       });
-//     }
-//   }
-
-
-// const onSubmit = async (data) => {
-//   try {
-//     sessionStorage.setItem("email", data.email);
-//     console.log("Form Data: ", data);
-    
-//     const response = await fetch(baseUrl, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(data)
-//     });
-    
-//     if (!response.ok) {
-//       const errorData = await response.json();
-//       throw new Error(errorData.message);
-//     }
-    
-//     const responseData = await response.json();
-//     console.log(responseData);
-  
-//     navigate("/phone-Otp");
-//     reset();
-  
-//     return responseData;
-//   } catch (error) {
-//     console.error(error);
-    
-//     if (error.message === "Request failed with status code 500") {
-//       console.log("Sorry You made a bad request" )
-//       setErrorApi("You made a bad request\n Check the Email")
-//     } else {
-//       setErrorApi("An unexpected error occurred");
-//     }
-//   }
-// }
-
-// const onSubmit = async (data) => {
-//   try {
-//     sessionStorage.setItem("email", data.email);
-//     console.log("Form Data: ", data);
-
-//     fetch(baseUrl, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify(data)
-//     })
-//     .then(response => {
-//       if (!response.ok) {
-//         return response.json().then(errorData => {
-//           throw new Error(errorData.message);
-//         });
-//       } else {
-//         return response.json();
-//       }
-//     })
-//     .then(responseData => {
-//       console.log(responseData);
-    
-//       navigate("/phone-Otp");
-//       reset();
-  
-//       return responseData;
-//     })
-//     .catch(error => {
-//       console.error(error);
-      
-//       if (error.message === "Request failed with status code 500") {
-//         console.log("Sorry You made a bad request" )
-//         setErrorApi("You made a bad request\n Check the Email")
-//       } else {
-//         setErrorApi("An unexpected error occurred");
-//       }
-//     });
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
 
 console.log('PASSWORD WARNING: ', passwordWarning)
 console.log('PASSWORD SUGGESTION: ', passwordSuggestion)

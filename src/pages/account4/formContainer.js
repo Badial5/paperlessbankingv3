@@ -35,12 +35,14 @@ import ConfirmPage2 from './step/ConfirmPage';
 import SuccessPage from './step/sucessPage';
 
 
-const baseUrl = 'https://banking-api.inlakssolutions.com/bank/v1/bank-account-request/'
+const baseUrl = 'https://api.inlakssolutions.com/bank/v1/bank-account-request/'
 
 
 
 //steps the user will step around
-const steps = ['Account Creation', 'Upload Picture', 'Confirmation'];
+const steps = ['Account Creation',
+//  'Upload Picture', 
+ 'Confirmation'];
 
 
 const FormContainer = () => {
@@ -49,6 +51,11 @@ const FormContainer = () => {
   //STATES===============================
 
   // ==================================================================================
+
+
+  //image +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  const [file, setFile] = useState(null)
+
 
   const [image, setImage] = useState(null);
 
@@ -74,15 +81,13 @@ const FormContainer = () => {
   //Form data values ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
   const [formData, setFormData] = useState({
       title: "",
-      first_name: "",
-      last_name: "",
       full_name: "",
       phone_number: "",
       id_type: "",
       id_number: "",
       account_type: "",
       email_address: "",
-      selfie_image: '',
+      selfie_image: null,
   })
 
 
@@ -93,6 +98,7 @@ const FormContainer = () => {
   })
 
  
+   const  {selfie_image } = formData
 
 
    //Lottie
@@ -146,11 +152,11 @@ const FormContainer = () => {
   // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 
-  useEffect(() => {
-    // Remove first_name and last_name from the form data
-    unregister('first_name');
-    unregister('last_name');
-  }, [unregister]);
+  // useEffect(() => {
+  //   // Remove first_name and last_name from the form data
+  //   unregister('first_name');
+  //   unregister('last_name');
+  // }, [unregister]);
 
   // ====================================================================
 
@@ -182,45 +188,75 @@ const FormContainer = () => {
 
   //Global handleChange
   const handleChange = input => e => {
-    setFormData({...formData, [input]: e.target. value})
+    setFormData({...formData, [input]: e.target.value})
   }
+
+
+
+
+  // const handleImageChange = input => (newFile) => {
+  //   setFile( {...formData, [input]: newFile.target.value})
+  // }
+
+  // const handleImageChange = (newFile) => {
+  //   const {selfie_image} = formData
+  //   setFile({
+  //     newFile,
+  //     selfie_image: URL.createObjectURL(newFile)
+  //   })
+
+  //   setFormData(URL.createObjectURL(newFile))
+
+    
+    
+  // }
+
+  const handleImageChange = (newImage) => {
+    setFormData({ ...formData, selfie_image: newImage });
+  };
+
+  console.log("FIlE Image: ", file)
+
+  //assigning file value to image 
+ 
 
 
    //this will render the pages according to the step number
    const renderStepContent = (step) => {
     switch (step) {
       case 0:
-        return <AccountPage2 formData={formData} handleNext={handleNext} handleChange={handleChange} register={register} isValid={isValid} errors={errors} setValue={setValue} watch={watch} unregister={unregister} />;
+        return <AccountPage2 formData={formData} handleNext={handleNext} handleChange={handleChange} register={register} isValid={isValid} errors={errors} setValue={setValue} watch={watch} unregister={unregister}  handleImageChange={handleImageChange}  />;
 
 
       case 1:
-        // return <UploadPage2  formData={formData} handleNext={handleNext} handleBack={handleBack} handleChange={handleChange} register={register} isValid={isValid} errors={errors} />;
 
-       return <UploadPage2
-        image={image}
-        setImage={setImage}
+      //  return <UploadPage2
+      //   image={image}
+      //   setImage={setImage}
 
-        globalImage={globalImage}
-        setGlobalImage={setGlobalImage}
+      //   globalImage={globalImage}
+      //   setGlobalImage={setGlobalImage}
         
-        handleNext={handleNext}
-        handleBack={handleBack}
-        handleChange={handleChange}
-        register={register}
-        isValid={isValid}
-        errors={errors}
-        formData={formData}
-        setFormData={setFormData}
+      //   handleNext={handleNext}
+      //   handleBack={handleBack}
+      //   handleChange={handleChange}
+      //   register={register}
+      //   isValid={isValid}
+      //   errors={errors}
+      //   formData={formData}
+      //   setFormData={setFormData}
+      // />;
+
+      return <ConfirmPage2 formData={formData} handleNext={handleNext} handleBack={handleBack} handleChange={handleChange} reset={reset} trigger={trigger} setValue={setValue}  handleSubmit={handleSubmit} register={register} isValid={isValid} errors={errors}
+      upload={selfie_image} // Pass the 'upload' field value as the 'upload' prop
+      
+      submitForm={submitForm} // Pass the submitForm function as a prop
       />;
 
 
-      case 2:
+      // case 2:
         
-        return <ConfirmPage2 formData={formData} handleNext={handleNext} handleBack={handleBack} handleChange={handleChange} reset={reset} trigger={trigger} setValue={setValue}  handleSubmit={handleSubmit} register={register} isValid={isValid} errors={errors}
-        upload={formData.upload} // Pass the 'upload' field value as the 'upload' prop
-        
-        submitForm={submitForm} // Pass the submitForm function as a prop
-        />;
+       
 
       default:
         return null;
@@ -258,11 +294,7 @@ const FormContainer = () => {
 
    const handleNext = async () => {
     if (activeStep === steps.length - 1) {
-      // Send form data to server for processing
-  
-      // ACCESS TOKEN
-      const access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwNTE4ODg2LCJpYXQiOjE2OTAyNTk2ODYsImp0aSI6IjY0MmYxNGYyMWFjMDQ3NDQ4MmRhZjk2ZjUwYjc5MzUzIiwidXNlcl9pZCI6Nn0.FJ_LIbrrMvNK7RxB1iVzkwqNQTyV5OLOmGuHWaIt79M'; // Replace with your actual access token
-
+    
       console.log("+++FORM DATA: ", formData)
   
       try {
@@ -285,19 +317,31 @@ const FormContainer = () => {
         formDataToSend.append('phone_number', formData.phone_number); // Make sure the 'phone_number' field in formData contains the phone number
         formDataToSend.append('email_address', formData.email); // Make sure the 'email' field in formData contains the email address
         // formDataToSend.append('use_selfie', true);  // Replace 'true' with the actual value for use_selfie
-        formDataToSend.append('selfie_image', formData.selfie_image); // Make sure the 'image' field in formData contains the selfie image
+        formDataToSend.append(
+          'selfie_image', 
+        // formData.selfie_image
+        file,
+        ); // Make sure the 'image' field in formData contains the selfie image
 
         console.log("FormDataToSend: ", formDataToSend)
   
         const response = await axios.post(baseUrl, {
-          formData: formDataToSend
+          // formData: formDataToSend
+          formData
         }, {
+          // headers: {
+          //   'Content-Type': 'multipart/form-data',
+          //   // 'Content-Type': 'application/json', // Set the content type to JSON
+          //   // Authorization: `Bearer ${access_token}`,
+          // },
+
           headers: {
-            // 'Content-Type': 'multipart/form-data',
-            'Content-Type': 'application/json', // Set the content type to JSON
-            Authorization: `Bearer ${access_token}`,
+            'Content-Type': 'multipart/form-data',
+            Authorization: 'Bearer ' + sessionStorage.getItem('Token')
           },
         });
+
+        console.log("SESSION STORAGE GETITEM: ", sessionStorage.getItem("Token"))
   
         if (response.status === 200) {
           // Display success message to the user
@@ -313,7 +357,7 @@ const FormContainer = () => {
       } catch (error) {
         console.error(error);
   
-        setErrorApi(error.response.data);
+        setErrorApi(error.message);
   
         // Display error message to the user
         alert('Error submitting form. Please try again later.');
@@ -512,14 +556,14 @@ const FormContainer = () => {
           return (
             <Step   sx={{
               '& .MuiStepLabel-root .Mui-completed': {
-                color: '#9747FF', // circle color (COMPLETED)
+                color: '#4991FF', // circle color (COMPLETED)
               },
               '& .MuiStepLabel-label.Mui-completed.MuiStepLabel-alternativeLabel':
                 {
-                  color: '#9747FF', // Just text label (COMPLETED)
+                  color: '#4991FF', // Just text label (COMPLETED)
                 },
               '& .MuiStepLabel-root .Mui-active': {
-                color: '#9747FF', // circle color (ACTIVE)
+                color: '#4991FF', // circle color (ACTIVE)
               },
               // '& .MuiStepLabel-label.Mui-active.MuiStepLabel-alternativeLabel':
               //   {
@@ -580,12 +624,12 @@ const FormContainer = () => {
             </DashboardBackButton>
 
 
-            <Box sx={{ flex: '1 1 auto' }} />
+            {/* <Box sx={{ flex: '1 1 auto' }} />
             {isStepOptional(activeStep) && (
               <DashboardSkipButton color="inherit" onClick={handleSkip}  sx={{ mr: 1 }}>
                 Skip
               </DashboardSkipButton>
-            )}
+            )} */}
 
 <DashboardNextButton elevation={20} 
 onClick={handleNext}

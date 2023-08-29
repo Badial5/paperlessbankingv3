@@ -48,7 +48,7 @@ const ConfirmSecurityAnswer = ({ handleClose, openDialog,  textProps, titleProps
         PaperProps={{ sx: { borderRadius: 5 } }}
       >
         <Paper sx={{ backgroundColor: '#f5f5f5', width: '30vw', maxWidth: '600px', margin: '0 auto' }}>
-          <DialogTitle textAlign='center' sx={{ fontFamily: 'Poppins', backgroundColor: 'rgba(151, 71, 255, 0.5)', color: 'black' }}>
+          <DialogTitle textAlign='center' sx={{ fontFamily: 'Poppins', backgroundColor: 'RGBA(73, 145, 255, 0.5)', color: 'black' }}>
             Reset Security Question
           </DialogTitle>
           <hr />

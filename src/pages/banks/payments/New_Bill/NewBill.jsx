@@ -78,7 +78,7 @@ const NewBillPayment = () => {
   return (
     <DashboardPageBackground>
       <DashboardPaper elevation={1}
-       sx={{ display: "flex",
+       sx={{ display: "flex", mb: 30,
     flexDirection: "column",
     justifyContent: "flexStart",
     alignItems: "center",
@@ -139,7 +139,7 @@ const NewBillPayment = () => {
 
           {/* <CardWithIcon name="MTN" icon={<Inlaks />}  /> */}
 
-          <CardWithIcon name="MTN" icon={<ImgIcon />}  />
+          <CardWithIcon name="" icon={<ImgIcon />}  />
           
 
           {/* <CardWithIcon name="MTN" icon={<Image5 />} />

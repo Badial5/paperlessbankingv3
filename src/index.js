@@ -4,6 +4,14 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+
+
+import { Provider } from 'react-redux'; // Import the Provider
+
 import "./axios/interceptors/interceptors"
 
 
@@ -26,6 +34,7 @@ import IconButton from '@mui/material/IconButton';
 import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+import store from './Redux/store';
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
@@ -102,6 +111,7 @@ export default function ToggleColorMode() {
 
 
 
+const queryClient = new QueryClient()
 
 
 
@@ -113,17 +123,23 @@ root.render(
       {/* <SignUpProvider> */}
     {/* <App  theme={theme}/> */}
 
+<Provider store={store}>
 
     <ColorModeContext.Provider >
       <ThemeProvider theme={theme}>
  
+      <QueryClientProvider client={queryClient}>
 
-    <App />
+        <App />
+
+    <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
 
     </ThemeProvider>
     </ColorModeContext.Provider>
 
 
+</Provider>
 
     {/* </SignUpProvider> */}
     {/* </ThemeProvider> */}

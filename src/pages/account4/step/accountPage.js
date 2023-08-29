@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react'
 
+import { MuiFileInput } from 'mui-file-input'
+
+
 import {
   Typography,
   Grid,
@@ -60,7 +63,7 @@ const styles = {
   height: "1.8rem",
   "& .MuiOutlinedInput-root.Mui-focused": {
     "& > fieldset": {
-      borderColor: "#7833EE"
+      borderColor: "#4991FF"
     }
   },
   "& fieldset": {
@@ -72,35 +75,35 @@ const styles = {
 };
 
 
-const AccountPage2 = ({formData, handleChange, handleNext, handleBack, register, isValid, errors, setValue, watch, unregister}, props) => {
+const AccountPage2 = ({formData, handleChange,  handleNext, handleBack, register, isValid, errors, setValue, watch, unregister, 
+  handleImageChange 
+}, props) => {
 
   //Phone Input
-  const { value, defaultCountry, onChange, classes } = props;
+  const { value, defaultCountry, onChange, classes, } = props;
 
    //Destrucitng form values
    const { 
-    first_name, last_name,
     full_name,
     title, phone_number, 
-    id_type, id_number, account_type, email_address } = formData
+    id_type, id_number, account_type, email_address, selfie_image,  } = formData
+
+
+    const [file, setFile] = useState(null)
+
+  // const handleImageChange2 = (newFile) => {
+  //   setFile(newFile)
+  // }
+
 
 
 
     // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    const firstName = watch('first_name');
-  const lastName = watch('last_name');
+ 
 
-  // useEffect(() => {
-  //   const fullName = `${firstName} ${lastName}`;
-  //   setValue('full_name', fullName);
-  // }, [firstName, lastName, setValue]);
+ 
 
-  useEffect(() => {
-    const fullName = `${firstName || ''} ${lastName || ''}`;
-    setValue('fullname', fullName);
-  }, [firstName, lastName, setValue]);
-
-
+    console.log( "Selfie Image: ", selfie_image)
 
 
 
@@ -136,7 +139,7 @@ const AccountPage2 = ({formData, handleChange, handleNext, handleBack, register,
       </DashboardInputLabel>
 
 
-      <DashboardTextField select 
+      <GlobalTextField select 
       id='title'
       fullWidth
       error={Boolean(errors.title)}
@@ -160,7 +163,7 @@ const AccountPage2 = ({formData, handleChange, handleNext, handleBack, register,
         </MenuItem>
       ))}
 
-      </DashboardTextField>
+      </GlobalTextField>
 
       {(errors.title?.message) && (
     <DashboardErrorHelperText>
@@ -170,82 +173,127 @@ const AccountPage2 = ({formData, handleChange, handleNext, handleBack, register,
 
       </Grid>
 
-      {/* First Name */}
-      <Grid item xs={5}>
+
+     
+
+      {/* +++++++++++++++++ Full Name +++++++++++++++++++++ */}
+      <Grid item xs={6}>
 
         <DashboardInputLabel htmlFor='first_name'>
-          First Name
+          Full Name
         </DashboardInputLabel>
 
         <DashboardTextField  type="text"
-            id="first_name"
+            id="full_name"
             fullWidth
-            error={Boolean(errors.first_name)}
-            variant="outlined"  
-            {...register("first_name", 
-            // {
-            //   required: {
-            //     value: true,
-            //     message: "First name is required"
-            //   }
-            // }
+            error={Boolean(errors.full_name)}
+           
+            {...register("full_name", 
+            {
+              required: {
+                value: true,
+                message: "Full name is required"
+              }
+            }
             )}
 
-            placeholder='eg. Joseph'
-            value={first_name}
+            placeholder='eg. Joseph Smith'
+            value={full_name}
             // value={firstName}
-            onChange={handleChange('first_name')}
+            onChange={handleChange('full_name')}
             >
 
         </DashboardTextField>
 
-        { (errors.first_name?.message  ) &&
+        { (errors.full_name?.message  ) &&
             <DashboardErrorHelperText>
-              {errors.first_name?.message}
+              {errors.full_name?.message}
             </DashboardErrorHelperText> 
           }
 
       </Grid>
 
 
-          {/* Last Name */}
-      <Grid item xs={5} >
-        
-      <DashboardInputLabel htmlFor='last_name'>
-          Last Name
-        </DashboardInputLabel>
 
-        <DashboardTextField  type="text"
-            id="lastt_name"
-            fullWidth
-            error={Boolean(errors.last_name)}
-            variant="outlined"  
-            {...register("last_name", 
-            // {
-            //   required: {
-            //     value: true,
-            //     message: "Last name is required"
-            //   }
-            // }
-            )}
 
-            placeholder='eg. Smith'
-            value={last_name}
-            // value={lastName}
-            onChange={handleChange('last_name')}
-            >
-
-        </DashboardTextField>
-
-        { (errors.last_name?.message  ) &&
-            <DashboardErrorHelperText>
-              {errors.last_name?.message}
-            </DashboardErrorHelperText> 
+       {/* Phone number */}
+<Grid item xs={4} >
+  
+  <DashboardInputLabel htmlFor='phone_number'>
+      Phone Number
+    </DashboardInputLabel>
+  
+    <DashboardTextField  type="text"
+        id="phone_number"
+        fullWidth
+        error={Boolean(errors.phone_number)}
+        variant="outlined"  
+        {...register("phone_number", {
+          required: {
+            value: true,
+            message: "Phone Number is required"
           }
+        })}
+  
+        placeholder='+233 500000000'
+        value={phone_number}
+        onChange={handleChange('phone_number')}
+        >
+  
+    </DashboardTextField>
+  
+    { (errors.phone_number?.message  ) &&
+        <DashboardErrorHelperText>
+          {errors.phone_number?.message}
+        </DashboardErrorHelperText> 
+      }
+  
+  
+  </Grid>
 
 
-      </Grid>
+   {/* Account Type  */}
+<Grid item xs={3}>
 
+<DashboardInputLabel htmlFor='account_type'>
+  Account Type
+</DashboardInputLabel>
+
+
+<DashboardTextField select 
+id='account_type'
+fullWidth
+error={Boolean(errors.account_type)}
+variant="outlined"
+
+{...register("account_type", {
+  required: {
+    value: true,
+    message: "required"
+  }
+})}
+
+value={account_type}
+onChange={handleChange('account_type')}
+
+>
+  
+
+  {accountTypes.map((option) => (
+  <MenuItem key={option.value} value={option.value}>
+    {option.label}
+  </MenuItem>
+))}
+
+</DashboardTextField>
+
+{(errors.account_type?.message) && (
+<DashboardErrorHelperText>
+{errors.account_type?.message}
+</DashboardErrorHelperText>
+)}
+
+</Grid>
 
 
 
@@ -293,8 +341,11 @@ placeholder="account"
 
 </Grid>
 
-{/* ID Number */}
-<Grid item xs={8}>
+
+
+
+       {/* ID Number */}
+<Grid item xs={5}>
 
   <DashboardInputLabel htmlFor='id_number'>
     ID Number
@@ -330,54 +381,8 @@ placeholder="account"
 
 
 
-
-     {/* Account Type  */}
-<Grid item xs={3}>
-
-<DashboardInputLabel htmlFor='account_type'>
-  Account Type
-</DashboardInputLabel>
-
-
-<DashboardTextField select 
-id='account_type'
-fullWidth
-error={Boolean(errors.account_type)}
-variant="outlined"
-
-{...register("account_type", {
-  required: {
-    value: true,
-    message: "required"
-  }
-})}
-
-value={account_type}
-onChange={handleChange('account_type')}
-
->
-  
-
-  {accountTypes.map((option) => (
-  <MenuItem key={option.value} value={option.value}>
-    {option.label}
-  </MenuItem>
-))}
-
-</DashboardTextField>
-
-{(errors.account_type?.message) && (
-<DashboardErrorHelperText>
-{errors.account_type?.message}
-</DashboardErrorHelperText>
-)}
-
-</Grid>
-
-
-
 {/* Email */}
-<Grid item xs={5}>
+<Grid item xs={6}>
 
   <DashboardInputLabel htmlFor='email'>
     Email
@@ -388,12 +393,6 @@ onChange={handleChange('account_type')}
       fullWidth
       error={Boolean(errors.email)}
       variant="outlined"  
-      // {...register("email", {
-      //   required: {
-      //     value: true,
-      //     message: "Email is required"
-      //   }
-      // })}
 
       {...register("email_address", {required: {
         value: true,
@@ -401,11 +400,9 @@ onChange={handleChange('account_type')}
         
         }, 
         pattern: {
-        // value: /^\S+@\S+$/i,
-        // value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-        
         value: /^[^\d][A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/,
         message: "Please enter a valid email address"
+
         }
         })}
 
@@ -416,49 +413,80 @@ onChange={handleChange('account_type')}
 
   </DashboardTextField>
 
-  { (errors.email?.message  ) &&
+  { (errors.email_address?.message  ) &&
       <DashboardErrorHelperText>
-        {errors.email?.message}
+        {errors.email_address?.message}
       </DashboardErrorHelperText> 
     }
 
 </Grid>
 
 
-    {/* Phone number */}
-<Grid item xs={4} >
-  
-<DashboardInputLabel htmlFor='phone_number'>
-    Phone Number
+
+
+
+{/* Upload Session */}
+<Grid item xs={6}>
+
+  <DashboardInputLabel htmlFor='selfie_image'>
+    Upload
   </DashboardInputLabel>
 
-  <DashboardTextField  type="text"
-      id="phone_number"
+  <MuiFileInput 
+      id="selfie_image"
       fullWidth
-      error={Boolean(errors.phone_number)}
+      // inputProps={{ accept: '.png, .jpeg' }}
+      error={Boolean(errors.selfie_image)}
       variant="outlined"  
-      {...register("phone_number", {
+      {...register("selfie_image", {
         required: {
-          value: true,
-          message: "Phone Number is required"
+          value: false,
+          // message: "required"
         }
       })}
 
-      placeholder='+233 500000000'
-      value={phone_number}
-      onChange={handleChange('phone_number')}
-      >
+      getInputText={(value) => value ? 'Thanks!' : 'No File'}
 
-  </DashboardTextField>
+      sx={{
+        fontFamily: 'Poppins',
+        fontSize: 12,
+        '& .MuiOutlinedInput-root.Mui-focused': {
+          '& > fieldset': {
+            borderColor: "#4991FF",
+          },
+        },
+        '& .MuiInputBase-root': {
+          height: '2rem',
+          fontSize: "0.7rem",
+          "& input::placeholder": {
+            fontSize: 12,
+          },
+        },
+        '& fieldset': {
+          borderRadius: '6px',
+        },
+        
+      }}
 
-  { (errors.phone_number?.message  ) &&
+      // placeholder='XXXXX - XXXXX'
+      // value={selfie_image}
+      value={selfie_image}
+      // onChange={handleImageChange('selfie_image')}
+      onChange={handleImageChange}
+      />
+
+  
+
+  { (errors.id_number?.message  ) &&
       <DashboardErrorHelperText>
-        {errors.phone_number?.message}
+        {errors.id_number?.message}
       </DashboardErrorHelperText> 
     }
 
-
 </Grid>
+
+
+   
 
 
  {/* Phone number  */}
