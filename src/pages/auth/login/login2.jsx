@@ -11,7 +11,7 @@ import { loginUsers } from '../../../apis/accountsApi';
 
 //REDUX
 import { useDispatch } from 'react-redux';
-import { setToken } from '../../../Redux/reducers/user';
+// import { setToken } from '../../../Redux/reducers/user';
 
 import { Box, Button, Grid, Paper, TextField, Typography, CircularProgress } from '@mui/material';
 
@@ -54,10 +54,12 @@ import { GlobalErrorHelperText, GlobalInputLabel, GlobalPaperStyle, GlobalTextfi
 
 import CircularIndeterminate from '../../../assets/GlobalAnimation/ButtonAnimation/LoadingButton';
 import api from '../../../Interceptors/tokenAxios';
+import { loginUserAction } from '../../../redux-toolkit/user/userSlice';
 
 
 
 
+import { setUserInfo } from '../../../redux-toolkit/user/userSlice';
 
 
 //API PROTOCOL
@@ -290,66 +292,69 @@ const passwordStrengthChange = (e) => {
   
 
   const onSubmit = async (data) => {
+    // Store the email in session storage
     sessionStorage.setItem("email", data.email);
-    console.log("Form Data: ", data)
-   
+    console.log("Form Data: ", data);
+
+    // dispatch(loginUserAction(data))
+  
     try {
-      // const { data } = await axios.post(baseUrl, data)
-      const response = await api.post(
-        "accounts/v1/login/",
-         data, 
-       
-         )
-      console.log("Session Storage Email ", email)
 
-
-      const responseApi = response.data
-
-
-      console.log("RESPONSE: ", responseApi)
-      console.log("Access Token: ", response.data.access_token )
-
-      // +++++++++++++++++++++++++++ SETTING THE TOKEN +++++++++++++++++++++
-
-     sessionStorage.setItem("Token", response.data.access_token);
-     sessionStorage.setItem("RefreshToken",  response.data.refresh_token)
-
+      
+      const response = await api.post("accounts/v1/login/", data);
+  
+      const responseApi = response.data;
+  
+      console.log("RESPONSE: ", responseApi);
+  
+  
+      // Store tokens and expiration times in session storage
+      sessionStorage.setItem("token", response.data.access_token);
+      sessionStorage.setItem("RefreshToken", response.data.refresh_token);
       sessionStorage.setItem("TokenExpiry", response.data.access_token_expiration);
-     sessionStorage.setItem("RefreshTokenExpiry",  response.data.refresh_token_expiration)
+      sessionStorage.setItem(
+        "RefreshTokenExpiry",
+        response.data.refresh_token_expiration);
+
+      sessionStorage.setItem("userInfo", JSON.stringify(response.data.user));
+
+  
+      // Log the access token (you don't need a 'Token' variable here)
+      console.log("Access Token Generated: ", response.data.access_token);
+  
+      // Dispatch setUserInfo action to store user data
+      dispatch(setUserInfo(response.data.user));
+
+      console.log(response.data.user)
+
+      navigate("/user-dashboard");
+
+      reset();
 
       
-     
-
-
-
-      const Token = dispatch(setToken(response.data.access_token));
-
-     
-      console.log("Token Generated: ", Token )
-      reset()
-      navigate("/user-dashboard")
-        
-   
+      
     } catch (error) {
-      // setError(error.response.data)
-      
-      console.log("error.response.data: ", error.response.data)
-      setErrorApi(error.response.data);
+      console.log("Error object: ", error)
+      const { message } = error;
+  
+      // Log the error response
+      // console.log("error.response.data: ", data);
+  
+      setErrorApi(error);
       console.log("Call to the API returns: ", errorApi);
-      
-
-      const errorMessage = error.message 
-      console.log("Error MEssage: ", errorMessage)
-
-      Object.values(errorApi).forEach(errors => {
-        errors.forEach(errorMessage => {
+  
+      const errorMessage = error.message;
+      console.log("Error Message: ", error);
+  
+      Object.values(errorApi).forEach((errors) => {
+        errors.forEach((errorMessage) => {
           toast.error(errorMessage); // Display each error message using toast.error()
-
-          // console.log("Error inside the Inner ForEach: ", errorMessage )
         });
       });
     }
-  }
+    
+  };
+  
 
 
 

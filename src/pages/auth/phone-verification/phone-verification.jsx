@@ -377,7 +377,7 @@ const onSubmit = async (data) => {
         // setValue("otp", data.datas)
 
 
-        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 
     console.log("FORM SUBMITTED: ", response)
 
@@ -386,7 +386,9 @@ const onSubmit = async (data) => {
     reset();
     console.log('Before toast.success'); // Check if this log is printed in the console
     toast.success("Thank You for authentication")
-    navigate("/user-dashboard");
+    toast.info("Please Log in with Your credentials")
+    // navigate("/user-dashboard");
+    navigate("/login")
 
   } catch (error) {
 

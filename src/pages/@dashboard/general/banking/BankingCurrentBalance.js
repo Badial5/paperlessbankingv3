@@ -1,3 +1,4 @@
+//Calvin
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import Slider from 'react-slick';
@@ -30,8 +31,7 @@ const CardItemStyle = styled('div')(({ theme }) => ({
   backgroundSize: 'cover',
   padding: theme.spacing(3),
   backgroundRepeat: 'no-repeat',
-  // color: theme.palette.common.white,
-  color: "#fff",
+  color: theme.palette.common.white,
   backgroundImage: 'url("/assets/bg_card.png")',
   display: 'flex',
   flexDirection: 'column',
@@ -54,10 +54,10 @@ const shadowStyle = {
 
 // ----------------------------------------------------------------------
 
-BankingCurrentBalance.propTypes = {
-  list: PropTypes.array,
-  sx: PropTypes.object,
-};
+// BankingCurrentBalance.propTypes = {
+//   list: PropTypes.array,
+//   sx: PropTypes.object,
+// };
 
 export default function BankingCurrentBalance({ list, sx }) {
   const theme = useTheme();
@@ -74,11 +74,14 @@ export default function BankingCurrentBalance({ list, sx }) {
   return (
     <RootStyle sx={sx}>
       <Box sx={{ position: 'relative', zIndex: 9 }}>
+
+      
         <Slider {...settings}>
           {list.map((card) => (
             <CardItem key={card.id} card={card} />
           ))}
         </Slider>
+
       </Box>
 
       <Box sx={{ ...shadowStyle }} />
@@ -98,16 +101,16 @@ export default function BankingCurrentBalance({ list, sx }) {
 
 // ----------------------------------------------------------------------
 
-CardItem.propTypes = {
-  card: PropTypes.shape({
-    id: PropTypes.string,
-    balance: PropTypes.number,
-    cardHolder: PropTypes.string,
-    cardNumber: PropTypes.string,
-    cardType: PropTypes.string,
-    cardValid: PropTypes.string,
-  }),
-};
+// CardItem.propTypes = {
+//   card: PropTypes.shape({
+//     id: PropTypes.string,
+//     balance: PropTypes.number,
+//     cardHolder: PropTypes.string,
+//     cardNumber: PropTypes.string,
+//     cardType: PropTypes.string,
+//     cardValid: PropTypes.string,
+//   }),
+// };
 
 function CardItem({ card }) {
   const { id, cardType, balance, cardHolder, cardNumber, cardValid } = card;
@@ -206,12 +209,12 @@ function CardItem({ card }) {
 
 // ----------------------------------------------------------------------
 
-MoreMenuButton.propTypes = {
-  actions: PropTypes.node,
-  onClose: PropTypes.func,
-  onOpen: PropTypes.func,
-  open: PropTypes.object,
-};
+// MoreMenuButton.propTypes = {
+//   actions: PropTypes.node,
+//   onClose: PropTypes.func,
+//   onOpen: PropTypes.func,
+//   open: PropTypes.object,
+// };
 
 function MoreMenuButton({ actions, open, onOpen, onClose }) {
   return (

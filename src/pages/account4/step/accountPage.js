@@ -38,7 +38,7 @@ const titles = [
 const idTypes = [
   {value: "", label: "----------Select--------------"},
   { value: "Passport", label: "Passport" },
-  { value: "Ghanacard", label: "Ghana Card" },
+  { value: "Ghana Card", label: "Ghana Card" },
   { value: "Votercard", label: "Voter's Card" },
   { value: "Dvla", label: "DVLA" },
 
@@ -47,9 +47,9 @@ const idTypes = [
 
 const accountTypes = [
   {value: "", label: "----------Select--------------"},
-  { value: "Saving", label: "Saving" },
+  { value: "Saving Account", label: "Saving" },
   { value: "Current Account", label: "Current" },
-  { value: "Business", label: "Business" },
+  { value: "Business Account", label: "Business" },
   // { value: "dvla", label: "DVLA" },
 
 ]
@@ -445,7 +445,7 @@ placeholder="account"
         }
       })}
 
-      getInputText={(value) => value ? 'Thanks!' : 'No File'}
+      getInputText={(value) => value ? 'Image Uploaded!' : 'No File'}
 
       sx={{
         fontFamily: 'Poppins',
@@ -474,6 +474,8 @@ placeholder="account"
       // onChange={handleImageChange('selfie_image')}
       onChange={handleImageChange}
       />
+
+    
 
   
 

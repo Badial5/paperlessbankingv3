@@ -17,7 +17,7 @@ import { Paper } from '@mui/material'
 import { motion } from "framer-motion"
 
 import { useDispatch, useSelector } from 'react-redux';
-import { clearToken } from '../../../../Redux/reducers/user';
+// import { clearToken } from '../../../../Redux/reducers/user';
 
 
 
@@ -44,6 +44,8 @@ import TinUpdateDialog from './menu-data/TINUPDATE/FORGOTPIN/TINUpdateDialog';
 import UnSubscribeDialog from './menu-data/UNSUBSCRIBE/UnSubscribeDialog';
 
 
+import { clearUserAuth } from '../../../../redux-toolkit/user/userSlice';
+
 
 const baseUrl = "https://api.inlakssolutions.com/accounts/v1/logout/"
 // const baseUrl = "/accounts/v1/logout/"
@@ -53,14 +55,14 @@ const baseUrl = "https://api.inlakssolutions.com/accounts/v1/logout/"
 
 
 
-export default function AccountMenu({userName})
+export default function AccountMenu({userFirstName})
  {
 
 
-  const isAuthenticated = useSelector(state => state.user.isAuthenticated);
+  // const isAuthenticated = useSelector(state => state.user.isAuthenticated);
 // This line means you're using the useSelector hook to get the value of `isAuthenticated` from your Redux store's state.
 
-const userToken = useSelector(state => state.user.token);
+// const userToken = useSelector(state => state.user.token);
 // Similarly, this line gets the value of `token` from the `user` slice of your Redux store's state.
 
 const dispatch = useDispatch()
@@ -89,6 +91,15 @@ const dispatch = useDispatch()
 
   //UNSUBSCRIBE UPDATE
   const[openUnsubscribe, setOpenUnsubscribe] = useState(false)
+
+
+
+  //logout
+  const logOutAccount = () => {
+    dispatch(clearUserAuth())
+
+    navigate("/login")
+  }
 
 
 
@@ -123,7 +134,7 @@ const dispatch = useDispatch()
       // Show a success toast notification
       toast.success('You have successfully logged out.');
 
-      dispatch(clearToken());
+      // dispatch(clearToken());
 
       navigate("/login")
       // Redirect the user to the homepage or perform any other necessary actions
@@ -345,7 +356,7 @@ const handleCloseSubscribe = () => {
 
         
         <MenuItem onClick={handleClose} sx={{display: 'flex'}}>
-          <Avatar /> <Typography sx={{fontSize: 14, ml: 2}}>Profile</Typography>
+          <Avatar /> <Typography sx={{fontSize: 14, ml: 2}}>{userFirstName ? userFirstName : "Guest"}</Typography>
         </MenuItem>
         {/* <MenuItem onClick={handleClose}>
           <Avatar /> My account
@@ -439,7 +450,7 @@ const handleCloseSubscribe = () => {
 
 
 
-        <MenuItem onClick={handleLogout} sx={{fontSize: 12, ":hover": {backgroundColor: '#E0F3FF', borderRadius: 5, color: '#F7AD83' }}}>
+        <MenuItem onClick={logOutAccount} sx={{fontSize: 12, ":hover": {backgroundColor: '#E0F3FF', borderRadius: 5, color: '#F7AD83' }}}>
           <ListItemIcon>
             <Logout fontSize="small" sx={{color: '#022964', fontSize: 16}} />
           </ListItemIcon>
@@ -458,32 +469,33 @@ const handleCloseSubscribe = () => {
         <Box sx={{display: "flex", flexDirection: "column", justifyContent: "center"}}>
       {/* <Typography sx={{fontSize: 14, color: '#022964'}}>Welcome back</Typography> */}
 
-      <Box>
+      <Box sx={{width: "auto"}}>
         {/* <Typography sx={{fontSize: 10, ml: 1, fontWeight: 600}}>
         
         {userName ?  userName : "User"}
         </Typography> */}
 
-        {isAuthenticated ? (
-        <>
-          <Typography variant='caption' sx={{fontSize: 12, color: '#022964'}}>Welcome back</Typography>
+   
+          <Typography variant='caption' sx={{fontSize: 8,  width: "100%"}}>Welcome back</Typography>
           <br />
-          <Typography variant='caption' sx={{fontSize: 10, color: '#022964'}}>User</Typography>
+          <Typography variant='caption' sx={{fontSize: 10, color: '#022964'}}> { userFirstName ? userFirstName : "Guest" } </Typography>
           
           {/* <p>Your token: {userToken}</p> */}
-          {console.log("USER TOKEN: ", userToken)}
-        </>
-      ) : (
-        // <p>Please log in to view your profile.</p>
-        <Typography sx={{fontSize: 10, color: '#022964'}}>Guest</Typography>
-        )}
+          {/* {console.log("USER TOKEN: ", userToken)} */}
+   
+
+       {/* <p>Please log in to view your profile.</p> */}
+        {/* <Typography sx={{fontSize: 10, color: '#022964'}}>Guest</Typography> */}
+
+
+    
 
         </Box>
       </Box>
       
       <Tooltip title="Sign Out from online banking" placement='bottom'>
-      <MenuItem onClick={handleLogout}  sx={{fontSize: 12, marginLeft: 5, ":hover": { borderRadius: 5, color: '#F7AD83', }}}>
-          <ListItemIcon> 
+      <MenuItem onClick={logOutAccount}  sx={{fontSize: 12, marginLeft: 5, ":hover": { borderRadius: 5, color: '#F7AD83', }}}>
+          <ListItemIcon onClick={logOutAccount} > 
             <Logout fontSize="small" sx={{color: '#022964', fontSize: 16, ":hover": {backgroundColor: '#022964', borderRadius: 5, color: '#022964' }}} />
           </ListItemIcon>
         </MenuItem>

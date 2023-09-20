@@ -124,6 +124,7 @@ import RootLayout from './RootLayout'
 import { useTheme } from '@mui/material/styles'
 import { useContext } from 'react'
 import { ColorModeContext } from './theme/ColorTheme'
+import AuthRoute from './pages/auth/authRoute/authRoute'
 
 const App = () => {
 
@@ -300,8 +301,12 @@ const App = () => {
 
       {/* <Route path="user-dashboard" element={<UserDashboard />} errorElement={<ErrorPage />} />  */}
 
-
-      <Route path="user-dashboard" element={<UserDashboard />} errorElement={<ErrorPage />} >
+       {/* Protecting the route  */}
+      <Route path="user-dashboard" element={ 
+      <AuthRoute> 
+        <UserDashboard /> 
+        </AuthRoute> 
+      } errorElement={<ErrorPage />} >
 
       <Route path="account-creation" element={<AccountCreation />}  /> 
 

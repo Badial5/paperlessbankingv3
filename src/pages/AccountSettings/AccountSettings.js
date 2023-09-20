@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
+import { useSelector, useDispatch } from 'react-redux';
 import React, { useCallback } from 'react'
-import { Card, Grid, Box, Stack, Typography } from '@mui/material'
+import { Card, Grid, Box, Stack, Typography, TextField, Avatar } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
 import { RHFUploadAvatar } from '../../components/hook-form/RHFUpload'
 
@@ -20,9 +21,22 @@ import RHFSwitch from '../../components/hook-form/RHFSwitch';
 import useAuth from '../../hooks/useAuth';
 import RHFTextField from '../../components/hook-form/RHFTextField';
 import RHFSelect from '../../components/hook-form/RHFSelect';
+import { GlobalButton, GlobalTextField } from '../../assets/GlobalStyled/Globalstyles';
+import RadialBarChart from '../dashboard/dashboard_components/charts/RadialBarChar';
 
 
 const AccountSettings2 = () => {
+
+  //redux
+  const dispatch = useDispatch()
+
+  const bank_account = useSelector(state => state.accounts.accounts)
+
+  console.log(bank_account[4])
+
+  //destructuring information from the account
+  const { title, full_name, id_type, id_number, account_type, phone_number, email_address, selfie_image } = bank_account[4]
+
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -104,6 +118,7 @@ const AccountSettings2 = () => {
         <Grid item xs={12} md={4}>
           <Card sx={{ py: 10, px: 3, textAlign: 'center' }}>
             <RHFUploadAvatar
+            src={selfie_image}
               name="photoURL"
               maxSize={3145728}
               onDrop={handleDrop}
@@ -113,6 +128,7 @@ const AccountSettings2 = () => {
                   sx={{
                     mt: 2,
                     mx: 'auto',
+                    fontSize: 10,
                     display: 'block',
                     textAlign: 'center',
                     color: 'text.secondary',
@@ -124,11 +140,18 @@ const AccountSettings2 = () => {
               }
             />
 
-            <RHFSwitch name="isPublic" labelPlacement="start" label="Public Profile" sx={{ mt: 5 }} />
+            {/* <Avatar  src={selfie_image} 
+            sx={{ width: 150, height: 150 }}  /> */}
+
+         
+
+            <RHFSwitch name="isPublic" labelPlacement="start" label="Public Profile" sx={{ mt: 5, fontSize: 10 }} />
           </Card>
         </Grid>
 
-        <Grid item xs={12} md={8}>
+
+
+        <Grid item sx={{ml: "auto", }} xs={12} md={8}>
           <Card sx={{ p: 3 }}>
             <Box
               sx={{
@@ -138,39 +161,60 @@ const AccountSettings2 = () => {
                 gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
               }}
             >
-              <RHFTextField name="displayName" label="Name" />
-              <RHFTextField name="email" label="Email Address" />
+              <GlobalTextField placeholder='full name'  value={`${title} ${full_name}`} disabled />
+              <GlobalTextField  placeholder="Email Address" value={email_address} />
 
-              <RHFTextField name="phoneNumber" label="Phone Number" />
-              <RHFTextField name="address" label="Address" />
+              <GlobalTextField  placeholder="Phone Number" value={phone_number} />
+              {/* <GlobalTextField  placeholder="Email Address" /> */}
 
-              <RHFSelect name="country" label="Country" placeholder="Country">
+              
+              <GlobalTextField  placeholder="ID Type"  value={id_type} />
+              <GlobalTextField  placeholder="ID Number" value={id_number} />
+
+              <GlobalTextField  placeholder="Account Type" value={account_type}/>
+              {/* <GlobalTextField  placeholder="ID Number" /> */}
+
+              {/* <GlobalTextField name="country"  placeholder="Country">
                 <option value="" />
                 {countries.map((option) => (
                   <option key={option.code} value={option.label}>
                     {option.label}
                   </option>
                 ))}
-              </RHFSelect>
+              </GlobalTextField> */}
 
-              <RHFTextField name="state" label="State/Region" />
+              {/* <RHFTextField name="state" label="State/Region" />
 
               <RHFTextField name="city" label="City" />
-              <RHFTextField name="zipCode" label="Zip/Code" />
+              <RHFTextField name="zipCode" label="Zip/Code" /> */}
             </Box>
 
             <Stack spacing={3} alignItems="flex-end" sx={{ mt: 3 }}>
-              <RHFTextField name="about" multiline rows={4} label="About" />
+              {/* <TextField name="about" multiline rows={4} placeholder="About" /> */}
 
-              <LoadingButton type="submit" variant="contained" 
+              {/* <LoadingButton type="submit" variant="contained" 
               loading={isSubmitting}
               >
                 Save Changes
-              </LoadingButton>
+              </LoadingButton> */}
+              <GlobalButton loading={isSubmitting}>
+                Save Changes
+              </GlobalButton>
             </Stack>
           </Card>
         </Grid>
-      </Grid>
+
+
+        <Grid item xs={12} md={4}></Grid>
+
+        <Grid item xs={12} md={8}>
+          <Card sx={{ }}>
+            <RadialBarChart /> 
+          </Card>
+        </Grid>
+
+      
+    </Grid>
   )
 }
 

@@ -74,7 +74,7 @@ const styles = {
 };
 
 
-const ConfirmPage2 = ({formData, handleChange, handleNext, handleBack, register, isValid, errors, upload, submitForm, }, props) => {
+const ConfirmPage2 = ({formData, file, handleChange, handleNext, handleBack, register, isValid, errors, upload, submitForm, }, props) => {
 
   //Phone Input
   const { value, defaultCountry, onChange, classes } = props;
@@ -86,11 +86,19 @@ const ConfirmPage2 = ({formData, handleChange, handleNext, handleBack, register,
       title, phone_number, 
       id_type, id_number, account_type, email_address, selfie_image,  } = formData
 
+      console.log("Title from Confirmation Page: ", title)
+      console.log("Account Type from Confirmation Page: ", account_type)
+      console.log("ID Type from Confirmation Page: ", id_type)
+      console.log("Selfie_Image from Confirmation Page: ", selfie_image)
+
   const onSubmit = (data) => {
     console.log(data)
    }
 
    const [salutation, setSalutation] = useState('');
+
+
+   console.log("File I Pass Image: ", file)
 
   return (
     <Box>
@@ -116,10 +124,17 @@ const ConfirmPage2 = ({formData, handleChange, handleNext, handleBack, register,
       {/* <Avatar  src={upload}  sx={{ width: 100, height: 56 }}
        /> */}
 
-      <Avatar 
+      {/* <Avatar 
 
-      src={selfie_image}
-      alt='Preview' sx={{ mr: 'auto', ml: "auto",  width: 60, height: 60}}  />
+      src={file.selfie_image}
+      alt='Preview' sx={{ mr: 'auto', ml: "auto",  width: 100, height: 100}}  /> */}
+
+<Avatar
+  // src={file && file.selfie_image ? file.selfie_image : ''}
+  src={selfie_image}
+  alt='Preview'
+  sx={{ mr: 'auto', ml: 'auto', width: 100, height: 100 }}
+/>
 
       </Grid>
 
@@ -141,7 +156,8 @@ const ConfirmPage2 = ({formData, handleChange, handleNext, handleBack, register,
       </DashboardInputLabel>
 
 
-      <GlobalTextField select 
+      <GlobalTextField 
+      disabled
       id='title'
       fullWidth
       variant="outlined"
@@ -172,7 +188,7 @@ const ConfirmPage2 = ({formData, handleChange, handleNext, handleBack, register,
         <DashboardTextField  type="text"
             id="full_name"
             fullWidth
-           
+           disabled
             
 
             placeholder='eg. Joseph Smith'
@@ -202,7 +218,7 @@ const ConfirmPage2 = ({formData, handleChange, handleNext, handleBack, register,
         fullWidth
         error={Boolean(errors.phone_number)}
         variant="outlined"  
-        
+        disabled
   
         placeholder='+233 500000000'
         value={phone_number}
@@ -225,15 +241,12 @@ const ConfirmPage2 = ({formData, handleChange, handleNext, handleBack, register,
 </DashboardInputLabel>
 
 
-<DashboardTextField select 
+<DashboardTextField 
 id='account_type'
 fullWidth
-
-
-
+disabled
 
 value={account_type}
-
 
 />
   
@@ -255,10 +268,10 @@ value={account_type}
 </DashboardInputLabel>
 
 
-<DashboardTextField select 
+<DashboardTextField 
 id='id_type'
 fullWidth
-
+disabled
 value={id_type}
 
 placeholder="account"
@@ -281,7 +294,7 @@ placeholder="account"
       id="id_number"
       fullWidth
       value={id_number}
-     
+     disabled
       />
 
 
@@ -303,7 +316,7 @@ placeholder="account"
       fullWidth
       error={Boolean(errors.email)}
       variant="outlined"  
-
+      disabled
     
 
       placeholder='eg. someone@domain.com'

@@ -1,5 +1,7 @@
 import { Box, Step, StepLabel, Typography, Button } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 //MUI Icons 
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -7,6 +9,13 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import SkipNextIcon from '@mui/icons-material/SkipNext';
 import DoneAllIcon from '@mui/icons-material/DoneAll';
 import HomeIcon from '@mui/icons-material/Home';
+
+
+//redux create account
+import { useDispatch, useSelector } from 'react-redux';
+import { createAccountAction } from '../../redux-toolkit/account/accountSlice';
+
+
 
 
 
@@ -24,7 +33,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 //Global styles for the dashboard 
-import { DashboardBackButton, DashboardHomeButton, DashboardNextButton, DashboardPageBackground, DashboardPaper, DashboardSkipButton, DashboardStepper, GlobalPageBackground } from '../../assets/GlobalStyled/Globalstyles';
+import { DashboardBackButton, DashboardHomeButton, DashboardNextButton, DashboardPageBackground, DashboardPaper, DashboardSkipButton, DashboardStepper, GlobalButton, GlobalPageBackground } from '../../assets/GlobalStyled/Globalstyles';
 
 
 
@@ -46,6 +55,30 @@ const steps = ['Account Creation',
 
 
 const FormContainer = () => {
+  const navigate = useNavigate()
+
+  const dispatch = useDispatch()
+
+
+  // const { success } = useSelector((state) => state?.accounts);
+
+    //get store data
+    const {
+      account: accountCreated,
+      loading,
+      error,
+      success,
+    } = useSelector((state) => state?.accounts);
+    //redirect after 3 seconds
+    useEffect(() => {
+      setTimeout(() => {
+        if (success) {
+          navigate("/user-dashboard");
+          //reload tye page
+          // window.location.reload();
+        }
+      }, 3000);
+    }, [success]);
 
 
   //STATES===============================
@@ -211,14 +244,40 @@ const FormContainer = () => {
     
   // }
 
+  console.log("Selfie_Image from Confirmation Page: ", selfie_image)
+
+  //this work but the image does not show
   const handleImageChange = (newImage) => {
-    setFormData({ ...formData, selfie_image: newImage });
+    setFormData({ ...formData, selfie_image: URL.createObjectURL(newImage) });
   };
+
+  // const handleImageChange = (event) => {
+  //   const selectedFile = event.target.files[0];
+  //   // Update the formData with the selected image
+  //   setFormData({
+  //     ...formData,
+  //     selfie_image: selectedFile, // Update the selfie_image property
+  //   });
+  // };
+
+  // const handleImageChange = (event) => {
+  //   const selectedFile = event.target.files[0];
+  //   // Update the formData with the selected image
+  //   setFormData({
+  //     ...formData,
+  //     selfie_image: selectedFile, // Update the selfie_image property
+  //   });
+  // };
+  
+  
 
   console.log("FIlE Image: ", file)
 
+  console.log("FORM DATA IMAGE: ", formData.selfie_image)
+
   //assigning file value to image 
  
+  //IMAGE D
 
 
    //this will render the pages according to the step number
@@ -230,28 +289,15 @@ const FormContainer = () => {
 
       case 1:
 
-      //  return <UploadPage2
-      //   image={image}
-      //   setImage={setImage}
-
-      //   globalImage={globalImage}
-      //   setGlobalImage={setGlobalImage}
-        
-      //   handleNext={handleNext}
-      //   handleBack={handleBack}
-      //   handleChange={handleChange}
-      //   register={register}
-      //   isValid={isValid}
-      //   errors={errors}
-      //   formData={formData}
-      //   setFormData={setFormData}
-      // />;
+     
 
       return <ConfirmPage2 formData={formData} handleNext={handleNext} handleBack={handleBack} handleChange={handleChange} reset={reset} trigger={trigger} setValue={setValue}  handleSubmit={handleSubmit} register={register} isValid={isValid} errors={errors}
-      upload={selfie_image} // Pass the 'upload' field value as the 'upload' prop
+      selfie_image={selfie_image} file={file} // Pass the 'upload' field value as the 'upload' prop
       
       submitForm={submitForm} // Pass the submitForm function as a prop
       />;
+
+
 
 
       // case 2:
@@ -297,76 +343,34 @@ const FormContainer = () => {
     
       console.log("+++FORM DATA: ", formData)
   
+      
       try {
-        // Prepare the form data
-        const formDataToSend = new FormData();
-        formDataToSend.append('title', formData.title); // Replace 'Mr.' with the correct title value
-        // formDataToSend.append('full_name', formData.name); // Make sure the 'name' field in formData contains the full name
 
-        formDataToSend.append('first_name', formData.first_name);
-
-        formDataToSend.append('last_name', formData.last_name);
-
-        // formDataToSend.append('full_name', `${formData.first_name} ${formData.last_name}`);
-
-        formDataToSend.append('id_type', formData.id_type); // Replace 'Passport' with the correct ID type value
-
-        formDataToSend.append('id_number', formData.id_number); // Make sure the 'id_number' field in formData contains the user's ID number
-
-        formDataToSend.append('account_type', formData.account_type); // Replace 'Current Account' with the correct account type value
-        formDataToSend.append('phone_number', formData.phone_number); // Make sure the 'phone_number' field in formData contains the phone number
-        formDataToSend.append('email_address', formData.email); // Make sure the 'email' field in formData contains the email address
-        // formDataToSend.append('use_selfie', true);  // Replace 'true' with the actual value for use_selfie
-        formDataToSend.append(
-          'selfie_image', 
-        // formData.selfie_image
-        file,
-        ); // Make sure the 'image' field in formData contains the selfie image
-
-        console.log("FormDataToSend: ", formDataToSend)
-  
-        const response = await axios.post(baseUrl, {
-          // formData: formDataToSend
-          formData
-        }, {
-          // headers: {
-          //   'Content-Type': 'multipart/form-data',
-          //   // 'Content-Type': 'application/json', // Set the content type to JSON
-          //   // Authorization: `Bearer ${access_token}`,
-          // },
-
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: 'Bearer ' + sessionStorage.getItem('Token')
-          },
-        });
-
-        console.log("SESSION STORAGE GETITEM: ", sessionStorage.getItem("Token"))
-  
-        if (response.status === 200) {
-          // Display success message to the user
-          // alert('Form submitted successfully!');
-          setActiveStep(0);
-          setFormData({
-           formData
-          });
+        // dispatch(createAccountAction(formData))
+        const response = await dispatch(createAccountAction(formData));
+        reset()
+        if (response.status === 'success') {
+          // Bank account created successfully
+          toast.success('Bank Account Created');
+          // Redirect after 3 seconds
+          setTimeout(() => {
+            navigate('/user-dashboard');
+            // Reload the page
+            // window.location.reload();
+          }, 3000);
         } else {
-          // Display error message to the user
-          alert('Error submitting form. Please try again later.');
+          // Handle any other success status or error message
+          toast.error(response.message || 'An error occurred');
         }
+
+        
+
+
+        console.log("++++++++++++++++++++++++Account Created+++++++++++++++++++++")
+        console.log(formData)
       } catch (error) {
-        console.error(error);
-  
-        setErrorApi(error.message);
-  
-        // Display error message to the user
-        alert('Error submitting form. Please try again later.');
-  
-        Object.values(errorApi).forEach(errors => {
-          errors.forEach(errorMessage => {
-            toast.error(errorMessage); // Display each error message using toast.error()
-          });
-        });
+        console.log("Error from Multi Step Create account: ", error)
+        toast.error("Sorry there is an error")
       }
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -375,100 +379,6 @@ const FormContainer = () => {
 
   
 
-  //  const handleNext = async () => {
-  //   if (activeStep === steps.length - 1) {
-  //     // Send form data to server for processing
-
-  //     //ACCESS TOKEN
-  // const access_token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjkwNTE4ODg2LCJpYXQiOjE2OTAyNTk2ODYsImp0aSI6IjY0MmYxNGYyMWFjMDQ3NDQ4MmRhZjk2ZjUwYjc5MzUzIiwidXNlcl9pZCI6Nn0.FJ_LIbrrMvNK7RxB1iVzkwqNQTyV5OLOmGuHWaIt79M';
-
-  //     try {
-  //       const response = await axios.post(baseUrl, formData, {
-  //         headers: {
-  //           'Content-Type': 'multipart/form-data',
-  //           Authorization: `Bearer ${access_token}`,
-           
-  //         },}); // Change "api/form-submit" to your server endpoint that handles form submission
-  //       if (response.status === 200) {
-  //         // Display success message to the user
-  //         // alert('Form submitted successfully!');
-  //         setActiveStep(0);
-  //         setFormData({
-  //           email: '',
-  //           password: '',
-  //           confirmPassword: '',
-  //           name: '',
-  //           age: '', 
-  //           gender: "",
-  //           nationality: '',
-  //           city: '',
-  //           image: null
-  //         });
-  //       } else {
-  //         // Display error message to the user
-  //         alert('Error submitting form. Please try again later.');
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-
-  //       setErrorApi(error.response.data);
-
-  //       // Display error message to the user
-  //       alert('Error submitting form. Please try again later.');
-
-  //       Object.values(errorApi).forEach(errors => {
-  //         errors.forEach(errorMessage => {
-  //           toast.error(errorMessage); // Display each error message using toast.error()
-  
-  //           // console.log("Error inside the Inner ForEach: ", errorMessage )
-  //         });
-  //       });
-  //     }
-  //   } else {
-  //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  //   }
-  // };
-
-
-  //  const handleNext = async () => {
-  //   if (activeStep === steps.length - 1) {
-  //     try {
-  //       const response = await axios.patch(baseUrl, formData);
-  //       if (response.status === 200) {
-  //         setActiveStep(0);
-  //         setFormData({
-  //           email: '',
-  //           password: '',
-  //           confirmPassword: '',
-  //           name: '',
-  //           age: '',
-  //           gender: '',
-  //           nationality: '',
-  //           city: '',
-  //         });
-  //       } else {
-  //         alert('Error submitting form. Please try again later.');
-  //       }
-  //     } catch (error) {
-  //       console.error(error);
-  
-  //       if (error.response && error.response.data) {
-  //         const { errors } = error.response.data;
-  //         if (errors && Array.isArray(errors)) {
-  //           errors.forEach((errorMessage) => {
-  //             toast.error(errorMessage);
-  //           });
-  //         }
-  //       } else {
-  //         alert('Error submitting form. Please try again later.');
-  //       }
-  //     }
-  //   } else {
-  //     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  //   }
-  // };
-  
-  
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -508,6 +418,14 @@ const FormContainer = () => {
 
 
   const submitForm = async () => {
+       //pass the token to header
+       const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": `multipart/form-data`,
+        },
+      };
+
     try {
       // Perform form validation here
       const isValid = await trigger(); // Triggers validation for all fields
@@ -516,7 +434,7 @@ const FormContainer = () => {
       }
   
       // Send the form data to the API using Axios
-      await axios.post(baseUrl, formData);
+      await axios.post(baseUrl, formData, config );
   
       // Handle success, e.g., show a success message or redirect to another page
       console.log('Form submitted successfully!');
@@ -631,14 +549,15 @@ const FormContainer = () => {
               </DashboardSkipButton>
             )} */}
 
-<DashboardNextButton elevation={20} 
+<GlobalButton elevation={20}  sx={{width: 100,
+    height: 30,}}
 onClick={handleNext}
 // onClick={() => setValue(`${first_name} ${last_name}`, full_name), handleNext }
 size='small'
 //this will enable the button iff the forms are valid
  disabled={!isValid} >
   {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-</DashboardNextButton>
+</GlobalButton>
 
           </Box>
         </>

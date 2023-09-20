@@ -4,119 +4,68 @@ const api = axios.create({
   baseURL: 'https://api.inlakssolutions.com/', // Replace with your API's base URL
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer ' + sessionStorage.getItem('Token')
+    // Use 'token' here
+    // Authorization: 'Bearer ' + sessionStorage.getItem('token') 
   },
 });
 
-
-
-
-api.interceptors.request.use(async (config) => {
-
-    const token = sessionStorage.getItem('Token');
-
-    config.headers['Authorization'] = `Bearer ${token}`;
-    //  return config;
-    if (token) {
-      const expiration = sessionStorage.getItem('TokenExpiry');
-      if (expiration && new Date().getTime() > Number(expiration)) {
-        // Token has expired, initiate renewal or refresh process
-        try {
-          const newToken = await refreshToken();
-          config.headers['Authorization'] = `Bearer ${newToken}`;
-          sessionStorage.setItem('token', newToken);
-        } catch (error) {
-          console.error('Token refresh failed:', error);
-          // Handle refresh failure, possibly redirect to login
-        }
-      } else {
-        config.headers['Authorization'] = `Bearer ${token}`;
-      }
-    }
-    return config;
-  });
-
-
 // api.interceptors.request.use(async (config) => {
-//     const token = sessionStorage.getItem('Token');
+//   const token = sessionStorage.getItem('token'); // Use 'token' here
+
+//   config.headers['Authorization'] = `Bearer ${token}`;
   
-//     if (token) {
-//       const expiration = sessionStorage.getItem('TokenExpiry');
-//       if (expiration && new Date().getTime() < Number(expiration)) {
-//         config.headers['Authorization'] = `Bearer ${token}`;
-//       } else {
-//         try {
-//           const newToken = await refreshToken();
-//           config.headers['Authorization'] = `Bearer ${newToken}`;
-//           sessionStorage.setItem('Token', newToken);
-//         } catch (error) {
-//         //   handleRefreshFailure();
-//         console.log(error)
-//         }
+//   if (token) {
+//     const expiration = sessionStorage.getItem('TokenExpiry');
+//     if (expiration && new Date().getTime() > Number(expiration)) {
+//       // Token has expired, initiate renewal or refresh process
+//       try {
+//         const newToken = await refreshToken();
+//         config.headers['Authorization'] = `Bearer ${newToken}`;
+//         sessionStorage.setItem('token', newToken); // Use 'token' here
+//       } catch (error) {
+//         console.error('Token refresh failed:', error);
+//         handleRefreshFailure(); // Call the error handling function
 //       }
 //     }
-//     return config;
-//   });
+//   }
+//   return config;
+// });
 
+const TOKEN = sessionStorage.getItem('token');
+//causes the error
+// api.interceptors.request.use(
+//   (config) => {
+//     const token = `${TOKEN}`
+//     const auth = token ? `Bearer ${token}` : '';
+//     config.headers.common['Authorization'] = auth;
+//     return config;
+//   },
+//   (error) => Promise.reject(error),
+// );
 
 
 export default api;
 
-
-
-async function refreshToken() {
-  try {
-    const refreshToken = sessionStorage.getItem('RefreshToken');
-    const response = await api.post('/auth/v1/token/refresh/', { refresh: refreshToken }); // Endpoint to refresh token
-    const newToken = response.data.access_token;
-    const newExpiration = response.data.access_token_expiration;
-    sessionStorage.setItem('Token', newToken);
-    sessionStorage.setItem('TokenExpiry', newExpiration);
-    console.log('Token refreshed successfully.');
-    return newToken;
-  } catch (error) {
-    throw error;
-  }
-}
-
-
-
 // async function refreshToken() {
-//     try {
-//       const refreshToken = sessionStorage.getItem('RefreshToken');
-//       const response = await api.post('/auth/v1/token/refresh/', { refresh: refreshToken });
-//       const newToken = response.data.access_token;
-//       const newExpiration = response.data.access_token_expiration;
-//       sessionStorage.setItem('Token', newToken);
-//       sessionStorage.setItem('TokenExpiry', newExpiration);
-//       console.log('Token refreshed successfully.');
-//       return newToken;
-//     } catch (error) {
-//       throw error;
-//     }
+//   try {
+//     const refreshToken = sessionStorage.getItem('RefreshToken');
+//     const response = await api.post('/auth/v1/token/refresh/', { refresh: refreshToken }); // Endpoint to refresh token
+//     const newToken = response.data.access_token;
+//     const newExpiration = response.data.access_token_expiration;
+//     sessionStorage.setItem('token', newToken); // Use 'token' here
+//     sessionStorage.setItem('TokenExpiry', newExpiration);
+//     console.log('Token refreshed successfully.');
+//     return newToken;
+//   } catch (error) {
+//     console.error('Token refresh failed:', error);
+//     handleRefreshFailure(); // Call the error handling function
+//     throw error;
 //   }
-
-
-
-
+// }
 
 // function handleRefreshFailure() {
 //   console.error('Token refresh failed.');
-//   sessionStorage.removeItem('Token');
+//   sessionStorage.removeItem('token'); // Use 'token' here
 //   sessionStorage.removeItem('TokenExpiry');
-//   // Optionally, redirect to the login page
-//   window.location.href = '/login'; // Replace with your login route
+//   window.location.href = '/login'; // Redirect to login page or handle differently
 // }
-
-
-function handleRefreshFailure() {
-    console.error('Token refresh failed.');
-    sessionStorage.removeItem('Token');
-    sessionStorage.removeItem('TokenExpiry');
-    window.location.href = '/login'; // Redirect to login page
-  }
-  
-  
-    
-  
-  

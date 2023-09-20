@@ -6,6 +6,10 @@ import axios from 'axios';
 import { motion } from 'framer-motion';
 
 
+import { useDispatch, useSelector } from 'react-redux';
+
+import { registerUserAction, setUserInfo } from '../../../redux-toolkit/user/userSlice';
+// import { registerUserAction } from '../../../Redux/async/users/usersSlice';
 
 import { Box, Button, Grid, Paper, TextField, Typography, CircularProgress } from '@mui/material';
 
@@ -51,6 +55,7 @@ import { GlobalErrorHelperText, GlobalInputLabel, GlobalPaperStyle, GlobalTextfi
 import CircularIndeterminate from '../../../assets/GlobalAnimation/ButtonAnimation/LoadingButton';
 import { LoadingButton } from '@mui/lab';
 import api from '../../../Interceptors/tokenAxios';
+import axiosInstance from '../../../utils/axios';
 
 // import { LazyMotion, domAnimation, m } from "framer-motion"
 
@@ -70,41 +75,6 @@ const baseUrl = "https://banking-api.inlakssolutions.com/accounts/v1/signup/"
 const baseUrl2 = "https://banking-api.inlakssolutions.com/accounts/v1/signup/"
 
 const baseUrl3 = "https://api.inlakssolutions.com/accounts/v1/signup/"
-
-//STYLE FOR PHONE INPUT COMPONENT
-
-// const styles = {
-//   fontFamily: "Poppins",
-//   fontSize: 12,
-//   "& .MuiOutlinedInput-root.Mui-focused": {
-//     "& > fieldset": {
-//       borderColor: "#7833EE"
-//     }
-//   },
-//   "& fieldset": {
-//     borderRadius: "6px"
-//   },
-//   "& .MuiInputBase-root": {
-//     height: "2rem"
-//   }
-// };
-
-
-// const styles = {
-//     width: '100%',
-//     fontFamily: "Poppins",
-//     fontSize: 12,
-//     "& .MuiOutlinedInput-root.Mui-focused": {
-//         "& > fieldset": {
-//   borderColor: "#7833EE"
-//         }
-//       },  [`& fieldset`]:{
-//         borderRadius: "6px",  },
-//     "& .MuiInputBase-root": {
-//         height: "2rem",
-//       }
-//   };
-  
 
 
 const styles = {
@@ -128,6 +98,10 @@ const styles = {
 
 
 const SignUpFormError = (props) => {
+  //instance of the dispatch
+  const dispatch = useDispatch()
+
+
 
   //FOR THE PASSWORD
   const [passwordWarning, setPasswordWarning] = useState('')
@@ -230,59 +204,30 @@ const passwordStrengthChange = (event) => {
 
 
 
-  //+++++++++++++ ONSUBMIT +=====================
-
-  // const onSubmit = async (data) => {
-  //   sessionStorage.setItem("email", data.email);
-  //   console.log("Form Data: ", data)
-   
-  //   try {
-  //     const response = await axios.post(baseUrl, data)
-  //     // const newResponse = response.data
-  //     // console.log("FORM RESPONSE: ", newResponse)
-  //     // newResponse()
-
-  //     console.log("Form Submitted", response)
-  //     console.log("Session Storage Email ", email)
-  //     navigate("/phone-Otp")
-  //     reset()
-  
-  //     // console.log("Successful: ", newResponse)
-  //   } catch (error) {
-  //     // setError(error.response.data
-  //     setErrorApi(error.response.data)
-  //   // setErrorApi((prevState) => ({...prevState, error.message}))
-  //   console.log("Call to the APi returns: ",errorApi)
-  //     // toast.error({...errorApi})
-  //     toast.error(errorApi.message); // Display the error message using toast.error()
-
-  //     console.log("Error Api: ", errorApi)
-
-
-
-   
-  //   }
-  // }
-
+ //select store data
+ const { loading, userAuth } = useSelector((state) => {
+  return state?.users;
+});
 
 
   const onSubmit = async (data) => {
+    // const {
+    //   first_name,
+    //   last_name,
+    //   phone_number,
+    //   email,
+    //   password1,
+    // } = data
     sessionStorage.setItem("email", data.email);
     console.log("Form Data: ", data);
     // data.preventDefault();
+    // https://api.inlakssolutions.com
     try {
-      const response = await api.post(
-        // baseUrl3, 
-        // "https://api.inlakssolutions.com/accounts/v1/signup/",
-        "accounts/v1/signup/",
-        data, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: 'Bearer ' + sessionStorage.getItem('Token')
-          },
-        } );
-      console.log("Form Submitted", response);
-      console.log("Session Storage Email ", email);
+      const response = await axios.post(
+        "https://api.inlakssolutions.com/accounts/v1/signup/",
+        data );
+      console.log("Form Submitted: ", response);
+      console.log("Session Storage Email: ", email);
      
       console.log('Before toast.success'); // Check if this log is printed in the console
       toast.success('We sent you an email, check and authenticate it');
@@ -293,27 +238,73 @@ const passwordStrengthChange = (event) => {
       //   return <Navigate to="/phone-Otp" />
       // }
 
+      //   console.log("response: ", response)
+      // sessionStorage.setItem("Token", response.data.access_token);
+      // sessionStorage.setItem("RefreshToken",  response.data.refresh_token)
+ 
+      //  sessionStorage.setItem("TokenExpiry", response.data.access_token_expiration);
+      // sessionStorage.setItem("RefreshTokenExpiry",  response.data.refresh_token_expiration)
+ 
+       
+      //  const Token = dispatch(setToken(response.data.access_token));
+
+      //  console.log("Token: ", sessionStorage.getItem("Token"))
+      //  console.log("RefreshToken: ", sessionStorage.getItem("RefreshToken"))
+      //  console.log("TokenExpiry: ", sessionStorage.getItem("TokenExpiry"))
+      //  console.log("RefreshTokenExpiry: ", sessionStorage.getItem("RefreshTokenExpiry"))
+
+
+      dispatch(setUserInfo(response.data.user));
       reset();
 
-      console.log("Redirect Status: ", redirect)
+      // console.log("Redirect Status: ", redirect)
 
       navigate("/phone-Otp");
 
-
+      
     } catch (error) {
 
-      setErrorApi(error.response.data);
+      console.log("CONSOLE.LOG :", error)
+
+      const {response: {data}} = error 
+
+      console.log("ErrorData: XXXXX: ", data)
+      // setErrorApi(error.response.data);
+      setErrorApi(data);
       console.log("Call to the API returns: ", errorApi);
 
       Object.values(errorApi).forEach(errors => {
+        console.log("errorApi: ", errorApi)
+        console.log("error: ", error)
         errors.forEach(errorMessage => {
           toast.error(errorMessage); // Display each error message using toast.error()
 
           // console.log("Error inside the Inner ForEach: ", errorMessage )
         });
       });
+
+      // if (error.response && error.response.data) {
+      //   const errorApi = error.response.data;
+      
+      //   if (errorApi.messages && Array.isArray(errorApi.messages)) {
+      //     errorApi.messages.forEach(errorMessage => {
+      //       toast.error(errorMessage);
+      //     });
+      //   } else if (errorApi.detail) {
+      //     toast.error(errorApi.detail);
+      //   }
+      // } else {
+      //   // Handle the error in a way that makes sense for your application
+      //   console.error("An unexpected error occurred:", error);
+      //   toast.error(error)
+      // }
+      
+
+
       console.log("Error Api: ", errorApi);
     }
+
+    // dispatch(registerUserAction(data))
   }
 
   

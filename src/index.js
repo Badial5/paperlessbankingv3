@@ -1,8 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+//redux
+// import Provider from 'react-redux';
+import { StoreToolkit } from './redux-toolkit/store';
+import { Provider } from 'react-redux'; // Import the Provider
+
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+
+
+// Import css files
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+
+
+
+
+
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -10,7 +28,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 
 
-import { Provider } from 'react-redux'; // Import the Provider
+
 
 import "./axios/interceptors/interceptors"
 
@@ -34,7 +52,7 @@ import IconButton from '@mui/material/IconButton';
 import { useTheme, ThemeProvider, createTheme } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-import store from './Redux/store';
+// import store from './Redux/store';
 
 const ColorModeContext = React.createContext({ toggleColorMode: () => {} });
 
@@ -123,16 +141,17 @@ root.render(
       {/* <SignUpProvider> */}
     {/* <App  theme={theme}/> */}
 
-<Provider store={store}>
+{/* <Provider store={store}> */}
 
+  <Provider store={StoreToolkit}>
     <ColorModeContext.Provider >
       <ThemeProvider theme={theme}>
  
-      <QueryClientProvider client={queryClient}>
+      <QueryClientProvider client={queryClient}> 
 
         <App />
 
-    <ReactQueryDevtools initialIsOpen={false} />
+    <ReactQueryDevtools initialIsOpen={false} /> 
     </QueryClientProvider>
 
     </ThemeProvider>

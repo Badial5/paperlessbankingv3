@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const paperlessApi = axios.create({
+export const paperlessApi = axios.create({
     baseURL: "https://api.inlakssolutions.com/"
 })
 

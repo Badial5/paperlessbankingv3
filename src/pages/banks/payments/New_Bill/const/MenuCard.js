@@ -10,7 +10,7 @@ const CardContainer = styled(Card)(({ theme }) => ({
   height: "auto",
   transition: 'background-color 0.3s, box-shadow 0.3s',
   '&:hover': {
-    backgroundColor: "red",
+    backgroundColor: "blue",
     boxShadow: `0px 10px 15px -3px rgba(73, 145, 255, 0.2), 0px 4px 6px -2px rgba(73, 145, 255, 0.05)`,
   },
 }));

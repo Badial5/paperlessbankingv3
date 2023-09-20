@@ -3,7 +3,8 @@ import { useState } from 'react';
 
 //REDUX
 import { useDispatch, useSelector } from 'react-redux';
-import { clearToken } from '../../../Redux/reducers/user';
+
+// import { clearToken } from '../../../Redux/reducers/user';
 
 
 import { styled } from '@mui/material/styles';
@@ -122,9 +123,50 @@ const LeftSideMenu = ({onOptionSelect, userName}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  //redux
   const dispatch = useDispatch()
+  const {userInfo} = useSelector(state => state?.users?.userAuth)
+  const userAuth = useSelector(state => state?.users?.userAuth)
+  const isLogin = userAuth?.token ? true : false 
+  const userFirstName = userInfo?.username
+  // const userFirstName = useSelector(state => state?.userAuth?.userInfo?.username)
+  const lastLoginStr = userInfo?.last_login
+  // const lastLoginStr = useSelector(state => state?.userAuth?.userInfo?.last_login)
+  const date_joined = userInfo?.date_joined
+  // const date_joined = useSelector(state => state?.userAuth?.userInfo?.date_joined)
 
-  
+  console.log( "userInfo: ", userInfo)
+  console.log( "userAuth: ", userAuth)
+  console.log("lastLoginStr: ", lastLoginStr)
+
+  console.log('USER FIRSTNAME: ', userFirstName)
+  console.log(isLogin)
+
+  //Creating last Login Data +++++++++++++++++++++++++++++++++++
+  // Create a Date object from the string
+const lastLoginDate = new Date(lastLoginStr);
+const DateJoined = new Date(date_joined);
+
+// Create an options object for formatting
+
+const options = {
+  year: 'numeric',
+  month: 'short', // You can use 'long' for full month names
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  hour12: true, // Use 12-hour format with AM/PM
+}
+
+// Format the date using Intl.DateTimeFormat
+const formattedLastLoginDate = new Intl.DateTimeFormat('en-US', options).format(lastLoginDate);
+
+//for date joined
+const formattedDateJoined = new Intl.DateTimeFormat('en-US', options).format(DateJoined);
+
+console.log(formattedLastLoginDate); // Output: "Sep 11, 2023, 09:24 AM"
+console.log(formattedDateJoined)
+
 
   const [open, setOpen] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -254,12 +296,12 @@ const drawerWidth = 240
       const response = await axios.post('/accounts/v1/logout/');
       // Perform any necessary actions after successful logout
       console.log(response.data); // Example: Log the response data
-      sessionStorage.clear
+      sessionStorage.clear()
   
       // Show a success toast notification
       toast.success('You have successfully logged out.');
 
-      dispatch(clearToken());
+      // dispatch(clearToken());
       // Redirect the user to the homepage or perform any other necessary actions
       window.location.href = '/'; // Replace with the appropriate homepage URL
     } catch (error) {
@@ -352,10 +394,10 @@ const handleCloseSubscribe = () => {
   console.log("Selected Option: ", selectedOption)
 
 
-  const isAuthenticated = useSelector(state => state.user.isAuthenticated);
+  // const isAuthenticated = useSelector(state => state.user.isAuthenticated);
   // This line means you're using the useSelector hook to get the value of `isAuthenticated` from your Redux store's state.
 
-  const userToken = useSelector(state => state.user.token);
+  // const userToken = useSelector(state => state.user.token);
   // Similarly, this line gets the value of `token` from the `user` slice of your Redux store's state.
 
 
@@ -429,8 +471,8 @@ const handleCloseSubscribe = () => {
 
 
                   {/* Center AppBar Contents */}
-                  <Box sx={{display: 'flex', marginLeft: 30,  fontFamily: "Poppins", alignItems: 'center'}}>
-                    <Box sx={{border: "1px solid #022964", paddingLeft: 2, paddingRight: 2, borderRadius: 50, }}>
+                  <Box sx={{display: 'flex', marginLeft:30,  fontFamily: "Poppins", alignItems: 'center',}}>
+                    <Box sx={{border: "1px solid #022964", paddingLeft: 2, paddingRight: 2, borderRadius: 50,  }}>
                   <Typography sx={{fontWeight: 200, fontSize: 9, 
                     color:
                     //  "#4991ff"
@@ -439,12 +481,12 @@ const handleCloseSubscribe = () => {
                   </Box>
 
 
-                  <Box sx={{display: 'flex',  marginLeft: 5, alignItems: 'center', width: "auto"}}>
+                  <Box sx={{display: 'flex',  marginLeft: 5, alignItems: 'center', width: "100%"}}>
                     <LocationOnIcon fontSize='small' sx={{color: '#022964', mr: 1}} />
-                    <Box sx={{display: 'flex', flexDirection: 'column', }}>
-                    <Typography sx={{fontSize: 10, fontWeight: 300}}>197.221.82.30</Typography>
+                    <Box sx={{display: 'flex', flexDirection: 'column', width: "auto" }}>
+                    <Typography sx={{fontSize: 10, fontWeight: 300}}>{ date_joined ? formattedDateJoined : "Please login" }</Typography>
 
-                    <Typography sx={{fontSize: 10, fontWeight: 300, color: '#022964'}}>Last Login IP</Typography>
+                    <Typography sx={{fontSize: 10, fontWeight: 300, color: '#022964'}}>Date Joined</Typography>
 
                     </Box>
                   </Box>
@@ -453,10 +495,12 @@ const handleCloseSubscribe = () => {
 
 
 
-                  <Box sx={{display: 'flex',  marginLeft: 5, alignItems: 'center'}}>
+                  <Box sx={{display: 'flex',  marginLeft: 5, alignItems: 'center', width: "100%"}}>
                     <AccessTimeIcon fontSize='small' sx={{color: '#022964', mr: 1}} />
-                    <Box sx={{display: 'flex', flexDirection: 'column', }}>
-                    <Typography sx={{fontSize: 10, fontWeight: 300, color: "#022964"}}>19-Jun-2023 04 09 PM</Typography>
+
+                    {/* Last login data  */}
+                    <Box sx={{display: 'flex', flexDirection: 'column',width: "auto" }}>
+                    <Typography sx={{fontSize: 10, fontWeight: 300, }}>{formattedLastLoginDate}</Typography>
 
                     <Typography sx={{fontSize: 10, fontWeight: 300, color: '#022964'}}>Last Login Date</Typography>
 
@@ -464,10 +508,13 @@ const handleCloseSubscribe = () => {
                   </Box>
                   </Box>
 
-                  <Box sx={{display: 'flex', marginLeft: 10}}>
+                  <Box sx={{display: 'flex', marginLeft: 10, width: "auto"}}>
 
+
+{/* ++++++++++++++++++++++  WILL PASS DATA INSIDE +++++++++++++++++++ */}
                   <AccountMenu onClick={handleLogout} 
                   // userName={userName}
+                  userFirstName={userFirstName}
                    />
                  
 

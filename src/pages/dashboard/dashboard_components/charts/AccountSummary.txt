@@ -1,0 +1,190 @@
+import React, { useEffect, useState } from 'react';
+
+//redux
+import { useDispatch, useSelector } from 'react-redux';
+
+
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import {
+  AccountBalance,
+  ArrowUpward,
+  ArrowDownward,
+  Visibility,
+  VisibilityOff,
+  AttachMoney,
+  Send,
+  AccountCircle,
+  Money
+} from '@mui/icons-material';
+import { Box } from '@mui/material';
+import { getSingleAccountAction } from '../../../../redux-toolkit/account/accountSlice';
+
+
+const account = {
+    accountName: 'Savings Account',
+    accountType: 'Savings',
+    accountNumber: '1234-5678-9012-3456',
+    balance: 5000.0,
+    income: 2000.0,
+    expense: 1000.0,
+  };
+
+  const { accountName, accountType, accountNumber, balance, income, expense } = account;
+
+
+  
+
+
+
+const AccountSummary = ({ account }) => {
+//   const { accountName, accountType, accountNumber, balance, income, expense } = account;
+
+ // State to track the selected account ID
+ const [selectedAccountId, setSelectedAccountId] = useState('');
+
+const dispatch = useDispatch()
+const bank_account = useSelector(state => state.accounts.accounts)
+
+const {id} = bank_account[4]
+
+// useEffect(() => {
+//     dispatch(getSingleAccountAction(`${id}`))
+// }, [dispatch])
+
+ // When the selectedAccountId changes, dispatch the action
+ useEffect(() => {
+    if (selectedAccountId) {
+      dispatch(getSingleAccountAction(selectedAccountId));
+    }
+  }, [dispatch, selectedAccountId]);
+
+
+   // Handle the selection change
+   const handleAccountChange = (event) => {
+    const accountId = event.target.value;
+    setSelectedAccountId(accountId);
+  };
+
+
+
+const {title, full_name, account_type, } = bank_account[id]
+
+
+  const [showBalance, setShowBalance] = useState(false);
+  const [showAccountNumber, setShowAccountNumber] = useState(false);
+
+  const toggleBalanceVisibility = () => {
+    setShowBalance(!showBalance);
+  };
+
+  const toggleAccountNumberVisibility = () => {
+    setShowAccountNumber(!showAccountNumber);
+  };
+
+  const maskedAccountNumber = showAccountNumber
+    ? accountNumber
+    : '************' + accountNumber.slice(-4); // Display only the last four digits
+
+  return (
+    <Card variant="outlined">
+      <CardContent>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Box sx={{}}>
+            <Typography variant="h2" >
+              {/* {accountName} */}
+              { `${title} ${full_name}` }
+            </Typography>
+
+            <Typography variant="h5"  sx={{color: "#4991ff"}}>
+              {/* {accountType}  */}
+              {`${account_type}`}
+            </Typography>
+
+        <Box sx={{display: "flex", flexDirection: "row"}}>
+            <Typography variant="h6" sx={{color: "#2e7d32"}}>
+              Account Number: {showAccountNumber ? accountNumber : maskedAccountNumber}
+            </Typography>
+
+            <IconButton onClick={toggleAccountNumberVisibility}>
+            {showAccountNumber ? (
+              <VisibilityOff fontSize="large" />
+            ) : (
+              <Visibility fontSize="large" />
+            )}
+          </IconButton>
+
+          </Box>
+
+
+          </Box>
+
+          <AccountBalance style={{ fontSize: 32, color: '#1976D2' }} />
+        </div>
+
+        <Box sx={{ marginTop: 2, display: "flex", flexDirection: "row",  }}>
+         <Typography sx={{fontSize: 14, fontWeight: 500}}>Balance: </Typography> {showBalance ? (
+            <Typography variant="h4" gutterBottom sx={{fontSize: 12, ml:1, fontWeight: 500}}>
+            ${balance.toFixed(2)}
+            </Typography>
+          ) : (
+            <>
+            <Typography variant="h4" gutterBottom sx={{fontSize: 12, ml:1, fontWeight: 500}}>
+              *********
+            </Typography>
+
+            </>
+          )}
+
+            <IconButton onClick={toggleBalanceVisibility} sx={{mb: 2}}>
+            {showBalance ? <VisibilityOff fontSize="large" /> : <Visibility fontSize="large" />}
+          </IconButton>
+        
+        </Box>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 20 }}>
+          <div>
+            <Typography variant="subtitle1" color="textSecondary">
+              Income
+            </Typography>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <ArrowUpward style={{ color: 'green' }} />
+              <Typography variant="subtitle2" color="textSecondary">
+                ${income.toFixed(2)}
+              </Typography>
+            </div>
+          </div>
+          <div>
+            <Typography variant="subtitle1" color="textSecondary">
+              Expense
+            </Typography>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <ArrowDownward style={{ color: 'red' }} />
+              <Typography variant="subtitle2" color="textSecondary">
+                ${expense.toFixed(2)}
+              </Typography>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '20px' }}>
+          <Button variant="contained" color="primary" startIcon={<AttachMoney />} size="small">
+            Transfer
+          </Button>
+          <Button variant="contained" color="success" startIcon={<Send />} size="small">
+            Send Cash
+          </Button>
+          <Button variant="contained" color="info" startIcon={<Money />} size="small">
+            Receive Cash
+          </Button>
+         
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default AccountSummary;

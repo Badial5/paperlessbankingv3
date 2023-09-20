@@ -7,6 +7,8 @@ import { Dashboard } from '@mui/icons-material';
 //DASHBOARD MAIN
 import DashboardLayout from "../../../layouts/dashboard/index"
 
+import DashboardExtraMain from "../../@dashboard/general/banking/index"
+
 
 import AccountCreation from '../../account/account-creation';
 import AccountOfficer from "../../account/account-officer"
@@ -125,8 +127,10 @@ const GamesContent = () => {
   </div>
 }
 
-const MainContent = ({ title, children, selectedOption }) => {
+const MainContent = ({ title, children, selectedOption, userProfile, userAccounts }) => {
   const location = useLocation();
+
+  console.log(userAccounts)
 
   let content;
 
@@ -527,9 +531,13 @@ const MainContent = ({ title, children, selectedOption }) => {
 
       {/* <DashboardHomePage /> */}
 
-      {/* <DashboardMainPage /> */}
+      { console.log(userProfile) }
 
-      <DashboardLayout />
+      <DashboardMainPage userProfile={userProfile} userAccounts={userAccounts} /> 
+
+      {/* <DashboardExtraMain />  */}
+
+      {/* <DashboardLayout />  */}
 
       {/* <DashboardPage  />  */}
       </div>
@@ -565,16 +573,16 @@ const MainContent = ({ title, children, selectedOption }) => {
   }
 
   return (
-    <Box sx={{ width: "60vw", background: "#F4F7FF" }}>
-      
-      <AppBar position="static" 
+    <>
+   
+    <Box sx={{ width: "60vw", background: "#F4F7FF", height: "auto" }}>
+   
+    {/* <AppBar position="static" 
       sx={{background: "#FBFCFC", color: "#000", boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)", 
       borderRadius: 1, display: "flex", justifyContent: "center"}} >
         <Toolbar>
           <Dashboard />
-          {/* <Typography variant="h6" component="div" sx={{ ml: 2, color: "#000" }}>
-            {title}
-          </Typography> */}
+        
 
           <Box sx={{display: "flex", justifyContent: "flex-end", ml: "auto", 
          }}>
@@ -623,7 +631,14 @@ const MainContent = ({ title, children, selectedOption }) => {
           </Box>
 
         </Toolbar>
-      </AppBar>
+      </AppBar> */}
+
+      <Toolbar />
+
+    
+
+      
+      
 
 
 
@@ -637,6 +652,8 @@ const MainContent = ({ title, children, selectedOption }) => {
 
       </Box>
     </Box>
+
+    </>
   );
 };
 export default MainContent;

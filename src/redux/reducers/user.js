@@ -3,8 +3,18 @@ import { createSlice } from '@reduxjs/toolkit';
 const userSlice = createSlice({
   name: 'user',
   initialState: {
-    token: null,
-    isAuthenticated: false,
+    users: [],
+    user: {},
+    profile: {},
+    userAuth: {
+  
+      userInfo: sessionStorage.getItem("userInfo")
+        ? JSON.parse(sessionStorage.getItem("userInfo"))
+        : null,
+        token: null,
+        isAuthenticated: false,
+    },
+   
   },
   reducers: {
     setToken: (state, action) => {
